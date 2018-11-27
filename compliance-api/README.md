@@ -1,6 +1,4 @@
 # Compliance API
-[![Maintainability](https://api.codeclimate.com/v1/badges/c8db79961efd48fce791/maintainability)](https://codeclimate.com/github/cds-snc/compliance-api/maintainability)
-[![Known Vulnerabilities](https://snyk.io/test/github/cds-snc/compliance-api/badge.svg)](https://snyk.io/test/github/cds-snc/compliance-api)
 
 This is an experiment in exposing compliance data via an API.
 The core ideas are:
