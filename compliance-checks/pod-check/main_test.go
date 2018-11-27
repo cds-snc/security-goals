@@ -34,12 +34,3 @@ func TestOutputValidationFile(t *testing.T) {
 
 }
 
-func TestRunCheck(t *testing.T) {
-	os.Setenv("OUT_PATH", "./")
-
-	// Creates a validation file if the URL does not exists
-	filename, _ := runCheck()
-	_, err := os.Stat(filename)
-	os.Remove(filename)
-	assert.Equal(t, err, nil, "they should be equal")
-}
