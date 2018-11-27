@@ -1,10 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/go'
     args: ['install', '.']
-    env: ['PROJECT_ROOT=hello']
+    env: ['PROJECT_ROOT=compliance-checks/url-check']
   - name: 'gcr.io/cloud-builders/go'
     args: ['test', 'main']
-    env: ['PROJECT_ROOT=hello']
+    env: ['PROJECT_ROOT=compliance-checks/url-check']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
     entrypoint: "bash"
