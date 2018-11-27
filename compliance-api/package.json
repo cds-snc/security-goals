@@ -1,0 +1,56 @@
+{
+  "name": "compliance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "start": "node index.js",
+    "lint": "eslint src/**"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv-safe": "^6.1.0",
+    "express": "^4.16.4",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.2",
+    "isomorphic-fetch": "^2.2.1",
+    "yaml": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.27.1",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.1.2",
+    "jest": "^23.6.0",
+    "jest-fetch-mock": "^1.6.6",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "supertest": "^3.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true
+  }
+}
