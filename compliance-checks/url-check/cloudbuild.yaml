@@ -1,14 +1,16 @@
 steps:
   - name: 'golang:stretch'
     entrypoint: 'go'
-    args: ['test', 'compliance-checks/url-check/main']
+    dir: 'compliance-checks/url-check'
+    args: ['test', 'main']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
     entrypoint: "bash"
+    dir: 'compliance-checks/url-check'
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "master" ]]; then cd /workspace/compliance-checks/url-check && docker build -t cdssnc/url-check-compliance:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/url-check-compliance:latest; else exit 0; fi
+        if [[ "$BRANCH_NAME" == "master" ]]; then docker build -t cdssnc/url-check-compliance:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/url-check-compliance:latest; else exit 0; fi
     secretEnv:
       ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 secrets:
