@@ -2,7 +2,7 @@ steps:
   - name: 'golang:stretch'
     entrypoint: 'go'
     dir: 'compliance-checks/url-check'
-    args: ['test', 'main']
+    args: ['test']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
     entrypoint: "bash"
