@@ -24,7 +24,7 @@ func TestHasReviews(t *testing.T) {
 	assert.Equal(t, reviews, true, "they should be equal")
 
 	// Returns false if the GitHub Repo has no reviewers
-	reviews = hasReviews("https://github.com/google/go-github")
+	reviews = hasReviews("https://github.com/maxneuvians/dotfiles")
 	assert.Equal(t, reviews, false, "they should be equal")
 
 	// Returns false if no URL is passed
