@@ -64,7 +64,7 @@ func getEnv(key, fallback string) string {
 }
 
 func urlExists(url string) bool {
-	timeout := time.Duration(1 * time.Second)
+	timeout := time.Duration(5 * time.Second)
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
