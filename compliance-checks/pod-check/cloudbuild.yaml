@@ -1,0 +1,20 @@
+steps:
+  - name: 'golang:stretch'
+    entrypoint: 'go'
+    dir: 'compliance-checks/pod-check'
+    args: ['test']
+  - name: "gcr.io/cloud-builders/docker"
+    id: push_docker_hub
+    entrypoint: "bash"
+    dir: 'compliance-checks/pod-check'
+    args:
+      - '-c'
+      - |
+        if [[ "$BRANCH_NAME" == "master" ]]; then docker build -t cdssnc/pod-check-compliance:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/pod-check-compliance:latest; else exit 0; fi
+    secretEnv:
+      ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+secrets:
+  - kmsKeyName: projects/cds-snc/locations/global/keyRings/cds-keys/cryptoKeys/platform
+    secretEnv:
+      DOCKER_USERNAME: CiQADcHLVsVgh3MLCKbzApGWlwEexSI2QeRfk2sLd4dWiaIO0FgSNACMLY+dy5FsylxVpjGphcUlzx6dSsh65liJemmJAul1vNkeYO8IjO8BHl7/duQNoMJhJto=
+      DOCKER_PASSWORD: CiQADcHLVrNicvBVdCtT4fOem1BB4emGXf/vCgB/6NIikAbXYHoSMQCMLY+dIxPG60OWFb9hVWNWTNXUQLN/q35Uf1onCnu/2ShCURyhi0R/z9Aq6bV2Ljs=
