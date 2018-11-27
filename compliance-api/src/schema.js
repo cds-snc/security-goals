@@ -4,6 +4,10 @@ const { ControlID } = require('./types/ControlID')
 const { Totals } = require('./types/Totals')
 const { filterItems } = require('./utils/filterItems')
 
+// @todo
+// const { dbConnect } = require('./db/connect')
+// const db = await dbConnect()
+
 const query = new GraphQLObjectType({
   name: 'Query',
   fields: {
