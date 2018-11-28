@@ -27,14 +27,13 @@ const { saveFiles } = require('./src/db/save')
 
   const port = parseInt(process.env.PORT, 10) || 3000
 
-  server.listen(port, err => {
+  server.listen(port, async err => {
     if (err) throw err
 
     console.log(`⚡ Ready on http://localhost:${port}`)
 
-    dbConnect().then(() => {
-      saveFiles()
-      watchChecks()
-    })
+    await dbConnect()
+    saveFiles()
+    watchChecks()
   })
 })()
