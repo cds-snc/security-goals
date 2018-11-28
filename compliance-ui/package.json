@@ -1,0 +1,67 @@
+{
+  "private": false,
+  "name": "compliance-ui",
+  "version": "1.0.2",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "postinstall": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "export": "next export",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint pages components pages api __tests__",
+    "init": "eslint --init"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "date-fns": "^1.29.0",
+    "dotenv": "^6.1.0",
+    "dotenv-webpack": "^1.5.7",
+    "emotion": "^9.2.12",
+    "emotion-server": "^9.2.12",
+    "express": "^4.16.4",
+    "graphql-request": "^1.8.2",
+    "linkify-urls": "^2.1.0",
+    "next": "^7.0.2",
+    "puppeteer": "^1.10.0",
+    "react": "16.7.0-alpha.0 - next",
+    "react-dom": "16.7.0-alpha.0 - next",
+    "react-emotion": "^9.2.12"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-emotion": "^9.2.11",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.1.4",
+    "jest": "^23.6.0",
+    "jest-dom": "^2.1.1",
+    "lint-staged": "^8.0.5",
+    "prettier": "^1.15.2",
+    "react-testing-library": "^5.2.3"
+  }
+}
