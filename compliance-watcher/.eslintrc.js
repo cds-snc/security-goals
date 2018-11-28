@@ -1,12 +1,12 @@
 module.exports = {
-  extends: ['standard', 'prettier'],
+  extends: ["standard", "prettier", "prettier/standard"],
   env: {
-    'jest/globals': true,
+    "jest/globals": true
   },
-  parser: 'babel-eslint',
-  plugins: ['react', 'jest'],
+  parser: "babel-eslint",
+  plugins: ["react", "jest"],
   rules: {
-    'react/jsx-uses-react': 'error',
-    'react/jsx-uses-vars': 'error',
-  },
-}
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
+};
