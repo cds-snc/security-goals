@@ -61,8 +61,8 @@ const query = new GraphQLObjectType({
           description: 'The id of the control to return.',
         },
       },
+      // eslint-disable-next-line no-unused-vars
       resolve: async (root, { id }) => {
-        // eslint-disable-line no-unused-vars
         try {
           const result = await check
             .find({ control: id }, [
@@ -76,6 +76,8 @@ const query = new GraphQLObjectType({
               'references',
             ])
             .sort({ timestamp: -1 })
+            .lean()
+            .exec()
           return { releases: result }
         } catch (e) {
           console.log(e.message)
@@ -87,6 +89,11 @@ const query = new GraphQLObjectType({
 
 /*
 {
+  control(id:"CM-8 (1)"){
+    family
+    name
+    description
+  }
   controlReleases(id: "CM-8 (1)") {
     releases {
       _id
@@ -100,7 +107,6 @@ const query = new GraphQLObjectType({
     }
   }
 }
-
 */
 
 module.exports.schema = new GraphQLSchema({ query })

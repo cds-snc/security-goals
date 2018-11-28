@@ -15,11 +15,11 @@ const connect = async (uri, user, password) => {
       },
     )
   } catch (err) {
-    console.error('Database connection error:', err.message)
+    console.error('⚠ Database connection error:', err.message)
     return false
   }
 
-  console.info('Database connected')
+  console.info('⚡ Database connected')
   return connect
 }
 

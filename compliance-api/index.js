@@ -32,8 +32,9 @@ const { saveFiles } = require('./src/db/save')
 
     console.log(`⚡ Ready on http://localhost:${port}`)
 
-    dbConnect()
-    saveFiles()
-    watchChecks()
+    dbConnect().then(() => {
+      saveFiles()
+      watchChecks()
+    })
   })
 })()

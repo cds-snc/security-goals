@@ -19,18 +19,6 @@ const flattenAndSave = (file = false) => {
   })
 }
 
-const saveToDB = obj => {
-  const query = { fileId: obj.fileId }
-  const options = { upsert: true, new: true, setDefaultsOnInsert: true }
-
-  // find and update or insert new
-  check.findOneAndUpdate(query, obj, options, err => {
-    if (err) {
-      console.log(err.message)
-    }
-  })
-}
-
 const saveFile = async file => {
   try {
     flattenAndSave(file)
@@ -51,5 +39,20 @@ const saveFiles = async () => {
     process.exit()
   }
 }
+
+const saveToDB = obj => {
+  const query = { fileId: obj.fileId }
+  const options = { upsert: true, new: true, setDefaultsOnInsert: true }
+
+  // find and update or insert new
+  check
+    .findOneAndUpdate(query, obj, options, err => {
+      if (err) {
+        console.log(err.message)
+      }
+    })
+    .exec()
+}
+
 module.exports.saveFile = saveFile
 module.exports.saveFiles = saveFiles
