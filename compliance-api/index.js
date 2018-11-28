@@ -3,6 +3,9 @@ const { getChecks } = require('./src/getChecks.js')
 const { fetchYaml } = require('./src/fetchYaml.js')
 const { createCompliance } = require('./src/createCompliance.js')
 const { Server } = require('./src/Server')
+const { dbConnect } = require('./src/db/connect')
+const { watchChecks } = require('./src/db/watcher')
+const { saveFiles } = require('./src/db/save')
 ;(async () => {
   const {
     CHECKS_PATH: checksPath,
@@ -26,6 +29,11 @@ const { Server } = require('./src/Server')
 
   server.listen(port, err => {
     if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
+
+    console.log(`⚡ Ready on http://localhost:${port}`)
+
+    dbConnect()
+    saveFiles()
+    watchChecks()
   })
 })()

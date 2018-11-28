@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify', false)
+
 const connect = async (uri, user, password) => {
   const mongodbUri = uri
   try {
@@ -17,9 +19,8 @@ const connect = async (uri, user, password) => {
     return false
   }
 
-  mongoose.set('useFindAndModify', false)
-
-  return mongoose
+  console.info('Database connected')
+  return connect
 }
 
 const dbConnect = async () => {

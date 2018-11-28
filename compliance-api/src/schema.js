@@ -2,11 +2,9 @@ const { GraphQLList, GraphQLSchema, GraphQLObjectType } = require('graphql')
 const { OpenControl } = require('./types/OpenControl')
 const { ControlID } = require('./types/ControlID')
 const { Totals } = require('./types/Totals')
+const { ControlReleases } = require('./types/ControlReleases')
 const { filterItems } = require('./utils/filterItems')
-
-// @todo
-// const { dbConnect } = require('./db/connect')
-// const db = await dbConnect()
+const { check } = require('./db/model')
 
 const query = new GraphQLObjectType({
   name: 'Query',
@@ -54,7 +52,55 @@ const query = new GraphQLObjectType({
         return { passed: passed.length, total }
       },
     },
+    controlReleases: {
+      description: 'Returns a list of releases for a control',
+      type: ControlReleases,
+      args: {
+        id: {
+          type: ControlID,
+          description: 'The id of the control to return.',
+        },
+      },
+      resolve: async (root, { id }) => {
+        // eslint-disable-line no-unused-vars
+        try {
+          const result = await check
+            .find({ control: id }, [
+              'release',
+              'control',
+              'timestamp',
+              'component',
+              'origin',
+              'passed',
+              'description',
+              'references',
+            ])
+            .sort({ timestamp: -1 })
+          return { releases: result }
+        } catch (e) {
+          console.log(e.message)
+        }
+      },
+    },
   },
 })
+
+/*
+{
+  controlReleases(id: "CM-8 (1)") {
+    releases {
+      _id
+      release
+      control
+      timestamp
+      origin
+      passed
+      description
+      references
+    }
+  }
+}
+
+*/
 
 module.exports.schema = new GraphQLSchema({ query })

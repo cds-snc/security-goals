@@ -1,5 +1,4 @@
-const { dbConnect } = require('./connect')
-const { createModel } = require('./schema')
+const { check } = require('./model')
 const { getChecks } = require('./getChecks')
 
 const getFileData = async () => {
@@ -11,34 +10,30 @@ const getFileData = async () => {
   }
 }
 
-const flattenAndSave = (file = false, Model = false) => {
+const flattenAndSave = (file = false) => {
   if (!file || !file.satisfies) return
 
   file.satisfies.forEach(control => {
     let obj = { ...file, control, fileId: `${file.fileRef}--${control}` }
-    saveToDB(obj, Model)
+    saveToDB(obj, check)
   })
 }
 
-const saveToDB = (obj, Model) => {
+const saveToDB = obj => {
   const query = { fileId: obj.fileId }
   const options = { upsert: true, new: true, setDefaultsOnInsert: true }
 
   // find and update or insert new
-  Model.findOneAndUpdate(query, obj, options, (err, result) => {
+  check.findOneAndUpdate(query, obj, options, err => {
     if (err) {
       console.log(err.message)
-      return
     }
-    console.log(result.fileId + ' saved')
   })
 }
 
 const saveFile = async file => {
   try {
-    const db = await dbConnect()
-    const CheckModel = await createModel(db)
-    flattenAndSave(file, CheckModel)
+    flattenAndSave(file)
   } catch (e) {
     console.log(e.message)
     process.exit()
@@ -47,11 +42,9 @@ const saveFile = async file => {
 
 const saveFiles = async () => {
   try {
-    const db = await dbConnect()
     const files = await getFileData()
-    const CheckModel = await createModel(db)
     files.map(file => {
-      flattenAndSave(file, CheckModel)
+      flattenAndSave(file)
     })
   } catch (e) {
     console.log(e.message)
