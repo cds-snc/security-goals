@@ -1,6 +1,4 @@
 # Compliance UI
-[![Maintainability](https://api.codeclimate.com/v1/badges/02c2a225aa1731f20905/maintainability)](https://codeclimate.com/github/cds-snc/compliance-ui/maintainability)
-[![Known Vulnerabilities](https://snyk.io/test/github/cds-snc/compliance-ui/badge.svg)](https://snyk.io/test/github/cds-snc/compliance-ui)
 
 ## CLI Commands
 
