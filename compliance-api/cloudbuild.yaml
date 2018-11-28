@@ -1,15 +1,18 @@
 steps:
   - name: 'gcr.io/cloud-builders/npm'
+    dir: 'compliance-api'
     args: ['ci']
   - name: "gcr.io/cloud-builders/npm"
+    dir: 'compliance-api'
     args: ['test']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
+    dir: 'compliance-api'
     entrypoint: "bash"
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "master" ]]; then cd /workspace && docker build -t cdssnc/compliance-api:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/compliance-api:latest; else exit 0; fi
+        if [[ "$BRANCH_NAME" == "master" ]]; then docker build -t cdssnc/compliance-api:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/compliance-api:latest; else exit 0; fi
     secretEnv:
       ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 secrets:
