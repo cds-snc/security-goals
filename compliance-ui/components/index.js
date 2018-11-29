@@ -12,6 +12,5 @@ export { Home } from "./Home";
 export { BackIcon } from "./icons/BackIcon";
 export { PageHead } from "./PageHead";
 export { PrintButton } from "./PrintButton";
-export { ActionBar } from "./ActionBar";
 export { Logo } from "./Logo";
 export { Spinner } from "./Spinner";

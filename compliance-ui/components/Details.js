@@ -1,5 +1,6 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, ActionBar, Spinner, MainDescription } from "./";
+import { Grid, Failed, Spinner, MainDescription } from "./";
+import ActionBar from "./ActionBar";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
@@ -11,6 +12,18 @@ const controlInfo = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
+  margin-bottom: ${theme.spacing.xl};
+  h1 {
+    margin-bottom: ${theme.spacing.lg};
+    margin-top: 0;
+    font-size: ${theme.font.xl};
+  }
+
+  ${mediaQuery.sm(css`
+    h1 {
+      font-size: ${theme.font.lg};
+    }
+  `)};
 `;
 
 const detailsWrap = css`
@@ -26,23 +39,14 @@ const detailsWrap = css`
     background: white;
   }
 
-  h1 {
-    margin-bottom: ${theme.spacing.lg};
-    margin-top: 0;
-    font-size: ${theme.font.xl};
-  }
-
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.lg};
+    padding: ${theme.spacing.md} ${theme.spacing.xxl};
   `)};
 
   ${mediaQuery.sm(css`
     padding: ${theme.spacing.sm} ${theme.spacing.lg};
     a {
       margin-top: ${theme.spacing.sm};
-    }
-    h1 {
-      font-size: ${theme.font.lg};
     }
 
     p {
@@ -54,7 +58,7 @@ const detailsWrap = css`
 
 const details = css`
   ul {
-    margin: ${theme.spacing.lg} 0 0 0;
+    margin: ${theme.spacing.md} 0 0 0;
     width: 100%;
   }
 
@@ -135,6 +139,35 @@ const actionsBottom = css`
   `)};
 `;
 
+const history = css`
+  h1 {
+    font-size: ${theme.font.xl};
+    margin-bottom: ${theme.spacing.sm};
+  }
+
+  p[name="desc"] {
+    width: 80%;
+    line-height: 1.6rem;
+  }
+  ${mediaQuery.xl(css`
+    p[name="desc"] {
+      width: 70%;
+      line-height: 1.6rem;
+    }
+  `)};
+
+  ${mediaQuery.sm(css`
+    h1 {
+      font-size: ${theme.font.lg};
+    }
+
+    p[name="desc"] {
+      width: 100%;
+      line-height: 1.4rem;
+    }
+  `)};
+`;
+
 export const Details = ({ data, err, router = false }) => {
   const [controlData, setControlData] = useState(data || { control: {} });
 
@@ -159,15 +192,18 @@ export const Details = ({ data, err, router = false }) => {
         </div>
         {id && (
           <React.Fragment>
-            <div className={controlInfo}>
+            <section className={controlInfo}>
               <h1>
                 {`${control}`}
                 {name && `- ${name}`}
               </h1>
               <MainDescription description={description} />
-            </div>
+            </section>
 
-            <Grid tab="0" controls={verificationsData(controlData, {})} />
+            <section className={history}>
+              <h1>History:</h1>
+              <Grid tab="0" controls={verificationsData(controlData, {})} />
+            </section>
             <div className={actionsBottom}>
               <ActionBar id={id} />
             </div>

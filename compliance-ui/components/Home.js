@@ -1,6 +1,7 @@
-import { Grid, IsReady, Failed, ActionBar } from "./";
+import { Grid, IsReady, Failed } from "./";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import ActionBar from "./ActionBar";
 
 const actions = css`
   display: flex;
@@ -72,7 +73,7 @@ export const Home = ({ err, data }) => {
       </div>
       <Grid controls={data} link={true} />
       <div className={actionsBottom}>
-        <ActionBar />
+        <ActionBar backToTop={true} />
       </div>
     </div>
   );
