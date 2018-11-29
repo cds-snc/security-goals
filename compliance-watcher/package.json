@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "dev": "WEBHOOK_URL=abcd node server.js",
     "test": "jest"
   },
   "author": "",
@@ -11,7 +12,9 @@
   "dependencies": {
     "@kubernetes/client-node": "^0.7.1",
     "esm": "^3.0.84",
-    "rss-watcher": "^1.4.0"
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "uuid": "^3.3.2"
   },
   "lint-staged": {
     "*.js": [
@@ -28,6 +31,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-emotion": "^9.2.11",
@@ -44,7 +49,9 @@
     "jest": "^23.6.0",
     "jest-dom": "^2.1.1",
     "lint-staged": "^8.0.5",
+    "nock": "^10.0.2",
     "prettier": "^1.15.2",
-    "react-testing-library": "^5.2.3"
+    "react-testing-library": "^5.2.3",
+    "supertest": "^3.3.0"
   }
 }
