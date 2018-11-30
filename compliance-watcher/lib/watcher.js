@@ -1,3 +1,9 @@
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
 export const modifyJob = job => {
   if (
     job === undefined ||
@@ -50,7 +56,7 @@ export const restartJobs = async config => {
     // The mechanic to delete and re-create jobs is going to be
     // refactored in Kubernetes API 1.12 with TTL on jobs.
     // https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#job-termination-and-cleanup
-    return res.body.items.forEach(async item => {
+    return asyncForEach(res.body.items, async item => {
       let name = item.metadata.name
       jobsApi.deleteNamespacedJob(name, namespace, item)
       const body = modifyJob(item)
