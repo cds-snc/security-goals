@@ -101,12 +101,32 @@ describe('restartJobs', () => {
 })
 
 describe('startWather', () => {
-  it('takes a WEBHOOK_URL for it routing', async done => {
+  it('takes a WEBHOOK_URL for its routing', async done => {
     process.env.WEBHOOK_URL = 'foo'
     let app = startWatcher(4000)
 
     const response = await request(app).post('/foo')
     expect(response.status).toEqual(200)
+    app.close()
+    done()
+  })
+
+  it('has an alive check', async done => {
+    let app = startWatcher(4000)
+
+    const response = await request(app).get('/monitoring/alive')
+    expect(response.status).toEqual(200)
+    expect(response.text).toEqual('yes')
+    app.close()
+    done()
+  })
+
+  it('has a ready check', async done => {
+    let app = startWatcher(4000)
+
+    const response = await request(app).get('/monitoring/ready')
+    expect(response.status).toEqual(200)
+    expect(response.text).toEqual('yes')
     app.close()
     done()
   })
