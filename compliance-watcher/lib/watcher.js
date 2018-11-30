@@ -72,8 +72,15 @@ export const startWatcher = port => {
   app.use(helmet())
 
   const uuid = require('uuid/v4')()
-
   const path = process.env.WEBHOOK_URL || uuid
+
+  app.get('/monitoring/alive', (req, res) => {
+    res.status(200).send('yes')
+  })
+
+  app.get('/monitoring/ready', (req, res) => {
+    res.status(200).send('yes')
+  })
 
   app.post(`/${path}`, function(req, res) {
     if (process.env.NODE_ENV !== 'test') {
