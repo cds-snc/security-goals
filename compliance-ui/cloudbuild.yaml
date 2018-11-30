@@ -1,18 +1,22 @@
 steps:
+  - name: 'gcr.io/cloud-builders/npm'
+    dir: 'compliance-ui'
+    args: ['ci']
   - name: "gcr.io/cloud-builders/npm"
-    args: ["install"]
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["test"]
+    dir: 'compliance-ui'
+    args: ['test']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
+    dir: 'compliance-ui'
     entrypoint: "bash"
     args:
-      - "-c"
+      - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "master" ]]; then cd /workspace && docker build -t cdssnc/compliance-ui:$REVISION_ID . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/compliance-ui:$REVISION_ID; else exit 0; fi
-    secretEnv: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
-secrets:
-  - kmsKeyName: projects/exalted-point-220022/locations/global/keyRings/cds-comp-ui-r/cryptoKeys/platform
+        if [[ "$BRANCH_NAME" == "master" ]]; then docker build -t cdssnc/compliance-ui:latest . && docker login docker.io -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD && docker push cdssnc/compliance-ui:latest; else exit 0; fi
     secretEnv:
-      DOCKER_USERNAME: CiQA7osyOc3XugnK8OYWm4V4KSgAtZQbJmG5xZQYeZ1rX25oKsoSMQCn7uhHu+JHJkXwSRkKYtVIjbDQV4TpRll9bDP33NcVq63nrK89RE6YgOdxddNP33Y=
-      DOCKER_PASSWORD: CiQA7osyOSSJizTZmOg4Cb4wp84GXJb8cf5Ke6fPONHAH8fKq5MSMQCn7uhH9pBGMeKiFZ4G8NlkV1xITMxtW4QgHwjEh0eqykgsY0jjIa78tGADxdL7rg0=
+      ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+secrets:
+  - kmsKeyName: projects/cds-snc/locations/global/keyRings/cds-keys/cryptoKeys/platform
+    secretEnv:
+      DOCKER_USERNAME: CiQADcHLVsVgh3MLCKbzApGWlwEexSI2QeRfk2sLd4dWiaIO0FgSNACMLY+dy5FsylxVpjGphcUlzx6dSsh65liJemmJAul1vNkeYO8IjO8BHl7/duQNoMJhJto=
+      DOCKER_PASSWORD: CiQADcHLVrNicvBVdCtT4fOem1BB4emGXf/vCgB/6NIikAbXYHoSMQCMLY+dIxPG60OWFb9hVWNWTNXUQLN/q35Uf1onCnu/2ShCURyhi0R/z9Aq6bV2Ljs=
