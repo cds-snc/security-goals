@@ -1,0 +1,16 @@
+piVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: symmorfosi
+rules:
+  - apiGroups:
+      - ""
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - get
+      - delete 
+      - watch
+      - list
+      - update
