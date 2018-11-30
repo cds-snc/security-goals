@@ -1,0 +1,57 @@
+{
+  "name": "compliance-watcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "WEBHOOK_URL=abcd node server.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.7.1",
+    "esm": "^3.0.84",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "uuid": "^3.3.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-emotion": "^9.2.11",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.1.4",
+    "jest": "^23.6.0",
+    "jest-dom": "^2.1.1",
+    "lint-staged": "^8.0.5",
+    "nock": "^10.0.2",
+    "prettier": "^1.15.2",
+    "react-testing-library": "^5.2.3",
+    "supertest": "^3.3.0"
+  }
+}
