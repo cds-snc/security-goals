@@ -1,10 +1,11 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, MainDescription, ActionBar } from "./";
+import { Grid, Failed, Spinner, ActionBar } from "./";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import { Collapsible } from "./Collapsible";
 
 const controlInfo = css`
   border: 1px solid ${theme.colour.grayOutline};
@@ -182,6 +183,7 @@ export const Details = ({ data, err, router = false }) => {
 
   const control = fromRouter(router, "control");
   const { description = "", name = "", id } = controlData.control || {};
+  const title = name ? `${control} - ${name}` : control;
 
   return (
     <div className={detailsWrap}>
@@ -191,14 +193,11 @@ export const Details = ({ data, err, router = false }) => {
         </div>
         {id && (
           <React.Fragment>
-            <section className={controlInfo}>
-              <h1>
-                {`${control}`}
-                {name && `- ${name}`}
-              </h1>
-              <MainDescription description={description} />
-            </section>
-
+            <Collapsible
+              title={title}
+              description={description}
+              control={control}
+            />
             <section className={history}>
               <h1>History:</h1>
               <Grid tab="0" controls={verificationsData(controlData, {})} />

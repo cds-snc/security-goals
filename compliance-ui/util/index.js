@@ -5,7 +5,6 @@ export const verificationsData = (data = false, overrides = {}) => {
   let result = { items: [] };
 
   if (!data || !data.control || !data.control.verifications) return result;
-
   result.items = data.control.verifications.map(item => {
     return {
       id: data.control.id,
