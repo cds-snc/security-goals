@@ -1,18 +1,13 @@
 const mongoose = require('mongoose')
-const checkSchema = new mongoose.Schema(
+const releaseSchema = new mongoose.Schema(
   {
-    control: String,
-    fileRef: String,
-    fileId: String,
-    origin: String,
-    timestamp: Date,
-    passed: Boolean,
-    description: String,
-    references: String,
-    component: String,
     release: String,
+    controls: Array,
+    passed: Boolean,
+    passing: Number,
+    total: Number,
   },
   { timestamps: true },
 )
 
-module.exports.check = mongoose.model('check', checkSchema)
+module.exports.releaseModel = mongoose.model('release', releaseSchema)

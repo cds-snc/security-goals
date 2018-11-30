@@ -2,7 +2,7 @@ const { promises: fs, constants: fsConstants } = require('fs')
 const { join, basename } = require('path') // eslint-disable-line no-unused-vars
 const { readFile } = require('./readFile')
 
-const getChecks = async (path = process.env.CHECKS_PATH) => {
+const getFiles = async (path = process.env.CHECKS_PATH) => {
   try {
     let access = await fs.access(path, fsConstants.R_OK) // eslint-disable-line no-unused-vars
   } catch ({ message }) {
@@ -23,4 +23,4 @@ const getChecks = async (path = process.env.CHECKS_PATH) => {
   })
 }
 
-module.exports.getChecks = getChecks
+module.exports.getFiles = getFiles
