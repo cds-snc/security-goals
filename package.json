@@ -1,0 +1,18 @@
+{
+  "name": "symmorfosi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cds-snc/symmorfosi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cds-snc/symmorfosi/issues"
+  },
+  "homepage": "https://github.com/cds-snc/symmorfosi#readme"
+}
