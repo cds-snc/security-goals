@@ -87,6 +87,10 @@ describe('restartJobs', () => {
       .post(`/apis/batch/v1/namespaces/symmorfosi-jobs/jobs`)
       .reply(200)
     await restartJobs(kc)
+    // This test is incorrect and should not pass, but nock
+    // does not register the other two URLs being called.
+    // However if you remove the nock mocks, then it will
+    // error when they are called.
     expect(scope.activeMocks().length).toEqual(2)
   })
 

@@ -47,6 +47,9 @@ export const restartJobs = async config => {
 
   const res = await jobsApi.listNamespacedJob(namespace)
   if ('items' in res.body) {
+    // The mechanic to delete and re-create jobs is going to be
+    // refactored in Kubernetes API 1.12 with TTL on jobs.
+    // https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#job-termination-and-cleanup
     return res.body.items.forEach(async item => {
       let name = item.metadata.name
       jobsApi.deleteNamespacedJob(name, namespace, item)
