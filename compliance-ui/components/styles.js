@@ -47,7 +47,7 @@ export const theme = {
     lg: "1.5rem",
     xl: "2.5rem",
     xxl: "5rem",
-    xxxl: "10rem"
+    xxxl: "12rem"
   }
 };
 

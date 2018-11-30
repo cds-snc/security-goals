@@ -1,6 +1,7 @@
 import { css } from "emotion";
-import { BackIcon, PrintButton } from ".";
 import { theme, mediaQuery } from "./styles";
+import { PrintButton, BackIcon, BackToTopButton } from "./";
+import React from "react";
 
 const actions = css`
   display: flex;
@@ -29,7 +30,7 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-export const ActionBar = ({ id = "" }) => {
+const ActionBar = ({ id = "", backToTop, click }) => {
   return (
     <div className={actions}>
       {id && (
@@ -38,7 +39,12 @@ export const ActionBar = ({ id = "" }) => {
           Back
         </a>
       )}
-      <PrintButton id={id} link={`/pdf/${id}`} />
+
+      {backToTop && <BackToTopButton click={click} />}
+
+      <PrintButton id={id} backToTop={backToTop} link={`/pdf/${id}`} />
     </div>
   );
 };
+
+export default ActionBar;

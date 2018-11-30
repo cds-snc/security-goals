@@ -1,6 +1,7 @@
 import { Grid, IsReady, Failed, ActionBar } from "./";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import React from "react";
 
 const actions = css`
   display: flex;
@@ -45,35 +46,51 @@ const actionsBottom = css`
     ${theme.spacing.xxxl};
 
   ${mediaQuery.xl(css`
-    padding: ${theme.spacing.xl} ${theme.spacing.xxl};
+    padding: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.xl}
+      ${theme.spacing.xxl};
   `)};
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.xl} ${theme.spacing.xl};
+    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.lg};
   `)};
 
   ${mediaQuery.sm(css`
-    display: flex;
-    justify-content: flex-end;
     padding: ${theme.spacing.lg} ${theme.spacing.lg};
   `)};
 `;
 
-export const Home = ({ err, data }) => {
-  if (err) {
-    return <Failed />;
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
   }
-  return (
-    <div data-testid="home">
-      <IsReady data={data} />
-      <div className={actions}>
-        <h2>Verifications:</h2>
-        <ActionBar />
+  clickHandler() {
+    this.statusRef.focus();
+  }
+  render() {
+    const { data, err } = this.props;
+    if (err) {
+      return <Failed />;
+    }
+    return (
+      <div data-testid="home">
+        <IsReady
+          data={data}
+          statusRef={statusRef => {
+            this.statusRef = statusRef;
+          }}
+        />
+        <div className={actions}>
+          <h2>Verifications:</h2>
+          <ActionBar />
+        </div>
+        <Grid controls={data} link={true} />
+        <div className={actionsBottom}>
+          <ActionBar click={this.clickHandler} backToTop={true} />
+        </div>
       </div>
-      <Grid controls={data} link={true} />
-      <div className={actionsBottom}>
-        <ActionBar />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
+export default Home;
