@@ -1,7 +1,6 @@
-import { Grid, IsReady, Failed } from "./";
+import { Grid, IsReady, Failed, ActionBar } from "./";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
-import ActionBar from "./ActionBar";
 import React from "react";
 
 const actions = css`
@@ -47,16 +46,16 @@ const actionsBottom = css`
     ${theme.spacing.xxxl};
 
   ${mediaQuery.xl(css`
-    padding: ${theme.spacing.xl} ${theme.spacing.xxl};
+    padding: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.xl}
+      ${theme.spacing.xxl};
   `)};
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.xl} ${theme.spacing.xl};
+    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.lg};
   `)};
 
   ${mediaQuery.sm(css`
-    display: flex;
-    justify-content: flex-end;
     padding: ${theme.spacing.lg} ${theme.spacing.lg};
   `)};
 `;

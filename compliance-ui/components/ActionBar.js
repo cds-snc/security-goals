@@ -1,7 +1,6 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
-import { BackToTopButton } from "./BackToTopButton";
-import { PrintButton, BackIcon } from ".";
+import { PrintButton, BackIcon, BackToTopButton } from "./";
 import React from "react";
 
 const actions = css`
@@ -31,24 +30,21 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-class ActionBar extends React.Component {
-  render() {
-    const { id, backToTop, click } = this.props;
-    return (
-      <div css={actions}>
-        {id && (
-          <a href="/" css={back}>
-            <BackIcon />
-            Back
-          </a>
-        )}
+const ActionBar = ({ id = "", backToTop, click }) => {
+  return (
+    <div className={actions}>
+      {id && (
+        <a href="/" className={back}>
+          <BackIcon />
+          Back
+        </a>
+      )}
 
-        {backToTop && <BackToTopButton click={click} />}
+      {backToTop && <BackToTopButton click={click} />}
 
-        <PrintButton id={id} backToTop={backToTop} link={`/pdf/${id}`} />
-      </div>
-    );
-  }
-}
+      <PrintButton id={id} backToTop={backToTop} link={`/pdf/${id}`} />
+    </div>
+  );
+};
 
 export default ActionBar;

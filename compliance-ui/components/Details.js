@@ -1,6 +1,5 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, MainDescription } from "./";
-import ActionBar from "./ActionBar";
+import { Grid, Failed, Spinner, MainDescription, ActionBar } from "./";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
