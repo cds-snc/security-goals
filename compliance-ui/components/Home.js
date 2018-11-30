@@ -67,7 +67,7 @@ class Home extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
   }
   clickHandler() {
-    this.nameInput.focus();
+    this.statusRef.focus();
   }
   render() {
     const { data, err } = this.props;
@@ -78,8 +78,8 @@ class Home extends React.Component {
       <div data-testid="home">
         <IsReady
           data={data}
-          statusRef={input => {
-            this.nameInput = input;
+          statusRef={statusRef => {
+            this.statusRef = statusRef;
           }}
         />
         <div className={actions}>
