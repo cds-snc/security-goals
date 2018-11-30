@@ -7,7 +7,7 @@ steps:
     args: ['test']
   - name: "gcr.io/cloud-builders/docker"
     id: push_docker_hub
-    dir: 'compliance-api'
+    dir: 'compliance-watcher'
     entrypoint: "bash"
     args:
       - '-c'
