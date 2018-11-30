@@ -32,11 +32,8 @@ const back = css`
 `;
 
 class ActionBar extends React.Component {
-  clickHandler() {
-    console.log("Back to Top");
-  }
   render() {
-    const { id, backToTop } = this.props;
+    const { id, backToTop, click } = this.props;
     return (
       <div css={actions}>
         {id && (
@@ -46,7 +43,7 @@ class ActionBar extends React.Component {
           </a>
         )}
 
-        {backToTop && <BackToTopButton click={this.clickHandler} />}
+        {backToTop && <BackToTopButton click={click} />}
 
         <PrintButton id={id} backToTop={backToTop} link={`/pdf/${id}`} />
       </div>

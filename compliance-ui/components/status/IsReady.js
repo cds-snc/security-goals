@@ -21,10 +21,10 @@ const statusBar = css`
   `)};
 `;
 
-const IsReady = ({ data }) => {
+const IsReady = ({ data, statusRef }) => {
   return (
     <div>
-      <div className={statusBar} tabIndex="0">
+      <div className={statusBar} ref={statusRef} tabIndex="0">
         <PassFailText status={data} />
         <Count status={data} />
       </div>

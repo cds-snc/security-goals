@@ -2,6 +2,7 @@ import { Grid, IsReady, Failed } from "./";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
 import ActionBar from "./ActionBar";
+import React from "react";
 
 const actions = css`
   display: flex;
@@ -60,21 +61,37 @@ const actionsBottom = css`
   `)};
 `;
 
-export const Home = ({ err, data }) => {
-  if (err) {
-    return <Failed />;
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
   }
-  return (
-    <div data-testid="home">
-      <IsReady data={data} />
-      <div className={actions}>
-        <h2>Verifications:</h2>
-        <ActionBar />
+  clickHandler() {
+    this.nameInput.focus();
+  }
+  render() {
+    const { data, err } = this.props;
+    if (err) {
+      return <Failed />;
+    }
+    return (
+      <div data-testid="home">
+        <IsReady
+          data={data}
+          statusRef={input => {
+            this.nameInput = input;
+          }}
+        />
+        <div className={actions}>
+          <h2>Verifications:</h2>
+          <ActionBar />
+        </div>
+        <Grid controls={data} link={true} />
+        <div className={actionsBottom}>
+          <ActionBar click={this.clickHandler} backToTop={true} />
+        </div>
       </div>
-      <Grid controls={data} link={true} />
-      <div className={actionsBottom}>
-        <ActionBar backToTop={true} />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
+export default Home;
