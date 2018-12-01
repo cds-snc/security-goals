@@ -28,7 +28,6 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-
   padding: ${theme.spacing.lg} ${theme.spacing.xxxl};
 
   a {
@@ -60,6 +59,11 @@ const details = css`
   ul {
     margin: ${theme.spacing.md} 0 0 0;
     width: 100%;
+  }
+
+  h1 {
+    font-size: ${theme.font.xl};
+    margin-bottom: ${theme.spacing.md};
   }
 
   div[name="timestamp"] p {
@@ -193,6 +197,7 @@ export const Details = ({ data, err, router = false }) => {
         </div>
         {id && (
           <React.Fragment>
+            <h1>Verification:</h1>
             <Collapsible
               title={title}
               description={description}
