@@ -31,7 +31,7 @@ const container = css`
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
   margin-bottom: ${theme.spacing.lg};
-  h1 {
+  h1[name="collapsible-h1"] {
     margin-top: 0;
     margin-bottom: ${theme.spacing.md};
     width: 100%;
@@ -39,7 +39,7 @@ const container = css`
   }
 
   ${mediaQuery.sm(css`
-    h1 {
+    h1[name="collapsible-h1"] {
       font-size: ${theme.font.lg};
     }
   `)};
@@ -77,7 +77,7 @@ export class Collapsible extends React.Component {
       <div>
         <div className={container}>
           <div className={toggleContainer}>
-            <h1>{title}</h1>
+            <h1 name="collapsible-h1">{title}</h1>
             <div className={this.state.open ? collapseIn : collapse}>
               <MainDescription description={description} />
             </div>

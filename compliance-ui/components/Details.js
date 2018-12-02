@@ -28,8 +28,7 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} ${theme.spacing.xl}
-    ${theme.spacing.xxxl};
+  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
@@ -45,8 +44,8 @@ const detailsWrap = css`
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.xl}
-      ${theme.spacing.md};
+    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.xl};
     a {
       margin-top: ${theme.spacing.sm};
     }
@@ -65,7 +64,12 @@ const details = css`
   }
 
   h1[name="verification-h1"] {
+    font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.md};
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+    `)};
   }
 
   h1 {
@@ -178,7 +182,7 @@ const actionsBottom = css`
 `;
 
 const history = css`
-  h1 {
+  h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.sm};
   }
@@ -195,7 +199,7 @@ const history = css`
   `)};
 
   ${mediaQuery.sm(css`
-    h1 {
+    h1[name="history-h1"] {
       font-size: ${theme.font.lg};
     }
 
@@ -224,32 +228,30 @@ export const Details = ({ data, err, router = false }) => {
   const title = name ? `${control} - ${name}` : control;
 
   return (
-    <div>
+    <div data-testid="details" className={details}>
       <div className={actions}>
         <ActionBar id={id} />
       </div>
       <div className={detailsWrap}>
-        <div data-testid="details" className={details}>
-          {id && (
-            <React.Fragment>
-              <h1 name="verification-h1">Verification:</h1>
-              <Collapsible
-                title={title}
-                description={description}
-                control={control}
-              />
-              <section className={history}>
-                <h1>History:</h1>
-                <Grid tab="0" controls={verificationsData(controlData, {})} />
-              </section>
-            </React.Fragment>
-          )}
-          {!id && (
-            <div className={controlInfo}>
-              <Spinner />
-            </div>
-          )}
-        </div>
+        {id && (
+          <React.Fragment>
+            <h1 name="verification-h1">Verification:</h1>
+            <Collapsible
+              title={title}
+              description={description}
+              control={control}
+            />
+            <section className={history}>
+              <h1 name="history-h1">History:</h1>
+              <Grid tab="0" controls={verificationsData(controlData, {})} />
+            </section>
+          </React.Fragment>
+        )}
+        {!id && (
+          <div className={controlInfo}>
+            <Spinner />
+          </div>
+        )}
       </div>
       <div className={actionsBottom}>
         <ActionBar id={id} />
