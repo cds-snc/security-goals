@@ -28,7 +28,7 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
+  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
