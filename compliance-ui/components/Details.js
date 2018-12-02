@@ -28,7 +28,8 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl};
+  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} ${theme.spacing.xl}
+    ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
@@ -39,11 +40,13 @@ const detailsWrap = css`
   }
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.xxl};
+    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.sm} ${theme.spacing.lg};
+    padding: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.xl}
+      ${theme.spacing.md};
     a {
       margin-top: ${theme.spacing.sm};
     }
@@ -61,9 +64,13 @@ const details = css`
     width: 100%;
   }
 
+  h1[name="verification-h1"] {
+    margin-bottom: ${theme.spacing.md};
+  }
+
   h1 {
     font-size: ${theme.font.xl};
-    margin-bottom: ${theme.spacing.md};
+    margin: 0 0 0 0;
   }
 
   div[name="timestamp"] p {
@@ -124,22 +131,49 @@ const details = css`
 `;
 
 const actions = css`
-  margin-bottom: ${theme.spacing.lg};
+  div[name="action-bar"] {
+    justify-content: flex-start;
+    padding-bottom: ${theme.spacing.lg};
+  }
 
-  ${mediaQuery.lg(css`
-    margin-bottom: ${theme.spacing.md};
+  span,
+  a[name="back"] {
+    margin-bottom: ${theme.spacing.sm};
+  }
+
+  a[name="print-button"] {
+    margin-left: ${theme.spacing.xl};
+  }
+
+  ${mediaQuery.sm(css`
+    svg {
+      display: none;
+    }
+
+    a[name="print-button"] {
+      margin-left: ${theme.spacing.lg};
+    }
+
+    span,
+    a[name="back"] {
+      margin-bottom: 0;
+    }
+
+    div[name="action-bar"] {
+      padding-top: ${theme.spacing.sm};
+    }
   `)};
 `;
 
 const actionsBottom = css`
-  margin: ${theme.spacing.lg} 0;
-
-  ${mediaQuery.lg(css`
-    margin: ${theme.spacing.md} 0 ${theme.spacing.md} 0;
-  `)};
+  span {
+    padding: ${theme.spacing.md} 0;
+  }
 
   ${mediaQuery.sm(css`
-    margin: ${theme.spacing.sm} 0 ${theme.spacing.md} 0;
+    svg {
+      display: none;
+    }
   `)};
 `;
 
@@ -190,34 +224,35 @@ export const Details = ({ data, err, router = false }) => {
   const title = name ? `${control} - ${name}` : control;
 
   return (
-    <div className={detailsWrap}>
-      <div data-testid="details" className={details}>
-        <div className={actions}>
-          <ActionBar id={id} />
-        </div>
-        {id && (
-          <React.Fragment>
-            <h1>Verification:</h1>
-            <Collapsible
-              title={title}
-              description={description}
-              control={control}
-            />
-            <section className={history}>
-              <h1>History:</h1>
-              <Grid tab="0" controls={verificationsData(controlData, {})} />
-            </section>
-            <div className={actionsBottom}>
-              <ActionBar id={id} />
+    <div>
+      <div className={actions}>
+        <ActionBar id={id} />
+      </div>
+      <div className={detailsWrap}>
+        <div data-testid="details" className={details}>
+          {id && (
+            <React.Fragment>
+              <h1 name="verification-h1">Verification:</h1>
+              <Collapsible
+                title={title}
+                description={description}
+                control={control}
+              />
+              <section className={history}>
+                <h1>History:</h1>
+                <Grid tab="0" controls={verificationsData(controlData, {})} />
+              </section>
+            </React.Fragment>
+          )}
+          {!id && (
+            <div className={controlInfo}>
+              <Spinner />
             </div>
-          </React.Fragment>
-        )}
-
-        {!id && (
-          <div className={controlInfo}>
-            <Spinner />
-          </div>
-        )}
+          )}
+        </div>
+      </div>
+      <div className={actionsBottom}>
+        <ActionBar id={id} />
       </div>
     </div>
   );

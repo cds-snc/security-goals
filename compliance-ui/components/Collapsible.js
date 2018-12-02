@@ -30,7 +30,7 @@ const container = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
-  margin-bottom: ${theme.spacing.xl};
+  margin-bottom: ${theme.spacing.lg};
   h1 {
     margin-top: 0;
     margin-bottom: ${theme.spacing.md};

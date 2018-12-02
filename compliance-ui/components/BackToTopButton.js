@@ -5,7 +5,7 @@ import { UpArrowCircle } from "./";
 const topPage = css`
   display: flex;
   align-items: center;
-  color: #000;
+  color: ${theme.colour.white};
   text-decoration: underline;
   cursor: pointer;
 

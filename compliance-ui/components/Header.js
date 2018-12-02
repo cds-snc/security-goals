@@ -4,60 +4,65 @@ import { theme, mediaQuery } from "./styles";
 const bar = css`
   left: 0;
   top: 0;
+  padding: ${theme.spacing.md} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
   width: 100%;
-  padding: 0;
   background: ${theme.colour.blackLight};
   z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${mediaQuery.lg(css`
+    padding: ${theme.spacing.md} ${theme.spacing.lg} 0 ${theme.spacing.xl};
+  `)};
+
+  ${mediaQuery.sm(css`
+    padding: ${theme.spacing.lg} ${theme.spacing.lg} 0 ${theme.spacing.xl};
+  `)};
 `;
 
 const h1 = css`
   font-size: ${theme.font.xl};
   line-height: 2.8rem;
-  margin: ${theme.spacing.md} ${theme.spacing.xxxl};
   font-weight: 650;
   color: ${theme.colour.white};
+  margin: 0;
 
   ${mediaQuery.xl(css`
     font-size: ${theme.font.xl};
-    margin: ${theme.spacing.md} ${theme.spacing.xxl};
   `)};
 
   ${mediaQuery.lg(css`
     font-size: 18pt;
-    margin: ${theme.spacing.md} ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
     font-size: ${theme.font.lg};
     line-height: 1.4rem;
-    margin: ${theme.spacing.md} ${theme.spacing.lg};
   `)};
 `;
 
 const logo = css`
-  width: 2.7rem;
-  height: 2.7rem;
-  margin-right: ${theme.spacing.xxxl};
-
-  ${mediaQuery.xl(css`
-    width: 2.7rem;
-    height: 2.7rem;
-    margin-right: ${theme.spacing.xxl};
-  `)};
+  position: absolute;
+  right: ${theme.spacing.xxl};
+  top: 1.7rem;
+  width: 3.75rem;
+  height: 3.75rem;
 
   ${mediaQuery.lg(css`
-    width: 2.7rem;
-    height: 2.7rem;
-    margin-right: ${theme.spacing.xl};
+    right: ${theme.spacing.xl};
+    width: 3.4rem;
+    height: 3.4rem;
   `)};
 
   ${mediaQuery.sm(css`
-    width: 2rem;
-    height: 2rem;
-    margin-right: ${theme.spacing.lg};
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 1.7rem;
+  `)};
+
+  ${mediaQuery.xs(css`
+    display: none;
   `)};
 `;
 

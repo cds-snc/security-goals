@@ -7,6 +7,13 @@ const actions = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: ${theme.colour.blackLight};
+  padding: ${theme.spacing.sm} ${theme.spacing.xxl};
+
+  ${mediaQuery.lg(css`
+    padding: ${theme.spacing.xs} ${theme.spacing.xl} ${theme.spacing.xs}
+      ${theme.spacing.xl};
+  `)};
 
   ${mediaQuery.sm(css`
     a,
@@ -21,20 +28,25 @@ const actions = css`
     svg {
       height: 0.4rem;
     }
+
+    ${mediaQuery.lg(css`
+      padding: ${theme.spacing.xs} ${theme.spacing.xl} ${theme.spacing.md}
+        ${theme.spacing.xl};
+    `)};
   `)};
 `;
 
 const back = css`
   display: inline-block;
-  color: #000;
+  color: ${theme.colour.white};
   font-size: ${theme.font.md};
 `;
 
 const ActionBar = ({ id = "", backToTop, click }) => {
   return (
-    <div className={actions}>
+    <div name="action-bar" className={actions}>
       {id && (
-        <a href="/" className={back}>
+        <a name="back" href="/" className={back}>
           <BackIcon />
           Back
         </a>

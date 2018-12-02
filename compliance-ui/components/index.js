@@ -11,6 +11,7 @@ export { MainDescription } from "./controlbox/MainDescription";
 export { default as Home } from "./Home";
 export { default as ActionBar } from "./ActionBar";
 export { BackIcon } from "./icons/BackIcon";
+export { PrinterIcon } from "./icons/PrinterIcon";
 export { UpArrowCircle } from "./icons/UpArrowCircle";
 export { PageHead } from "./PageHead";
 export { PrintButton } from "./PrintButton";

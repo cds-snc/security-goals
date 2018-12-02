@@ -5,10 +5,7 @@ import { theme, mediaQuery } from "./styles";
 const grid = css`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 ${theme.spacing.xxxl};
-  ${mediaQuery.xl(css`
-    margin: 0 ${theme.spacing.xxl};
-  `)};
+  margin: 0 ${theme.spacing.xxl};
   padding: 0;
   li {
     list-style: none;

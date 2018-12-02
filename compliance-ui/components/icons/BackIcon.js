@@ -8,7 +8,8 @@ export const BackIcon = () => {
         display: "inline-block",
         transform: "scale(-2, 2)",
         translate: "(0px, -1px)",
-        marginRight: "5px"
+        marginRight: "5px",
+        fill: "#fff"
       }}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 9.42 15.62"
