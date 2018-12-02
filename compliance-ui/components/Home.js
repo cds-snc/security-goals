@@ -4,60 +4,58 @@ import { theme, mediaQuery } from "./styles";
 import React from "react";
 
 const actions = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} ${theme.spacing.md}
-    ${theme.spacing.xxxl};
+  width: 100%;
 
-  h2 {
-    margin: 0;
-    color: ${theme.colour.black};
-    font-size: ${theme.font.xl};
-    font-weight: 700;
+  span {
+    padding-bottom: ${theme.spacing.lg};
   }
 
-  ${mediaQuery.xl(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.md}
-      ${theme.spacing.xxl};
-  `)};
+  svg {
+    margin-bottom: ${theme.spacing.lg};
+  }
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.md}
-      ${theme.spacing.lg};
+    span {
+      padding-bottom: ${theme.spacing.lg};
+    }
 
-    h2 {
-      font-size: 18pt;
+    svg {
+      margin-bottom: ${theme.spacing.lg};
     }
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.md}
-      ${theme.spacing.lg};
+    div[name="action-bar"] {
+      padding-top: 0;
+    }
+    span {
+      padding-bottom: ${theme.spacing.sm};
+      padding-top: ${theme.spacing.sm};
+    }
 
-    h2 {
-      font-size: ${theme.font.lg};
+    svg {
+      display: none;
     }
   `)};
 `;
 
 const actionsBottom = css`
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl} ${theme.spacing.xl}
-    ${theme.spacing.xxxl};
+  margin-top: ${theme.spacing.xl};
+  svg {
+    fill: ${theme.colour.white};
+  }
 
-  ${mediaQuery.xl(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.xl}
-      ${theme.spacing.xxl};
-  `)};
-
-  ${mediaQuery.lg(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
-      ${theme.spacing.lg};
-  `)};
+  span {
+    margin: ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md} 0;
+    color: ${theme.colour.white};
+    text-decoration: underline;
+  }
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.lg};
-  `)};
+    a[name="print-button"] {
+      display: none;
+    }
+  `)}
 `;
 
 class Home extends React.Component {
@@ -75,16 +73,16 @@ class Home extends React.Component {
     }
     return (
       <div data-testid="home">
+        <div className={actions}>
+          <ActionBar />
+        </div>
         <IsReady
           data={data}
           statusRef={statusRef => {
             this.statusRef = statusRef;
           }}
         />
-        <div className={actions}>
-          <h2>Verifications:</h2>
-          <ActionBar />
-        </div>
+
         <Grid controls={data} link={true} />
         <div className={actionsBottom}>
           <ActionBar click={this.clickHandler} backToTop={true} />

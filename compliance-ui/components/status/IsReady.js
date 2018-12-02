@@ -8,16 +8,18 @@ const statusBar = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: ${theme.spacing.lg} ${theme.spacing.xxxl} ${theme.spacing.sm}
-    ${theme.spacing.xxxl};
+  margin: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.lg}
+    ${theme.spacing.xxl};
   ${roundedEdges};
 
   ${mediaQuery.xl(css`
-    margin: ${theme.spacing.lg} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+    margin: ${theme.spacing.lg} ${theme.spacing.xxl} ${theme.spacing.lg}
+      ${theme.spacing.xxl};
   `)};
 
   ${mediaQuery.lg(css`
-    margin: ${theme.spacing.lg} ${theme.spacing.lg} 0 ${theme.spacing.lg};
+    margin: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.lg}
+      ${theme.spacing.lg};
   `)};
 `;
 

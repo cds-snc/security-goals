@@ -1,10 +1,11 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, MainDescription, ActionBar } from "./";
+import { Grid, Failed, Spinner, ActionBar } from "./";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import { Collapsible } from "./Collapsible";
 
 const controlInfo = css`
   border: 1px solid ${theme.colour.grayOutline};
@@ -27,8 +28,7 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-
-  padding: ${theme.spacing.lg} ${theme.spacing.xxxl};
+  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
@@ -39,11 +39,13 @@ const detailsWrap = css`
   }
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.xxl};
+    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.sm} ${theme.spacing.lg};
+    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+      ${theme.spacing.xl};
     a {
       margin-top: ${theme.spacing.sm};
     }
@@ -59,6 +61,20 @@ const details = css`
   ul {
     margin: ${theme.spacing.md} 0 0 0;
     width: 100%;
+  }
+
+  h1[name="verification-h1"] {
+    font-size: ${theme.font.xl};
+    margin-bottom: ${theme.spacing.md};
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+    `)};
+  }
+
+  h1 {
+    font-size: ${theme.font.xl};
+    margin: 0 0 0 0;
   }
 
   div[name="timestamp"] p {
@@ -119,27 +135,54 @@ const details = css`
 `;
 
 const actions = css`
-  margin-bottom: ${theme.spacing.lg};
+  div[name="action-bar"] {
+    justify-content: flex-start;
+    padding-bottom: ${theme.spacing.lg};
+  }
 
-  ${mediaQuery.lg(css`
-    margin-bottom: ${theme.spacing.md};
+  span,
+  a[name="back"] {
+    margin-bottom: ${theme.spacing.sm};
+  }
+
+  a[name="print-button"] {
+    margin-left: ${theme.spacing.xl};
+  }
+
+  ${mediaQuery.sm(css`
+    svg {
+      display: none;
+    }
+
+    a[name="print-button"] {
+      margin-left: ${theme.spacing.lg};
+    }
+
+    span,
+    a[name="back"] {
+      margin-bottom: 0;
+    }
+
+    div[name="action-bar"] {
+      padding-top: ${theme.spacing.sm};
+    }
   `)};
 `;
 
 const actionsBottom = css`
-  margin: ${theme.spacing.lg} 0;
-
-  ${mediaQuery.lg(css`
-    margin: ${theme.spacing.md} 0 ${theme.spacing.md} 0;
-  `)};
+  span {
+    padding: ${theme.spacing.md} 0;
+  }
 
   ${mediaQuery.sm(css`
-    margin: ${theme.spacing.sm} 0 ${theme.spacing.md} 0;
+    svg {
+      display: none;
+    }
   `)};
 `;
 
 const history = css`
-  h1 {
+  h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.sm};
   }
@@ -156,7 +199,7 @@ const history = css`
   `)};
 
   ${mediaQuery.sm(css`
-    h1 {
+    h1[name="history-h1"] {
       font-size: ${theme.font.lg};
     }
 
@@ -182,38 +225,36 @@ export const Details = ({ data, err, router = false }) => {
 
   const control = fromRouter(router, "control");
   const { description = "", name = "", id } = controlData.control || {};
+  const title = name ? `${control} - ${name}` : control;
 
   return (
-    <div className={detailsWrap}>
-      <div data-testid="details" className={details}>
-        <div className={actions}>
-          <ActionBar id={id} />
-        </div>
+    <div data-testid="details" className={details}>
+      <div className={actions}>
+        <ActionBar id={id} />
+      </div>
+      <div className={detailsWrap}>
         {id && (
           <React.Fragment>
-            <section className={controlInfo}>
-              <h1>
-                {`${control}`}
-                {name && `- ${name}`}
-              </h1>
-              <MainDescription description={description} />
-            </section>
-
+            <h1 name="verification-h1">Verification:</h1>
+            <Collapsible
+              title={title}
+              description={description}
+              control={control}
+            />
             <section className={history}>
-              <h1>History:</h1>
+              <h1 name="history-h1">History:</h1>
               <Grid tab="0" controls={verificationsData(controlData, {})} />
             </section>
-            <div className={actionsBottom}>
-              <ActionBar id={id} />
-            </div>
           </React.Fragment>
         )}
-
         {!id && (
           <div className={controlInfo}>
             <Spinner />
           </div>
         )}
+      </div>
+      <div className={actionsBottom}>
+        <ActionBar id={id} />
       </div>
     </div>
   );
