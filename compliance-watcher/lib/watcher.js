@@ -96,7 +96,11 @@ export const restartJobs = async config => {
     kc = config
   } else {
     kc = new k8s.KubeConfig()
-    kc.loadFromDefault()
+    if (process.env.NODE_ENV === 'production') {
+      kc.loadFromCluster()
+    } else {
+      kc.loadFromDefault()
+    }
   }
   const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
   const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi-jobs'

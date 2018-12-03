@@ -2,11 +2,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: symmorfosi
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: symmorfosi
+subjects:
+  - kind: ServiceAccount
     name: symmorfosi
-    subjects:
-      - kind: ServiceAccount
-        name: symmorfosi
-        namespace: symmorfosi
+    namespace: symmorfosi
