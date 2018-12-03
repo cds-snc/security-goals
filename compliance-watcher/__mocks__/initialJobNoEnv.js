@@ -1,4 +1,4 @@
-export const initialJob = {
+export const initialJobNoEnv = {
   kind: 'Job',
   apiVersion: 'batch/v1',
   metadata: {
@@ -14,7 +14,7 @@ export const initialJob = {
     },
     annotations: {
       'kubectl.kubernetes.io/last-applied-configuration':
-        '{"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"symmorfosi-jobs"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi","env":[{"name":"foo","value":"bar"}]}],"restartPolicy":"Never"}}}}\n',
+        '{"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"symmorfosi-jobs"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}\n',
     },
   },
   spec: {
@@ -44,7 +44,6 @@ export const initialJob = {
             terminationMessagePath: '/dev/termination-log',
             terminationMessagePolicy: 'File',
             imagePullPolicy: 'Always',
-            env: [{ name: 'foo', value: 'bar' }],
           },
         ],
         restartPolicy: 'Never',
