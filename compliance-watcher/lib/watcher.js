@@ -1,10 +1,30 @@
+import fetch from 'isomorphic-fetch'
+
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
 }
 
-export const modifyJob = job => {
+export const generateReleaseId = async () => {
+  if (process.env.GITHUB_REPO !== undefined) {
+    let repo = process.env.GITHUB_REPO
+    return fetch('//api.github.com/repos/' + repo + '/commits?branch=master')
+      .then(function(response) {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server')
+        }
+        return response.json()
+      })
+      .then(function(commits) {
+        return `${commits[0].sha}-${Date.now()}`
+      })
+  } else {
+    return `${Date.now()}`
+  }
+}
+
+export const modifyJob = async job => {
   if (
     job === undefined ||
     job === {} ||
@@ -20,6 +40,9 @@ export const modifyJob = job => {
   }
 
   const name = job.metadata.name
+
+  // Generate release ID
+  const releaseId = await generateReleaseId()
 
   // Get previous configuration
   let body = JSON.parse(
@@ -38,6 +61,27 @@ export const modifyJob = job => {
     body.metadata.name = `${name}-symmorfosi-auto-${Date.now()}`
   }
 
+  // Update Release ENV
+  if ('env' in body.spec.template.spec.containers[0]) {
+    let applied = false
+    body.spec.template.spec.containers[0].env.forEach(e => {
+      if (e.name === 'RELEASE') {
+        e.value = releaseId
+        applied = true
+      }
+    })
+    if (!applied) {
+      body.spec.template.spec.containers[0].env.push({
+        name: 'RELEASE',
+        value: releaseId,
+      })
+    }
+  } else {
+    body.spec.template.spec.containers[0]['env'] = [
+      { name: 'RELEASE', value: releaseId },
+    ]
+  }
+
   // Re-apply new configuration
   body.metadata.annotations[
     'kubectl.kubernetes.io/last-applied-configuration'
@@ -47,7 +91,13 @@ export const modifyJob = job => {
 
 export const restartJobs = async config => {
   const k8s = require('@kubernetes/client-node')
-  const kc = config || new k8s.KubeConfig().loadFromDefault()
+  let kc
+  if (config) {
+    kc = config
+  } else {
+    kc = new k8s.KubeConfig()
+    kc.loadFromDefault()
+  }
   const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
   const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi-jobs'
 
@@ -59,7 +109,7 @@ export const restartJobs = async config => {
     return asyncForEach(res.body.items, async item => {
       let name = item.metadata.name
       jobsApi.deleteNamespacedJob(name, namespace, item)
-      const body = modifyJob(item)
+      const body = await modifyJob(item)
       await jobsApi.createNamespacedJob(namespace, body)
     })
   }

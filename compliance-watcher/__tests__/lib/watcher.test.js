@@ -1,23 +1,45 @@
 import request from 'supertest'
-import { modifyJob, restartJobs, startWatcher } from '../../lib/watcher'
+import {
+  generateReleaseId,
+  modifyJob,
+  restartJobs,
+  startWatcher,
+} from '../../lib/watcher'
 import { initialJob } from '../../__mocks__/initialJob'
+import { initialJobNoEnv } from '../../__mocks__/initialJobNoEnv'
 import { nextJob } from '../../__mocks__/nextJob'
 
 const k8s = require('@kubernetes/client-node')
 let nock = require('nock')
 
+describe('generateReleaseId', () => {
+  it('returns a unix time stamp for a release if not github repo is defined', async () => {
+    expect(await generateReleaseId()).not.toEqual(null)
+  })
+  it('returns a unix time stamp with a sha from a github repo if it is defined', async () => {
+    process.env.GITHUB_REPO = 'foo/bar'
+    nock('https://api.github.com/')
+      .persist()
+      .get('/repos/foo/bar/commits?branch=master')
+      .reply(200, [{ sha: 'abcd' }])
+    expect(await generateReleaseId()).toContain('abcd')
+  })
+})
+
 describe('modifyJob', () => {
   it('handles invalid entries', async () => {
-    expect(modifyJob()).toEqual({})
-    expect(modifyJob({})).toEqual({})
-    expect(modifyJob({ foo: 'bar' })).toEqual({})
-    expect(modifyJob({ metadata: {} })).toEqual({})
-    expect(modifyJob({ metadata: { name: '' } })).toEqual({})
-    expect(modifyJob({ metadata: { name: '', annotations: {} } })).toEqual({})
+    expect(await modifyJob()).toEqual({})
+    expect(await modifyJob({})).toEqual({})
+    expect(await modifyJob({ foo: 'bar' })).toEqual({})
+    expect(await modifyJob({ metadata: {} })).toEqual({})
+    expect(await modifyJob({ metadata: { name: '' } })).toEqual({})
+    expect(
+      await modifyJob({ metadata: { name: '', annotations: {} } }),
+    ).toEqual({})
   })
 
   it('adds metadata for jobs that were added manually', async () => {
-    const modifiedJob = modifyJob(initialJob)
+    const modifiedJob = await modifyJob(initialJob)
     expect(modifiedJob.metadata.name).not.toEqual(initialJob.name)
     expect(
       modifiedJob.metadata.annotations[
@@ -31,7 +53,7 @@ describe('modifyJob', () => {
   })
 
   it('modifies metadata for an already modified job', async () => {
-    const modifiedNextJob = modifyJob(nextJob)
+    const modifiedNextJob = await modifyJob(nextJob)
     expect(modifiedNextJob.metadata.name).not.toEqual(nextJob.name)
     expect(
       modifiedNextJob.metadata.annotations[
@@ -41,6 +63,27 @@ describe('modifyJob', () => {
       nextJob.metadata.annotations[
         'kubectl.kubernetes.io/last-applied-configuration'
       ],
+    )
+  })
+
+  it('modifies the release on a job if it already exists', async () => {
+    const modifiedNextJob = await modifyJob(nextJob)
+    expect(modifiedNextJob.spec.template.spec.containers[0].env).not.toEqual(
+      nextJob.spec.template.spec.containers[0].env,
+    )
+  })
+
+  it('adds the release on a job if it does not exist and an env variables exit', async () => {
+    const modifiedNextJob = await modifyJob(initialJob)
+    expect(modifiedNextJob.spec.template.spec.containers[0].env).not.toEqual(
+      null,
+    )
+  })
+
+  it('adds the release on a job if it does not exist and no env variables exit', async () => {
+    const modifiedNextJob = await modifyJob(initialJobNoEnv)
+    expect(modifiedNextJob.spec.template.spec.containers[0].env).not.toEqual(
+      null,
     )
   })
 })
