@@ -1,4 +1,4 @@
-export const BackIcon = () => {
+export const BackIcon = ({ fill = "#FFF" }) => {
   return (
     <svg
       title="Back"
@@ -9,7 +9,7 @@ export const BackIcon = () => {
         transform: "scale(-2, 2)",
         translate: "(0px, -1px)",
         marginRight: "5px",
-        fill: "#fff"
+        fill: fill
       }}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 9.42 15.62"

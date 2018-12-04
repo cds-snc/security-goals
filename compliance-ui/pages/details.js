@@ -1,6 +1,7 @@
 import { hydrate } from "react-emotion";
 import { PageHead, Header, Details } from "../components";
 import { getControlStatus } from "../util";
+import Layout from "../components/Layout";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -10,11 +11,9 @@ if (typeof window !== "undefined") {
 
 const DetailsPage = ({ err, data }) => {
   return (
-    <div>
-      <PageHead />
-      <Header />
+    <Layout>
       <Details data={data} err={err} />
-    </div>
+    </Layout>
   );
 };
 

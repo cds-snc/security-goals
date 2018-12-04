@@ -8,7 +8,6 @@ export { PdfSummary } from "./PdfSummary";
 export { PassFailText } from "./status/PassFailText";
 export { ControlBox } from "./controlbox/ControlBox";
 export { MainDescription } from "./controlbox/MainDescription";
-export { default as Home } from "./Home";
 export { default as ActionBar } from "./ActionBar";
 export { BackIcon } from "./icons/BackIcon";
 export { PrinterIcon } from "./icons/PrinterIcon";
