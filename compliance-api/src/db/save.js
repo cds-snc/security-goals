@@ -28,27 +28,14 @@ const contains = (arr, index, val) => {
   return mapped
 }
 
-const checkVerificationExist = (control, newVerifications) => {
-  const verifications = control.verifications
-  const fileRef = control.fileId.split('--')[0]
-  console.log('===================')
-  //console.log(newControls)
-  console.log(newVerifications)
-  console.log('===================')
+const checkVerificationExist = (verifications, newVerifications) => {
+  return merge(verifications, newVerifications, 'origin')
+}
 
-  object - array - merge
-
-  //console.log('control', control.control)
-
-  // object-array-merge
-  /*
-  const exists = contains(verifications, 'fileRef', fileRef)
-  if (exists < 1) {
-    console.log('verification not found', exist)
-  }
-
-  return exists
-  */
+const updateVerifications = existingControls => {
+  existingControls.forEach(item => {
+    console.log(item)
+  })
 }
 
 const checkControlExists = (fileControls, existingControls) => {
@@ -56,13 +43,19 @@ const checkControlExists = (fileControls, existingControls) => {
   fileControls.forEach(item => {
     // check if the control exist in release
     const exists = contains(existingControls, 'control', item.control)
-
     if (exists.length < 1) {
       // add new control to the release
       console.log('add new control')
       newControls.push(item)
     } else {
-      checkVerificationExist(exists[0], item.verifications)
+      /*
+      const verfied = checkVerificationExist(
+        exists[0].verifications,
+        item.verifications,
+      )
+      // merged verifications
+      console.log(item.control, verfied)
+      */
     }
   })
 
