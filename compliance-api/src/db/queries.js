@@ -117,6 +117,16 @@ const getControl = async control => {
       { $unwind: '$controls' },
       { $match: { 'controls.control': control } },
       {
+        $project: {
+          release: 1,
+          timestamp: '$createdAt',
+          controls: 1,
+          passed: 1,
+          passing: 1,
+          total: 1,
+        },
+      },
+      {
         $sort: {
           _id: 1,
         },
@@ -124,7 +134,7 @@ const getControl = async control => {
     ])
     .exec()
 
-  console.log(result)
+  return result
 }
 
 const getReleaseControl = async (control, release) => {
@@ -172,6 +182,7 @@ const updateRelease = async (sha, { passing, passed, total }) => {
 }
 
 module.exports = {
+  getControl,
   sumRelease,
   getAllReleases,
   getReleaseControls,

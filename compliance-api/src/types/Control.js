@@ -1,6 +1,21 @@
 const { GraphQLObjectType, GraphQLList, GraphQLString, G } = require('graphql')
 const { Verification } = require('./Verification')
 
+/*
+{
+  controlReleases(id: "SA-11 (1)"){
+     releases{
+      release
+      passed
+      timestamp
+      controls{
+        fileId
+      }
+    }
+  }
+}
+*/
+
 const Control = new GraphQLObjectType({
   name: 'Control',
   description: 'Control Type',

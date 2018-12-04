@@ -35,7 +35,7 @@ const { saveFiles } = require('./src/db/save')
 
     await dbConnect()
     // await clearCollection()
-    await saveFiles()
+    //await saveFiles()
     // await watchChecks()
   })
 })()

@@ -8,6 +8,7 @@ const { OpenControl } = require('./types/OpenControl')
 const { ControlID } = require('./types/ControlID')
 const { Totals } = require('./types/Totals')
 const { filterItems } = require('./utils/filterItems')
+const { controlReleases } = require('./resolvers/controlReleases')
 const { release } = require('./resolvers/release')
 const { releases } = require('./resolvers/releases')
 
@@ -57,6 +58,7 @@ const query = new GraphQLObjectType({
         return { passed: passed.length, total }
       },
     },
+    controlReleases,
     release,
     releases,
   },

@@ -1,6 +1,19 @@
 const { Release } = require('../types/Release')
 const { getAllReleases } = require('../db/queries')
 const { GraphQLList } = require('graphql')
+
+/*
+{
+  releases {
+    release
+    timestamp
+    passed
+    passing
+    total
+  }
+}
+*/
+
 const releases = {
   description: 'Returns a list of releases',
   type: new GraphQLList(Release),
