@@ -1,10 +1,10 @@
 {
-  "origin": "file-1",
+  "origin": "cdssnc/url-check-compliance:latest",
   "timestamp": "2018-10-30T14:28:29Z",
   "satisfies": ["SI-10"],
   "passed": false,
-  "description": "-",
-  "references": "-",
+  "description": "The application contains tests to validate inputs",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js",
   "component": "Source code",
   "release": "80e61288-ef33-11e8-908e-06d86cf01138"
 }

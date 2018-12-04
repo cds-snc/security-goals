@@ -1,0 +1,14 @@
+{
+    "origin": "cdssnc/url-check-compliance:latest",
+    "timestamp": "2018-11-16T18:36:56Z",
+    "satisfies": [
+        "CM-8",
+        "CM-8 (1)",
+        "CM-8 (4)"
+    ],
+    "passed": true,
+    "description": "The application uses a packages.json to manage the information inventory in source control with a log of changes by users.",
+    "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/package.json",
+    "component": "Source code",
+    "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}

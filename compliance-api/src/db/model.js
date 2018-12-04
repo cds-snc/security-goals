@@ -10,4 +10,4 @@ const releaseSchema = new mongoose.Schema(
   { timestamps: true },
 )
 
-module.exports.releaseModel = mongoose.model('release-test', releaseSchema)
+module.exports.releaseModel = mongoose.model('releases', releaseSchema)
