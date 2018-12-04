@@ -2,6 +2,7 @@ const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
 const filenamify = require('filenamify')
 const { q } = require('./queue')
+const merge = require('object-array-merge')
 
 const getFileData = async () => {
   try {
@@ -27,15 +28,27 @@ const contains = (arr, index, val) => {
   return mapped
 }
 
-const checkVerificationExist = control => {
+const checkVerificationExist = (control, newVerifications) => {
   const verifications = control.verifications
   const fileRef = control.fileId.split('--')[0]
+  console.log('===================')
+  //console.log(newControls)
+  console.log(newVerifications)
+  console.log('===================')
 
-  const exist = contains(verifications, 'fileRef', fileRef)
-  if (exist < 1) {
+  object - array - merge
+
+  //console.log('control', control.control)
+
+  // object-array-merge
+  /*
+  const exists = contains(verifications, 'fileRef', fileRef)
+  if (exists < 1) {
     console.log('verification not found', exist)
   }
-  return exist
+
+  return exists
+  */
 }
 
 const checkControlExists = (fileControls, existingControls) => {
@@ -49,7 +62,7 @@ const checkControlExists = (fileControls, existingControls) => {
       console.log('add new control')
       newControls.push(item)
     } else {
-      checkVerificationExist(exists[0])
+      checkVerificationExist(exists[0], item.verifications)
     }
   })
 
