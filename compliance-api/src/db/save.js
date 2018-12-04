@@ -119,7 +119,7 @@ const saveFile = async file => {
     await flattenAndSave(file, saveReleaseToDB)
   } catch (e) {
     console.log(e.message)
-    process.exit()
+    //process.exit()
   }
 }
 
@@ -137,7 +137,7 @@ const saveFiles = async () => {
     q.doAction(cb)
   } catch (e) {
     console.log(e.message)
-    process.exit()
+    //process.exit()
   }
 }
 
