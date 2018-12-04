@@ -32,13 +32,10 @@ const checkVerificationExist = (verifications, newVerifications) => {
   return merge(verifications, newVerifications, 'origin')
 }
 
-const updateVerifications = existingControls => {
-  existingControls.forEach(item => {
-    console.log(item)
-  })
-}
+let verifications = {}
 
 const checkControlExists = (fileControls, existingControls) => {
+  verifications = {}
   let newControls = []
   fileControls.forEach(item => {
     // check if the control exist in release
@@ -48,14 +45,11 @@ const checkControlExists = (fileControls, existingControls) => {
       console.log('add new control')
       newControls.push(item)
     } else {
-      /*
       const verfied = checkVerificationExist(
         exists[0].verifications,
         item.verifications,
       )
-      // merged verifications
-      console.log(item.control, verfied)
-      */
+      verifications[item.control] = verfied
     }
   })
 
@@ -76,12 +70,22 @@ const flattenAndSave = async (file = false, save = () => {}) => {
 
   const existingControls = result[0].controls
   const newControls = checkControlExists(obj.controls, existingControls)
+  //console.log('=================')
+  //console.log(verifications)
 
   if (newControls.length >= 1) {
     // merge existing and new controls
     obj.controls = [...existingControls, ...newControls]
-    return save(obj)
   }
+
+  // update verifications
+  obj.controls.map((item, index) => {
+    if (verifications[item.control]) {
+      obj.controls[index].verifications = verifications[item.control]
+    }
+  })
+
+  return save(obj)
 }
 
 const asyncForEach = async (array, callback) => {
