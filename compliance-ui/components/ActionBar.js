@@ -36,25 +36,12 @@ const actions = css`
   `)};
 `;
 
-const back = css`
-  display: inline-block;
-  color: ${theme.colour.white};
-  font-size: ${theme.font.md};
-`;
-
 const ActionBar = ({ id = "", backToTop, click }) => {
   return (
     <div name="action-bar" className={actions}>
-      {id && (
-        <a name="back" href="/" className={back}>
-          <BackIcon />
-          Back
-        </a>
-      )}
-
       {backToTop && <BackToTopButton click={click} />}
 
-      <PrintButton id={id} backToTop={backToTop} link={`/pdf/${id}`} />
+      <PrintButton backToTop={backToTop} link={`/pdf/${id}`} />
     </div>
   );
 };

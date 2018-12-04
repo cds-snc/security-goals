@@ -136,3 +136,22 @@ export const visuallyhiddenMobile = css`
     ${visuallyhidden};
   `)};
 `;
+
+export const actionsBottom = css`
+  margin-top: ${theme.spacing.xl};
+  svg {
+    fill: ${theme.colour.white};
+  }
+
+  span {
+    margin: ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md} 0;
+    color: ${theme.colour.white};
+    text-decoration: underline;
+  }
+
+  ${mediaQuery.sm(css`
+    a[name="print-button"] {
+      display: none;
+    }
+  `)}
+`;

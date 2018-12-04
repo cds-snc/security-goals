@@ -1,5 +1,5 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, ActionBar } from "./";
+import { Grid, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
@@ -134,53 +134,6 @@ const details = css`
   }
 `;
 
-const actions = css`
-  div[name="action-bar"] {
-    justify-content: flex-start;
-    padding-bottom: ${theme.spacing.lg};
-  }
-
-  span,
-  a[name="back"] {
-    margin-bottom: ${theme.spacing.sm};
-  }
-
-  a[name="print-button"] {
-    margin-left: ${theme.spacing.xl};
-  }
-
-  ${mediaQuery.sm(css`
-    svg {
-      display: none;
-    }
-
-    a[name="print-button"] {
-      margin-left: ${theme.spacing.lg};
-    }
-
-    span,
-    a[name="back"] {
-      margin-bottom: 0;
-    }
-
-    div[name="action-bar"] {
-      padding-top: ${theme.spacing.sm};
-    }
-  `)};
-`;
-
-const actionsBottom = css`
-  span {
-    padding: ${theme.spacing.md} 0;
-  }
-
-  ${mediaQuery.sm(css`
-    svg {
-      display: none;
-    }
-  `)};
-`;
-
 const history = css`
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
@@ -210,6 +163,12 @@ const history = css`
   `)};
 `;
 
+const back = css`
+  display: inline-block;
+  color: ${theme.colour.black};
+  font-size: ${theme.font.md};
+`;
+
 export const Details = ({ data, err, router = false }) => {
   const [controlData, setControlData] = useState(data || { control: {} });
 
@@ -229,12 +188,13 @@ export const Details = ({ data, err, router = false }) => {
 
   return (
     <div data-testid="details" className={details}>
-      <div className={actions}>
-        <ActionBar id={id} />
-      </div>
       <div className={detailsWrap}>
         {id && (
           <React.Fragment>
+            <a name="back" href="/" className={back}>
+              <BackIcon fill={theme.colour.black} />
+              Back
+            </a>
             <h1 name="verification-h1">Verification:</h1>
             <Collapsible
               title={title}
@@ -247,14 +207,15 @@ export const Details = ({ data, err, router = false }) => {
             </section>
           </React.Fragment>
         )}
+        <a name="back" href="/" className={back}>
+          <BackIcon fill={theme.colour.black} />
+          Back
+        </a>
         {!id && (
           <div className={controlInfo}>
             <Spinner />
           </div>
         )}
-      </div>
-      <div className={actionsBottom}>
-        <ActionBar id={id} />
       </div>
     </div>
   );
