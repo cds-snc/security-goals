@@ -2,6 +2,7 @@ const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
 const filenamify = require('filenamify')
 const { q } = require('./queue')
+const merge = require('object-array-merge')
 
 const getFileData = async () => {
   try {
@@ -27,29 +28,28 @@ const contains = (arr, index, val) => {
   return mapped
 }
 
-const checkVerificationExist = control => {
-  const verifications = control.verifications
-  const fileRef = control.fileId.split('--')[0]
-
-  const exist = contains(verifications, 'fileRef', fileRef)
-  if (exist < 1) {
-    console.log('verification not found', exist)
-  }
-  return exist
+const checkVerificationExist = (verifications, newVerifications) => {
+  return merge(verifications, newVerifications, 'origin')
 }
 
+let verifications = {}
+
 const checkControlExists = (fileControls, existingControls) => {
+  verifications = {}
   let newControls = []
   fileControls.forEach(item => {
     // check if the control exist in release
     const exists = contains(existingControls, 'control', item.control)
-
     if (exists.length < 1) {
       // add new control to the release
       console.log('add new control')
       newControls.push(item)
     } else {
-      checkVerificationExist(exists[0])
+      const verfied = checkVerificationExist(
+        exists[0].verifications,
+        item.verifications,
+      )
+      verifications[item.control] = verfied
     }
   })
 
@@ -70,12 +70,22 @@ const flattenAndSave = async (file = false, save = () => {}) => {
 
   const existingControls = result[0].controls
   const newControls = checkControlExists(obj.controls, existingControls)
+  //console.log('=================')
+  //console.log(verifications)
 
   if (newControls.length >= 1) {
     // merge existing and new controls
     obj.controls = [...existingControls, ...newControls]
-    return save(obj)
   }
+
+  // update verifications
+  obj.controls.map((item, index) => {
+    if (verifications[item.control]) {
+      obj.controls[index].verifications = verifications[item.control]
+    }
+  })
+
+  return save(obj)
 }
 
 const asyncForEach = async (array, callback) => {
