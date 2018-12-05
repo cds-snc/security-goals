@@ -1,9 +1,11 @@
 steps:
   - name: 'node:alpine'
     dir: 'compliance-api'
+    entrypoint: 'npm'
     args: ['ci']
   - name: "node:alpine"
     dir: 'compliance-api'
+    entrypoint: 'npm'
     args: ['test']
     env:
      - 'CHECKS_PATH=src/__tests__/testData/checks'
