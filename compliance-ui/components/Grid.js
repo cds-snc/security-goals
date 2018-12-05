@@ -30,6 +30,7 @@ const grid = css`
 
   li:last-of-type {
     border-right: 1px solid ${theme.colour.grayOutline};
+    margin-bottom: 0;
     width: 50.1%;
 
     ${mediaQuery.lg(css`
@@ -102,7 +103,7 @@ const Grid = ({ controls = { items: [] }, link = false, tab }) => {
   }
 
   return (
-    <ul className={grid} tabIndex="0">
+    <ul name="grid" className={grid} tabIndex="0">
       {controls.items.map((control, index) => {
         const key = `${control.id}-${index}`;
         const check = control.status ? greenBG : redBG;

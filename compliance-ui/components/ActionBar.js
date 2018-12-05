@@ -36,12 +36,10 @@ const actions = css`
   `)};
 `;
 
-const ActionBar = ({ id = "", backToTop, click }) => {
+const ActionBar = ({ id = "" }) => {
   return (
     <div name="action-bar" className={actions}>
-      {backToTop && <BackToTopButton click={click} />}
-
-      <PrintButton backToTop={backToTop} link={`/pdf/${id}`} />
+      <PrintButton link={`/pdf/${id}`} />
     </div>
   );
 };

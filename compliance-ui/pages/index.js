@@ -1,5 +1,13 @@
 import { hydrate, css } from "react-emotion";
-import { PageHead, Header, IsReady, Grid, ActionBar } from "../components";
+import {
+  PageHead,
+  Header,
+  IsReady,
+  Grid,
+  ActionBar,
+  Failed,
+  BackToTopButton
+} from "../components";
 import { getAllControlsStatus } from "../util";
 import { theme } from "../components/styles";
 import Layout from "../components/Layout";
@@ -25,7 +33,7 @@ class IndexPage extends React.Component {
       return <Failed />;
     }
     return (
-      <Layout click={this.clickHandler}>
+      <Layout>
         <div data-testid="home">
           <IsReady
             data={data}
@@ -35,6 +43,7 @@ class IndexPage extends React.Component {
           />
 
           <Grid controls={data} link={true} />
+          <BackToTopButton click={this.clickHandler} />
         </div>
       </Layout>
     );
