@@ -5,19 +5,26 @@ import { UpArrowCircle } from "./";
 const topPage = css`
   display: flex;
   align-items: center;
-  color: ${theme.colour.white};
+  color: ${theme.colour.black};
+  margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xxl};
   text-decoration: underline;
   cursor: pointer;
 
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    margin-right: ${theme.spacing.sm};
+    margin: 0 ${theme.spacing.sm} 0 ${theme.spacing.sm};
   }
 
+  ${mediaQuery.lg(css`
+    margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xl};
+  `)};
+
   ${mediaQuery.sm(css`
+    margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xl};
     span {
       font-size: ${theme.font.sm};
+      margin-left: ${theme.spacing.sm};
     }
 
     svg {

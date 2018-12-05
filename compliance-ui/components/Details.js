@@ -28,7 +28,7 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
+  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
@@ -38,16 +38,28 @@ const detailsWrap = css`
     background: white;
   }
 
+  a[name="back"]:first-of-type {
+    margin-bottom: ${theme.spacing.lg};
+  }
+
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
     a {
       margin-top: ${theme.spacing.sm};
+    }
+
+    a[name="back"]:first-of-type {
+      font-size: ${theme.font.sm};
+
+      svg {
+        height: 0.4rem;
+      }
     }
 
     p {
@@ -58,7 +70,7 @@ const detailsWrap = css`
 `;
 
 const details = css`
-  ul {
+  ul[name="grid"] {
     margin: ${theme.spacing.md} 0 0 0;
     width: 100%;
   }
@@ -207,10 +219,6 @@ export const Details = ({ data, err, router = false }) => {
             </section>
           </React.Fragment>
         )}
-        <a name="back" href="/" className={back}>
-          <BackIcon fill={theme.colour.black} />
-          Back
-        </a>
         {!id && (
           <div className={controlInfo}>
             <Spinner />
