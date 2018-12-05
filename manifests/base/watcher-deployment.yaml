@@ -7,7 +7,7 @@ metadata:
   namespace: symmorfosi
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: compliance-watcher 
@@ -28,6 +28,8 @@ spec:
           env:
             - name: PORT
               value: '3000'
+            - name: WEBHOOK_URL
+              value: 'trigger'
           resources: {}
           livenessProbe:
             httpGet:

@@ -8,5 +8,5 @@ roleRef:
   name: symmorfosi
 subjects:
   - kind: ServiceAccount
-    name: symmorfosi
+    name: default
     namespace: symmorfosi

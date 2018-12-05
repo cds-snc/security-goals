@@ -90,32 +90,40 @@ export const modifyJob = async job => {
 }
 
 export const restartJobs = async config => {
-  const k8s = require('@kubernetes/client-node')
-  let kc
-  if (config) {
-    kc = config
-  } else {
-    kc = new k8s.KubeConfig()
-    if (process.env.NODE_ENV === 'production') {
-      kc.loadFromCluster()
+  try {
+    const k8s = require('@kubernetes/client-node')
+    let kc
+    if (config) {
+      kc = config
     } else {
-      kc.loadFromDefault()
+      kc = new k8s.KubeConfig()
+      if (process.env.NODE_ENV === 'production') {
+        kc.loadFromCluster()
+      } else {
+        kc.loadFromDefault()
+      }
     }
-  }
-  const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
-  const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi-jobs'
+    const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
+    const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi-jobs'
 
-  const res = await jobsApi.listNamespacedJob(namespace)
-  if ('items' in res.body) {
-    // The mechanic to delete and re-create jobs is going to be
-    // refactored in Kubernetes API 1.12 with TTL on jobs.
-    // https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#job-termination-and-cleanup
-    return asyncForEach(res.body.items, async item => {
-      let name = item.metadata.name
-      jobsApi.deleteNamespacedJob(name, namespace, item)
-      const body = await modifyJob(item)
-      await jobsApi.createNamespacedJob(namespace, body)
-    })
+    const res = await jobsApi.listNamespacedJob(namespace)
+    if ('items' in res.body) {
+      // The mechanic to delete and re-create jobs is going to be
+      // refactored in Kubernetes API 1.12 with TTL on jobs.
+      // https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#job-termination-and-cleanup
+      return asyncForEach(res.body.items, async item => {
+        try {
+          let name = item.metadata.name
+          jobsApi.deleteNamespacedJob(name, namespace, item)
+          const body = await modifyJob(item)
+          await jobsApi.createNamespacedJob(namespace, body)
+        } catch (err) {
+          console.log(err)
+        }
+      })
+    }
+  } catch (err) {
+    console.log(err)
   }
 }
 
