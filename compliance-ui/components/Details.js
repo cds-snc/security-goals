@@ -43,7 +43,7 @@ const detailsWrap = css`
   }
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.xl} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
   `)};
 
@@ -147,6 +147,7 @@ const details = css`
 `;
 
 const history = css`
+  margin-bottom: ${theme.spacing.xxl};
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.sm};
@@ -163,7 +164,13 @@ const history = css`
     }
   `)};
 
+  ${mediaQuery.lg(css`
+    margin-bottom: ${theme.spacing.xl};
+  `)};
+
   ${mediaQuery.sm(css`
+    margin-bottom: ${theme.spacing.lg};
+
     h1[name="history-h1"] {
       font-size: ${theme.font.lg};
     }

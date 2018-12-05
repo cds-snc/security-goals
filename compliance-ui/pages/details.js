@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
 
 const DetailsPage = ({ err, data }) => {
   return (
-    <Layout>
+    <Layout styles={{ paddingTop: "0" }}>
       <Details data={data} err={err} />
     </Layout>
   );

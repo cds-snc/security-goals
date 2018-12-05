@@ -6,7 +6,7 @@ const topPage = css`
   display: flex;
   align-items: center;
   color: ${theme.colour.black};
-  margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xxl};
+  margin: ${theme.spacing.xl} 0 ${theme.spacing.xl} ${theme.spacing.xxl};
   text-decoration: underline;
   cursor: pointer;
 
@@ -17,11 +17,11 @@ const topPage = css`
   }
 
   ${mediaQuery.lg(css`
-    margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xl};
+    margin: ${theme.spacing.lg} 0 ${theme.spacing.lg} ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
-    margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xl};
+    margin: ${theme.spacing.lg} 0 ${theme.spacing.lg} ${theme.spacing.xl};
     span {
       font-size: ${theme.font.sm};
       margin-left: ${theme.spacing.sm};

@@ -47,7 +47,6 @@ const actions = css`
 `;
 
 const actionsBottom = css`
-  padding-top: ${theme.spacing.xl};
   background: ${theme.colour.grayLight};
   svg {
     fill: ${theme.colour.white};
@@ -55,7 +54,7 @@ const actionsBottom = css`
   }
 
   span {
-    margin: ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md} 0;
+    margin: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.lg} 0;
     color: ${theme.colour.white};
     text-decoration: underline;
   }
