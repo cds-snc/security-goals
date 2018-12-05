@@ -6,7 +6,7 @@ steps:
     dir: 'compliance-api'
     args: ['test']
     env:
-     - 'CHECKS_PATH=./src/__tests__/testData/checks'
+     - 'CHECKS_PATH=src/__tests__/testData/checks'
      - 'DEFINITIONS_URL=https://raw.githubusercontent.com/cds-snc/ITSG-33-definitions/master/ITSG-33a.yaml'
      - 'CERTIFICATION_URL=https://raw.githubusercontent.com/cds-snc/ITSG-33-baselines/master/light.yaml'
      - 'DB_URI=mongodb://'
