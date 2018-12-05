@@ -43,9 +43,16 @@ spec:
               port: 3000
             initialDelaySeconds: 5
             periodSeconds: 5
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim
 status: {}

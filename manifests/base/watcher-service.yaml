@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: compliance-watcher
+  name: compliance-watcher
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    name: compliance-watcher

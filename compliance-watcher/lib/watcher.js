@@ -104,7 +104,7 @@ export const restartJobs = async config => {
       }
     }
     const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
-    const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi-jobs'
+    const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi'
 
     const res = await jobsApi.listNamespacedJob(namespace)
     if ('items' in res.body) {
