@@ -33,10 +33,12 @@ const controlQuery = control => {
 const allReleaseQuery = release => {
   return `query{
     releases {
-release
-timestamp
-passed
-}
+      release
+      timestamp
+      passed
+      passing
+      total
+      }
   }`;
 };
 

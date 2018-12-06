@@ -6,6 +6,7 @@ const topInfo = css`
   justify-content: space-between;
   span:first-of-type {
     font-size: ${theme.font.lg};
+    color: ${theme.colour.blackLight};
     font-weight: 700;
     margin-bottom: ${theme.spacing.md};
     width: 80%;

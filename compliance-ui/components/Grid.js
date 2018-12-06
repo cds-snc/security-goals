@@ -104,7 +104,6 @@ const Grid = ({ controls = { items: [] }, link = false, tab }) => {
 
   return (
     <ul name="grid" className={grid} tabIndex="0">
-      {console.log(control)}
       {controls.items.map((control, index) => {
         const key = `${control.id}-${index}`;
         const check = control.status ? greenBG : redBG;

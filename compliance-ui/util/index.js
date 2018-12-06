@@ -37,7 +37,7 @@ const sortByStatusAndTimestamp = (item, status) => {
   return sortByKey(sorted, "timestamp").reverse();
 };
 
-const formatTimestamp = timestamp => {
+export const formatTimestamp = timestamp => {
   return format(parse(timestamp), "YYYY-MM-DD HH:mm:ss A");
 };
 
