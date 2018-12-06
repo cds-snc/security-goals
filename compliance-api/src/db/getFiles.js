@@ -9,6 +9,13 @@ const getFiles = async (path = process.env.CHECKS_PATH) => {
     throw new Error(`Checks directory isn't a readable directory: ${message}`)
   }
   let files = await fs.readdir(path)
+
+  if (!files) {
+    console.log('files not found')
+  }
+
+  console.log(`found ${files.length} files`)
+
   let jsonFiles = files
     .filter(f => f.match(/.json$/) !== null)
     .map(f => join(path, f.match(/.json$/).input))
