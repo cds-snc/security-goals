@@ -32,6 +32,7 @@ const detailsWrap = css`
 
   a {
     text-decoration: underline;
+    color: ${theme.colour.blackLight};
   }
 
   li[name="control-box"]:hover {
@@ -78,6 +79,7 @@ const details = css`
   h1[name="verification-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.md};
+    color: ${theme.colour.blackLight};
 
     ${mediaQuery.sm(css`
       font-size: ${theme.font.lg};
@@ -151,6 +153,7 @@ const history = css`
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.sm};
+    color: ${theme.colour.blackLight};
   }
 
   p[name="desc"] {
@@ -211,7 +214,7 @@ export const Details = ({ data, err, router = false }) => {
         {id && (
           <React.Fragment>
             <a name="back" href="/" className={back}>
-              <BackIcon fill={theme.colour.black} />
+              <BackIcon fill={theme.colour.blackLight} />
               Back
             </a>
             <h1 name="verification-h1">Verification:</h1>

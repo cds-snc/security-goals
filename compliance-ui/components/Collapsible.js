@@ -41,6 +41,7 @@ const container = css`
   margin-bottom: ${theme.spacing.lg};
   h1[name="collapsible-h1"] {
     margin-top: 0;
+    color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
     width: 100%;
     font-size: ${theme.font.xl};
@@ -59,6 +60,7 @@ const toggle = css`
     margin: 0;
     margin-right: 10px;
     font-weight: 700;
+    color: ${theme.colour.blackLight};
   }
   width: 100%;
   display: flex;
