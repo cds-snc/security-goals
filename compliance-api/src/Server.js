@@ -7,8 +7,10 @@ const { schema } = require('./schema')
 const Server = compliancePosture => {
   let server = express()
   server.use(cors())
-  //compliancePosture
-  server.use('/', graphqlHTTP({ schema, graphiql: true, rootValue: {} }))
+  server.use(
+    '/',
+    graphqlHTTP({ schema, graphiql: true, rootValue: compliancePosture }),
+  )
   return server
 }
 
