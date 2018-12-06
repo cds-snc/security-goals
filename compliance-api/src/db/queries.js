@@ -66,16 +66,22 @@ const sumRelease = async sha => {
   updateRelease(sha, totals)
 }
 
-const getAllReleases = async () => {
-  note('=== get all releases ===')
+const getRelease = async (sha = '') => {
+  let match = {}
+  if (sha) {
+    match = { release: sha }
+  }
+
+  note(`=== get release(s) ${sha} ===`)
   const result = await releaseModel
     .aggregate([
-      { $match: {} },
+      { $match: match },
       {
         $project: {
           release: 1,
           timestamp: '$createdAt',
           passed: 1,
+          controls: 1,
           passing: 1,
           total: 1,
         },
@@ -84,30 +90,6 @@ const getAllReleases = async () => {
     .exec()
 
   return result
-}
-
-const getReleaseControls = async sha => {
-  note('=== get release controls ===')
-  const result = await releaseModel
-    .aggregate([
-      { $match: { release: sha } },
-      {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          controls: 1,
-          passed: 1,
-          passing: 1,
-          total: 1,
-        },
-      },
-      { $limit: 1 },
-    ])
-    .exec()
-
-  console.log(result)
-
-  return result[0]
 }
 
 const getControl = async control => {
@@ -184,8 +166,7 @@ const updateRelease = async (sha, { passing, passed, total }) => {
 module.exports = {
   getControl,
   sumRelease,
-  getAllReleases,
-  getReleaseControls,
+  getRelease,
   checkExists,
   saveReleaseToDB,
 }

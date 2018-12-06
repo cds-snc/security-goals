@@ -1,28 +1,6 @@
 const { Release } = require('../types/Release')
-const { getAllReleases } = require('../db/queries')
+const { getRelease } = require('../db/queries')
 const { GraphQLList } = require('graphql')
-
-/*
-{
-  releases {
-    release
-    timestamp
-    passed
-    passing
-    total
-  }
-}
-*/
-
-const mapAttributes = (model, { fieldNodes }) => {
-  // get the fields of the Model (columns of the table)
-  const columns = new Set(Object.keys(model.rawAttributes))
-  const requested_attributes = fieldNodes[0].selectionSet.selections.map(
-    ({ name: { value } }) => value,
-  )
-  // filter the attributes against the columns
-  return requested_attributes.filter(attribute => columns.has(attribute))
-}
 
 const releases = {
   description: 'Returns a list of releases',
@@ -30,6 +8,7 @@ const releases = {
   // eslint-disable-next-line no-unused-vars
   resolve: async (root, { id }, context, info) => {
     try {
+      /*
       const requested_attributes = info.fieldNodes[0].selectionSet.selections.map(
         ({ name: { value } }) => value,
       )
@@ -37,8 +16,9 @@ const releases = {
       if (requested_attributes.includes('controls')) {
         console.log('get controls')
       }
+      */
 
-      return await getAllReleases()
+      return await getRelease()
     } catch (e) {
       console.log(e.message)
     }

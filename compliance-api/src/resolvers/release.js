@@ -1,28 +1,6 @@
-const { getControl } = require('../db/queries')
+const { getRelease } = require('../db/queries')
 const { Release } = require('../types/Release')
 const { GraphQLString } = require('graphql')
-
-/*
-{
-  release(id: "80e61288-ef33-11e8-908e-06d86cf01138") {
-    passed
-    passing
-    total
-    controls {
-      fileId
-      control
-      verifications {
-        origin
-        timestamp
-        passed
-        description
-        component
-        references
-      }
-    }
-  }
-}
-*/
 
 const release = {
   description: 'Returns details for a single release',
@@ -35,7 +13,8 @@ const release = {
   },
   resolve: async (root, { id }) => {
     try {
-      return await getReleaseControls(id)
+      const result = await getRelease(id)
+      return result[0]
     } catch (e) {
       console.log(e.message)
     }
