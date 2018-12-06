@@ -1,10 +1,14 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
 
-const releaseBox = css`
+const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
   border: 1px solid ${theme.colour.grayOutline};
   background: ${theme.colour.white};
+
+  &:hover {
+    background: ${theme.colour.greenLight};
+  }
 
   p {
     margin: 0;
@@ -30,6 +34,13 @@ const releaseBox = css`
   }
 `;
 
+const releaseBoxFailing = css`
+  ${releaseBoxPassing};
+  &:hover {
+    background: ${theme.colour.redLight};
+  }
+`;
+
 const passingText = css`
   color: ${theme.colour.white};
   background: ${theme.colour.greenDark};
@@ -40,16 +51,41 @@ const passingText = css`
 
 const failingText = css`
   color: ${theme.colour.redwhite};
+  background: ${theme.colour.greenDark};
+  padding: ${theme.spacing.xs};
+  font-size: ${theme.font.sm};
+  border-radius: 5px;
 `;
 
-const releaseLink = css`
+const releaseFocusPassing = css`
   text-decoration: none;
+
+  div:focus {
+    outline-offset: -3px;
+    outline: 3px solid ${theme.colour.greenDark};
+  }
+`;
+
+const releaseFocusFailing = css`
+  text-decoration: none;
+
+  div:focus {
+    outline-offset: -3px;
+    outline: 3px solid ${theme.colour.redDark};
+  }
 `;
 
 const ReleaseBox = ({ release, timestamp, passed, passing, total }) => {
   return (
-    <a href="#" className={releaseLink}>
-      <div className={releaseBox}>
+    <a
+      tabIndex="-1"
+      href="#"
+      className={passed ? releaseFocusPassing : releaseFocusFailing}
+    >
+      <div
+        tabIndex="0"
+        className={passed ? releaseBoxPassing : releaseBoxFailing}
+      >
         <div>
           <div>
             <span>Release #{release}</span>
