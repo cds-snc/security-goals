@@ -4,6 +4,7 @@ metadata:
   labels:
     name: compliance-watcher
   name: compliance-watcher
+  namespace: symmorfosi
 spec:
   ports:
     - port: 3000
