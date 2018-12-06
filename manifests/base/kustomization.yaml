@@ -8,4 +8,6 @@ resources:
   - watcher-service.yaml
   - mongo-deployment.yaml
   - mongo-service.yaml
+  - api-deployment.yaml
+  - api-service.yaml
 

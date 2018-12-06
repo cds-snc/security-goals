@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: mongo 
+    name: mongo
   name: mongo 
   namespace: symmorfosi
 spec:
