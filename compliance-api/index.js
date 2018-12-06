@@ -1,4 +1,4 @@
-require('dotenv-safe').config()
+require('dotenv-safe').config({ allowEmptyValues: true })
 const { getChecks } = require('./src/getChecks.js')
 const { fetchYaml } = require('./src/fetchYaml.js')
 const { createCompliance } = require('./src/createCompliance.js')
@@ -33,9 +33,13 @@ const { saveFiles } = require('./src/db/save')
 
     console.log(`⚡ Ready on http://localhost:${port}`)
 
-    await dbConnect()
-    await clearCollection()
-    await saveFiles()
-    await watchChecks()
+    try {
+      await dbConnect()
+      await clearCollection()
+      await saveFiles()
+      await watchChecks()
+    } catch (e) {
+      console.log(e.message)
+    }
   })
 })()

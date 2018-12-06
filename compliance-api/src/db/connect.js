@@ -1,18 +1,24 @@
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 
-const connect = async (uri, user, password) => {
+const connect = async (uri, user = '', password = '') => {
   const mongodbUri = uri
+  let connect = null
   try {
-    await mongoose.connect(
+    const options = {
+      useNewUrlParser: true,
+    }
+
+    if (user) {
+      options.auth = {
+        user: user,
+        password: password,
+      }
+    }
+
+    connect = await mongoose.connect(
       mongodbUri,
-      {
-        useNewUrlParser: true,
-        auth: {
-          user: user,
-          password: password,
-        },
-      },
+      options,
     )
   } catch (err) {
     console.error('⚠ Database connection error:', err.message)
