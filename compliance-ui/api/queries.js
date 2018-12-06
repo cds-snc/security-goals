@@ -30,4 +30,14 @@ const controlQuery = control => {
    }`;
 };
 
-module.exports = { allControlsQuery, controlQuery };
+const allReleaseQuery = release => {
+  return `query{
+    releases {
+release
+timestamp
+passed
+}
+  }`;
+};
+
+module.exports = { allControlsQuery, controlQuery, allReleaseQuery };
