@@ -15,6 +15,10 @@ const releases = css`
   }
 `;
 
+const releaseList = css`
+  margin-bottom: ${theme.spacing.xxl};
+`;
+
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
 if (typeof window !== "undefined") {
@@ -26,18 +30,20 @@ const ReleasesPage = ({ data }) => {
     <Layout>
       <div className={releases}>
         <h1> Latest Releases: </h1>
-        {data.releases.map((singleRelease, index) => {
-          var myDate = new Date(singleRelease.timestamp * 1000);
-          return (
-            <ReleaseBox
-              release={singleRelease.release}
-              passed={singleRelease.passed}
-              timestamp={myDate}
-              passing={singleRelease.passing}
-              total={singleRelease.total}
-            />
-          );
-        })}
+        <div className={releaseList}>
+          {data.releases.map((singleRelease, index) => {
+            var myDate = new Date(singleRelease.timestamp * 1000);
+            return (
+              <ReleaseBox
+                release={singleRelease.release}
+                passed={singleRelease.passed}
+                timestamp={myDate}
+                passing={singleRelease.passing}
+                total={singleRelease.total}
+              />
+            );
+          })}
+        </div>
       </div>
     </Layout>
   );
