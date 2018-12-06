@@ -3,6 +3,12 @@ const { checkExists, saveReleaseToDB } = require('./queries')
 const filenamify = require('filenamify')
 const { q } = require('./queue')
 const merge = require('object-array-merge')
+const chalk = require('chalk')
+const log = console.log
+
+const note = message => {
+  log(chalk.black.bgGreen('\n\n' + message))
+}
 
 const getFileData = async () => {
   try {
@@ -103,6 +109,12 @@ const mapToControlEntry = async file => {
   await asyncForEach(file.satisfies, async control => {
     const id = filenamify(control)
     const { satisfies, ...check } = file // get obj without satisfies prop
+
+    if (file && !file.release) {
+      note(`no release property set ${file.fileRef}`)
+      return {}
+    }
+
     obj.release = file.release
     obj.controls.push({
       control,
@@ -128,6 +140,9 @@ const saveFiles = async () => {
     const files = await getFileData()
     const cb = async file => {
       const obj = await flattenAndSave(file, async obj => {
+        if (!obj || !obj.release) {
+          return
+        }
         return await saveReleaseToDB(obj)
       })
       q.doAction(cb)
