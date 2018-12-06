@@ -16,16 +16,17 @@ const connect = async (uri, user = '', password = '') => {
       }
     }
 
-    connect = await mongoose.connect(
-      mongodbUri,
-      options,
-    )
+    connect = await mongoose
+      .connect(
+        mongodbUri,
+        options,
+      )
+      .then(() => console.log('⚡ Database connected'))
   } catch (err) {
     console.error('⚠ Database connection error:', err.message)
     return false
   }
 
-  console.info('⚡ Database connected')
   return connect
 }
 
