@@ -132,8 +132,6 @@ const getReleaseControl = async (control, release) => {
       },
     ])
     .exec()
-
-  console.log(result)
 }
 
 const unwindReleaseControls = async sha => {
@@ -144,7 +142,7 @@ const unwindReleaseControls = async sha => {
 
 // update release with totals
 const updateRelease = async (sha, { passing, passed, total }) => {
-  console.log(`release ${sha} =>  ${passing} of ${total}`)
+  console.log(`updated ${sha} =>  ${passing} of ${total} passing`)
 
   return await releaseModel
     .findOneAndUpdate(

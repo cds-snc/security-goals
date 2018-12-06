@@ -1,6 +1,12 @@
 const { promises: fs, constants: fsConstants } = require('fs')
 const { join, basename } = require('path') // eslint-disable-line no-unused-vars
 const { readFile } = require('./readFile')
+const chalk = require('chalk')
+const log = console.log
+
+const note = message => {
+  log(chalk.black.bgGreen('\n\n' + message))
+}
 
 const getFiles = async (path = process.env.CHECKS_PATH) => {
   try {
@@ -11,10 +17,10 @@ const getFiles = async (path = process.env.CHECKS_PATH) => {
   let files = await fs.readdir(path)
 
   if (!files) {
-    console.log('files not found')
+    note('☠ files not found')
   }
 
-  console.log(`found ${files.length} files`)
+  note(`★ found ${files.length} files`)
 
   let jsonFiles = files
     .filter(f => f.match(/.json$/) !== null)

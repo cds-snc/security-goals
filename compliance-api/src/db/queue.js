@@ -9,7 +9,7 @@ const q = {
     let items = this.getItems()
 
     if (items === false) {
-      console.log('done')
+      console.log('all files saved')
       return
     }
 

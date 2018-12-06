@@ -36,8 +36,8 @@ const { saveFiles } = require('./src/db/save')
     try {
       await dbConnect()
       await clearCollection()
-      await saveFiles()
       await watchChecks()
+      await saveFiles()
     } catch (e) {
       console.log(e.message)
     }

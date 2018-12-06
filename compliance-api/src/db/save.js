@@ -48,7 +48,6 @@ const checkControlExists = (fileControls, existingControls) => {
     const exists = contains(existingControls, 'control', item.control)
     if (exists.length < 1) {
       // add new control to the release
-      console.log('add new control')
       newControls.push(item)
     } else {
       const verfied = checkVerificationExist(
@@ -70,14 +69,11 @@ const flattenAndSave = async (file = false, save = () => {}) => {
 
   // check if there's an existing release
   if (!result.length) {
-    console.log('new release')
     return save(obj)
   }
 
   const existingControls = result[0].controls
   const newControls = checkControlExists(obj.controls, existingControls)
-  //console.log('=================')
-  //console.log(verifications)
 
   if (newControls.length >= 1) {
     // merge existing and new controls
@@ -111,7 +107,7 @@ const mapToControlEntry = async file => {
     const { satisfies, ...check } = file // get obj without satisfies prop
 
     if (file && !file.release) {
-      note(`no release property set ${file.fileRef}`)
+      note(`☠ no release property set ${file.fileRef}`)
       return {}
     }
 
