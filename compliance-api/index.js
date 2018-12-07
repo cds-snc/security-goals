@@ -1,20 +1,18 @@
 require('dotenv-safe').config({ allowEmptyValues: true })
-const { getChecks } = require('./src/getChecks.js')
 const { fetchYaml } = require('./src/fetchYaml.js')
 const { createCompliance } = require('./src/createCompliance.js')
-const { Server } = require('./src/Server')
+const { Server } = require('./src/server')
 const { dbConnect } = require('./src/db/connect')
 const { clearCollection } = require('./src/db/clearCollection')
 const { watchChecks } = require('./src/db/watcher')
 const { saveFiles } = require('./src/db/save')
 ;(async () => {
   const {
-    CHECKS_PATH: checksPath,
     DEFINITIONS_URL: definitionsUrl,
     CERTIFICATION_URL: certificationUrl,
   } = process.env
 
-  let checks = await getChecks(checksPath)
+  let checks = []
   let certification = await fetchYaml(certificationUrl)
   let definitions = await fetchYaml(definitionsUrl)
 

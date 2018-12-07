@@ -12,27 +12,30 @@ const createComplianceTarget = (standard, definitions) =>
   Object.entries(standard).reduce((target, [k]) => {
     target[k] = definitions[k]
     target[k].id = k
-    target[k].verifications = []
+    //target[k].verifications = []
     return target
   }, {})
 
-const addControlsWithVerifications = (checks, target, definitions) =>
-  checks.reduce((status, check) => {
+const addControlsWithVerifications = (checks, target, definitions) => {
+  return checks.reduce((status, check) => {
     check.satisfies.forEach(ctl => {
       if (status[ctl]) {
+        /*
         if (status[ctl].verifications) {
           status[ctl].verifications = [...status[ctl].verifications, check]
         } else {
           status[ctl].verifications = [check]
         }
+        */
       } else {
         status[ctl] = definitions[ctl]
-        status[ctl].verifications = [check]
+        //status[ctl].verifications = [check]
         status[ctl].id = ctl
       }
     })
     return status
   }, target)
+}
 
 module.exports.createCompliance = async ({
   definitions,

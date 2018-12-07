@@ -1,9 +1,4 @@
-const {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLString,
-} = require('graphql')
-const { Verification } = require('./Verification')
+const { GraphQLObjectType, GraphQLString } = require('graphql')
 
 const OpenControl = new GraphQLObjectType({
   name: 'OpenControl',
@@ -24,10 +19,6 @@ const OpenControl = new GraphQLObjectType({
     description: {
       description: 'a description of the control',
       type: GraphQLString,
-    },
-    verifications: {
-      description: 'verifications',
-      type: new GraphQLList(Verification),
     },
   }),
 })
