@@ -6,32 +6,6 @@ const note = message => {
   log(chalk.black.bgGreen('\n\n' + message))
 }
 
-const getRelease = async (sha = '') => {
-  let match = {}
-  if (sha) {
-    match = { release: sha }
-  }
-
-  note(`=== get release(s) ${sha} ===`)
-  const result = await releaseModel
-    .aggregate([
-      { $match: match },
-      {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          passed: 1,
-          controls: 1,
-          passing: 1,
-          total: 1,
-        },
-      },
-    ])
-    .exec()
-
-  return result
-}
-
 const getControl = async control => {
   note(`=== get control ===`)
 
@@ -155,7 +129,6 @@ const updateRelease = async (sha, { passing, passed, total }) => {
 module.exports = {
   getControl,
   sumRelease,
-  getRelease,
   checkExists,
   saveReleaseToDB,
 }

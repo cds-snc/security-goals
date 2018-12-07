@@ -1,6 +1,39 @@
 const { Release } = require('../types/Release')
-const { getRelease } = require('../db/queries')
 const { GraphQLList, GraphQLString } = require('graphql')
+const { releaseModel } = require('../db/model')
+const chalk = require('chalk')
+const log = console.log
+
+const note = message => {
+  log(chalk.black.bgGreen('\n\n' + message))
+}
+
+// db query
+const getRelease = async (sha = '') => {
+  let match = {}
+  if (sha) {
+    match = { release: sha }
+  }
+
+  note(`=== get release(s) ${sha} ===`)
+  const result = await releaseModel
+    .aggregate([
+      { $match: match },
+      {
+        $project: {
+          release: 1,
+          timestamp: '$createdAt',
+          passed: 1,
+          controls: 1,
+          passing: 1,
+          total: 1,
+        },
+      },
+    ])
+    .exec()
+
+  return result
+}
 
 const releases = {
   description: 'Returns a list of releases',
@@ -20,6 +53,9 @@ const releases = {
       based on fields requested i.e. if user doesn't request controls
       don't query the database for it
       */
+
+      // add limit
+      // add orderby timestamp
 
       //https://github.com/alekbarszczewski/graphql-query-tree
 
