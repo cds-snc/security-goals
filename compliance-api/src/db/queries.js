@@ -6,6 +6,39 @@ const note = message => {
   log(chalk.black.bgGreen('\n\n' + message))
 }
 
+const getControl = async control => {
+  note(`=== get control ===`)
+
+  // @todo update this query to target single release
+  // add => { $match: { 'controls.control': control, release } },
+
+  const result = await releaseModel
+    .aggregate([
+      { $unwind: '$controls' },
+      { $match: { 'controls.control': control } },
+      {
+        $project: {
+          release: 1,
+          timestamp: '$createdAt',
+          controls: 1,
+          passed: 1,
+          passing: 1,
+          total: 1,
+        },
+      },
+      {
+        $sort: {
+          _id: 1,
+        },
+      },
+    ])
+    .exec()
+
+  return result
+}
+
+// SAVE ==========================================
+
 const sumArray = (a, c) => a + c
 
 const sumReleaseControls = async results => {
@@ -60,84 +93,16 @@ const saveReleaseToDB = async obj => {
   }
 }
 
-const sumRelease = async sha => {
-  const results = await unwindReleaseControls(sha)
-  const totals = await sumReleaseControls(results)
-  updateRelease(sha, totals)
-}
-
-const getRelease = async (sha = '') => {
-  let match = {}
-  if (sha) {
-    match = { release: sha }
-  }
-
-  note(`=== get release(s) ${sha} ===`)
-  const result = await releaseModel
-    .aggregate([
-      { $match: match },
-      {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          passed: 1,
-          controls: 1,
-          passing: 1,
-          total: 1,
-        },
-      },
-    ])
-    .exec()
-
-  return result
-}
-
-const getControl = async control => {
-  note(`=== get control ===`)
-  const result = await releaseModel
-    .aggregate([
-      { $unwind: '$controls' },
-      { $match: { 'controls.control': control } },
-      {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          controls: 1,
-          passed: 1,
-          passing: 1,
-          total: 1,
-        },
-      },
-      {
-        $sort: {
-          _id: 1,
-        },
-      },
-    ])
-    .exec()
-
-  return result
-}
-
-const getReleaseControl = async (control, release) => {
-  note(` === get release control ===`)
-  const result = await releaseModel
-    .aggregate([
-      { $unwind: '$controls' },
-      { $match: { 'controls.control': control, release } },
-      {
-        $sort: {
-          _id: -1,
-        },
-      },
-    ])
-    .exec()
-}
-
 const unwindReleaseControls = async sha => {
   return await releaseModel
     .aggregate([{ $match: { release: sha } }, { $unwind: '$controls' }])
     .exec()
+}
+
+const sumRelease = async sha => {
+  const results = await unwindReleaseControls(sha)
+  const totals = await sumReleaseControls(results)
+  updateRelease(sha, totals)
 }
 
 // update release with totals
@@ -164,7 +129,6 @@ const updateRelease = async (sha, { passing, passed, total }) => {
 module.exports = {
   getControl,
   sumRelease,
-  getRelease,
   checkExists,
   saveReleaseToDB,
 }
