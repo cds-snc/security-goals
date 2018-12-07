@@ -1,12 +1,14 @@
+// @ts-check
 const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
-const filenamify = require('filenamify')
 const { q } = require('./queue')
+// @ts-ignore
 const merge = require('object-array-merge')
 const chalk = require('chalk')
 const log = console.log
 
 const note = message => {
+  // @ts-ignore
   log(chalk.black.bgGreen('\n\n' + message))
 }
 
@@ -19,6 +21,11 @@ const getFileData = async () => {
   }
 }
 
+/**
+ * @param {array} arr - The array we care going to search
+ * @param {string} index - The index in the array we want to match agaist
+ * @param {string} val - The value we want to match agaist
+ */
 const contains = (arr, index, val) => {
   if (!arr) {
     return []
@@ -61,7 +68,7 @@ const checkControlExists = (fileControls, existingControls) => {
   return newControls
 }
 
-const flattenAndSave = async (file = false, save = () => {}) => {
+const flattenAndSave = async (file = {}, save = () => {}) => {
   if (!file || !file.satisfies) return
 
   const obj = await mapToControlEntry(file)
@@ -103,7 +110,7 @@ const mapToControlEntry = async file => {
   }
 
   await asyncForEach(file.satisfies, async control => {
-    const id = filenamify(control)
+    // eslint-disable-next-line no-unused-vars
     const { satisfies, ...check } = file // get obj without satisfies prop
 
     if (file && !file.release) {
@@ -127,7 +134,7 @@ const saveFile = async file => {
     await flattenAndSave(file, saveReleaseToDB)
   } catch (e) {
     console.log(e.message)
-    //process.exit()
+    // process.exit()
   }
 }
 
@@ -135,11 +142,13 @@ const saveFiles = async () => {
   try {
     const files = await getFileData()
     const cb = async file => {
+      // eslint-disable-next-line no-unused-vars
       const obj = await flattenAndSave(file, async obj => {
+        // @ts-ignore
         if (!obj || !obj.release) {
           return
         }
-        return await saveReleaseToDB(obj)
+        return saveReleaseToDB(obj)
       })
       q.doAction(cb)
     }
@@ -148,7 +157,7 @@ const saveFiles = async () => {
     q.doAction(cb)
   } catch (e) {
     console.log(e.message)
-    //process.exit()
+    // process.exit()
   }
 }
 

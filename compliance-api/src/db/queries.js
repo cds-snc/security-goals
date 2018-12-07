@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const log = console.log
 
 const note = message => {
+  // @ts-ignore
   log(chalk.black.bgGreen('\n\n' + message))
 }
 
@@ -94,7 +95,7 @@ const saveReleaseToDB = async obj => {
 }
 
 const unwindReleaseControls = async sha => {
-  return await releaseModel
+  return releaseModel
     .aggregate([{ $match: { release: sha } }, { $unwind: '$controls' }])
     .exec()
 }
@@ -106,16 +107,16 @@ const sumRelease = async sha => {
 }
 
 // update release with totals
-const updateRelease = async (sha, { passing, passed, total }) => {
+const updateRelease = async (sha, { passing, total }) => {
   console.log(`updated ${sha} =>  ${passing} of ${total} passing`)
 
-  return await releaseModel
+  return releaseModel
     .findOneAndUpdate(
       { release: sha },
       {
         passing: passing,
         total: total,
-        passed: passing === total ? true : false,
+        passed: passing === total,
       },
       err => {
         if (err) {
