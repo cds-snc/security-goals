@@ -1,24 +1,29 @@
 const { Release } = require('../types/Release')
 const { getRelease } = require('../db/queries')
-const { GraphQLList } = require('graphql')
+const { GraphQLList, GraphQLString } = require('graphql')
 
 const releases = {
   description: 'Returns a list of releases',
   type: new GraphQLList(Release),
+  args: {
+    id: {
+      type: GraphQLString,
+      description: 'optional release id to limit to specific release',
+    },
+  },
   // eslint-disable-next-line no-unused-vars
   resolve: async (root, { id }, context, info) => {
     try {
-      /*
-      const requested_attributes = info.fieldNodes[0].selectionSet.selections.map(
-        ({ name: { value } }) => value,
-      )
-
-      if (requested_attributes.includes('controls')) {
-        console.log('get controls')
-      }
+      // @todo
+      /* 
+      parse info object to change the database projection 
+      based on fields requested i.e. if user doesn't request controls
+      don't query the database for it
       */
 
-      return await getRelease()
+      //https://github.com/alekbarszczewski/graphql-query-tree
+
+      return await getRelease(id)
     } catch (e) {
       console.log(e.message)
     }
