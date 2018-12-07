@@ -1,33 +1,37 @@
 const { Release } = require('../types/Release')
 const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql')
+const GraphqlQueryTree = require('graphql-query-tree').default
 const { releaseModel } = require('../db/model')
-const chalk = require('chalk')
-const log = console.log
-
-const note = message => {
-  log(chalk.black.bgGreen('\n\n' + message))
-}
 
 // db query
-const getRelease = async ({ releaseId = '', limit = 10000 }) => {
+const getRelease = async ({
+  releaseId = '',
+  limit = 10000,
+  withControls = false,
+}) => {
   let match = {}
   if (releaseId) {
     match = { release: releaseId }
   }
 
-  note(`=== get release(s) ${releaseId} ===`)
+  const fields = {
+    release: 1,
+    timestamp: '$createdAt',
+    passed: 1,
+    passing: 1,
+    total: 1,
+  }
+
+  // include the control field if requested in the query
+  if (withControls) {
+    fields.controls = 1
+  }
+
   const result = await releaseModel
     .aggregate([
       { $match: match },
       {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          passed: 1,
-          controls: 1,
-          passing: 1,
-          total: 1,
-        },
+        $project: fields,
       },
       { $sort: { timestamp: -1 } },
       { $limit: limit },
@@ -53,16 +57,9 @@ const releases = {
   // eslint-disable-next-line no-unused-vars
   resolve: async (root, { releaseId, limit }, context, info) => {
     try {
-      // @todo
-      /* 
-      parse info object to change the database projection 
-      based on fields requested i.e. if user doesn't request controls
-      don't query the database for it
-      */
-
-      //https://github.com/alekbarszczewski/graphql-query-tree
-
-      return await getRelease({ releaseId, limit })
+      const tree = new GraphqlQueryTree(info)
+      const withControls = tree.isSelected('controls')
+      return await getRelease({ releaseId, limit, withControls })
     } catch (e) {
       console.log(e.message)
     }
