@@ -6,7 +6,9 @@ export const allControlsStatus = async () => {
 };
 
 export const controlStatus = async control => {
-  return fetchGraphQL(controlQuery(control));
+  const result = await fetchGraphQL(controlQuery(control));
+  console.log(result);
+  return result;
 };
 
 export const releaseStatus = async () => {

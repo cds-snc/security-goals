@@ -218,6 +218,7 @@ export const Details = ({ data, err, router = false }) => {
               Back
             </a>
             <h1 name="verification-h1">Verification:</h1>
+            <pre>CONTROL:{control}</pre>
             <Collapsible
               title={title}
               description={description}

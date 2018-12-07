@@ -20,6 +20,13 @@ app.prepare().then(() => {
   server.get("/controls/:control", (req, res) => {
     const actualPage = "/details";
     const queryParams = { control: req.params.control };
+    console.log(queryParams);
+    app.render(req, res, actualPage, queryParams);
+  });
+
+  server.get("/singlerelease/:release", (req, res) => {
+    const queryParams = { release: req.params.release };
+    const actualPage = "/release";
     app.render(req, res, actualPage, queryParams);
   });
 

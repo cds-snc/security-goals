@@ -97,7 +97,7 @@ const redBG = css`
   }
 `;
 
-const Grid = ({ controls = { items: [] }, link = false, tab }) => {
+const Grid1 = ({ controls = { items: [] }, link = false, tab }) => {
   if (!controls.items.length) {
     return <div data-testid="not-found">No Verifications found</div>;
   }
@@ -115,6 +115,21 @@ const Grid = ({ controls = { items: [] }, link = false, tab }) => {
             {...control}
             link={link}
           />
+        );
+      })}
+    </ul>
+  );
+};
+
+const Grid = ({ releases = [], link = false, tab }) => {
+  return (
+    <ul name="grid" className={grid} tabIndex="0">
+      {releases.map(item => {
+        const key = `${item.release}`;
+        return (
+          <li>
+            <a href={`/controls/${key}`}>{key}</a>
+          </li>
         );
       })}
     </ul>

@@ -1,5 +1,6 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import Link from "next/link";
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -75,30 +76,33 @@ const releaseFocusFailing = css`
   }
 `;
 
-const ReleaseBox = ({ release, timestamp, passed, passing, total }) => {
+const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
   return (
-    <a
+    <Link
+      as={link}
       tabIndex="-1"
-      href="#"
+      href={link}
       className={passed ? releaseFocusPassing : releaseFocusFailing}
     >
-      <div
-        tabIndex="0"
-        className={passed ? releaseBoxPassing : releaseBoxFailing}
-      >
-        <div>
+      <a>
+        <div
+          tabIndex="0"
+          className={passed ? releaseBoxPassing : releaseBoxFailing}
+        >
           <div>
-            <span>Release #{release}</span>
+            <div>
+              <span>Release #{release}</span>
+            </div>
+            <div>
+              <span className={passed ? passingText : failingText}>
+                {passed ? "Passed" : "Failed"}
+              </span>
+            </div>
           </div>
-          <div>
-            <span className={passed ? passingText : failingText}>
-              {passed ? "Passed" : "Failed"}
-            </span>
-          </div>
+          <p>{timestamp.toGMTString()}</p>
         </div>
-        <p>{timestamp.toGMTString()}</p>
-      </div>
-    </a>
+      </a>
+    </Link>
   );
 };
 

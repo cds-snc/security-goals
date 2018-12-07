@@ -23,11 +23,22 @@ const allControlsQuery = () => {
        }`;
 };
 
-const controlQuery = control => {
-  const type = `control(id: "${control}")`;
-  return `query{
-      ${setFields(type)}
+const controlQuery = releaseID => {
+  const query = `query{
+    releases(id: "${releaseID}"){
+      release
+      timestamp
+      passed
+      passing
+      total
+      controls {
+        control
+        fileId
+      }
+}
    }`;
+  console.log(query);
+  return query;
 };
 
 const allReleaseQuery = release => {
