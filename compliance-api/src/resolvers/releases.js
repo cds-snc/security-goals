@@ -1,34 +1,40 @@
 const { Release } = require('../types/Release')
-const { GraphQLList, GraphQLString } = require('graphql')
+const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql')
+const GraphqlQueryTree = require('graphql-query-tree').default
 const { releaseModel } = require('../db/model')
-const chalk = require('chalk')
-const log = console.log
-
-const note = message => {
-  log(chalk.black.bgGreen('\n\n' + message))
-}
 
 // db query
-const getRelease = async (sha = '') => {
+const getRelease = async ({
+  releaseId = '',
+  limit = 10000,
+  withControls = false,
+}) => {
   let match = {}
-  if (sha) {
-    match = { release: sha }
+  if (releaseId) {
+    match = { release: releaseId }
   }
 
-  note(`=== get release(s) ${sha} ===`)
+  const fields = {
+    release: 1,
+    timestamp: '$createdAt',
+    passed: 1,
+    passing: 1,
+    total: 1,
+  }
+
+  // include the control field if requested in the query
+  if (withControls) {
+    fields.controls = 1
+  }
+
   const result = await releaseModel
     .aggregate([
       { $match: match },
       {
-        $project: {
-          release: 1,
-          timestamp: '$createdAt',
-          passed: 1,
-          controls: 1,
-          passing: 1,
-          total: 1,
-        },
+        $project: fields,
       },
+      { $sort: { timestamp: -1 } },
+      { $limit: limit },
     ])
     .exec()
 
@@ -39,27 +45,21 @@ const releases = {
   description: 'Returns a list of releases',
   type: new GraphQLList(Release),
   args: {
-    id: {
+    releaseId: {
       type: GraphQLString,
       description: 'optional release id to limit to specific release',
     },
+    limit: {
+      type: GraphQLInt,
+      description: 'maximum number of releases to pull',
+    },
   },
   // eslint-disable-next-line no-unused-vars
-  resolve: async (root, { id }, context, info) => {
+  resolve: async (root, { releaseId, limit }, context, info) => {
     try {
-      // @todo
-      /* 
-      parse info object to change the database projection 
-      based on fields requested i.e. if user doesn't request controls
-      don't query the database for it
-      */
-
-      // add limit
-      // add orderby timestamp
-
-      //https://github.com/alekbarszczewski/graphql-query-tree
-
-      return await getRelease(id)
+      const tree = new GraphqlQueryTree(info)
+      const withControls = tree.isSelected('controls')
+      return await getRelease({ releaseId, limit, withControls })
     } catch (e) {
       console.log(e.message)
     }
