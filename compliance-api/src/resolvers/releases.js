@@ -1,5 +1,5 @@
 const { Release } = require('../types/Release')
-const { GraphQLList, GraphQLString } = require('graphql')
+const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql')
 const { releaseModel } = require('../db/model')
 const chalk = require('chalk')
 const log = console.log
@@ -9,13 +9,13 @@ const note = message => {
 }
 
 // db query
-const getRelease = async (sha = '') => {
+const getRelease = async ({ releaseId = '', limit = 10000 }) => {
   let match = {}
-  if (sha) {
-    match = { release: sha }
+  if (releaseId) {
+    match = { release: releaseId }
   }
 
-  note(`=== get release(s) ${sha} ===`)
+  note(`=== get release(s) ${releaseId} ===`)
   const result = await releaseModel
     .aggregate([
       { $match: match },
@@ -29,6 +29,8 @@ const getRelease = async (sha = '') => {
           total: 1,
         },
       },
+      { $sort: { timestamp: -1 } },
+      { $limit: limit },
     ])
     .exec()
 
@@ -39,13 +41,17 @@ const releases = {
   description: 'Returns a list of releases',
   type: new GraphQLList(Release),
   args: {
-    id: {
+    releaseId: {
       type: GraphQLString,
       description: 'optional release id to limit to specific release',
     },
+    limit: {
+      type: GraphQLInt,
+      description: 'maximum number of releases to pull',
+    },
   },
   // eslint-disable-next-line no-unused-vars
-  resolve: async (root, { id }, context, info) => {
+  resolve: async (root, { releaseId, limit }, context, info) => {
     try {
       // @todo
       /* 
@@ -54,12 +60,9 @@ const releases = {
       don't query the database for it
       */
 
-      // add limit
-      // add orderby timestamp
-
       //https://github.com/alekbarszczewski/graphql-query-tree
 
-      return await getRelease(id)
+      return await getRelease({ releaseId, limit })
     } catch (e) {
       console.log(e.message)
     }
