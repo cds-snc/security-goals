@@ -76,6 +76,7 @@ const flattenAndSave = async (file = {}, save = () => {}) => {
 
   // check if there's an existing release
   if (!result.length) {
+    // @ts-ignore
     return save(obj)
   }
 
@@ -93,7 +94,7 @@ const flattenAndSave = async (file = {}, save = () => {}) => {
       obj.controls[index].verifications = verifications[item.control]
     }
   })
-
+  // @ts-ignore
   return save(obj)
 }
 
