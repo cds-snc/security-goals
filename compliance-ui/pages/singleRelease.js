@@ -8,10 +8,10 @@ import {
   Failed,
   BackToTopButton
 } from "../components";
-import { getReleases } from "../util";
 import { theme } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
+import { releaseStatus } from "../api";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -49,6 +49,15 @@ class IndexPage extends React.Component {
     );
   }
 }
+
+export const getReleases = async () => {
+  const result = await releaseStatus();
+  const props = { err: false, data: result };
+  if (result instanceof Error) {
+    props.err = result.message;
+  }
+  return props;
+};
 
 IndexPage.getInitialProps = getReleases;
 

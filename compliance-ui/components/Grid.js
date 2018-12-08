@@ -121,10 +121,27 @@ const Grid1 = ({ controls = { items: [] }, link = false, tab }) => {
   );
 };
 
-const Grid = ({ releases = [], link = false, tab }) => {
+const Grid3 = ({ releases = [], link = false, tab }) => {
+  console.log(releases);
   return (
     <ul name="grid" className={grid} tabIndex="0">
       {releases.map(item => {
+        const key = `${item.release}`;
+        return (
+          <li>
+            <a href={`/controls/${key}`}>{key}</a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+const Grid = ({ releases = [], link = false, tab }) => {
+  console.log(releases);
+  return (
+    <ul name="grid" className={grid} tabIndex="0">
+      {releases.releases.map(item => {
         const key = `${item.release}`;
         return (
           <li>
