@@ -11,7 +11,8 @@ import {
 import { theme } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
-import { releaseStatus } from "../api";
+import { controlStatus } from "../api";
+import { fromRouter } from "../util";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -28,12 +29,13 @@ class IndexPage extends React.Component {
     this.statusRef.focus();
   }
   render() {
-    const { data, err } = this.props;
+    const { data, err, router = false, releaseParam } = this.props;
     if (err) {
       return <Failed />;
     }
     return (
       <Layout>
+        <pre />
         <div data-testid="home">
           <IsReady
             data={data}
@@ -50,15 +52,15 @@ class IndexPage extends React.Component {
   }
 }
 
-export const getReleases = async () => {
-  const result = await releaseStatus();
-  const props = { err: false, data: result };
+export const getRelease = async ({ req }) => {
+  const result = await controlStatus(req.params.release);
+  const props = { err: false, data: result, releaseParam: req.params.release };
   if (result instanceof Error) {
     props.err = result.message;
   }
   return props;
 };
 
-IndexPage.getInitialProps = getReleases;
+IndexPage.getInitialProps = getRelease;
 
 export default IndexPage;

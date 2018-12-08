@@ -27,17 +27,21 @@ const controlQuery = releaseID => {
   const query = `query{
     releases(id: "${releaseID}"){
       release
-      timestamp
-      passed
-      passing
-      total
-      controls {
-        control
-        fileId
-      }
+timestamp
+passed
+passing
+total
+controls {
+  control
+  fileId
+  verifications {
+    timestamp
+    passed
+    description
+  }
+}
 }
    }`;
-  console.log(query);
   return query;
 };
 

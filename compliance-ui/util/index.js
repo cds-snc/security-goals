@@ -121,7 +121,7 @@ export const getReleases = async ({ req }) => {
 
   const data = result.releases;
 
-  const props = { data, err: false, test: req.params.release };
+  const props = { data, err: false, releaseParam: req.params.release };
 
   if (result instanceof Error) {
     props.err = result.message;
