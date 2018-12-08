@@ -38,10 +38,13 @@ const topInfo = css`
 `;
 
 export const Header = ({ title, status }) => {
+  if (!status) {
+    return <div>HEY</div>;
+  }
   return (
     <div className={topInfo}>
       <span data-testid="control-box-title">{title}</span>
-      {status ? (
+      {status === "true" ? (
         <span data-testid="control-box-pass" className={passingText}>
           Passed
         </span>

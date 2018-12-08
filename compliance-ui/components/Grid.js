@@ -129,7 +129,24 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
           <ul name="grid" className={grid} tabIndex="0">
             {item.controls.map(controls => {
               return (
-                <ControlBox tab={tab} title={controls.control} link={link} />
+                <React.Fragment>
+                  {controls.verifications.map(verifications => {
+                    const check =
+                      verifications.passed === "true" ? greenBG : redBG;
+
+                    return (
+                      <ControlBox
+                        status={verifications.passed}
+                        tab={tab}
+                        style={check}
+                        description={verifications.description}
+                        title={controls.control}
+                        timestamp={verifications.timestamp}
+                        link={link}
+                      />
+                    );
+                  })}
+                </React.Fragment>
               );
             })}
           </ul>

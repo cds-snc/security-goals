@@ -51,8 +51,8 @@ const passingText = css`
 `;
 
 const failingText = css`
-  color: ${theme.colour.redwhite};
-  background: ${theme.colour.greenDark};
+  color: ${theme.colour.white};
+  background: ${theme.colour.redDark};
   padding: ${theme.spacing.xs};
   font-size: ${theme.font.sm};
   border-radius: 5px;
@@ -78,24 +78,24 @@ const releaseFocusFailing = css`
 
 const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
   return (
-    <Link
-      as={link}
-      tabIndex="-1"
-      href={link}
-      className={passed ? releaseFocusPassing : releaseFocusFailing}
-    >
-      <a>
+    <Link as={link} tabIndex="-1" href={link}>
+      <a
+        tabIndex="-1"
+        className={
+          passed === "true" ? releaseFocusPassing : releaseFocusFailing
+        }
+      >
         <div
           tabIndex="0"
-          className={passed ? releaseBoxPassing : releaseBoxFailing}
+          className={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
         >
           <div>
             <div>
               <span>Release #{release}</span>
             </div>
             <div>
-              <span className={passed ? passingText : failingText}>
-                {passed ? "Passed" : "Failed"}
+              <span className={passed === "true" ? passingText : failingText}>
+                {passed === "true" ? "Passed" : "Failed"}
               </span>
             </div>
           </div>
