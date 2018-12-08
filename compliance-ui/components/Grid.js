@@ -122,7 +122,6 @@ const Grid1 = ({ controls = { items: [] }, link = false, tab }) => {
 };
 
 const Grid = ({ releases: { releases }, link = false, tab }) => {
-  console.log(releases[0].release);
   return (
     <div>
       {releases.map(item => {
@@ -130,9 +129,7 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
           <ul name="grid" className={grid} tabIndex="0">
             {item.controls.map(controls => {
               return (
-                <li>
-                  <a href={`/controls/`}>{controls.control}</a>{" "}
-                </li>
+                <ControlBox tab={tab} title={controls.control} link={link} />
               );
             })}
           </ul>
