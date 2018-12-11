@@ -53,6 +53,7 @@ const passingText = css`
 const failingText = css`
   color: ${theme.colour.white};
   background: ${theme.colour.redDark};
+  margin-left: ${theme.spacing.sm};
   padding: ${theme.spacing.xs};
   font-size: ${theme.font.sm};
   border-radius: 5px;
@@ -91,9 +92,12 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
         >
           <div>
             <div>
-              <span>Release #{release}</span>
+              <span>Release: #{release}</span>{" "}
             </div>
             <div>
+              <span className={passed === "true" ? passingText : failingText}>
+                {passing} / {total} checks
+              </span>
               <span className={passed === "true" ? passingText : failingText}>
                 {passed === "true" ? "Passed" : "Failed"}
               </span>
