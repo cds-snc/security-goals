@@ -20,7 +20,7 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-class IndexPage extends React.Component {
+class SingleReleasePage extends React.Component {
   constructor(props) {
     super(props);
     this.clickHandler = this.clickHandler.bind(this);
@@ -61,6 +61,6 @@ export const getRelease = async ({ req }) => {
   return props;
 };
 
-IndexPage.getInitialProps = getRelease;
+SingleReleasePage.getInitialProps = getRelease;
 
-export default IndexPage;
+export default SingleReleasePage;

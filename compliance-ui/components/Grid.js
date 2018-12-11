@@ -97,39 +97,15 @@ const redBG = css`
   }
 `;
 
-const Grid1 = ({ controls = { items: [] }, link = false, tab }) => {
-  if (!controls.items.length) {
-    return <div data-testid="not-found">No Verifications found</div>;
-  }
-
-  return (
-    <ul name="grid" className={grid} tabIndex="0">
-      {controls.items.map((control, index) => {
-        const key = `${control.id}-${index}`;
-        const check = control.status ? greenBG : redBG;
-        return (
-          <ControlBox
-            tab={tab}
-            key={key}
-            style={check}
-            {...control}
-            link={link}
-          />
-        );
-      })}
-    </ul>
-  );
-};
-
 const Grid = ({ releases: { releases }, link = false, tab }) => {
   return (
     <div>
       {releases.map(item => {
         return (
-          <ul name="grid" className={grid} tabIndex="0">
+          <ul key={item.release} name="grid" className={grid} tabIndex="0">
             {item.controls.map(controls => {
               return (
-                <React.Fragment>
+                <React.Fragment key={controls.control}>
                   {controls.verifications.map(verifications => {
                     const check =
                       verifications.passed === "true" ? greenBG : redBG;
@@ -143,6 +119,7 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
                         title={controls.control}
                         timestamp={verifications.timestamp}
                         link={link}
+                        key={verifications.timestamp}
                       />
                     );
                   })}

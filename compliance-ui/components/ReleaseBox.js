@@ -79,7 +79,7 @@ const releaseFocusFailing = css`
 
 const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
   return (
-    <Link as={link} tabIndex="-1" href={link}>
+    <Link as={link} href={link}>
       <a
         tabIndex="-1"
         className={
