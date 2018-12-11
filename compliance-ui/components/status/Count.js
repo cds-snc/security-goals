@@ -13,10 +13,16 @@ const stats = css`
   `)};
 `;
 
-export const Count = ({ status = { passed: 0, total: -1 } }) => {
+export const Count = ({ status }) => {
   return (
     <div className={stats} data-testid="total">
-      {status.passed} of {status.total} passing
+      {status.releases.map(release => {
+        return (
+          <span>
+            {release.passing} of {release.total} passing
+          </span>
+        );
+      })}
     </div>
   );
 };

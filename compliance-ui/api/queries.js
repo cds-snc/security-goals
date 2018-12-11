@@ -25,7 +25,7 @@ const allControlsQuery = () => {
 
 const controlQuery = releaseID => {
   const query = `query{
-    releases(id: "${releaseID}"){
+    releases(releaseId: "${releaseID}"){
       release
 timestamp
 passed
