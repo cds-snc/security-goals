@@ -1,0 +1,13 @@
+{
+  "origin": "cdssnc/github-snyk-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:43Z",
+  "satisfies": [
+    "SA-11",
+    "SI-5"
+  ],
+  "passed": true,
+  "description": "The application uses snyk to detect package vulnerabilities.",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

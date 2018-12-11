@@ -1,0 +1,12 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:25Z",
+  "satisfies": [
+    "SA-11"
+  ],
+  "passed": false,
+  "description": "The application developers follow a security assessment plan.",
+  "references": "https://github.com/cds-snc/compliance-policy-documents/security-assessment-plan.md",
+  "component": "Policy",
+  "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}

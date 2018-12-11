@@ -1,0 +1,12 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:15Z",
+  "satisfies": [
+    "CM-7"
+  ],
+  "passed": true,
+  "description": "The cluster uses pod security policies to restrict ports and user priviliges.",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/manifests/base/pod-security-policy.yaml",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

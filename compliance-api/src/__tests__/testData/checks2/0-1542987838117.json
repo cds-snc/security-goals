@@ -1,0 +1,14 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:46Z",
+  "satisfies": [
+    "SA-11",
+    "SI-10",
+    "SI-11"
+  ],
+  "passed": true,
+  "description": "The application contains tests to validate inputs and error logging.",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js",
+  "component": "Source code",
+  "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}

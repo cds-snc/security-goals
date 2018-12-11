@@ -1,0 +1,12 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:05Z",
+  "satisfies": [
+    "AU-6"
+  ],
+  "passed": false,
+  "description": "The organization does audit reports and reviews in line with written policy.",
+  "references": "https://github.com/cds-snc/compliance-policy-documents/audit-review.md",
+  "component": "Policy",
+  "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}

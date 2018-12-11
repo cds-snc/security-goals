@@ -1,0 +1,12 @@
+{
+  "origin": "cdssnc/pod-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:34Z",
+  "satisfies": [
+    "SC-7"
+  ],
+  "passed": false,
+  "description": "The cluster uses Istio to monitor incoming and outgoing data and encrypt communication between pods.",
+  "references": "istio",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

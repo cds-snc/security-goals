@@ -1,0 +1,12 @@
+{
+  "origin": "cdssnc/pod-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:32Z",
+  "satisfies": [
+    "SA-12"
+  ],
+  "passed": false,
+  "description": "The cluster uses Kritis to block deployment of vulnerable container images.",
+  "references": "kritis",
+  "component": "Infrastructure",
+  "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}
