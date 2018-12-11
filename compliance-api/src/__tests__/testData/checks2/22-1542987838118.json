@@ -1,0 +1,13 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:27Z",
+  "satisfies": [
+    "SA-11",
+    "SA-11 (1)"
+  ],
+  "passed": true,
+  "description": "The application uses an ESLint file to do so static code analysis.",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/.eslintrc.json",
+  "component": "Source code",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

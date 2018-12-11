@@ -1,0 +1,14 @@
+{
+  "origin": "cdssnc/pod-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:07Z",
+  "satisfies": [
+    "AU-8",
+    "AU-8 (1)",
+    "SI-11"
+  ],
+  "passed": true,
+  "description": "The cluster uses Fluentd for logging.",
+  "references": "fluentd",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

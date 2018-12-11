@@ -1,0 +1,13 @@
+{
+  "origin": "cdssnc/github-reviews-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:29Z",
+  "satisfies": [
+    "SA-11",
+    "SA-11 (4)"
+  ],
+  "passed": false,
+  "description": "The application performs code review on its pull requests.",
+  "references": "https://github.com/cds-snc/mrpinchy-confession-box",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

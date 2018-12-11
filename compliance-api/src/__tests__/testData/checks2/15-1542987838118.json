@@ -1,0 +1,13 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:13Z",
+  "satisfies": [
+    "CA-8",
+    "CA-8 (1)"
+  ],
+  "passed": false,
+  "description": "The application undergoes penetration testing as specified in documentation.",
+  "references": "https://github.com/cds-snc/compliance-policy-documents/penetration-testing.md",
+  "component": "Policy",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}

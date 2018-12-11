@@ -1,0 +1,16 @@
+{
+  "origin": "cdssnc/url-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:19Z",
+  "satisfies": [
+    "CM-2",
+    "CM-6 (1)",
+    "CM-8",
+    "CM-8 (1)",
+    "CM-8 (4)"
+  ],
+  "passed": true,
+  "description": "The application uses kubernetes configuration files to manage its state and information inventory in source control with a log of changes by users.",
+  "references": "https://raw.githubusercontent.com/cds-snc/mrpinchy-confession-box/master/manifests/base/kustomization.yaml",
+  "component": "Source code",
+  "release": "60e61288-ef33-11e8-908e-06d86cf01138"
+}

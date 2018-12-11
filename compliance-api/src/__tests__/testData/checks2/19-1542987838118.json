@@ -1,0 +1,14 @@
+{
+  "origin": "cdssnc/pod-check-compliance:latest",
+  "timestamp": "2018-11-23T15:21:03Z",
+  "satisfies": [
+    "AU-2",
+    "AU-3",
+    "AU-3 (1)"
+  ],
+  "passed": true,
+  "description": "The AWS Node Pod logs all API requests that make infrastructure changes.",
+  "references": "aws-node",
+  "component": "Infrastructure",
+  "release": "43c61288-ef33-11e8-908e-06d86cf01138"
+}
