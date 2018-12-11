@@ -4,7 +4,7 @@ import { WithLink } from "./WithLink";
 
 export const ControlBox = ({
   id,
-  name,
+  title,
   link,
   style,
   status,
@@ -14,7 +14,6 @@ export const ControlBox = ({
   component,
   tab
 }) => {
-  const title = `${id} - ${name}`;
   return (
     <li
       tabIndex={tab}

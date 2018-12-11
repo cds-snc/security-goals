@@ -30,6 +30,7 @@ const grid = css`
 
   li:last-of-type {
     border-right: 1px solid ${theme.colour.grayOutline};
+    margin-bottom: 0;
     width: 50.1%;
 
     ${mediaQuery.lg(css`
@@ -96,13 +97,13 @@ const redBG = css`
   }
 `;
 
-const Grid = ({ controls = { items: [] }, link = false, tab }) => {
+const Grid1 = ({ controls = { items: [] }, link = false, tab }) => {
   if (!controls.items.length) {
     return <div data-testid="not-found">No Verifications found</div>;
   }
 
   return (
-    <ul className={grid} tabIndex="0">
+    <ul name="grid" className={grid} tabIndex="0">
       {controls.items.map((control, index) => {
         const key = `${control.id}-${index}`;
         const check = control.status ? greenBG : redBG;
@@ -117,6 +118,41 @@ const Grid = ({ controls = { items: [] }, link = false, tab }) => {
         );
       })}
     </ul>
+  );
+};
+
+const Grid = ({ releases: { releases }, link = false, tab }) => {
+  return (
+    <div>
+      {releases.map(item => {
+        return (
+          <ul name="grid" className={grid} tabIndex="0">
+            {item.controls.map(controls => {
+              return (
+                <React.Fragment>
+                  {controls.verifications.map(verifications => {
+                    const check =
+                      verifications.passed === "true" ? greenBG : redBG;
+
+                    return (
+                      <ControlBox
+                        status={verifications.passed}
+                        tab={tab}
+                        style={check}
+                        description={verifications.description}
+                        title={controls.control}
+                        timestamp={verifications.timestamp}
+                        link={link}
+                      />
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
+          </ul>
+        );
+      })}
+    </div>
   );
 };
 

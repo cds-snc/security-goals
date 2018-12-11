@@ -8,12 +8,14 @@ import { theme, mediaQuery } from "../styles";
 const bottomInfo = css`
   p {
     font-size: ${theme.font.md};
+    color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
     width: 80%;
   }
 
   a {
     font-size: ${theme.font.md};
+    color: ${theme.colour.blackLight};
   }
 
   ${mediaQuery.sm(css`
@@ -33,6 +35,7 @@ const bottomMobile = css`
     margin-bottom: 0;
     font-weight: 700;
     font-size: ${theme.font.sm};
+    color: ${theme.colour.blackLight};
     margin-left: ${theme.spacing.sm};
 
     ${mediaQuery.sm(css`

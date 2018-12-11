@@ -23,6 +23,12 @@ app.prepare().then(() => {
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get("/singlerelease/:release", (req, res) => {
+    const queryParams = { release: req.params.release };
+    const actualPage = "/singleRelease";
+    app.render(req, res, actualPage, queryParams);
+  });
+
   server.get("/alive", (req, res) => {
     res.status(200).send("yes");
   });

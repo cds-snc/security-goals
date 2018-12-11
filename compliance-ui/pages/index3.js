@@ -34,7 +34,6 @@ const ReleasesPage = ({ data }) => {
           {data.releases.map((singleRelease, index) => {
             var myDate = new Date(singleRelease.timestamp * 1000);
             const key = `${singleRelease.release}`;
-            console.log(singleRelease);
             return (
               <ReleaseBox
                 release={singleRelease.release}

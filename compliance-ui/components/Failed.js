@@ -1,4 +1,5 @@
 import { css } from "emotion";
+import Layout from "./Layout";
 const Failed = () => {
   const center = css`
     display: flex;
@@ -9,9 +10,11 @@ const Failed = () => {
   `;
 
   return (
-    <div data-testid="api-fail" className={center}>
-      ⚠️ Failed to fetch GraphQL API data
-    </div>
+    <Layout>
+      <div data-testid="api-fail" className={center}>
+        ⚠️ Failed to fetch GraphQL API data
+      </div>
+    </Layout>
   );
 };
 

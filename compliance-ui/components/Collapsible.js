@@ -12,12 +12,20 @@ const collapseIn = css`
   display: block;
 `;
 
-const arrow = css`
+const arrowUp = css`
   svg {
     margin-bottom: -${theme.spacing.xxs};
     width: 1rem;
     height: 1rem;
     transform: rotate(180deg);
+  }
+`;
+
+const arrowDown = css`
+  svg {
+    margin-bottom: -${theme.spacing.xxs};
+    width: 1rem;
+    height: 1rem;
   }
 `;
 
@@ -33,6 +41,7 @@ const container = css`
   margin-bottom: ${theme.spacing.lg};
   h1[name="collapsible-h1"] {
     margin-top: 0;
+    color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
     width: 100%;
     font-size: ${theme.font.xl};
@@ -51,6 +60,7 @@ const toggle = css`
     margin: 0;
     margin-right: 10px;
     font-weight: 700;
+    color: ${theme.colour.blackLight};
   }
   width: 100%;
   display: flex;
@@ -81,12 +91,22 @@ export class Collapsible extends React.Component {
             <div className={this.state.open ? collapseIn : collapse}>
               <MainDescription description={description} />
             </div>
-            <div className={toggle} onClick={this.toggle.bind(this)}>
-              <p>Read the {control} description</p>
-              <span className={arrow}>
-                <UpArrowCircle />
-              </span>
-            </div>
+
+            {this.state.open ? (
+              <div className={toggle} onClick={this.toggle.bind(this)}>
+                <p>Hide the {control} description</p>
+                <span className={arrowDown}>
+                  <UpArrowCircle />
+                </span>
+              </div>
+            ) : (
+              <div className={toggle} onClick={this.toggle.bind(this)}>
+                <p>Read the {control} description</p>
+                <span className={arrowUp}>
+                  <UpArrowCircle />
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

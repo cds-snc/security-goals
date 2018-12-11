@@ -1,5 +1,6 @@
 import { format, parse } from "date-fns";
 import { allControlsStatus, controlStatus } from "../api";
+import { fetchGraphQL } from "../api/fetchGraphQL";
 
 export const verificationsData = (data = false, overrides = {}) => {
   let result = { items: [] };
@@ -37,7 +38,7 @@ const sortByStatusAndTimestamp = (item, status) => {
   return sortByKey(sorted, "timestamp").reverse();
 };
 
-const formatTimestamp = timestamp => {
+export const formatTimestamp = timestamp => {
   return format(parse(timestamp), "YYYY-MM-DD HH:mm:ss A");
 };
 
@@ -101,11 +102,26 @@ export const fromRouter = (router, prop) => {
   return val;
 };
 
-export const getAllControlsStatus = async () => {
-  const result = await allControlsStatus();
-  const data = await passFailData(result);
+export const getReleases = async ({ req }) => {
+  const query = `query{
+    releases {
+      release
+      timestamp
+      passed
+      passing
+      total
+      }
+  }`;
+  //const release = req.params.release;
+  if (!req || !req.params || !req.params.release) {
+    return;
+  }
 
-  const props = { data, err: false };
+  const result = await fetchGraphQL(query);
+
+  const data = result.releases;
+
+  const props = { data, err: false, releaseParam: req.params.release };
 
   if (result instanceof Error) {
     props.err = result.message;

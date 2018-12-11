@@ -23,11 +23,38 @@ const allControlsQuery = () => {
        }`;
 };
 
-const controlQuery = control => {
-  const type = `control(id: "${control}")`;
-  return `query{
-      ${setFields(type)}
+const controlQuery = releaseID => {
+  const query = `query{
+    releases(id: "${releaseID}"){
+      release
+timestamp
+passed
+passing
+total
+controls {
+  control
+  fileId
+  verifications {
+    timestamp
+    passed
+    description
+  }
+}
+}
    }`;
+  return query;
 };
 
-module.exports = { allControlsQuery, controlQuery };
+const allReleaseQuery = release => {
+  return `query{
+    releases {
+      release
+      timestamp
+      passed
+      passing
+      total
+      }
+  }`;
+};
+
+module.exports = { allControlsQuery, controlQuery, allReleaseQuery };

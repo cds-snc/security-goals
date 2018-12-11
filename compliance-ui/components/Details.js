@@ -1,5 +1,5 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, ActionBar } from "./";
+import { Grid, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
 import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
@@ -28,26 +28,39 @@ const controlInfo = css`
 
 const detailsWrap = css`
   min-height: 100%;
-  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 4rem ${theme.spacing.xxxl};
+  padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
 
   a {
     text-decoration: underline;
+    color: ${theme.colour.blackLight};
   }
 
   li[name="control-box"]:hover {
     background: white;
   }
 
+  a[name="back"]:first-of-type {
+    margin-bottom: ${theme.spacing.lg};
+  }
+
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.xl} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
     a {
       margin-top: ${theme.spacing.sm};
+    }
+
+    a[name="back"]:first-of-type {
+      font-size: ${theme.font.sm};
+
+      svg {
+        height: 0.4rem;
+      }
     }
 
     p {
@@ -58,7 +71,7 @@ const detailsWrap = css`
 `;
 
 const details = css`
-  ul {
+  ul[name="grid"] {
     margin: ${theme.spacing.md} 0 0 0;
     width: 100%;
   }
@@ -66,6 +79,7 @@ const details = css`
   h1[name="verification-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.md};
+    color: ${theme.colour.blackLight};
 
     ${mediaQuery.sm(css`
       font-size: ${theme.font.lg};
@@ -134,57 +148,12 @@ const details = css`
   }
 `;
 
-const actions = css`
-  div[name="action-bar"] {
-    justify-content: flex-start;
-    padding-bottom: ${theme.spacing.lg};
-  }
-
-  span,
-  a[name="back"] {
-    margin-bottom: ${theme.spacing.sm};
-  }
-
-  a[name="print-button"] {
-    margin-left: ${theme.spacing.xl};
-  }
-
-  ${mediaQuery.sm(css`
-    svg {
-      display: none;
-    }
-
-    a[name="print-button"] {
-      margin-left: ${theme.spacing.lg};
-    }
-
-    span,
-    a[name="back"] {
-      margin-bottom: 0;
-    }
-
-    div[name="action-bar"] {
-      padding-top: ${theme.spacing.sm};
-    }
-  `)};
-`;
-
-const actionsBottom = css`
-  span {
-    padding: ${theme.spacing.md} 0;
-  }
-
-  ${mediaQuery.sm(css`
-    svg {
-      display: none;
-    }
-  `)};
-`;
-
 const history = css`
+  margin-bottom: ${theme.spacing.xxl};
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-bottom: ${theme.spacing.sm};
+    color: ${theme.colour.blackLight};
   }
 
   p[name="desc"] {
@@ -198,7 +167,13 @@ const history = css`
     }
   `)};
 
+  ${mediaQuery.lg(css`
+    margin-bottom: ${theme.spacing.xl};
+  `)};
+
   ${mediaQuery.sm(css`
+    margin-bottom: ${theme.spacing.lg};
+
     h1[name="history-h1"] {
       font-size: ${theme.font.lg};
     }
@@ -208,6 +183,12 @@ const history = css`
       line-height: 1.4rem;
     }
   `)};
+`;
+
+const back = css`
+  display: inline-block;
+  color: ${theme.colour.black};
+  font-size: ${theme.font.md};
 `;
 
 export const Details = ({ data, err, router = false }) => {
@@ -229,13 +210,15 @@ export const Details = ({ data, err, router = false }) => {
 
   return (
     <div data-testid="details" className={details}>
-      <div className={actions}>
-        <ActionBar id={id} />
-      </div>
       <div className={detailsWrap}>
         {id && (
           <React.Fragment>
+            <a name="back" href="/" className={back}>
+              <BackIcon fill={theme.colour.blackLight} />
+              Back
+            </a>
             <h1 name="verification-h1">Verification:</h1>
+            <pre>CONTROL:{control}</pre>
             <Collapsible
               title={title}
               description={description}
@@ -252,9 +235,6 @@ export const Details = ({ data, err, router = false }) => {
             <Spinner />
           </div>
         )}
-      </div>
-      <div className={actionsBottom}>
-        <ActionBar id={id} />
       </div>
     </div>
   );
