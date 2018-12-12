@@ -111,9 +111,10 @@ export const getReleases = async () => {
   return props;
 };
 
-export const getSingleRelease = async ({ req }) => {
-  const result = await controlStatus(req.params.release);
-  const props = { err: false, data: result, releaseParam: req.params.release };
+export const getSingleRelease = async router => {
+  const release = fromRouter(router, "release");
+  const result = await controlStatus(release);
+  const props = { err: false, data: result, releaseParam: release };
   if (result instanceof Error) {
     props.err = result.message;
   }
