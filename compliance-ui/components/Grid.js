@@ -104,6 +104,7 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
         return (
           <ul key={item.release} name="grid" className={grid} tabIndex="0">
             {item.controls.map(controls => {
+              const controlID = controls.control;
               return (
                 <React.Fragment key={controls.control}>
                   {controls.verifications.map(verifications => {
@@ -114,6 +115,7 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
                       <ControlBox
                         status={verifications.passed}
                         tab={tab}
+                        id={controlID}
                         style={check}
                         description={verifications.description}
                         title={controls.control}

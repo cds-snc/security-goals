@@ -57,4 +57,8 @@ const allReleaseQuery = release => {
   }`;
 };
 
-module.exports = { allControlsQuery, controlQuery, allReleaseQuery };
+module.exports = {
+  allControlsQuery,
+  controlQuery,
+  allReleaseQuery
+};

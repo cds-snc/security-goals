@@ -9,8 +9,7 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-const DetailsPage = ({ err, data }) => {
-  console.log(data);
+const DetailsPage = ({ err, data, controlParam }) => {
   return (
     <Layout styles={{ paddingTop: "0" }}>
       <Details data={data} err={err} />
