@@ -191,23 +191,10 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-export const Details = ({ data, err, router = false }) => {
-  const [controlData, setControlData] = useState(data || { control: {} });
-
-  useEffect(async () => {
-    if (data) return;
-    const result = (data = await controlStatus(control));
-    setControlData(result);
-  }, controlData);
-
+export const Details = ({ data, err, id }) => {
   if (err) {
     return <Failed />;
   }
-
-  const control = fromRouter(router, "control");
-  const { description = "", name = "", id } = controlData.control || {};
-  const title = name ? `${control} - ${name}` : control;
-
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -218,16 +205,11 @@ export const Details = ({ data, err, router = false }) => {
               Back
             </a>
             <h1 name="verification-h1">Verification:</h1>
-            <pre>CONTROL:{control}</pre>
             <Collapsible
-              title={title}
-              description={description}
-              control={control}
+              title={id}
+              description={data.controlData[0].description}
+              control={id}
             />
-            <section className={history}>
-              <h1 name="history-h1">History:</h1>
-              <Grid tab="0" controls={verificationsData(controlData, {})} />
-            </section>
           </React.Fragment>
         )}
         {!id && (

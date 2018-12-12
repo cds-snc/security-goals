@@ -14,29 +14,19 @@ class DetailsPage extends React.Component {
     getControlStatus();
   }
   render() {
-    const { data, err, controlParam, router = false } = this.props;
+    const { data, err, router = false, controlParam } = this.props;
 
     if (err) {
       return <Failed />;
     }
+
     return (
       <Layout styles={{ paddingTop: "0" }}>
-        <pre>{controlParam}</pre>
-        <Details data={data} err={err} />
+        <Details id={controlParam} data={data} err={err} />
       </Layout>
     );
   }
 }
-
-const DetailsPage1 = ({ err, data, controlParam }) => {
-  console.log(controlParam);
-  return (
-    <Layout styles={{ paddingTop: "0" }}>
-      <pre>{controlParam}</pre>
-      <Details data={data} err={err} />
-    </Layout>
-  );
-};
 
 DetailsPage.getInitialProps = getControlStatus;
 

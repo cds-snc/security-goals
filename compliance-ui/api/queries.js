@@ -57,8 +57,35 @@ const allReleaseQuery = release => {
   }`;
 };
 
+const detailsQuery = release => {
+  return `query{
+    controlData: controls {
+        id
+        description
+      }
+
+      releaseData: releases(releaseId: "43c61288-ef33-11e8-908e-06d86cf01138"){
+        release
+  timestamp
+  passed
+  passing
+  total
+  controls {
+    control
+    fileId
+    verifications {
+      timestamp
+      passed
+      description
+    }
+  }
+  }
+  }`;
+};
+
 module.exports = {
   allControlsQuery,
   singleReleaseQuery,
-  allReleaseQuery
+  allReleaseQuery,
+  detailsQuery
 };
