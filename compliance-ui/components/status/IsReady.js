@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { Count, PassFailText } from "../index";
 import { theme, roundedEdges, mediaQuery } from "../styles";
 
-const statusBar = css`
+const statusBarFailed = css`
   background: ${theme.colour.redDark};
   display: flex;
   align-items: center;
@@ -23,13 +23,29 @@ const statusBar = css`
   `)};
 `;
 
+const statusBarPassed = css`
+${statusBarFailed}
+background: ${theme.colour.greenDark};
+`;
+
 const IsReady = ({ data, statusRef }) => {
   return (
     <div>
-      <div className={statusBar} ref={statusRef} tabIndex="0">
-        <PassFailText status={data} />
-        <Count status={data} />
-      </div>
+      {data.releases.map(release => {
+        return (
+          <div
+            key={release.timestamp}
+            className={
+              release.passed === "true" ? statusBarPassed : statusBarFailed
+            }
+            ref={statusRef}
+            tabIndex="0"
+          >
+            <PassFailText status={data} />
+            <Count status={data} />
+          </div>
+        );
+      })}
     </div>
   );
 };

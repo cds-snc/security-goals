@@ -14,6 +14,7 @@ export const ControlBox = ({
   component,
   tab
 }) => {
+  console.log(id);
   return (
     <li
       tabIndex={tab}

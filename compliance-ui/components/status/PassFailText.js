@@ -29,12 +29,21 @@ const isReadyText = css`
 `;
 
 export const PassFailText = ({ status = { passed: 0, total: -1 } }) => {
-  const allPassed = status.passed === status.total;
   return (
     <div className={container}>
-      <h2 data-testid="status-text" className={isReadyText}>
-        {allPassed ? "All the checks have passed" : "Some checks have failed"}
-      </h2>
+      {status.releases.map(release => {
+        return (
+          <h2
+            key={release.timestamp}
+            data-testid="status-text"
+            className={isReadyText}
+          >
+            {release.passed === "true"
+              ? "All the checks have passed"
+              : "Some checks have failed"}
+          </h2>
+        );
+      })}
     </div>
   );
 };
