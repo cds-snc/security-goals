@@ -1,5 +1,10 @@
 import { format, parse } from "date-fns";
-import { allControlsStatus, controlStatus, releaseStatus } from "../api";
+import {
+  allControlsStatus,
+  controlStatus,
+  releaseStatus,
+  detailStatus
+} from "../api";
 import { fetchGraphQL } from "../api/fetchGraphQL";
 
 export const verificationsData = (data = false, overrides = {}) => {
@@ -123,7 +128,7 @@ export const getSingleRelease = async router => {
 
 export const getControlStatus = async router => {
   const control = fromRouter(router, "control");
-  const result = await controlStatus(decodeURI(control));
+  const result = await detailStatus(decodeURI(control));
   const props = { data: result, err: false, controlParam: control };
 
   if (result instanceof Error) {
