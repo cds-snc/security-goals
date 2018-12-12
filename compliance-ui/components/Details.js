@@ -230,11 +230,6 @@ export const Details = ({ data, err, router = false }) => {
             </section>
           </React.Fragment>
         )}
-        {!id && (
-          <div className={controlInfo}>
-            <Spinner />
-          </div>
-        )}
       </div>
     </div>
   );
