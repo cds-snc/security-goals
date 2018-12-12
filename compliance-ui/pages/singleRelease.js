@@ -12,6 +12,7 @@ import { theme } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
 import { controlStatus } from "../api";
+import { fromRouter, getSingleRelease } from "../util";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -51,15 +52,6 @@ class SingleReleasePage extends React.Component {
   }
 }
 
-export const getRelease = async ({ req }) => {
-  const result = await controlStatus(req.params.release);
-  const props = { err: false, data: result, releaseParam: req.params.release };
-  if (result instanceof Error) {
-    props.err = result.message;
-  }
-  return props;
-};
-
-SingleReleasePage.getInitialProps = getRelease;
+SingleReleasePage.getInitialProps = getSingleRelease;
 
 export default SingleReleasePage;

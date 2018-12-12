@@ -23,7 +23,7 @@ const allControlsQuery = () => {
        }`;
 };
 
-const controlQuery = releaseID => {
+const singleReleaseQuery = releaseID => {
   const query = `query{
     releases(releaseId: "${releaseID}"){
       release
@@ -59,6 +59,6 @@ const allReleaseQuery = release => {
 
 module.exports = {
   allControlsQuery,
-  controlQuery,
+  singleReleaseQuery,
   allReleaseQuery
 };

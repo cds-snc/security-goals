@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import ReleaseBox from "../components/ReleaseBox";
 import { releaseStatus } from "../api";
 import { format, parse } from "date-fns";
+import { getReleases } from "../util";
 
 const releases = css`
   margin: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
@@ -37,6 +38,7 @@ if (typeof window !== "undefined") {
 }
 
 const ReleasesPage = ({ data }) => {
+  console.log(data);
   return (
     <Layout>
       <div className={releases}>
@@ -61,15 +63,6 @@ const ReleasesPage = ({ data }) => {
       </div>
     </Layout>
   );
-};
-
-export const getReleases = async () => {
-  const result = await releaseStatus();
-  const props = { err: false, data: result };
-  if (result instanceof Error) {
-    props.err = result.message;
-  }
-  return props;
 };
 
 ReleasesPage.getInitialProps = getReleases;
