@@ -13,6 +13,7 @@ const topInfo = css`
   }
   span:nth-of-type(2) {
     font-size: ${theme.font.sm};
+    font-weight: 700;
     height: 1.4rem;
     width: 4rem;
   }
