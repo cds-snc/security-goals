@@ -12,7 +12,6 @@ import { theme } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
 import { controlStatus } from "../api";
-import { fromRouter } from "../util";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'

@@ -137,7 +137,7 @@ export const getControlStatus = async ({ req }) => {
 
   const control = req.params.control;
   const result = await controlStatus(decodeURI(control));
-  const props = { data: result, err: false };
+  const props = { data: result, err: false, controlParam: control };
 
   if (result instanceof Error) {
     props.err = result.message;
