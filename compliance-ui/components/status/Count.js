@@ -18,7 +18,7 @@ export const Count = ({ status }) => {
     <div className={stats} data-testid="total">
       {status.releases.map(release => {
         return (
-          <span key={release.timestamp}>
+          <span>
             {release.passing} of {release.total} passing
           </span>
         );

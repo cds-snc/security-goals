@@ -30,8 +30,6 @@ const grid = css`
 
   li:last-of-type {
     border-right: 1px solid ${theme.colour.grayOutline};
-    margin-bottom: 0;
-    width: 50.1%;
 
     ${mediaQuery.lg(css`
       width: 100%;
@@ -105,27 +103,21 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
           <ul key={item.release} name="grid" className={grid} tabIndex="0">
             {item.controls.map(controls => {
               const controlID = controls.control;
-              return (
-                <React.Fragment key={controls.control}>
-                  {controls.verifications.map(verifications => {
-                    const check =
-                      verifications.passed === "true" ? greenBG : redBG;
 
-                    return (
-                      <ControlBox
-                        status={verifications.passed}
-                        tab={tab}
-                        id={controlID}
-                        style={check}
-                        description={verifications.description}
-                        title={controls.control}
-                        timestamp={verifications.timestamp}
-                        link={link}
-                        key={verifications.timestamp}
-                      />
-                    );
-                  })}
-                </React.Fragment>
+              const check =
+                controls.verifications[0].passed === "true" ? greenBG : redBG;
+
+              return (
+                <ControlBox
+                  status={controls.verifications[0].passed}
+                  tab={tab}
+                  id={controlID}
+                  style={check}
+                  description={controls.verifications[0].description}
+                  title={controls.control}
+                  timestamp={controls.verifications[0].timestamp}
+                  link={link}
+                />
               );
             })}
           </ul>

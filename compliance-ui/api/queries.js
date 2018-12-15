@@ -57,29 +57,36 @@ const allReleaseQuery = release => {
   }`;
 };
 
-const detailsQuery = release => {
+const detailsQuery = controlID => {
   return `query{
     controlData: controls {
         id
         description
       }
 
-      releaseData: releases(releaseId: "43c61288-ef33-11e8-908e-06d86cf01138"){
+      controlReleaseData: controlReleases(id:"${controlID}"){
+  releases {
+    _id
+    release
+    timestamp
+    passed
+    passing
+    total
+    controls {
+      control
+      fileId
+      verifications {
+        origin
+        timestamp
+        passed
+        description
         release
-  timestamp
-  passed
-  passing
-  total
-  controls {
-    control
-    fileId
-    verifications {
-      timestamp
-      passed
-      description
+        component
+        references
+      }
     }
   }
-  }
+}
   }`;
 };
 

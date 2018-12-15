@@ -1,7 +1,6 @@
 import { withRouter } from "next/router";
 import { Grid, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
-import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
@@ -195,6 +194,7 @@ export const Details = ({ data, err, id }) => {
   if (err) {
     return <Failed />;
   }
+  console.log(data.controlReleaseData.releases);
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -210,6 +210,10 @@ export const Details = ({ data, err, id }) => {
               description={data.controlData[0].description}
               control={id}
             />
+
+            {data.controlReleaseData.releases.map(release => {
+              return <div>HEY</div>;
+            })}
           </React.Fragment>
         )}
         {!id && (
@@ -221,5 +225,12 @@ export const Details = ({ data, err, id }) => {
     </div>
   );
 };
+
+const missing = (
+  <section className={history}>
+    <h1 name="history-h1">History:</h1>
+    <Grid tab="0" controls={verificationsData()} />
+  </section>
+);
 
 export default withRouter(Details);

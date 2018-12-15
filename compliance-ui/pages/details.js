@@ -15,7 +15,6 @@ class DetailsPage extends React.Component {
   }
   render() {
     const { data, err, router = false, controlParam } = this.props;
-
     if (err) {
       return <Failed />;
     }
