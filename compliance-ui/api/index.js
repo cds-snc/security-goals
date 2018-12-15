@@ -15,8 +15,8 @@ export const controlStatus = async releaseID => {
   return result;
 };
 
-export const detailStatus = async () => {
-  const result = await fetchGraphQL(detailsQuery());
+export const detailStatus = async controlID => {
+  const result = await fetchGraphQL(detailsQuery(controlID));
   return result;
 };
 
