@@ -95,7 +95,11 @@ const redBG = css`
   }
 `;
 
-const Grid = ({ releases: { releases }, link = false, tab }) => {
+const cbContainer = css`
+  width: 100%;
+`;
+
+export const Grid = ({ releases: { releases }, link = false, tab }) => {
   return (
     <div>
       {releases.map(item => {
@@ -127,4 +131,80 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
   );
 };
 
-export default Grid;
+export const Grid2 = ({
+  releases: { releases },
+  titleTimestamp,
+  link = false,
+  tab
+}) => {
+  return (
+    <div>
+      {releases.map(item => {
+        return (
+          <ul key={item.release} name="grid" className={grid} tabIndex="0">
+            {item.controls.map(controls => {
+              const controlID = controls.control;
+              return (
+                <div className={cbContainer}>
+                  {controls.verifications.map(verifications => {
+                    console.log(verifications);
+                    const check =
+                      verifications.passed === "true" ? greenBG : redBG;
+                    return (
+                      <ControlBox
+                        status={verifications.passed}
+                        tab={tab}
+                        id={controlID}
+                        references={verifications.references}
+                        component={verifications.component}
+                        style={check}
+                        description={verifications.description}
+                        title={controls.control}
+                        titleTimestamp={titleTimestamp}
+                        timestamp={verifications.timestamp}
+                        link={link}
+                      />
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </ul>
+        );
+      })}
+    </div>
+  );
+};
+
+export const Grid3 = ({ releases: { releases }, link = false, tab }) => {
+  return (
+    <div>
+      {releases.map(item => {
+        return (
+          <ul key={item.release} name="grid" className={grid} tabIndex="0">
+            {item.controls.map(controls => {
+              console.log(controls);
+              const controlID = controls.control;
+
+              const check =
+                controls.verifications[0].passed === "true" ? greenBG : redBG;
+
+              return (
+                <ControlBox
+                  status={controls.verifications[0].passed}
+                  tab={tab}
+                  id={controlID}
+                  style={check}
+                  description={controls.verifications[0].description}
+                  title={controls.control}
+                  timestamp={controls.verifications[0].timestamp}
+                  link={link}
+                />
+              );
+            })}
+          </ul>
+        );
+      })}
+    </div>
+  );
+};

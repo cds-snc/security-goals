@@ -1,5 +1,6 @@
 import { css } from "emotion";
 import { theme, passingText, failingText, mediaQuery } from "../styles";
+import { Timestamp } from "./Timestamp";
 
 const topInfo = css`
   display: flex;
@@ -38,13 +39,15 @@ const topInfo = css`
   `)};
 `;
 
-export const Header = ({ title, status }) => {
+export const Header = ({ title, status, timestamp, titleTimestamp }) => {
   if (!status) {
     return <div>HEY</div>;
   }
   return (
     <div className={topInfo}>
-      <span data-testid="control-box-title">{title}</span>
+      <span data-testid="control-box-title">
+        {titleTimestamp ? timestamp : title}
+      </span>
       {status === "true" ? (
         <span data-testid="control-box-pass" className={passingText}>
           Passed

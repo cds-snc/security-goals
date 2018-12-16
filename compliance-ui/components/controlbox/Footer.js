@@ -47,6 +47,7 @@ const bottomMobile = css`
 export const Footer = ({
   description,
   timestamp,
+  titleTimestamp,
   status,
   references,
   component
@@ -57,7 +58,9 @@ export const Footer = ({
       <References text={references} />
       <div className={bottomMobile} name="bottom-mobile">
         <ControlComponent component={component} />
-        <Timestamp status={status} timestamp={timestamp} />
+        {titleTimestamp ? null : (
+          <Timestamp status={status} timestamp={timestamp} />
+        )}
       </div>
     </div>
   );
