@@ -1,5 +1,5 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, ActionBar, BackIcon } from "./";
+import { Grid2, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
@@ -28,6 +28,7 @@ const controlInfo = css`
 const detailsWrap = css`
   min-height: 100%;
   padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
+  margin-bottom: ${theme.spacing.xxl};
 
   a {
     text-decoration: underline;
@@ -92,7 +93,6 @@ const details = css`
 
   div[name="timestamp"] p {
     float: left;
-    font-size: ${theme.font.sm};
     color: #808080;
     font-weight: 700;
   }
@@ -126,6 +126,10 @@ const details = css`
         font-size: ${theme.font.xs};
       }
     `)};
+  }
+
+  div[name="timestamp"] {
+    display: inline-block;
   }
 
   div[name="timestamp"] div {
@@ -194,7 +198,6 @@ export const Details = ({ data, err, id }) => {
   if (err) {
     return <Failed />;
   }
-  console.log(data.controlReleaseData.releases);
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -211,9 +214,7 @@ export const Details = ({ data, err, id }) => {
               control={id}
             />
 
-            {data.controlReleaseData.releases.map(release => {
-              return <div>HEY</div>;
-            })}
+            <Grid2 releases={data.controlReleaseData} titleTimestamp={true} />
           </React.Fragment>
         )}
         {!id && (
@@ -229,7 +230,7 @@ export const Details = ({ data, err, id }) => {
 const missing = (
   <section className={history}>
     <h1 name="history-h1">History:</h1>
-    <Grid tab="0" controls={verificationsData()} />
+    <Grid2 tab="0" controls={verificationsData()} />
   </section>
 );
 

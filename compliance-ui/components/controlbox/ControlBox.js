@@ -12,6 +12,7 @@ export const ControlBox = ({
   description,
   references,
   component,
+  titleTimestamp,
   tab
 }) => {
   return (
@@ -23,13 +24,19 @@ export const ControlBox = ({
     >
       <WithLink tabIndex="0" id={id} link={link}>
         <div>
-          <Header title={title} status={status} />
+          <Header
+            title={title}
+            status={status}
+            timestamp={timestamp}
+            titleTimestamp={titleTimestamp}
+          />
           <Footer
             status={status}
             description={description}
             timestamp={timestamp}
             references={references}
             component={component}
+            titleTimestamp={titleTimestamp}
           />
         </div>
       </WithLink>
