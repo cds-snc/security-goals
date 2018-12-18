@@ -1,33 +1,33 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "chrome",
-        "request": "launch",
-        "name": "Next: Chrome",
-        "url": "http://localhost:4000",
-        "webRoot": "${workspaceFolder}",
-        "sourceMapPathOverrides": {
-          "webpack:///*": "${webRoot}/*"
-        }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Next: Chrome",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "webpack:///*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next: Node",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
+      "runtimeArgs": ["--inspect"],
+      "sourceMapPathOverrides": {
+        "webpack:///*": "${workspaceFolder}/*"
       },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "Next: Node",
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
-        "runtimeArgs": ["--inspect"],
-        "sourceMapPathOverrides": {
-          "webpack:///*": "${workspaceFolder}/*"
-        },
-        "port": 9229,
-        "console": "integratedTerminal"
-      }
-    ],
-    "compounds": [
-      {
-        "name": "Next: Full",
-        "configurations": ["Next: Node", "Next: Chrome"]
-      }
-    ]
-  }
+      "port": 9229,
+      "console": "integratedTerminal"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next: Full",
+      "configurations": ["Next: Node", "Next: Chrome"]
+    }
+  ]
+}

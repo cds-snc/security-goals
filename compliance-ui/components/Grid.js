@@ -11,9 +11,7 @@ const grid = css`
     list-style: none;
     padding: ${theme.spacing.md} ${theme.spacing.lg};
     position: static;
-    margin-bottom: -1px;
     border-top: 1px solid ${theme.colour.grayOutline};
-    border-bottom: 1px solid ${theme.colour.grayOutline};
     border-left: 1px solid ${theme.colour.grayOutline};
     background: ${theme.colour.white};
     width: 50%;
@@ -30,11 +28,18 @@ const grid = css`
 
   li:last-of-type {
     border-right: 1px solid ${theme.colour.grayOutline};
-    margin-bottom: 0;
-    width: 50.1%;
+    border-bottom: 1px solid ${theme.colour.grayOutline};
 
     ${mediaQuery.lg(css`
       width: 100%;
+    `)};
+  }
+
+  li:nth-last-child(2) {
+    border-bottom: 1px solid ${theme.colour.grayOutline};
+
+    ${mediaQuery.lg(css`
+      border-bottom: 0;
     `)};
   }
   a {
@@ -65,8 +70,8 @@ const greenBG = css`
   }
 
   &:focus-within {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.greenDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.greenDark};
 
     a:focus {
       outline: none;
@@ -88,8 +93,8 @@ const redBG = css`
   }
 
   &:focus-within {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.redDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.redDark};
 
     a:focus {
       outline: none;
@@ -97,33 +102,33 @@ const redBG = css`
   }
 `;
 
-const Grid = ({ releases: { releases }, link = false, tab }) => {
+const cbContainer = css`
+  width: 100%;
+`;
+
+export const Grid = ({ releases: { releases }, link = false, tab }) => {
   return (
     <div>
       {releases.map(item => {
         return (
           <ul key={item.release} name="grid" className={grid} tabIndex="0">
-            {item.controls.map(controls => {
-              return (
-                <React.Fragment key={controls.control}>
-                  {controls.verifications.map(verifications => {
-                    const check =
-                      verifications.passed === "true" ? greenBG : redBG;
+            {item.controls.map((controls, index) => {
+              const controlID = controls.control;
+              const check =
+                controls.verifications[0].passed === "true" ? greenBG : redBG;
 
-                    return (
-                      <ControlBox
-                        status={verifications.passed}
-                        tab={tab}
-                        style={check}
-                        description={verifications.description}
-                        title={controls.control}
-                        timestamp={verifications.timestamp}
-                        link={link}
-                        key={verifications.timestamp}
-                      />
-                    );
-                  })}
-                </React.Fragment>
+              return (
+                <ControlBox
+                  key={index}
+                  status={controls.verifications[0].passed}
+                  tab={tab}
+                  id={controlID}
+                  style={check}
+                  description={controls.verifications[0].description}
+                  title={controls.control}
+                  timestamp={controls.verifications[0].timestamp}
+                  link={link}
+                />
               );
             })}
           </ul>
@@ -133,4 +138,50 @@ const Grid = ({ releases: { releases }, link = false, tab }) => {
   );
 };
 
-export default Grid;
+export const Grid2 = ({
+  releases: { releases },
+  titleTimestamp,
+  link = false,
+  tab
+}) => {
+  return (
+    <div>
+      {releases.map(item => {
+        return (
+          <React.Fragment key={item.release}>
+            <h1 name="history-h1">Release #{item.release}</h1>
+            <ul name="grid" className={grid} tabIndex="0">
+              {item.controls.map(controls => {
+                const controlID = controls.control;
+                return (
+                  <div key="cb-container" className={cbContainer}>
+                    {controls.verifications.map((verifications, index) => {
+                      const check =
+                        verifications.passed === "true" ? greenBG : redBG;
+                      return (
+                        <ControlBox
+                          key={index}
+                          status={verifications.passed}
+                          tab={tab}
+                          id={controlID}
+                          references={verifications.references}
+                          component={verifications.component}
+                          style={check}
+                          description={verifications.description}
+                          title={controls.control}
+                          titleTimestamp={titleTimestamp}
+                          timestamp={verifications.timestamp}
+                          link={link}
+                        />
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </ul>
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};

@@ -1,7 +1,6 @@
 import { withRouter } from "next/router";
-import { Grid, Failed, Spinner, ActionBar, BackIcon } from "./";
+import { Grid2, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
-import { controlStatus } from "../api";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
@@ -29,6 +28,7 @@ const controlInfo = css`
 const detailsWrap = css`
   min-height: 100%;
   padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
+  margin-bottom: ${theme.spacing.xxl};
 
   a {
     text-decoration: underline;
@@ -86,6 +86,16 @@ const details = css`
     `)};
   }
 
+  h1[name="history-h1"] {
+    font-size: ${theme.font.xl};
+    margin-top: ${theme.spacing.xl};
+    color: ${theme.colour.blackLight};
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+    `)};
+  }
+
   h1 {
     font-size: ${theme.font.xl};
     margin: 0 0 0 0;
@@ -93,7 +103,6 @@ const details = css`
 
   div[name="timestamp"] p {
     float: left;
-    font-size: ${theme.font.sm};
     color: #808080;
     font-weight: 700;
   }
@@ -129,6 +138,10 @@ const details = css`
     `)};
   }
 
+  div[name="timestamp"] {
+    display: inline-block;
+  }
+
   div[name="timestamp"] div {
     display: none;
   }
@@ -145,6 +158,10 @@ const details = css`
 
   li:last-of-type {
     width: 100%;
+  }
+
+  li:nth-last-child(2) {
+    border-bottom: 0;
   }
 `;
 
@@ -191,23 +208,10 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-export const Details = ({ data, err, router = false }) => {
-  const [controlData, setControlData] = useState(data || { control: {} });
-
-  useEffect(async () => {
-    if (data) return;
-    const result = (data = await controlStatus(control));
-    setControlData(result);
-  }, controlData);
-
+export const Details = ({ data, err, id }) => {
   if (err) {
     return <Failed />;
   }
-
-  const control = fromRouter(router, "control");
-  const { description = "", name = "", id } = controlData.control || {};
-  const title = name ? `${control} - ${name}` : control;
-
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -218,16 +222,13 @@ export const Details = ({ data, err, router = false }) => {
               Back
             </a>
             <h1 name="verification-h1">Verification:</h1>
-            <pre>CONTROL:{control}</pre>
             <Collapsible
-              title={title}
-              description={description}
-              control={control}
+              title={id}
+              description={data.controlData}
+              control={id}
             />
-            <section className={history}>
-              <h1 name="history-h1">History:</h1>
-              <Grid tab="0" controls={verificationsData(controlData, {})} />
-            </section>
+
+            <Grid2 releases={data.controlReleaseData} titleTimestamp={true} />
           </React.Fragment>
         )}
         {!id && (
@@ -239,5 +240,12 @@ export const Details = ({ data, err, router = false }) => {
     </div>
   );
 };
+
+const missing = (
+  <section className={history}>
+    <h1 name="history-h1">History:</h1>
+    <Grid2 tab="0" controls={verificationsData()} />
+  </section>
+);
 
 export default withRouter(Details);

@@ -23,7 +23,7 @@ const allControlsQuery = () => {
        }`;
 };
 
-const controlQuery = releaseID => {
+const singleReleaseQuery = releaseID => {
   const query = `query{
     releases(releaseId: "${releaseID}"){
       release
@@ -57,4 +57,42 @@ const allReleaseQuery = release => {
   }`;
 };
 
-module.exports = { allControlsQuery, controlQuery, allReleaseQuery };
+const detailsQuery = controlID => {
+  return `query{
+    controlData: controls(controlId:"${controlID}") {
+        id
+        description
+      }
+
+      controlReleaseData: controlReleases(id:"${controlID}"){
+  releases {
+    _id
+    release
+    timestamp
+    passed
+    passing
+    total
+    controls {
+      control
+      fileId
+      verifications {
+        origin
+        timestamp
+        passed
+        description
+        release
+        component
+        references
+      }
+    }
+  }
+}
+  }`;
+};
+
+module.exports = {
+  allControlsQuery,
+  singleReleaseQuery,
+  allReleaseQuery,
+  detailsQuery
+};

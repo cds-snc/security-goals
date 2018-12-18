@@ -1,5 +1,10 @@
 import { format, parse } from "date-fns";
-import { allControlsStatus, controlStatus } from "../api";
+import {
+  allControlsStatus,
+  controlStatus,
+  releaseStatus,
+  detailStatus
+} from "../api";
 import { fetchGraphQL } from "../api/fetchGraphQL";
 
 export const verificationsData = (data = false, overrides = {}) => {
@@ -102,42 +107,29 @@ export const fromRouter = (router, prop) => {
   return val;
 };
 
-export const getReleases = async ({ req }) => {
-  const query = `query{
-    releases {
-      release
-      timestamp
-      passed
-      passing
-      total
-      }
-  }`;
-  //const release = req.params.release;
-  if (!req || !req.params || !req.params.release) {
-    return;
-  }
-
-  const result = await fetchGraphQL(query);
-
-  const data = result.releases;
-
-  const props = { data, err: false, releaseParam: req.params.release };
-
+export const getReleases = async () => {
+  const result = await releaseStatus();
+  const props = { err: false, data: result };
   if (result instanceof Error) {
     props.err = result.message;
   }
-
   return props;
 };
 
-export const getControlStatus = async ({ req }) => {
-  if (!req || !req.params || !req.params.control) {
-    return;
+export const getSingleRelease = async router => {
+  const release = fromRouter(router, "release");
+  const result = await controlStatus(release);
+  const props = { err: false, data: result, releaseParam: release };
+  if (result instanceof Error) {
+    props.err = result.message;
   }
+  return props;
+};
 
-  const control = req.params.control;
-  const result = await controlStatus(decodeURI(control));
-  const props = { data: result, err: false };
+export const getControlStatus = async router => {
+  const control = fromRouter(router, "control");
+  const result = await detailStatus(decodeURI(control));
+  const props = { data: result, err: false, controlParam: control };
 
   if (result instanceof Error) {
     props.err = result.message;
