@@ -86,6 +86,16 @@ const details = css`
     `)};
   }
 
+  h1[name="history-h1"] {
+    font-size: ${theme.font.xl};
+    margin-top: ${theme.spacing.xl};
+    color: ${theme.colour.blackLight};
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+    `)};
+  }
+
   h1 {
     font-size: ${theme.font.xl};
     margin: 0 0 0 0;
@@ -149,6 +159,10 @@ const details = css`
   li:last-of-type {
     width: 100%;
   }
+
+  li:nth-last-child(2) {
+    border-bottom: 0;
+  }
 `;
 
 const history = css`
@@ -210,11 +224,10 @@ export const Details = ({ data, err, id }) => {
             <h1 name="verification-h1">Verification:</h1>
             <Collapsible
               title={id}
-              description={data.controlData[0].description}
+              description={data.controlData}
               control={id}
             />
 
-            <h1 name="verification-h1"> History ({id}):</h1>
             <Grid2 releases={data.controlReleaseData} titleTimestamp={true} />
           </React.Fragment>
         )}

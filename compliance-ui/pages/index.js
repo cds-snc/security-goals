@@ -1,6 +1,6 @@
 import { hydrate, css } from "react-emotion";
 import { PageHead, Header, Home, ActionBar } from "../components";
-import { theme, actionsBottom } from "../components/styles";
+import { theme, actionsBottom, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import ReleaseBox from "../components/ReleaseBox";
 import { releaseStatus } from "../api";

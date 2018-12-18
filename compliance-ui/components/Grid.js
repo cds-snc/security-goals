@@ -112,14 +112,14 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
       {releases.map(item => {
         return (
           <ul key={item.release} name="grid" className={grid} tabIndex="0">
-            {item.controls.map(controls => {
+            {item.controls.map((controls, index) => {
               const controlID = controls.control;
-
               const check =
                 controls.verifications[0].passed === "true" ? greenBG : redBG;
 
               return (
                 <ControlBox
+                  key={index}
                   status={controls.verifications[0].passed}
                   tab={tab}
                   id={controlID}
@@ -148,68 +148,38 @@ export const Grid2 = ({
     <div>
       {releases.map(item => {
         return (
-          <ul key={item.release} name="grid" className={grid} tabIndex="0">
-            {item.controls.map(controls => {
-              const controlID = controls.control;
-              return (
-                <div className={cbContainer}>
-                  {controls.verifications.map(verifications => {
-                    console.log(verifications);
-                    const check =
-                      verifications.passed === "true" ? greenBG : redBG;
-                    return (
-                      <ControlBox
-                        status={verifications.passed}
-                        tab={tab}
-                        id={controlID}
-                        references={verifications.references}
-                        component={verifications.component}
-                        style={check}
-                        description={verifications.description}
-                        title={controls.control}
-                        titleTimestamp={titleTimestamp}
-                        timestamp={verifications.timestamp}
-                        link={link}
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </ul>
-        );
-      })}
-    </div>
-  );
-};
-
-export const Grid3 = ({ releases: { releases }, link = false, tab }) => {
-  return (
-    <div>
-      {releases.map(item => {
-        return (
-          <ul key={item.release} name="grid" className={grid} tabIndex="0">
-            {item.controls.map(controls => {
-              console.log(controls);
-              const controlID = controls.control;
-
-              const check =
-                controls.verifications[0].passed === "true" ? greenBG : redBG;
-
-              return (
-                <ControlBox
-                  status={controls.verifications[0].passed}
-                  tab={tab}
-                  id={controlID}
-                  style={check}
-                  description={controls.verifications[0].description}
-                  title={controls.control}
-                  timestamp={controls.verifications[0].timestamp}
-                  link={link}
-                />
-              );
-            })}
-          </ul>
+          <React.Fragment key={item.release}>
+            <h1 name="history-h1">Release #{item.release}</h1>
+            <ul name="grid" className={grid} tabIndex="0">
+              {item.controls.map(controls => {
+                const controlID = controls.control;
+                return (
+                  <div key="cb-container" className={cbContainer}>
+                    {controls.verifications.map((verifications, index) => {
+                      const check =
+                        verifications.passed === "true" ? greenBG : redBG;
+                      return (
+                        <ControlBox
+                          key={index}
+                          status={verifications.passed}
+                          tab={tab}
+                          id={controlID}
+                          references={verifications.references}
+                          component={verifications.component}
+                          style={check}
+                          description={verifications.description}
+                          title={controls.control}
+                          titleTimestamp={titleTimestamp}
+                          timestamp={verifications.timestamp}
+                          link={link}
+                        />
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </ul>
+          </React.Fragment>
         );
       })}
     </div>

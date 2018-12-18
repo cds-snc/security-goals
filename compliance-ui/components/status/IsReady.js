@@ -34,6 +34,7 @@ const IsReady = ({ data, statusRef }) => {
       {data.releases.map(release => {
         return (
           <div
+            key="statusBar"
             className={
               release.passed === "true" ? statusBarPassed : statusBarFailed
             }

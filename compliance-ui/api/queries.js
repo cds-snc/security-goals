@@ -59,7 +59,7 @@ const allReleaseQuery = release => {
 
 const detailsQuery = controlID => {
   return `query{
-    controlData: controls {
+    controlData: controls(controlId:"${controlID}") {
         id
         description
       }

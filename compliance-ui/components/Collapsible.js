@@ -38,7 +38,6 @@ const container = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
-  margin-bottom: ${theme.spacing.xl};
   h1[name="collapsible-h1"] {
     margin-top: 0;
     color: ${theme.colour.blackLight};
@@ -89,7 +88,14 @@ export class Collapsible extends React.Component {
           <div className={toggleContainer}>
             <h1 name="collapsible-h1">{title}</h1>
             <div className={this.state.open ? collapseIn : collapse}>
-              <MainDescription description={description} />
+              {description.map(description => {
+                return (
+                  <MainDescription
+                    key="collapsible"
+                    description={description.description}
+                  />
+                );
+              })}
             </div>
 
             {this.state.open ? (

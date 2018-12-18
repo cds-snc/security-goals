@@ -99,18 +99,24 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
           >
             <div>
               <div>
-                <span>Release: #{release}</span>{" "}
+                <span name="releasebox-title">Release: #{release}</span>{" "}
               </div>
               <div>
-                <span className={passed === "true" ? passingText : failingText}>
+                <span
+                  name="releasebox-passing"
+                  className={passed === "true" ? passingText : failingText}
+                >
                   {passing} / {total} checks
                 </span>
-                <span className={passed === "true" ? passingText : failingText}>
+                <span
+                  name="releasebox-passed"
+                  className={passed === "true" ? passingText : failingText}
+                >
                   {passed === "true" ? "Passed" : "Failed"}
                 </span>
               </div>
             </div>
-            <p>{timestamp.toGMTString()}</p>
+            <p name="releasebox-timestamp">{timestamp.toGMTString()}</p>
           </div>
         </a>
       </Link>

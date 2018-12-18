@@ -33,7 +33,7 @@ export const PassFailText = ({ status = { passed: 0, total: -1 } }) => {
     <div className={container}>
       {status.releases.map(release => {
         return (
-          <h2 data-testid="status-text" className={isReadyText}>
+          <h2 key="passFail" data-testid="status-text" className={isReadyText}>
             {release.passed === "true"
               ? "All the checks have passed"
               : "Some checks have failed"}
