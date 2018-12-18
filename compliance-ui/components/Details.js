@@ -214,6 +214,7 @@ export const Details = ({ data, err, id }) => {
               control={id}
             />
 
+            <h1 name="verification-h1"> History ({id}):</h1>
             <Grid2 releases={data.controlReleaseData} titleTimestamp={true} />
           </React.Fragment>
         )}

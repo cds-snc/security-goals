@@ -38,7 +38,7 @@ const container = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
-  margin-bottom: ${theme.spacing.lg};
+  margin-bottom: ${theme.spacing.xl};
   h1[name="collapsible-h1"] {
     margin-top: 0;
     color: ${theme.colour.blackLight};

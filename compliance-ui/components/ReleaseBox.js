@@ -66,8 +66,8 @@ const releaseFocusPassing = css`
   text-decoration: none;
 
   div:focus {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.greenDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.greenDark};
   }
 `;
 
@@ -75,8 +75,8 @@ const releaseFocusFailing = css`
   text-decoration: none;
 
   div:focus {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.redDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.redDark};
   }
 `;
 

@@ -11,9 +11,7 @@ const grid = css`
     list-style: none;
     padding: ${theme.spacing.md} ${theme.spacing.lg};
     position: static;
-    margin-bottom: -1px;
     border-top: 1px solid ${theme.colour.grayOutline};
-    border-bottom: 1px solid ${theme.colour.grayOutline};
     border-left: 1px solid ${theme.colour.grayOutline};
     background: ${theme.colour.white};
     width: 50%;
@@ -30,9 +28,18 @@ const grid = css`
 
   li:last-of-type {
     border-right: 1px solid ${theme.colour.grayOutline};
+    border-bottom: 1px solid ${theme.colour.grayOutline};
 
     ${mediaQuery.lg(css`
       width: 100%;
+    `)};
+  }
+
+  li:nth-last-child(2) {
+    border-bottom: 1px solid ${theme.colour.grayOutline};
+
+    ${mediaQuery.lg(css`
+      border-bottom: 0;
     `)};
   }
   a {
@@ -63,8 +70,8 @@ const greenBG = css`
   }
 
   &:focus-within {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.greenDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.greenDark};
 
     a:focus {
       outline: none;
@@ -86,8 +93,8 @@ const redBG = css`
   }
 
   &:focus-within {
-    outline-offset: -3px;
-    outline: 3px solid ${theme.colour.redDark};
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.redDark};
 
     a:focus {
       outline: none;
