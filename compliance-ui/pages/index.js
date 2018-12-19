@@ -8,12 +8,22 @@ import { format, parse } from "date-fns";
 import { getReleases } from "../util";
 
 const releases = css`
-  margin: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
+  margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
 
   h1 {
     font-size: ${theme.font.xl};
     color: ${theme.colour.blackLight};
   }
+
+  ${mediaQuery.lg(css`
+    margin: ${theme.spacing.xl} ${theme.spacing.xl} 0 ${theme.spacing.xl};
+  `)};
+
+  ${mediaQuery.sm(css`
+    h1 {
+      font-size: ${theme.font.lg};
+    }
+  `)};
 `;
 
 const releaseList = css`

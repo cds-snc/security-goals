@@ -28,9 +28,15 @@ const releaseBoxPassing = css`
     margin-bottom: ${theme.spacing.xs};
   }
 
-  ${mediaQuery.lg(css`
+  ${mediaQuery.md(css`
     div[name="inner-container"] {
       display: block;
+    }
+  `)};
+
+  ${mediaQuery.sm(css`
+    p {
+      font-size: ${theme.font.xs};
     }
   `)};
 `;
@@ -50,8 +56,13 @@ const passingText = css`
   font-size: ${theme.font.sm};
   border-radius: 5px;
 
-  ${mediaQuery.lg(css`
+  ${mediaQuery.md(css`
     margin: 0 ${theme.spacing.sm} 0 0;
+  `)};
+
+  ${mediaQuery.sm(css`
+    font-size: ${theme.font.xs};
+    padding: ${theme.spacing.xs};
   `)};
 `;
 
@@ -80,26 +91,36 @@ const releaseFocusFailing = css`
 `;
 
 const releaseTitle = css`
-  width: 70%;
+  width: 40rem;
 
   h3[name="releasebox-title"] {
     font-size: ${theme.font.lg};
     margin: 0 0 ${theme.spacing.sm} 0;
   }
 
-  ${mediaQuery.lg(css`
+  ${mediaQuery.md(css`
     width: 100%;
+  `)};
+
+  ${mediaQuery.sm(css`
+    h3[name="releasebox-title"] {
+      font-size: ${theme.font.md};
+    }
   `)};
 `;
 const releaseBadges = css`
-  width: 30%;
+  width: 15rem;
   font-weight: 700;
   text-align: right;
 
-  ${mediaQuery.lg(css`
+  ${mediaQuery.md(css`
     text-align: left;
     width: 100%;
     margin-top: ${theme.spacing.lg};
+  `)};
+
+  ${mediaQuery.sm(css`
+    margin-top: ${theme.spacing.md};
   `)};
 `;
 
