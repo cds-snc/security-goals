@@ -9,7 +9,7 @@ const grid = css`
   padding: 0;
   li {
     list-style: none;
-    padding: ${theme.spacing.md} ${theme.spacing.lg};
+    padding: ${theme.spacing.lg} ${theme.spacing.lg};
     position: static;
     border-top: 1px solid ${theme.colour.grayOutline};
     border-left: 1px solid ${theme.colour.grayOutline};
@@ -48,7 +48,7 @@ const grid = css`
   }
 
   ${mediaQuery.lg(css`
-    margin: 0 ${theme.spacing.lg} 0 ${theme.spacing.lg};
+    margin: 0 ${theme.spacing.xl} 0 ${theme.spacing.xl};
 
     li {
       width: 100%;
@@ -149,7 +149,9 @@ export const Grid2 = ({
       {releases.map(item => {
         return (
           <React.Fragment key={item.release}>
-            <h1 name="history-h1">Release #{item.release}</h1>
+            <a href={`/singlerelease/${item.release}`}>
+              <h1 name="history-h1">Release #{item.release}</h1>
+            </a>
             <ul name="grid" className={grid} tabIndex="0">
               {item.controls.map(controls => {
                 const controlID = controls.control;

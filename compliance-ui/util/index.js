@@ -126,6 +126,19 @@ export const getSingleRelease = async router => {
   return props;
 };
 
+export const getAllControlsStatus = async () => {
+  const result = await allControlsStatus();
+  const data = await passFailData(result);
+
+  const props = { data, err: false };
+
+  if (result instanceof Error) {
+    props.err = result.message;
+  }
+
+  return props;
+};
+
 export const getControlStatus = async router => {
   const control = fromRouter(router, "control");
   const result = await detailStatus(decodeURI(control));

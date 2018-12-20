@@ -8,11 +8,40 @@ import {
   Failed,
   BackToTopButton
 } from "../components";
-import { theme } from "../components/styles";
+import { theme, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
 import { controlStatus } from "../api";
 import { fromRouter, getSingleRelease } from "../util";
+import { BackIcon } from "../components";
+
+const back = css`
+  display: inline-block;
+  color: ${theme.colour.black};
+  font-size: ${theme.font.md};
+`;
+
+const home = css`
+  a[name="back"] {
+    margin-left: ${theme.spacing.xxl};
+    margin-top: ${theme.spacing.xl};
+  }
+  ${mediaQuery.lg(css`
+    a[name="back"] {
+      margin-left: ${theme.spacing.xl};
+    }
+  `)};
+  ${mediaQuery.sm(css`
+    a[name="back"]:first-of-type {
+      font-size: ${theme.font.sm};
+      margin-top: ${theme.spacing.lg};
+
+      svg {
+        height: 0.4rem;
+      }
+    }
+  `)};
+`;
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -35,8 +64,11 @@ class SingleReleasePage extends React.Component {
     }
     return (
       <Layout>
-        <pre />
-        <div data-testid="home">
+        <div data-testid="home" className={home}>
+          <a name="back" href="/" className={back}>
+            <BackIcon fill={theme.colour.blackLight} />
+            Back to main page
+          </a>
           <IsReady
             data={data}
             statusRef={statusRef => {

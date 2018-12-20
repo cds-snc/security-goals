@@ -20,21 +20,25 @@ const releaseBoxPassing = css`
     font-weight: 700;
   }
 
-  div:first-of-type {
+  div[name="inner-container"] {
     display: flex;
     font-size: ${theme.font.lg};
-    color: ${theme.colour.blackLight};
+    color: ${theme.colour.black};
     justify-content: space-between;
     margin-bottom: ${theme.spacing.xs};
   }
 
-  div:first-of-type div:first-of-type span:first-of-type {
-    font-weight: 700;
-  }
+  ${mediaQuery.md(css`
+    div[name="inner-container"] {
+      display: block;
+    }
+  `)};
 
-  div:first-of-type div:last-of-type span {
-    font-weight: 700;
-  }
+  ${mediaQuery.sm(css`
+    p {
+      font-size: ${theme.font.xs};
+    }
+  `)};
 `;
 
 const releaseBoxFailing = css`
@@ -51,15 +55,21 @@ const passingText = css`
   padding: ${theme.spacing.xs};
   font-size: ${theme.font.sm};
   border-radius: 5px;
+
+  ${mediaQuery.md(css`
+    margin: 0 ${theme.spacing.sm} 0 0;
+  `)};
+
+  ${mediaQuery.sm(css`
+    font-size: ${theme.font.xs};
+    padding: ${theme.spacing.xs};
+  `)};
 `;
 
 const failingText = css`
-  color: ${theme.colour.white};
+${passingText}
   background: ${theme.colour.redDark};
-  margin-left: ${theme.spacing.sm};
-  padding: ${theme.spacing.xs};
-  font-size: ${theme.font.sm};
-  border-radius: 5px;
+
 `;
 
 const releaseFocusPassing = css`
@@ -80,6 +90,40 @@ const releaseFocusFailing = css`
   }
 `;
 
+const releaseTitle = css`
+  width: 40rem;
+
+  h3[name="releasebox-title"] {
+    font-size: ${theme.font.lg};
+    margin: 0 0 ${theme.spacing.sm} 0;
+  }
+
+  ${mediaQuery.md(css`
+    width: 100%;
+  `)};
+
+  ${mediaQuery.sm(css`
+    h3[name="releasebox-title"] {
+      font-size: ${theme.font.md};
+    }
+  `)};
+`;
+const releaseBadges = css`
+  width: 15rem;
+  font-weight: 700;
+  text-align: right;
+
+  ${mediaQuery.md(css`
+    text-align: left;
+    width: 100%;
+    margin-top: ${theme.spacing.lg};
+  `)};
+
+  ${mediaQuery.sm(css`
+    margin-top: ${theme.spacing.md};
+  `)};
+`;
+
 const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
   return (
     <li>
@@ -97,11 +141,12 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
               passed === "true" ? releaseBoxPassing : releaseBoxFailing
             }
           >
-            <div>
-              <div>
-                <span name="releasebox-title">Release: #{release}</span>{" "}
+            <div name="inner-container">
+              <div className={releaseTitle}>
+                <h3 name="releasebox-title">Release: #{release}</h3>{" "}
+                <p name="releasebox-timestamp">{timestamp.toGMTString()}</p>
               </div>
-              <div>
+              <div className={releaseBadges}>
                 <span
                   name="releasebox-passing"
                   className={passed === "true" ? passingText : failingText}
@@ -116,7 +161,6 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
                 </span>
               </div>
             </div>
-            <p name="releasebox-timestamp">{timestamp.toGMTString()}</p>
           </div>
         </a>
       </Link>
