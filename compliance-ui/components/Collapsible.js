@@ -88,6 +88,12 @@ export class Collapsible extends React.Component {
           <div className={toggleContainer}>
             <h1 name="collapsible-h1">{title}</h1>
             <div className={this.state.open ? collapseIn : collapse}>
+              {description.length === 0 ? (
+                <MainDescription
+                  key="collapsible"
+                  description="The description seems to be missing. Sorry for the inconvenience, please try back at a later time if you are still looking for more information on the control in question."
+                />
+              ) : null}
               {description.map(description => {
                 return (
                   <MainDescription

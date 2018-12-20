@@ -51,6 +51,7 @@ const detailsWrap = css`
   ${mediaQuery.sm(css`
     padding: ${theme.spacing.md} ${theme.spacing.xl} ${theme.spacing.xl}
       ${theme.spacing.xl};
+    margin-bottom: ${theme.spacing.sm};
     a {
       margin-top: ${theme.spacing.sm};
     }
@@ -212,6 +213,7 @@ export const Details = ({ data, err, id }) => {
   if (err) {
     return <Failed />;
   }
+
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -219,7 +221,7 @@ export const Details = ({ data, err, id }) => {
           <React.Fragment>
             <a name="back" href="/" className={back}>
               <BackIcon fill={theme.colour.blackLight} />
-              Back
+              Back to home
             </a>
             <h1 name="verification-h1">Verification:</h1>
             <Collapsible

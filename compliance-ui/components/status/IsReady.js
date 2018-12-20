@@ -18,8 +18,8 @@ const statusBarFailed = css`
   `)};
 
   ${mediaQuery.lg(css`
-    margin: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.lg}
-      ${theme.spacing.lg};
+    margin: ${theme.spacing.lg} ${theme.spacing.xl} ${theme.spacing.lg}
+      ${theme.spacing.xl};
   `)};
 `;
 
