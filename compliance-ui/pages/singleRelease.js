@@ -67,7 +67,7 @@ class SingleReleasePage extends React.Component {
         <div data-testid="home" className={home}>
           <a name="back" href="/" className={back}>
             <BackIcon fill={theme.colour.blackLight} />
-            Back to main page
+            Back to home
           </a>
           <IsReady
             data={data}

@@ -144,7 +144,7 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
             <div name="inner-container">
               <div className={releaseTitle}>
                 <h3 name="releasebox-title">Release: #{release}</h3>{" "}
-                <p name="releasebox-timestamp">{timestamp.toGMTString()}</p>
+                <p name="releasebox-timestamp">{timestamp}</p>
               </div>
               <div className={releaseBadges}>
                 <span

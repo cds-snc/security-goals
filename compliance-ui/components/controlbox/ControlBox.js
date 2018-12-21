@@ -1,6 +1,7 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { WithLink } from "./WithLink";
+import { formatTimestamp } from "../../util";
 
 export const ControlBox = ({
   id,
@@ -15,6 +16,7 @@ export const ControlBox = ({
   titleTimestamp,
   tab
 }) => {
+  var formattedDate = formatTimestamp(timestamp);
   return (
     <li
       tabIndex={tab}
@@ -27,13 +29,13 @@ export const ControlBox = ({
           <Header
             title={title}
             status={status}
-            timestamp={timestamp}
+            timestamp={formattedDate}
             titleTimestamp={titleTimestamp}
           />
           <Footer
             status={status}
             description={description}
-            timestamp={timestamp}
+            timestamp={formattedDate}
             references={references}
             component={component}
             titleTimestamp={titleTimestamp}
