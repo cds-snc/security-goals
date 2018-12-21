@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import ReleaseBox from "../components/ReleaseBox";
 import { releaseStatus } from "../api";
 import { format, parse } from "date-fns";
-import { getReleases } from "../util";
+import { getReleases, formatTimestamp } from "../util";
 
 const releases = css`
   margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
@@ -48,21 +48,21 @@ if (typeof window !== "undefined") {
 }
 
 const ReleasesPage = ({ data }) => {
-  console.log(data);
   return (
     <Layout>
       <div className={releases}>
         <h1> Latest Releases: </h1>
         <ul className={releaseList}>
           {data.releases.map((singleRelease, index) => {
-            var myDate = new Date(singleRelease.timestamp * 1000);
+            var myDate = Number(singleRelease.timestamp);
+            var formattedDate = formatTimestamp(myDate);
             const key = `${singleRelease.release}`;
-            console.log(singleRelease.timestamp);
+
             return (
               <ReleaseBox
                 release={singleRelease.release}
                 passed={singleRelease.passed}
-                timestamp={myDate}
+                timestamp={formattedDate}
                 passing={singleRelease.passing}
                 total={singleRelease.total}
                 link={`/singlerelease/${key}`}
