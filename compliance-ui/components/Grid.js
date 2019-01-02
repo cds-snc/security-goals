@@ -117,7 +117,7 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
                 const controlID = controls.control;
                 var stop = false;
                 return (
-                  <React.Fragment>
+                  <React.Fragment key={controlID}>
                     {controls.verifications.map((verifications, index) => {
                       const check =
                         verifications.passed === "true" ? greenBG : redBG;
