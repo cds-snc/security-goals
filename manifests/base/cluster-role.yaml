@@ -9,6 +9,7 @@ rules:
     resources:
       - jobs
     verbs:
+      - create
       - get
       - delete 
       - watch

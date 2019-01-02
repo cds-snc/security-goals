@@ -1,7 +1,13 @@
 resources:
   - namespace.yaml 
-  - jobs-namespace.yaml 
-  - service-account.yaml
+  - checks-claim.yaml
+  - mongo-claim.yaml
   - cluster-role.yaml
   - cluster-role-binding.yaml
-    
+  - watcher-deployment.yaml
+  - watcher-service.yaml
+  - mongo-deployment.yaml
+  - mongo-service.yaml
+  - api-deployment.yaml
+  - api-service.yaml
+
