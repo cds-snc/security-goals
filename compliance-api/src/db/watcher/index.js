@@ -2,13 +2,27 @@
 const watchr = require('watchr')
 const watchPath = process.env.CHECKS_PATH
 
+// define the actual singleton instance
+// ------------------------------------
+const Queue = require('better-queue')
+
+const counter = new Queue(async (file, cb) => {
+  await saveFile(file)
+  cb()
+})
+
 const { saveFile } = require('../save')
 const { readFile } = require('../readFile')
 
 const saveWatchedFile = async fullPath => {
   // "checks/0-1542896172725.json"
   const file = await readFile(fullPath)
-  saveFile(JSON.parse(file))
+
+  counter.push(JSON.parse(file), () => {
+    console.log('saved')
+  })
+
+  // saveFile(JSON.parse(file))
 }
 
 // Define our watching parameters
