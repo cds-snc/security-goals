@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: url-check-compliance-cm-8
+  namespace: symmorfosi
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: 'cdssnc/url-check-compliance:latest'
+          imagePullPolicy: Always
+          name: 'url-check-compliance-cm'
+          env:
+            - name: ORIGIN
+              value: 'cdssnc/url-check-compliance:latest'
+            - name: COMPONENT
+              value: 'Source code'
+            - name: DESCRIPTION
+              value: 'The application uses a packages.json to manage the information inventory in source control with a log of changes by users.'
+            - name: SATISFIES
+              value: 'CM-8,CM-8 (1),CM-8 (4)'
+            - name: URL
+              value: 'https://github.com/cds-snc/mrpinchy-confession-box/blob/master/package.json'
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim

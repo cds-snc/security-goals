@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: github-reviews-check-compliance-sa-11-4
+  namespace: symmorfosi
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: 'cdssnc/github-reviews-check-compliance:latest'
+          imagePullPolicy: Always
+          name: 'github-reviews-check-compliance-sa-11-4'
+          env:
+            - name: ORIGIN
+              value: 'cdssnc/github-reviews-check-compliance:latest'
+            - name: COMPONENT
+              value: 'Infrastructure'
+            - name: DESCRIPTION
+              value: 'The application performs code review on its pull requests.'
+            - name: SATISFIES
+              value: 'SA-11,SA-11 (4)'
+            - name: REPO_URL
+              value: 'https://github.com/cds-snc/mrpinchy-confession-box'
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim
