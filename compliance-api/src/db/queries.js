@@ -115,13 +115,11 @@ const unwindReleaseControls = async sha => {
 const sumRelease = async sha => {
   const results = await unwindReleaseControls(sha)
   const totals = await sumReleaseControls(results)
-  await updateRelease(sha, totals)
+  return updateRelease(sha, totals)
 }
 
 // update release with totals
 const updateRelease = async (sha, { passing, total }) => {
-  console.log(`updated ${sha} =>  ${passing} of ${total} passing`)
-
   return releaseModel
     .findOneAndUpdate(
       { release: sha },
@@ -135,7 +133,11 @@ const updateRelease = async (sha, { passing, total }) => {
           console.log(err.message)
         }
 
-        console.log('sum updated', results.updatedAt)
+        console.log(
+          'sum updated',
+          results.updatedAt,
+          `${results.passing} / ${results.total}`,
+        )
       },
     )
     .exec()
