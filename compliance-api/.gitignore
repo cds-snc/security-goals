@@ -3,3 +3,5 @@ node_modules
 **/.DS_Store
 .env
 log.json
+/src/__tests__/testData/checks3/*
+/src/__tests__/testData/checks4/*
