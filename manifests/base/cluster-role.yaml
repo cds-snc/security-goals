@@ -15,3 +15,17 @@ rules:
       - watch
       - list
       - update
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - "rbac.authorization.k8s.io"
+    resources:
+      - clusterroles
+    verbs:
+      - get
+      - list

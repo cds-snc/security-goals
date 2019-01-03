@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pod-check-compliance-sc-7-istio
+  namespace: symmorfosi
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: 'cdssnc/pod-check-compliance:latest'
+          imagePullPolicy: Always
+          name: 'pod-check-compliance-sc-7-istio'
+          env:
+            - name: ORIGIN
+              value: 'cdssnc/pod-check-compliance:latest'
+            - name: COMPONENT
+              value: 'Infrastructure'
+            - name: DESCRIPTION
+              value: 'The cluster uses Istio to monitor incoming and outgoing data and encrypt communication between pods.'
+            - name: SATISFIES
+              value: 'SC-7'
+            - name: NEEDLE
+              value: 'istio'
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim

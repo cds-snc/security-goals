@@ -24,7 +24,7 @@ export const generateReleaseId = async () => {
   }
 }
 
-export const modifyJob = async job => {
+export const modifyJob = async (job, releaseId) => {
   if (
     job === undefined ||
     job === {} ||
@@ -40,9 +40,6 @@ export const modifyJob = async job => {
   }
 
   const name = job.metadata.name
-
-  // Generate release ID
-  const releaseId = await generateReleaseId()
 
   // Get previous configuration
   let body = JSON.parse(
@@ -106,6 +103,9 @@ export const restartJobs = async config => {
     const jobsApi = kc.makeApiClient(k8s.Batch_v1Api)
     const namespace = process.env.JOBS_NAMESPACE || 'symmorfosi'
 
+    // Generate release ID
+    const releaseId = await generateReleaseId()
+
     const res = await jobsApi.listNamespacedJob(namespace)
     if ('items' in res.body) {
       // The mechanic to delete and re-create jobs is going to be
@@ -114,8 +114,9 @@ export const restartJobs = async config => {
       return asyncForEach(res.body.items, async item => {
         try {
           let name = item.metadata.name
+          console.log('Restarting', name)
           jobsApi.deleteNamespacedJob(name, namespace, item)
-          const body = await modifyJob(item)
+          const body = await modifyJob(item, releaseId)
           await jobsApi.createNamespacedJob(namespace, body)
         } catch (err) {
           console.log(err)

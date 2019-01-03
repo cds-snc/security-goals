@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: url-check-compliance-ac-2
+  namespace: symmorfosi
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: 'cdssnc/url-check-compliance:latest'
+          imagePullPolicy: Always
+          name: 'url-check-compliance-ac-2'
+          env:
+            - name: ORIGIN
+              value: 'cdssnc/url-check-compliance:latest'
+            - name: COMPONENT
+              value: 'Policy'
+            - name: DESCRIPTION
+              value: 'The application follows Account Management policy as laid out in documentation.'
+            - name: SATISFIES
+              value: 'AC-2'
+            - name: URL
+              value: 'https://github.com/cds-snc/compliance-policy-documents/account-management.md'
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim
