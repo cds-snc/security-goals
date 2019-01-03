@@ -53,6 +53,7 @@ const checkControlExists = (fileControls, existingControls) => {
   fileControls.forEach(item => {
     // check if the control exist in release
     const exists = contains(existingControls, 'control', item.control)
+
     if (exists.length < 1) {
       // add new control to the release
       newControls.push(item)
