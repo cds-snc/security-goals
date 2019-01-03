@@ -11,6 +11,18 @@ const counter = new Queue(async (file, cb) => {
   cb()
 })
 
+counter.on('task_queued', result => {
+  console.log('task_queued', result)
+})
+
+counter.on('task_started', result => {
+  console.log('task_started', result)
+})
+
+counter.on('task_finish', result => {
+  console.log('task_finish', result)
+})
+
 const { saveFile } = require('../save')
 const { readFile } = require('../readFile')
 
