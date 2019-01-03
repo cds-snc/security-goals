@@ -115,7 +115,7 @@ const unwindReleaseControls = async sha => {
 const sumRelease = async sha => {
   const results = await unwindReleaseControls(sha)
   const totals = await sumReleaseControls(results)
-  updateRelease(sha, totals)
+  await updateRelease(sha, totals)
 }
 
 // update release with totals
