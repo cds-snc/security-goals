@@ -111,65 +111,71 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
     <div>
       {releases.map(item => {
         return (
-          <React.Fragment key={item.release}>
-            <ul name="grid" className={grid} tabIndex="0">
-              {item.controls.map(controls => {
-                const controlID = controls.control;
-                var stop = false;
-                return (
-                  <React.Fragment key={controlID}>
-                    {controls.verifications.map((verifications, index) => {
-                      const check =
-                        verifications.passed === "true" ? greenBG : redBG;
-                      if (verifications.passed === "false" && stop === false) {
-                        stop = true;
+          <ul key={item.release} name="grid" className={grid} tabIndex="0">
+            {item.controls.map(controls => {
+              const controlID = controls.control;
+              var stop = false;
+              return (
+                <React.Fragment key={controlID}>
+                  {controls.verifications.map((verifications, index) => {
+                    const check =
+                      verifications.passed === "true" ? greenBG : redBG;
+                    if (verifications.passed === "false" && stop === false) {
+                      stop = true;
 
-                        return (
-                          <ControlBox
-                            key={index}
-                            status={verifications.passed}
-                            tab={tab}
-                            id={controlID}
-                            references={verifications.references}
-                            component={verifications.component}
-                            style={check}
-                            description={verifications.description}
-                            title={controls.control}
-                            timestamp={verifications.timestamp}
-                            link={link}
-                          />
-                        );
-                      }
-                    })}
+                      return (
+                        <ControlBox
+                          key={index}
+                          status={verifications.passed}
+                          tab={tab}
+                          id={controlID}
+                          references={verifications.references}
+                          component={verifications.component}
+                          style={check}
+                          description={verifications.description}
+                          title={controls.control}
+                          timestamp={verifications.timestamp}
+                          link={link}
+                        />
+                      );
+                    }
+                  })}
+                </React.Fragment>
+              );
+            })}
 
-                    {controls.verifications.map((verifications, index) => {
-                      const check =
-                        verifications.passed === "true" ? greenBG : redBG;
-                      if (verifications.passed === "true" && stop === false) {
-                        stop = true;
+            {item.controls.map(controls => {
+              const controlID = controls.control;
+              var stop = false;
+              return (
+                <React.Fragment key={controlID}>
+                  {controls.verifications.map((verifications, index) => {
+                    const check =
+                      verifications.passed === "true" ? greenBG : redBG;
+                    if (verifications.passed === "true" && stop === false) {
+                      stop = true;
 
-                        return (
-                          <ControlBox
-                            key={index}
-                            status={verifications.passed}
-                            tab={tab}
-                            id={controlID}
-                            references={verifications.references}
-                            component={verifications.component}
-                            style={check}
-                            description={verifications.description}
-                            title={controls.control}
-                            timestamp={verifications.timestamp}
-                            link={link}
-                          />
-                        );
-                      }
-                    })}
-                  </React.Fragment>
-                );
-              })}
-            </ul>
-          </React.Fragment>
+                      return (
+                        <ControlBox
+                          key={index}
+                          status={verifications.passed}
+                          tab={tab}
+                          id={controlID}
+                          references={verifications.references}
+                          component={verifications.component}
+                          style={check}
+                          description={verifications.description}
+                          title={controls.control}
+                          timestamp={verifications.timestamp}
+                          link={link}
+                        />
+                      );
+                    }
+                  })}
+                </React.Fragment>
+              );
+            })}
+          </ul>
         );
       })}
     </div>
