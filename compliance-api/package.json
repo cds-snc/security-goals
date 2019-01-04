@@ -20,13 +20,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "add": "^2.0.6",
+    "async": "^2.6.1",
     "better-queue": "^3.8.10",
     "chalk": "^2.4.1",
     "cors": "^2.8.5",
+    "cp-file": "^6.0.0",
     "dotenv-safe": "^6.1.0",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "filenamify": "^2.1.0",
+    "global-singleton": "^0.1.2",
     "graphql": "^14.0.2",
     "graphql-query-tree": "^0.3.0",
     "graphql-scalar-objectid": "^0.1.1",
@@ -35,8 +39,10 @@
     "minimist": "^1.2.0",
     "mongoose": "^5.3.15",
     "object-array-merge": "^1.0.1",
+    "rimraf": "^2.6.3",
     "watchr": "^4.1.0",
-    "yaml": "^1.0.3"
+    "yaml": "^1.0.3",
+    "yarn": "^1.12.3"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
