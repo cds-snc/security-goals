@@ -42,7 +42,7 @@ const contains = (arr, index, val) => {
 }
 
 const checkVerificationExist = (verifications, newVerifications) => {
-  return merge(verifications, newVerifications, 'origin')
+  return merge(verifications, newVerifications, 'fileRef')
 }
 
 let verifications = {}
@@ -58,11 +58,13 @@ const checkControlExists = (fileControls, existingControls) => {
       // add new control to the release
       newControls.push(item)
     } else {
-      const verfied = checkVerificationExist(
-        exists[0].verifications,
-        item.verifications,
-      )
-      verifications[item.control] = verfied
+      exists.forEach(e => {
+        const verfied = checkVerificationExist(
+          e.verifications,
+          item.verifications,
+        )
+        verifications[item.control] = verfied
+      })
     }
   })
 
@@ -88,12 +90,10 @@ const flattenAndSave = async (file = {}, save = () => {}) => {
     // merge existing and new controls
     obj.controls = [...existingControls, ...newControls]
   } else {
-    console.log(obj.controls)
     obj.controls = existingControls
   }
 
   // update verifications
-
   obj.controls.map((item, index) => {
     if (verifications[item.control]) {
       obj.controls[index].verifications = verifications[item.control]
