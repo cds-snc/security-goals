@@ -100,7 +100,7 @@ const saveReleaseToDB = async obj => {
       },
     )
     const sum = await sumRelease(obj.release)
-    return await Promise.all([result, sum])
+    return Promise.all([result, sum])
   } catch (e) {
     console.log(e.message)
   }
@@ -115,12 +115,12 @@ const unwindReleaseControls = async sha => {
 const sumRelease = async sha => {
   const results = await unwindReleaseControls(sha)
   const totals = await sumReleaseControls(results)
-  return updateRelease(sha, totals)
+  await updateRelease(sha, totals)
 }
 
 // update release with totals
 const updateRelease = async (sha, { passing, total }) => {
-  return releaseModel
+  await releaseModel
     .findOneAndUpdate(
       { release: sha },
       {

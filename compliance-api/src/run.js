@@ -1,26 +1,50 @@
-var fs = require('fs')
+// node run.js
+const { promises: fs } = require('fs')
+const path = require('path')
+const cpFile = require('cp-file')
+const rimraf = require('rimraf')
 
-// node run.js __tests__/testData/checks3 __tests__/testData/checks4 1000
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-function moveFiles(dirname, target) {
-  fs.readdir(dirname, function(err, filenames) {
-    if (err) {
-      console.log('Error reading files')
-      return
-    }
-    if (filenames.length > 0) {
-      fs.rename(
-        `${dirname}/${filenames[0]}`,
-        `${target}/${filenames[0]}`,
-        function() {},
-      )
-      console.log(filenames[0])
-    } else {
-      process.exit()
-    }
-  })
+const delay = (max = 100, min = 5000) => {
+  const num = Math.floor(Math.random() * (max - min + 1) + min)
+  return num
 }
 
-setInterval(function() {
-  moveFiles(process.argv[2], process.argv[3])
-}, process.argv[4])
+const getFileInfo = filename => {
+  const name = path.parse(filename).name // hello
+  const ext = path.parse(filename).ext
+  return { name, ext }
+}
+
+const getFiles = async dirname => {
+  const files = await fs.readdir(dirname)
+  return files.filter(f => getFileInfo(f).ext === '.json')
+}
+
+const asyncForEach = async (array, callback) => {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
+const showFiles = async (dirname, target) => {
+  try {
+    const files = await getFiles(dirname)
+
+    console.log(`run => found ${files.length} files`)
+    rimraf(`${target}/*`, () => {
+      asyncForEach(files, async file => {
+        await sleep(delay())
+        await cpFile(`${dirname}/${file}`, `${target}/${file}`)
+      })
+    })
+  } catch (e) {
+    console.log(e)
+    process.exit()
+  }
+}
+
+const dir = '__tests__/testData/'
+
+showFiles(`${dir}/checks3`, `${dir}/checks4`)

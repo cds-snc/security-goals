@@ -133,7 +133,7 @@ const mapToControlEntry = async file => {
 
 const saveFile = async file => {
   try {
-    await flattenAndSave(file, saveReleaseToDB)
+    return await flattenAndSave(file, saveReleaseToDB)
   } catch (e) {
     console.log(e.message)
     // process.exit()
