@@ -86,21 +86,19 @@ const saveReleaseToDB = async obj => {
 
   // find and update or insert new
   try {
-    const result = await releaseModel.findOneAndUpdate(
-      query,
-      obj,
-      options,
-      (err, result) => {
+    const result = await releaseModel
+      .findOneAndUpdate(query, obj, options)
+      .exec((err, result) => {
         if (err) {
           console.log(err)
           return
         }
 
-        console.log('save release', result.updatedAt)
-      },
-    )
+        console.log('saveReleaseToDB', result.updatedAt)
+      })
     const sum = await sumRelease(obj.release)
-    return Promise.all([result, sum])
+    return [result, sum]
+    // return Promise.all([result, sum])
   } catch (e) {
     console.log(e.message)
   }
@@ -115,7 +113,7 @@ const unwindReleaseControls = async sha => {
 const sumRelease = async sha => {
   const results = await unwindReleaseControls(sha)
   const totals = await sumReleaseControls(results)
-  await updateRelease(sha, totals)
+  return updateRelease(sha, totals)
 }
 
 // update release with totals
@@ -128,19 +126,18 @@ const updateRelease = async (sha, { passing, total }) => {
         total: total,
         passed: passing === total,
       },
-      (err, results) => {
-        if (err) {
-          console.log(err.message)
-        }
-
-        console.log(
-          'sum updated',
-          results.updatedAt,
-          `${results.passing} / ${results.total}`,
-        )
-      },
     )
-    .exec()
+    .exec((err, results) => {
+      if (err) {
+        console.log(err.message)
+      }
+
+      console.log(
+        'sum updated',
+        results.updatedAt,
+        `${results.passing} / ${results.total}`,
+      )
+    })
 }
 
 module.exports = {
