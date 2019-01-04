@@ -86,19 +86,9 @@ const saveReleaseToDB = async obj => {
 
   // find and update or insert new
   try {
-    const result = await releaseModel
-      .findOneAndUpdate(query, obj, options)
-      .exec((err, result) => {
-        if (err) {
-          console.log(err)
-          return
-        }
-
-        console.log('saveReleaseToDB', result.updatedAt)
-      })
-    const sum = await sumRelease(obj.release)
-    return [result, sum]
-    // return Promise.all([result, sum])
+    await releaseModel.findOneAndUpdate(query, obj, options).exec()
+    await sumRelease(obj.release)
+    return
   } catch (e) {
     console.log(e.message)
   }
@@ -127,17 +117,7 @@ const updateRelease = async (sha, { passing, total }) => {
         passed: passing === total,
       },
     )
-    .exec((err, results) => {
-      if (err) {
-        console.log(err.message)
-      }
-
-      console.log(
-        'sum updated',
-        results.updatedAt,
-        `${results.passing} / ${results.total}`,
-      )
-    })
+    .exec()
 }
 
 module.exports = {
