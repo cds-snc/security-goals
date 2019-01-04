@@ -90,10 +90,15 @@ const flattenAndSave = async (file = {}, save = () => {}) => {
     // merge existing and new controls
     obj.controls = [...existingControls, ...newControls]
   } else {
+<<<<<<< HEAD
+=======
+    console.log(obj.controls)
+>>>>>>> Fixes
     obj.controls = existingControls
   }
 
   // update verifications
+
   obj.controls.map((item, index) => {
     if (verifications[item.control]) {
       obj.controls[index].verifications = verifications[item.control]
