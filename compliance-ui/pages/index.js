@@ -57,7 +57,6 @@ const ReleasesPage = ({ data }) => {
             var myDate = Number(singleRelease.timestamp);
             var formattedDate = formatTimestamp(myDate);
             const key = `${singleRelease.release}`;
-
             return (
               <ReleaseBox
                 release={singleRelease.release}

@@ -18,9 +18,15 @@ const setFields = type => {
 
 const allControlsQuery = () => {
   return `query{
-        ${setFields("failedControls")}
-        ${setFields("verifiedControls")}
-       }`;
+  releases {
+    _id
+    release
+    timestamp
+    passed
+    passing
+    total
+  }
+}`;
 };
 
 const singleReleaseQuery = releaseID => {
