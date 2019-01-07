@@ -41,6 +41,18 @@ spec:
             - name: DB_PASS
               value: ''
           resources: {}
+          livenessProbe:
+            httpGet:
+              path: /monitoring/alive
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /monitoring/ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5 
           volumeMounts:
             - name: compliance-checks
               mountPath: /checks
