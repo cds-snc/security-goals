@@ -6,6 +6,15 @@ const { schema } = require('./schema')
 
 const Server = compliancePosture => {
   let server = express()
+
+  server.get('/monitoring/alive', (_req, res) => {
+    res.status(200).send('yes')
+  })
+
+  server.get('/monitoring/ready', (_req, res) => {
+    res.status(200).send('yes')
+  })
+
   server.use(cors())
   server.use(
     '/',

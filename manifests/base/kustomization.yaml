@@ -10,4 +10,6 @@ resources:
   - mongo-service.yaml
   - api-deployment.yaml
   - api-service.yaml
+  - ui-deployment.yaml
+  - ui-service.yaml
 

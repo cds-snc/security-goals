@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: symmorfosi-ingress
+  namespace: symmorfosi
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: compliance-ui
+          servicePort: 3000
+      - path: /api
+        backend:
+          serviceName: compliance-api
+          servicePort: 3000
