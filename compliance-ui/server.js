@@ -9,6 +9,13 @@ const renderPDF = require("./util/pdf");
 
 const request = require("graphql-request").request;
 
+const sendPDF = async (res, html, filename) => {
+  const buffer = await renderPDF(html);
+  res.setHeader("Content-disposition", `inline; filename='${filename}.pdf'`);
+  res.type("application/pdf");
+  res.send(buffer);
+};
+
 app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.urlencoded({ extended: false }));
@@ -53,6 +60,22 @@ app.prepare().then(() => {
     );
   });
 
+  server.get("/pdf-releases", async (req, res) => {
+    //let html = await app.renderToHTML(req, res, "/pdf");
+    sendPDF(res, "<strong>releases</strong>", "releases");
+  });
+
+  server.get("/pdf-singlerelease", async (req, res) => {
+    //let html = await app.renderToHTML(req, res, "/pdf");
+    sendPDF(res, "<strong>single release</strong>", "singlerelease");
+  });
+
+  server.get("/pdf-details", async (req, res) => {
+    //let html = await app.renderToHTML(req, res, "/pdf");
+    sendPDF(res, "<strong>details</strong>", "details");
+  });
+
+  /*
   server.get("/pdf/:control?", async (req, res) => {
     let html = await app.renderToHTML(req, res, "/pdf");
     const buffer = await renderPDF(html);
@@ -62,7 +85,7 @@ app.prepare().then(() => {
     if (req.params.control) {
       id = req.params.control;
     }
-
+    const buffer = await renderPDF(html);
     res.setHeader(
       "Content-disposition",
       `inline; filename='compliant-yet-${id}.pdf'`
@@ -70,6 +93,7 @@ app.prepare().then(() => {
     res.type("application/pdf");
     res.send(buffer);
   });
+  */
 
   server.get("*", (req, res) => {
     return handle(req, res);
