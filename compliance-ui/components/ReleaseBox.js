@@ -150,7 +150,7 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
               <div className={releaseTitle}>
                 <h3 name="releasebox-title">
                   <span>
-                    {passed === "true" ? "Passed" : "Failed"} Release: #
+                    {passed === "true" ? "Passed" : "Failed"} release: #
                     {release}
                   </span>
                 </h3>{" "}
