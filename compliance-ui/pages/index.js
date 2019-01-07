@@ -49,7 +49,7 @@ if (typeof window !== "undefined") {
 
 const ReleasesPage = ({ data }) => {
   return (
-    <Layout>
+    <Layout pdf="pdf-releases">
       <div className={releases}>
         <h1> Latest Releases: </h1>
         <ul className={releaseList}>

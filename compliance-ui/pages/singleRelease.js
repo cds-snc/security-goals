@@ -62,6 +62,7 @@ class SingleReleasePage extends React.Component {
     if (err) {
       return <Failed />;
     }
+
     return (
       <Layout>
         <div data-testid="home" className={home}>

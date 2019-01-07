@@ -61,18 +61,20 @@ app.prepare().then(() => {
   });
 
   server.get("/pdf-releases", async (req, res) => {
-    //let html = await app.renderToHTML(req, res, "/pdf");
-    sendPDF(res, "<strong>releases</strong>", "releases");
+    let html = await app.renderToHTML(req, res, "/pdf-releases");
+    sendPDF(res, html, "releases");
   });
 
-  server.get("/pdf-singlerelease", async (req, res) => {
-    //let html = await app.renderToHTML(req, res, "/pdf");
-    sendPDF(res, "<strong>single release</strong>", "singlerelease");
+  server.get("/pdf-singlerelease/:release?", async (req, res) => {
+    //let html = "<strong>SINGLE RELEASE</strong>";
+
+    let html = await app.renderToHTML(req, res, "/pdf-singlerelease");
+    sendPDF(res, html, "singlerelease");
   });
 
   server.get("/pdf-details", async (req, res) => {
-    //let html = await app.renderToHTML(req, res, "/pdf");
-    sendPDF(res, "<strong>details</strong>", "details");
+    let html = await app.renderToHTML(req, res, "/pdf-details");
+    sendPDF(res, html, "details");
   });
 
   /*

@@ -44,7 +44,7 @@ const PdfPage = ({ err, data, perPage, summary = false }) => {
 
   return (
     <div>
-      <PageHead title="Are we compliant yet?" />
+      <PageHead title="PDF - Details" />
       {summary}
 
       <Page key="0">
