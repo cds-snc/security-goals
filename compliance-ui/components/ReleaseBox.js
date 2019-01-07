@@ -98,6 +98,11 @@ const releaseTitle = css`
     margin: 0 0 ${theme.spacing.sm} 0;
   }
 
+  h3[name="releasebox-title"] span {
+    font-size: ${theme.font.lg};
+    color: ${theme.colour.redDark};
+  }
+
   ${mediaQuery.md(css`
     width: 100%;
   `)};
@@ -143,7 +148,12 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
           >
             <div name="inner-container">
               <div className={releaseTitle}>
-                <h3 name="releasebox-title">Release: #{release}</h3>{" "}
+                <h3 name="releasebox-title">
+                  <span>
+                    {passed === "true" ? "Passed" : "Failed"} Release: #
+                    {release}
+                  </span>
+                </h3>{" "}
                 <p name="releasebox-timestamp">{timestamp}</p>
               </div>
               <div className={releaseBadges}>
@@ -152,12 +162,6 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
                   className={passed === "true" ? passingText : failingText}
                 >
                   {passing} / {total} checks
-                </span>
-                <span
-                  name="releasebox-passed"
-                  className={passed === "true" ? passingText : failingText}
-                >
-                  {passed === "true" ? "Passed" : "Failed"}
                 </span>
               </div>
             </div>
