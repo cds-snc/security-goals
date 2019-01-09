@@ -156,7 +156,7 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
                 </h3>{" "}
                 <p name="releasebox-timestamp">{timestamp}</p>
               </div>
-              <div className={releaseBadges}>
+              <div name="release-badges" className={releaseBadges}>
                 <span
                   name="releasebox-passing"
                   className={passed === "true" ? passingText : failingText}

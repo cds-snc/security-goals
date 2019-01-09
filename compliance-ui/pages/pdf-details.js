@@ -92,7 +92,6 @@ PdfPage.getInitialProps = async ({ req }) => {
 
   //  return { ...(await getAllControlsStatus()), perPage: 7 };
   const result = await getReleases();
-  console.log(req.params);
   return { err: result.err, data: result.data, perPage: 7, summary: false };
 };
 
