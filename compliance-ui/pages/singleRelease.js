@@ -64,7 +64,7 @@ class SingleReleasePage extends React.Component {
     }
 
     return (
-      <Layout pdf="pdf-singlerelease">
+      <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
         <div data-testid="home" className={home}>
           <a name="back" href="/" className={back}>
             <BackIcon fill={theme.colour.blackLight} />

@@ -1,5 +1,6 @@
 import { css } from "react-emotion";
 import {
+  chunkArray,
   getAllControlsStatus,
   getControlStatus,
   verificationsData,
@@ -92,7 +93,6 @@ const releaseBadges = css`
 const bar = css`
   padding: ${theme.spacing.md} ${theme.spacing.xxl} ${theme.spacing.md}
     ${theme.spacing.xxl};
-  margin-bottom: ${theme.spacing.xl};
   width: 100%;
   background: ${theme.colour.blackLight};
   z-index: 50;
@@ -121,6 +121,7 @@ const page = css`
   page-break-after: always;
 
   h1 {
+    margin-top: ${theme.spacing.lg};
     margin-left: ${theme.spacing.xxl};
     margin-bottom: ${theme.spacing.md};
     font-size: ${theme.font.xl};
@@ -156,38 +157,10 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
-  let d = [];
-  let i = 1;
-
-  for (i = 0; i < 20; i++) {
-    d.push({
-      _id: "5c2f934234538c00105a3348",
-      release: "1546621753549",
-      timestamp: "1546621762448",
-      passed: "false",
-      passing: "22",
-      total: "28"
-    });
-  }
-
   /* split up the data to display X boxes per page */
-  //data.releases
-  const chunkArray = (arr, chunkSize) => {
-    let index = 0;
-    let length = arr.length;
-    let tempArray = [];
-    let chunk;
 
-    for (index = 0; index < perPage; index++) {
-      chunk = arr.slice(index, index + chunkSize);
-      tempArray.push(chunk);
-    }
-    console.log(tempArray);
+  const chunks = chunkArray(data.releases, perPage);
 
-    return tempArray;
-  };
-
-  const chunks = chunkArray(d, 1);
   return (
     <div className={pdfContainer}>
       <header name="header" className={bar}>
@@ -201,75 +174,63 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
         <Page key="0">
           <h1>Latest Releases:</h1>
           <ul>
-            {chunks.map((chunk, index) => {
+            {chunks[0].map((singleRelease, index) => {
+              var myDate = Number(singleRelease.timestamp);
+              var formattedDate = formatTimestamp(myDate);
+              const key = `${singleRelease.release}`;
               return (
-                <React.Fragment key={index}>
-                  {chunk.map(singleRelease => {
-                    var myDate = Number(singleRelease.timestamp);
-                    var formattedDate = formatTimestamp(myDate);
-                    const key = `${singleRelease.release}`;
-
-                    return (
-                      <li>
-                        <Link
-                          as={`/singlerelease/${key}`}
-                          href={`/singlerelease/${key}`}
-                        >
-                          <a
-                            tabIndex="-1"
-                            className={
-                              singleRelease.passed === "true"
-                                ? releaseFocusPassing
-                                : releaseFocusFailing
-                            }
-                          >
-                            <div
-                              name="release-box"
-                              tabIndex="0"
+                <li>
+                  <Link
+                    as={`/singlerelease/${key}`}
+                    href={`/singlerelease/${key}`}
+                  >
+                    <a
+                      tabIndex="-1"
+                      className={
+                        singleRelease.passed === "true"
+                          ? releaseFocusPassing
+                          : releaseFocusFailing
+                      }
+                    >
+                      <div
+                        name="release-box"
+                        tabIndex="0"
+                        className={
+                          singleRelease.passed === "true"
+                            ? releaseBoxPassing
+                            : releaseBoxFailing
+                        }
+                      >
+                        <div name="inner-container">
+                          <div className={releaseTitle}>
+                            <h3 name="releasebox-title">
+                              <span>
+                                {singleRelease.passed === "true"
+                                  ? "Passed"
+                                  : "Failed"}{" "}
+                                release: #{singleRelease.release}
+                              </span>
+                            </h3>{" "}
+                            <p name="releasebox-timestamp">{formattedDate}</p>
+                          </div>
+                          <div name="release-badges" className={releaseBadges}>
+                            <span
+                              name="releasebox-passing"
                               className={
                                 singleRelease.passed === "true"
-                                  ? releaseBoxPassing
-                                  : releaseBoxFailing
+                                  ? passingText
+                                  : failingText
                               }
                             >
-                              <div name="inner-container">
-                                <div className={releaseTitle}>
-                                  <h3 name="releasebox-title">
-                                    <span>
-                                      {singleRelease.passed === "true"
-                                        ? "Passed"
-                                        : "Failed"}{" "}
-                                      release: #{singleRelease.release}
-                                    </span>
-                                  </h3>{" "}
-                                  <p name="releasebox-timestamp">
-                                    {formattedDate}
-                                  </p>
-                                </div>
-                                <div
-                                  name="release-badges"
-                                  className={releaseBadges}
-                                >
-                                  <span
-                                    name="releasebox-passing"
-                                    className={
-                                      singleRelease.passed === "true"
-                                        ? passingText
-                                        : failingText
-                                    }
-                                  >
-                                    {singleRelease.passing} /{" "}
-                                    {singleRelease.total} checks
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </React.Fragment>
+                              {singleRelease.passing} / {singleRelease.total}{" "}
+                              checks
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
               );
             })}
           </ul>
