@@ -72,26 +72,6 @@ const PdfPage = ({ err, data, perPage, summary = false }) => {
 };
 
 PdfPage.getInitialProps = async ({ req }) => {
-  // request for a single control
-  /*if (req.params.control) {
-    const d = await getControlStatus({ req });
-
-    if (!d || !d.data) return;
-
-    return {
-      data: verificationsData(d.data),
-      perPage: 5,
-      summary: (
-        <Page>
-          <PdfSummary data={d.data} />
-        </Page>
-      )
-    };
-  }*/
-
-  // request overview
-
-  //  return { ...(await getAllControlsStatus()), perPage: 7 };
   const result = await getReleases();
   return { err: result.err, data: result.data, perPage: 7, summary: false };
 };
