@@ -1,5 +1,6 @@
 import { css } from "react-emotion";
 import {
+  chunkArray,
   getAllControlsStatus,
   getControlStatus,
   verificationsData,
@@ -12,6 +13,91 @@ import ReleaseBox from "../components/ReleaseBox";
 import Layout from "../components/Layout";
 import { Logo } from "../components/Logo";
 import Link from "next/link";
+import { ControlBox } from "../components/index";
+
+const grid = css`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 ${theme.spacing.xxl};
+  padding: 0;
+  li {
+    list-style: none;
+    padding: ${theme.spacing.lg} ${theme.spacing.lg};
+    position: static;
+    border-top: 1px solid ${theme.colour.grayOutline};
+    border-left: 1px solid ${theme.colour.grayOutline};
+    background: ${theme.colour.white};
+  }
+
+  li:nth-of-type(2n) {
+    border-right: 1px solid ${theme.colour.grayOutline};
+  }
+
+  li:last-of-type {
+    border-right: 1px solid ${theme.colour.grayOutline};
+    border-bottom: 1px solid ${theme.colour.grayOutline};
+  }
+
+  li:nth-last-child(2) {
+    border-bottom: 1px solid ${theme.colour.grayOutline};
+  }
+  a {
+    text-decoration: none;
+    color: ${theme.colour.black};
+  }
+`;
+
+const greenBG = css`
+  font-size: ${theme.font.lg};
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  p {
+    margin: 0;
+    font-size: ${theme.font.md};
+  }
+
+  p[name="time"],
+  div[name="time-circle"] {
+    margin-top: ${theme.spacing.md};
+  }
+
+  &:focus-within {
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.greenDark};
+
+    a:focus {
+      outline: none;
+    }
+  }
+`;
+
+const redBG = css`
+  font-size: ${theme.font.lg};
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  p {
+    margin: 0;
+    font-size: ${theme.font.md};
+  }
+  &:hover {
+    background: ${theme.colour.redLight};
+  }
+
+  &:focus-within {
+    outline-offset: -4px;
+    outline: 4px solid ${theme.colour.redDark};
+
+    a:focus {
+      outline: none;
+    }
+  }
+`;
+
+const cbContainer = css`
+  width: 100%;
+`;
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -117,29 +203,38 @@ const logo = css`
 
 const page = css`
   width: 8.5in;
-  height: 10.5in;
+  height: 11in;
   page-break-after: always;
 
   h1 {
-    margin-left: ${theme.spacing.xxl};
-    margin-bottom: ${theme.spacing.md};
     font-size: ${theme.font.xl};
   }
 `;
 
 const pdfContainer = css`
+
+background: white;
   ul {
-    margin: 0;
+    margin 0;
     padding: 0;
   }
 
   li {
     list-style: none;
+    padding: ${theme.spacing.lg};
     margin-left: ${theme.spacing.xxl};
     width: 40.8rem;
     border: 1px solid ${theme.colour.grayOutline};
     margin-bottom: 8px;
   }
+
+`;
+
+const number = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${theme.spacing.xl};
 `;
 
 const Page = ({ children }) => {
@@ -156,24 +251,105 @@ const PdfSinglePage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
-  /* split up the data to display X boxes per page */
-  //data.releases
-  console.log(data);
   return (
     <div className={pdfContainer}>
-      <header name="header" className={bar}>
-        <h1 className={h1}>Are we compliant yet?</h1>
-        <Logo alt="CDS Logo" style={logo} />
-      </header>
-      <div className={page}>
-        <PageHead title="PDF - Releases" />
-        {summary}
+      <PageHead title="PDF - Releases" />
 
-        <Page key="0">
-          <h1>Latest Releases:</h1>
-          <ul />
-        </Page>
-      </div>
+      {summary}
+
+      {data.releases.map(item => {
+        const chunks = chunkArray(item.controls, perPage);
+        var pageNumber = 0;
+        return (
+          <React.Fragment>
+            {chunks.map(chunk => {
+              pageNumber++;
+              return (
+                <Page>
+                  <header name="header" className={bar}>
+                    <h1 className={h1}>Are we compliant yet?</h1>
+                    <Logo alt="CDS Logo" style={logo} />
+                  </header>
+                  <ul>
+                    {chunk.map(singleRelease => {
+                      const controlID = singleRelease.control;
+                      var stop = false;
+                      return (
+                        <div>
+                          {singleRelease.verifications.map(
+                            (verifications, index) => {
+                              const check =
+                                verifications.passed === "true"
+                                  ? greenBG
+                                  : redBG;
+
+                              if (
+                                verifications.passed === "false" &&
+                                stop === false
+                              ) {
+                                stop = true;
+
+                                return (
+                                  <ControlBox
+                                    key={index}
+                                    status={verifications.passed}
+                                    id={controlID}
+                                    references={verifications.references}
+                                    component={verifications.component}
+                                    style={check}
+                                    description={verifications.description}
+                                    title={controlID}
+                                    timestamp={verifications.timestamp}
+                                  />
+                                );
+                              }
+                            }
+                          )}
+
+                          {singleRelease.verifications.map(
+                            (verifications, index) => {
+                              const check =
+                                verifications.passed === "true"
+                                  ? greenBG
+                                  : redBG;
+
+                              if (
+                                verifications.passed === "true" &&
+                                stop === false
+                              ) {
+                                stop = true;
+
+                                return (
+                                  <ControlBox
+                                    key={index}
+                                    status={verifications.passed}
+                                    id={controlID}
+                                    references={verifications.references}
+                                    component={verifications.component}
+                                    style={check}
+                                    description={verifications.description}
+                                    title={controlID}
+                                    timestamp={verifications.timestamp}
+                                  />
+                                );
+                              }
+                            }
+                          )}
+                        </div>
+                      );
+                    })}
+                    <div className={number}>
+                      <span>
+                        <strong>- Page {pageNumber} -</strong>
+                      </span>
+                    </div>
+                  </ul>
+                </Page>
+              );
+            })}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 };
@@ -198,7 +374,7 @@ PdfSinglePage.getInitialProps = async ({ req }) => {
 
   // request overview
   const result = await getSingleRelease();
-  return { err: result.err, data: result.data, perPage: 10, summary: false };
+  return { err: result.err, data: result.data, perPage: 5, summary: false };
 };
 
 export default PdfSinglePage;
