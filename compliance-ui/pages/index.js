@@ -49,7 +49,7 @@ if (typeof window !== "undefined") {
 
 const ReleasesPage = ({ data }) => {
   return (
-    <Layout>
+    <Layout pdf="pdf-releases">
       <div className={releases}>
         <h1> Latest Releases: </h1>
         <ul className={releaseList}>
@@ -57,7 +57,6 @@ const ReleasesPage = ({ data }) => {
             var myDate = Number(singleRelease.timestamp);
             var formattedDate = formatTimestamp(myDate);
             const key = `${singleRelease.release}`;
-
             return (
               <ReleaseBox
                 release={singleRelease.release}

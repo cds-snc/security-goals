@@ -62,8 +62,9 @@ class SingleReleasePage extends React.Component {
     if (err) {
       return <Failed />;
     }
+
     return (
-      <Layout>
+      <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
         <div data-testid="home" className={home}>
           <a name="back" href="/" className={back}>
             <BackIcon fill={theme.colour.blackLight} />

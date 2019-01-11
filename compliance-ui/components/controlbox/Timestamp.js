@@ -32,8 +32,8 @@ export const Timestamp = ({ status, timestamp }) => {
   const circleCheck = status === "true" ? passingCircle : failingCircle;
   return (
     <div name="timestamp" className={timeStamp}>
-      <div className={circleCheck} />
-      <p>{timestamp}</p>
+      <div name="time-circle" className={circleCheck} />
+      <p name="time">{timestamp}</p>
     </div>
   );
 };

@@ -36,10 +36,10 @@ const actions = css`
   `)};
 `;
 
-const ActionBar = ({ id = "" }) => {
+const ActionBar = ({ id = "", pdf = "" }) => {
   return (
     <div name="action-bar" className={actions}>
-      <PrintButton link={`/pdf/${id}`} />
+      <PrintButton link={`/${pdf}/${id}`} />
     </div>
   );
 };
