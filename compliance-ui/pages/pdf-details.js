@@ -3,10 +3,13 @@ import {
   chunkArray,
   getAllControlsStatus,
   getControlStatus,
-  verificationsData
+  verificationsData,
+  getReleases,
+  formatTimestamp
 } from "../util";
 import { Grid, IsReady, PageHead, Failed, PdfSummary } from "../components";
 import { theme } from "../components/styles";
+import ReleaseBox from "../components/ReleaseBox";
 
 const page = css`
   position: relative;
@@ -32,43 +35,44 @@ const PdfPage = ({ err, data, perPage, summary = false }) => {
     console.log(err);
   }
 
-  if (!data || !data.items) {
+  if (!data || !data.releases) {
     return <Failed />;
   }
 
   /* split up the data to display X boxes per page */
-  const chunks = chunkArray(data.items, perPage);
+  //const chunks = chunkArray(data.releases, perPage);
+
   return (
     <div>
-      <PageHead title="Are we compliant yet?" />
+      <PageHead title="PDF - Details" />
       {summary}
 
-      {chunks.map((chunk, index) => {
-        let cData = {};
-        cData.items = chunk;
-        return (
-          <Page key={index}>
-            {index === 0 && (
-              <div>
-                {!summary && (
-                  <div>
-                    <h2>Are we compliant yet?</h2> <IsReady data={data} />
-                  </div>
-                )}
-              </div>
-            )}
-            <h1 className={verificationsH1}> Verifications: </h1>
-            <Grid controls={cData} />
-          </Page>
-        );
-      })}
+      <Page key="0">
+        {data.releases.map((singleRelease, index) => {
+          var myDate = Number(singleRelease.timestamp);
+          var formattedDate = formatTimestamp(myDate);
+          const key = `${singleRelease.release}`;
+
+          return (
+            <ReleaseBox
+              release={singleRelease.release}
+              passed={singleRelease.passed}
+              timestamp={formattedDate}
+              passing={singleRelease.passing}
+              total={singleRelease.total}
+              link={`/singlerelease/${key}`}
+              key={singleRelease.release}
+            />
+          );
+        })}
+      </Page>
     </div>
   );
 };
 
 PdfPage.getInitialProps = async ({ req }) => {
   // request for a single control
-  if (req.params.control) {
+  /*if (req.params.control) {
     const d = await getControlStatus({ req });
 
     if (!d || !d.data) return;
@@ -82,10 +86,13 @@ PdfPage.getInitialProps = async ({ req }) => {
         </Page>
       )
     };
-  }
+  }*/
 
   // request overview
-  return { ...(await getAllControlsStatus()), perPage: 7 };
+
+  //  return { ...(await getAllControlsStatus()), perPage: 7 };
+  const result = await getReleases();
+  return { err: result.err, data: result.data, perPage: 7, summary: false };
 };
 
 export default PdfPage;

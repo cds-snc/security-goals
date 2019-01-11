@@ -86,14 +86,14 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, pdf = "", id = "" }) => {
   return (
     <div className={layout}>
       <div className={content}>
         <PageHead />
         <Header />
         <div className={actions}>
-          <ActionBar />
+          <ActionBar pdf={pdf} id={id} />
         </div>
         {children}
       </div>

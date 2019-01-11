@@ -1,9 +1,8 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
+import { Logo } from "./Logo";
 
 const bar = css`
-  left: 0;
-  top: 0;
   padding: ${theme.spacing.md} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
   width: 100%;
   background: ${theme.colour.blackLight};
@@ -67,9 +66,9 @@ const logo = css`
 `;
 
 const Header = () => (
-  <header className={bar}>
+  <header name="header" className={bar}>
     <h1 className={h1}>Are we compliant yet?</h1>
-    <img alt="CDS Logo" src="/static/cdsLogo.svg" className={logo} />
+    <Logo alt="CDS Logo" style={logo} />
   </header>
 );
 
