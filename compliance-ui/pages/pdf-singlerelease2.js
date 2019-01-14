@@ -251,108 +251,98 @@ const PdfSinglePage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
-  const sortedData = [];
-  {
-    /* This entire mapping is used to push the data into a new array sorted
-with failed tests taking priority */
-  }
-
-  {
-    /* STARTING WITH THE FAILED CONTROLS */
-  }
-  data.releases.map(release => {
-    var chunks = chunkArray(sortedData, perPage);
-    return (
-      <React.Fragment>
-        {release.controls.map(control => {
-          var controlID = control.control;
-          var stop = false;
-          return (
-            <React.Fragment>
-              {control.verifications.map(verification => {
-                if (verification.passed === "false" && stop === false) {
-                  stop = true;
-                  sortedData.push({
-                    passed: `${verification.passed}`,
-                    control: `${controlID}`,
-                    description: `${verification.description}`,
-                    timestamp: `${verification.timestamp}`
-                  });
-                }
-              })}
-            </React.Fragment>
-          );
-        })}
-      </React.Fragment>
-    );
-  });
-
-  {
-    /* THE THE PASSING CONTROLS */
-  }
-
-  data.releases.map(release => {
-    return (
-      <React.Fragment>
-        {release.controls.map(control => {
-          var controlID = control.control;
-          var stop = false;
-          return (
-            <React.Fragment>
-              {control.verifications.map(verification => {
-                if (verification.passed === "true" && stop === false) {
-                  stop = true;
-                  sortedData.push({
-                    passed: `${verification.passed}`,
-                    control: `${controlID}`,
-                    description: `${verification.description}`,
-                    timestamp: `${verification.timestamp}`
-                  });
-                }
-              })}
-            </React.Fragment>
-          );
-        })}
-      </React.Fragment>
-    );
-  });
-
-  const chunks = chunkArray(sortedData, perPage);
-  var pageNumber = 0;
-
   return (
     <div className={pdfContainer}>
       <PageHead title="PDF - Releases" />
-      {/* NOW WE WILL USE THE SORTED DATA TO CHUNK AND
-        RENDER THE COMPONENTS IN THE PDF */}
-      {chunks.map(chunk => {
-        pageNumber++;
+
+      {summary}
+
+      {data.releases.map(item => {
+        const chunks = chunkArray(item.controls, perPage);
+        var pageNumber = 0;
         return (
-          <Page>
-            <header name="header" className={bar}>
-              <h1 className={h1}>Are we compliant yet?</h1>
-              <Logo alt="CDS Logo" style={logo} />
-            </header>
-            {chunk.map((verifications, index) => {
-              const check = verifications.passed === "true" ? greenBG : redBG;
+          <React.Fragment>
+            {chunks.map(chunk => {
+              pageNumber++;
               return (
-                <ControlBox
-                  key={index}
-                  status={verifications.passed}
-                  id={verifications.control}
-                  style={check}
-                  description={verifications.description}
-                  title={verifications.control}
-                  timestamp={verifications.timestamp}
-                />
+                <Page>
+                  <header name="header" className={bar}>
+                    <h1 className={h1}>Are we compliant yet?</h1>
+                    <Logo alt="CDS Logo" style={logo} />
+                  </header>
+
+                  {chunk.map(singleRelease => {
+                    const controlID = singleRelease.control;
+                    var stop = false;
+                    return (
+                      <div>
+                        {singleRelease.verifications.map(
+                          (verifications, index) => {
+                            const check =
+                              verifications.passed === "true" ? greenBG : redBG;
+
+                            if (
+                              verifications.passed === "false" &&
+                              stop === false
+                            ) {
+                              stop = true;
+
+                              return (
+                                <ControlBox
+                                  key={index}
+                                  status={verifications.passed}
+                                  id={controlID}
+                                  references={verifications.references}
+                                  component={verifications.component}
+                                  style={check}
+                                  description={verifications.description}
+                                  title={controlID}
+                                  timestamp={verifications.timestamp}
+                                />
+                              );
+                            }
+                          }
+                        )}
+
+                        {singleRelease.verifications.map(
+                          (verifications, index) => {
+                            const check =
+                              verifications.passed === "true" ? greenBG : redBG;
+
+                            if (
+                              verifications.passed === "true" &&
+                              stop === false
+                            ) {
+                              stop = true;
+
+                              return (
+                                <ControlBox
+                                  key={index}
+                                  status={verifications.passed}
+                                  id={controlID}
+                                  references={verifications.references}
+                                  component={verifications.component}
+                                  style={check}
+                                  description={verifications.description}
+                                  title={controlID}
+                                  timestamp={verifications.timestamp}
+                                />
+                              );
+                            }
+                          }
+                        )}
+                      </div>
+                    );
+                  })}
+                  <div className={number}>
+                    <span>
+                      <strong>- Page {pageNumber} -</strong>
+                    </span>
+                  </div>
+                </Page>
               );
             })}
-            <div className={number}>
-              <span>
-                <strong>- Page {pageNumber} -</strong>
-              </span>
-            </div>
-          </Page>
+          </React.Fragment>
         );
       })}
     </div>
