@@ -270,80 +270,75 @@ const PdfSinglePage = ({ err, data, perPage, summary = false }) => {
                     <h1 className={h1}>Are we compliant yet?</h1>
                     <Logo alt="CDS Logo" style={logo} />
                   </header>
-                  <ul>
-                    {chunk.map(singleRelease => {
-                      const controlID = singleRelease.control;
-                      var stop = false;
-                      return (
-                        <div>
-                          {singleRelease.verifications.map(
-                            (verifications, index) => {
-                              const check =
-                                verifications.passed === "true"
-                                  ? greenBG
-                                  : redBG;
 
-                              if (
-                                verifications.passed === "false" &&
-                                stop === false
-                              ) {
-                                stop = true;
+                  {chunk.map(singleRelease => {
+                    const controlID = singleRelease.control;
+                    var stop = false;
+                    return (
+                      <div>
+                        {singleRelease.verifications.map(
+                          (verifications, index) => {
+                            const check =
+                              verifications.passed === "true" ? greenBG : redBG;
 
-                                return (
-                                  <ControlBox
-                                    key={index}
-                                    status={verifications.passed}
-                                    id={controlID}
-                                    references={verifications.references}
-                                    component={verifications.component}
-                                    style={check}
-                                    description={verifications.description}
-                                    title={controlID}
-                                    timestamp={verifications.timestamp}
-                                  />
-                                );
-                              }
+                            if (
+                              verifications.passed === "false" &&
+                              stop === false
+                            ) {
+                              stop = true;
+
+                              return (
+                                <ControlBox
+                                  key={index}
+                                  status={verifications.passed}
+                                  id={controlID}
+                                  references={verifications.references}
+                                  component={verifications.component}
+                                  style={check}
+                                  description={verifications.description}
+                                  title={controlID}
+                                  timestamp={verifications.timestamp}
+                                />
+                              );
                             }
-                          )}
+                          }
+                        )}
 
-                          {singleRelease.verifications.map(
-                            (verifications, index) => {
-                              const check =
-                                verifications.passed === "true"
-                                  ? greenBG
-                                  : redBG;
+                        {singleRelease.verifications.map(
+                          (verifications, index) => {
+                            const check =
+                              verifications.passed === "true" ? greenBG : redBG;
 
-                              if (
-                                verifications.passed === "true" &&
-                                stop === false
-                              ) {
-                                stop = true;
+                            if (
+                              verifications.passed === "true" &&
+                              stop === false
+                            ) {
+                              stop = true;
 
-                                return (
-                                  <ControlBox
-                                    key={index}
-                                    status={verifications.passed}
-                                    id={controlID}
-                                    references={verifications.references}
-                                    component={verifications.component}
-                                    style={check}
-                                    description={verifications.description}
-                                    title={controlID}
-                                    timestamp={verifications.timestamp}
-                                  />
-                                );
-                              }
+                              return (
+                                <ControlBox
+                                  key={index}
+                                  status={verifications.passed}
+                                  id={controlID}
+                                  references={verifications.references}
+                                  component={verifications.component}
+                                  style={check}
+                                  description={verifications.description}
+                                  title={controlID}
+                                  timestamp={verifications.timestamp}
+                                />
+                              );
                             }
-                          )}
-                        </div>
-                      );
-                    })}
-                    <div className={number}>
-                      <span>
-                        <strong>- Page {pageNumber} -</strong>
-                      </span>
-                    </div>
-                  </ul>
+                          }
+                        )}
+                      </div>
+                    );
+                  })}
+                  <div className={number}>
+                    <span>
+                      <strong>- Page {pageNumber} -</strong>
+                    </span>
+                  </div>
                 </Page>
               );
             })}
