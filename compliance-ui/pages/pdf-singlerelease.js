@@ -261,14 +261,13 @@ with failed tests taking priority */
     /* STARTING WITH THE FAILED CONTROLS */
   }
   data.releases.map(release => {
-    var chunks = chunkArray(sortedData, perPage);
     return (
-      <React.Fragment>
+      <React.Fragment key={release.release}>
         {release.controls.map(control => {
           var controlID = control.control;
           var stop = false;
           return (
-            <React.Fragment>
+            <React.Fragment key={control.control}>
               {control.verifications.map(verification => {
                 if (verification.passed === "false" && stop === false) {
                   stop = true;
@@ -288,17 +287,17 @@ with failed tests taking priority */
   });
 
   {
-    /* THE THE PASSING CONTROLS */
+    /* THEN THE PASSING CONTROLS */
   }
 
   data.releases.map(release => {
     return (
-      <React.Fragment>
+      <React.Fragment key={release.release}>
         {release.controls.map(control => {
           var controlID = control.control;
           var stop = false;
           return (
-            <React.Fragment>
+            <React.Fragment key={control.control}>
               {control.verifications.map(verification => {
                 if (verification.passed === "true" && stop === false) {
                   stop = true;

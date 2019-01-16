@@ -90,7 +90,7 @@ const releaseFocusFailing = css`
   }
 `;
 
-const releaseTitle = css`
+const releaseTitlePassing = css`
   width: 40rem;
 
   h3[name="releasebox-title"] {
@@ -100,7 +100,7 @@ const releaseTitle = css`
 
   h3[name="releasebox-title"] span {
     font-size: ${theme.font.lg};
-    color: ${theme.colour.redDark};
+    color: ${theme.colour.greenDark};
   }
 
   ${mediaQuery.md(css`
@@ -112,6 +112,14 @@ const releaseTitle = css`
       font-size: ${theme.font.md};
     }
   `)};
+`;
+
+const releaseTitleFailing = css`
+  ${releaseTitlePassing}
+
+  h3[name="releasebox-title"] span {
+    color: ${theme.colour.redDark};
+  }
 `;
 const releaseBadges = css`
   width: 15rem;
@@ -147,7 +155,11 @@ const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
             }
           >
             <div name="inner-container">
-              <div className={releaseTitle}>
+              <div
+                className={
+                  passed === "true" ? releaseTitlePassing : releaseTitleFailing
+                }
+              >
                 <h3 name="releasebox-title">
                   <span>
                     {passed === "true" ? "Passed" : "Failed"} release: #
