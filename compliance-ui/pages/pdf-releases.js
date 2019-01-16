@@ -71,7 +71,7 @@ const releaseFocusFailing = css`
   }
 `;
 
-const releaseTitle = css`
+const releaseTitlePassing = css`
   width: 40rem;
 
   h3[name="releasebox-title"] {
@@ -81,6 +81,14 @@ const releaseTitle = css`
 
   h3[name="releasebox-title"] span {
     font-size: ${theme.font.lg};
+    color: ${theme.colour.greenDark};
+  }
+`;
+
+const releaseTitleFailing = css`
+  ${releaseTitlePassing}
+
+  h3[name="releasebox-title"] span {
     color: ${theme.colour.redDark};
   }
 `;
@@ -143,6 +151,13 @@ const pdfContainer = css`
   }
 `;
 
+const number = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${theme.spacing.xl};
+`;
+
 const Page = ({ children }) => {
   return <div className={page}>{children}</div>;
 };
@@ -157,86 +172,144 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
-  /* split up the data to display X boxes per page */
+  {
+    /* SORTING THE DATA INTO A NEW ARRAY */
+  }
 
-  const chunks = chunkArray(data.releases, perPage);
+  let sortedData = [];
+
+  {
+    /* STARTING WITH MAPPING THROUGH THE FAILED DATA */
+  }
+
+  data.releases.map(release => {
+    if (release.passed === "false") {
+      sortedData.push({
+        release: `${release.release}`,
+        timestamp: `${release.timestamp}`,
+        passed: `${release.passed}`,
+        passing: `${release.passing}`,
+        total: `${release.total}`
+      });
+    }
+  });
+
+  {
+    /* AND THEN MAPPING THROUGH THE PASSED DATA */
+  }
+
+  data.releases.map(release => {
+    if (release.passed === "true") {
+      sortedData.push({
+        release: `${release.release}`,
+        timestamp: `${release.timestamp}`,
+        passed: `${release.passed}`,
+        passing: `${release.passing}`,
+        total: `${release.total}`
+      });
+    }
+  });
+
+  const chunks = chunkArray(sortedData, perPage);
+  var pageNumber = 0;
 
   return (
-    <div className={pdfContainer}>
-      <header name="header" className={bar}>
-        <h1 className={h1}>Are we compliant yet?</h1>
-        <Logo alt="CDS Logo" style={logo} />
-      </header>
-      <div className={page}>
-        <PageHead title="PDF - Releases" />
-        {summary}
-
-        <Page key="0">
-          <h1>Latest Releases:</h1>
-          <ul>
-            {chunks[0].map((singleRelease, index) => {
-              var myDate = Number(singleRelease.timestamp);
-              var formattedDate = formatTimestamp(myDate);
-              const key = `${singleRelease.release}`;
-              return (
-                <li>
-                  <Link
-                    as={`/singlerelease/${key}`}
-                    href={`/singlerelease/${key}`}
-                  >
-                    <a
-                      tabIndex="-1"
-                      className={
-                        singleRelease.passed === "true"
-                          ? releaseFocusPassing
-                          : releaseFocusFailing
-                      }
-                    >
-                      <div
-                        name="release-box"
-                        tabIndex="0"
-                        className={
-                          singleRelease.passed === "true"
-                            ? releaseBoxPassing
-                            : releaseBoxFailing
-                        }
-                      >
-                        <div name="inner-container">
-                          <div className={releaseTitle}>
-                            <h3 name="releasebox-title">
-                              <span>
-                                {singleRelease.passed === "true"
-                                  ? "Passed"
-                                  : "Failed"}{" "}
-                                release: #{singleRelease.release}
-                              </span>
-                            </h3>{" "}
-                            <p name="releasebox-timestamp">{formattedDate}</p>
-                          </div>
-                          <div name="release-badges" className={releaseBadges}>
-                            <span
-                              name="releasebox-passing"
+    <React.Fragment>
+      {chunks.map(chunk => {
+        pageNumber++;
+        return (
+          <div key={pageNumber} className={pdfContainer}>
+            <header name="header" className={bar}>
+              <h1 className={h1}>Are we compliant yet?</h1>
+              <Logo alt="CDS Logo" style={logo} />
+            </header>
+            <div className={page}>
+              <PageHead title="PDF - Releases" />
+              <Page key="0">
+                <h1>Latest Releases:</h1>
+                <ul>
+                  {chunk.map((singleRelease, index) => {
+                    var myDate = Number(singleRelease.timestamp);
+                    var formattedDate = formatTimestamp(myDate);
+                    const key = `${singleRelease.release}`;
+                    return (
+                      <li key={index}>
+                        <Link
+                          as={`/singlerelease/${key}`}
+                          href={`/singlerelease/${key}`}
+                        >
+                          <a
+                            tabIndex="-1"
+                            className={
+                              singleRelease.passed === "true"
+                                ? releaseFocusPassing
+                                : releaseFocusFailing
+                            }
+                          >
+                            <div
+                              name="release-box"
+                              tabIndex="0"
                               className={
                                 singleRelease.passed === "true"
-                                  ? passingText
-                                  : failingText
+                                  ? releaseBoxPassing
+                                  : releaseBoxFailing
                               }
                             >
-                              {singleRelease.passing} / {singleRelease.total}{" "}
-                              checks
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </Page>
-      </div>
-    </div>
+                              <div name="inner-container">
+                                <div
+                                  className={
+                                    singleRelease.passed === "true"
+                                      ? releaseTitlePassing
+                                      : releaseTitleFailing
+                                  }
+                                >
+                                  <h3 name="releasebox-title">
+                                    <span>
+                                      {singleRelease.passed === "true"
+                                        ? "Passed"
+                                        : "Failed"}{" "}
+                                      release: #{singleRelease.release}
+                                    </span>
+                                  </h3>{" "}
+                                  <p name="releasebox-timestamp">
+                                    {formattedDate}
+                                  </p>
+                                </div>
+                                <div
+                                  name="release-badges"
+                                  className={releaseBadges}
+                                >
+                                  <span
+                                    name="releasebox-passing"
+                                    className={
+                                      singleRelease.passed === "true"
+                                        ? passingText
+                                        : failingText
+                                    }
+                                  >
+                                    {singleRelease.passing} /{" "}
+                                    {singleRelease.total} checks
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className={number}>
+                  <span>
+                    <strong>- Page {pageNumber} -</strong>
+                  </span>
+                </div>
+              </Page>
+            </div>
+          </div>
+        );
+      })}
+    </React.Fragment>
   );
 };
 
@@ -260,7 +333,7 @@ PdfReleasesPage.getInitialProps = async ({ req }) => {
 
   // request overview
   const result = await getReleases();
-  return { err: result.err, data: result.data, perPage: 10, summary: false };
+  return { err: result.err, data: result.data, perPage: 8, summary: false };
 };
 
 export default PdfReleasesPage;

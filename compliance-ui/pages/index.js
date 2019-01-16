@@ -48,12 +48,49 @@ if (typeof window !== "undefined") {
 }
 
 const ReleasesPage = ({ data }) => {
+  let sortedData = [];
+
+  {
+    /* MAPPING THROUGH THE DATA AND SORTING IT INTO A NEW ARRAY */
+  }
+
+  {
+    /* FIRST MAPPING THE FAILED DATA */
+  }
+
+  data.releases.map(release => {
+    if (release.passed === "false") {
+      sortedData.push({
+        release: `${release.release}`,
+        timestamp: `${release.timestamp}`,
+        passed: `${release.passed}`,
+        passing: `${release.passing}`,
+        total: `${release.total}`
+      });
+    }
+  });
+
+  {
+    /* AND THEN MAPPING THE PASSING DATA */
+  }
+
+  data.releases.map(release => {
+    if (release.passed === "true") {
+      sortedData.push({
+        release: `${release.release}`,
+        timestamp: `${release.timestamp}`,
+        passed: `${release.passed}`,
+        passing: `${release.passing}`,
+        total: `${release.total}`
+      });
+    }
+  });
   return (
     <Layout pdf="pdf-releases">
       <div className={releases}>
         <h1> Latest Releases: </h1>
         <ul className={releaseList}>
-          {data.releases.map((singleRelease, index) => {
+          {sortedData.map((singleRelease, index) => {
             var myDate = Number(singleRelease.timestamp);
             var formattedDate = formatTimestamp(myDate);
             const key = `${singleRelease.release}`;
