@@ -6,7 +6,7 @@ import {
   getSingleRelease,
   formatTimestamp
 } from "../util";
-import { Grid, IsReady, PageHead, Failed, PdfSummary } from "../components";
+import { IsReady, PageHead, Failed, PdfSummary } from "../components";
 import { theme } from "../components/styles";
 import ReleaseBox from "../components/ReleaseBox";
 import Layout from "../components/Layout";
@@ -14,6 +14,25 @@ import { Logo } from "../components/Logo";
 import Link from "next/link";
 import { ControlBox } from "../components/index";
 import { detailStatus } from "../api";
+
+const grid = css`
+  display: flex;
+  margin: 0 ${theme.spacing.xxl};
+  padding: 0;
+  li {
+    list-style: none;
+    padding: ${theme.spacing.lg} ${theme.spacing.lg};
+    margin-bottom: ${theme.spacing.md};
+    position: static;
+    border: 1px solid ${theme.colour.grayOutline};
+    background: ${theme.colour.white};
+    width: 100%;
+  }
+`;
+
+const cbContainer = css`
+  width: 100%;
+`;
 
 const bar = css`
   padding: ${theme.spacing.md} ${theme.spacing.xxl} ${theme.spacing.md}
@@ -51,8 +70,13 @@ const page = css`
     margin-left: ${theme.spacing.xxl};
   }
 
+  h1[name="history-h1"] {
+    font-size: ${theme.font.xl};
+    margin-left: ${theme.spacing.xxl};
+  }
+
   p[name="pdf-details-description"] {
-    margin: 0 ${theme.spacing.xxl};
+    margin: 0 ${theme.spacing.xxl} ${theme.spacing.xl} ${theme.spacing.xxl};
     line-height: 1.5;
   }
 `;
@@ -84,7 +108,16 @@ const getControlStatus = async control => {
 };
 
 /* https://medium.com/@raphaelstbler/advanced-pdf-generation-for-node-js-using-puppeteer-e168253e159c */
-const PdfDetailsPage = ({ err, data, perPage, summary = false }) => {
+const PdfDetailsPage = ({
+  err,
+  data,
+  perPage,
+  summary = false,
+  controlID,
+  titleTimestamp = true,
+  link = false,
+  tab
+}) => {
   if (err) {
     console.log(err);
   }
@@ -93,27 +126,76 @@ const PdfDetailsPage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
+  let sortedData = [];
+
+  if (data.controlData.length === 0) {
+    data.controlData.push({
+      id: controlID,
+      description:
+        "The description seems to be missing. Sorry for the inconvenience, please try back at a later time if you are still looking for more information on the control in question."
+    });
+  }
+
+  data.controlReleaseData.releases.map(controlRelease => {
+    return (
+      <React.Fragment>
+        {controlRelease.controls.map(control => {
+          const controlID = control.control;
+          return (
+            <React.Fragment>
+              {control.verifications.map(checks => {
+                if (checks.passed === "false") {
+                  sortedData.push({
+                    status: checks.passed,
+                    references: `${checks.references}`,
+                    component: `${checks.component}`,
+                    description: `${checks.description}`,
+                    timestamp: `${checks.timestamp}`,
+                    release: `${checks.release}`,
+                    id: `${controlID}`
+                  });
+                }
+              })}
+
+              {control.verifications.map(checks => {
+                if (checks.passed === "true") {
+                  sortedData.push({
+                    status: checks.passed,
+                    references: `${checks.references}`,
+                    component: `${checks.component}`,
+                    description: `${checks.description}`,
+                    timestamp: `${checks.timestamp}`,
+                    release: `${checks.release}`,
+                    id: `${controlID}`
+                  });
+                }
+              })}
+            </React.Fragment>
+          );
+        })}
+      </React.Fragment>
+    );
+  });
+  const chunks = chunkArray(sortedData, perPage);
+  var pageNumber = 0;
   return (
     <div className={pdfContainer}>
       <PageHead title="PDF - Releases" />
-      <Page>
-        <header name="header" className={bar}>
-          <h1 className={h1}>Are we compliant yet?</h1>
-          <Logo alt="CDS Logo" style={logo} />
-        </header>
-        {data.controlData.length === 0 ? (
-          <React.Fragment>
-            <h1 name="h1-pdf-details">Details:</h1>
-            <p name="pdf-details-description">
-              The description seems to be missing. Sorry for the inconvenience,
-              please try back at a later time if you are still looking for more
-              information on the control in question.
-            </p>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
+
+      {chunks.map(chunk => {
+        pageNumber++;
+
+        return (
+          <Page>
+            <header name="header" className={bar}>
+              <h1 className={h1}>Are we compliant yet?</h1>
+              <Logo alt="CDS Logo" style={logo} />
+            </header>
+            {/*
+                  If control data is missing use default message - START
+            */}
+
             {data.controlData.map(summaryItem => {
-              console.log(summaryItem);
               return (
                 <React.Fragment>
                   <h1 name="h1-pdf-details">{summaryItem.id} Details:</h1>
@@ -123,10 +205,35 @@ const PdfDetailsPage = ({ err, data, perPage, summary = false }) => {
                 </React.Fragment>
               );
             })}
-            ;
-          </React.Fragment>
-        )}
-      </Page>
+
+            <ul name="grid" className={grid} tabIndex="0">
+              <div key="cb-container" className={cbContainer}>
+                {chunk.map((verifications, index) => {
+                  return (
+                    <ControlBox
+                      key={index}
+                      status={verifications.status}
+                      tab={tab}
+                      id={controlID}
+                      references={verifications.references}
+                      component={verifications.component}
+                      description={verifications.description}
+                      titleTimestamp={titleTimestamp}
+                      timestamp={verifications.timestamp}
+                      link={link}
+                    />
+                  );
+                })}
+              </div>
+            </ul>
+            <div className={number}>
+              <span>
+                <strong>- Page {pageNumber} -</strong>
+              </span>
+            </div>
+          </Page>
+        );
+      })}
     </div>
   );
 };
@@ -151,13 +258,15 @@ PdfDetailsPage.getInitialProps = async ({ req }) => {
 
   // request overview
   const result = await getControlStatus(req.params.control);
+  const controlID = req.params.control;
 
   const data = result.data;
   return {
     err: result.err,
     data,
-    perPage: 5,
-    summary: false
+    perPage: 3,
+    summary: false,
+    controlID
   };
 };
 
