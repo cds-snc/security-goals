@@ -40,9 +40,6 @@ const topInfo = css`
 `;
 
 export const Header = ({ title, status, timestamp, titleTimestamp }) => {
-  if (!status) {
-    return <div>HEY</div>;
-  }
   return (
     <div className={topInfo}>
       <span data-testid="control-box-title">

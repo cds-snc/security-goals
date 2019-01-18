@@ -20,7 +20,7 @@ class DetailsPage extends React.Component {
     }
 
     return (
-      <Layout styles={{ paddingTop: "0" }}>
+      <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
         <Details id={controlParam} data={data} err={err} />
       </Layout>
     );

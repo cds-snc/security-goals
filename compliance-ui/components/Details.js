@@ -214,6 +214,8 @@ export const Details = ({ data, err, id }) => {
     return <Failed />;
   }
 
+  console.log(data);
+
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
