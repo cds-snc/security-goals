@@ -1,6 +1,6 @@
 const express = require("express");
 const next = require("next");
-const port = parseInt(process.env.PORT, 10) || 5000;
+const port = parseInt(process.env.PORT, 10) || 4000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -72,7 +72,7 @@ app.prepare().then(() => {
     sendPDF(res, html, "singlerelease");
   });
 
-  server.get("/pdf-details", async (req, res) => {
+  server.get("/pdf-details/:control?", async (req, res) => {
     let html = await app.renderToHTML(req, res, "/pdf-details");
     sendPDF(res, html, "details");
   });
