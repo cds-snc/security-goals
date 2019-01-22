@@ -214,8 +214,6 @@ export const Details = ({ data, err, id }) => {
     return <Failed />;
   }
 
-  console.log(data);
-
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -232,7 +230,11 @@ export const Details = ({ data, err, id }) => {
               control={id}
             />
 
-            <Grid2 releases={data.controlReleaseData} titleTimestamp={true} />
+            <Grid2
+              titleColour={true}
+              releases={data.controlReleaseData}
+              titleTimestamp={true}
+            />
           </React.Fragment>
         )}
         {!id && (
