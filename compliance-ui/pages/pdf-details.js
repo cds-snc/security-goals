@@ -112,6 +112,7 @@ const PdfDetailsPage = ({
   err,
   data,
   perPage,
+  perFirstPage,
   summary = false,
   controlID,
   titleTimestamp = true,
@@ -138,11 +139,11 @@ const PdfDetailsPage = ({
 
   data.controlReleaseData.releases.map(controlRelease => {
     return (
-      <React.Fragment>
-        {controlRelease.controls.map(control => {
+      <React.Fragment key={`controlRelease: ${controlRelease.release}`}>
+        {controlRelease.controls.map((control, index) => {
           const controlID = control.control;
           return (
-            <React.Fragment>
+            <React.Fragment key={`controlRelease: ${controlID} - ${index}`}>
               {control.verifications.map(checks => {
                 if (checks.passed === "false") {
                   sortedData.push({
@@ -176,36 +177,73 @@ const PdfDetailsPage = ({
       </React.Fragment>
     );
   });
-  const chunks = chunkArray(sortedData, perPage);
-  var pageNumber = 0;
+
+  const firstChunk = sortedData.slice(0, 2);
+  const secondChunk = sortedData.slice(2);
+
+  const mainChunks = chunkArray(secondChunk, perPage);
+
+  var pageNumber = 1;
   return (
     <div className={pdfContainer}>
       <PageHead title="PDF - Releases" />
 
-      {chunks.map(chunk => {
+      <Page>
+        <header name="header" className={bar}>
+          <h1 className={h1}>Are we compliant yet?</h1>
+          <Logo alt="CDS Logo" style={logo} />
+        </header>
+
+        {/*
+            If control data is missing use default message - START
+      */}
+
+        {data.controlData.map((summaryItem, index) => {
+          return (
+            <React.Fragment key={`controlData: ${summaryItem.id} - ${index}`}>
+              <h1 name="h1-pdf-details">{summaryItem.id} Details:</h1>
+              <p name="pdf-details-description">{summaryItem.description}</p>
+            </React.Fragment>
+          );
+        })}
+        <h1 name="history-h1">Control History ({pageNumber}):</h1>
+        <ul name="grid" className={grid} tabIndex="0">
+          <div key="cb-container" className={cbContainer}>
+            {firstChunk.map((verifications, index) => {
+              return (
+                <ControlBox
+                  status={verifications.status}
+                  tab={tab}
+                  key={`${verifications.timestamp} - ${index}`}
+                  id={controlID}
+                  references={verifications.references}
+                  component={verifications.component}
+                  description={verifications.description}
+                  titleTimestamp={titleTimestamp}
+                  timestamp={verifications.timestamp}
+                  link={link}
+                />
+              );
+            })}
+          </div>
+        </ul>
+        <div className={number}>
+          <span>
+            <strong>- Page {pageNumber} -</strong>
+          </span>
+        </div>
+      </Page>
+
+      {mainChunks.map(chunk => {
         pageNumber++;
 
         return (
-          <Page>
+          <Page key={`page: ${pageNumber}`}>
             <header name="header" className={bar}>
               <h1 className={h1}>Are we compliant yet?</h1>
               <Logo alt="CDS Logo" style={logo} />
             </header>
-            {/*
-                  If control data is missing use default message - START
-            */}
-
-            {data.controlData.map(summaryItem => {
-              return (
-                <React.Fragment>
-                  <h1 name="h1-pdf-details">{summaryItem.id} Details:</h1>
-                  <p name="pdf-details-description">
-                    {summaryItem.description}
-                  </p>
-                </React.Fragment>
-              );
-            })}
-
+            <h1 name="history-h1">Control History ({pageNumber}):</h1>
             <ul name="grid" className={grid} tabIndex="0">
               <div key="cb-container" className={cbContainer}>
                 {chunk.map((verifications, index) => {
@@ -264,7 +302,8 @@ PdfDetailsPage.getInitialProps = async ({ req }) => {
   return {
     err: result.err,
     data,
-    perPage: 3,
+    perFirstPage: 2,
+    perPage: 4,
     summary: false,
     controlID
   };

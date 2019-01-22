@@ -44,7 +44,7 @@ const sortByStatusAndTimestamp = (item, status) => {
 };
 
 export const formatTimestamp = timestamp => {
-  return format(parse(timestamp), "YYYY-MM-DD HH:mm:ss A");
+  return format(parse(timestamp), "HH:mm:ss A, DD-MM-YYYY");
 };
 
 const controlToVerification = (data, overrides = {}) => {
