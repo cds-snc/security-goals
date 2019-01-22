@@ -10,6 +10,7 @@ export const ControlBox = ({
   style,
   status,
   timestamp,
+  titleColour,
   description,
   references,
   component,
@@ -31,6 +32,7 @@ export const ControlBox = ({
             status={status}
             timestamp={formattedDate}
             titleTimestamp={titleTimestamp}
+            titleColour={titleColour}
           />
           <Footer
             status={status}

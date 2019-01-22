@@ -62,8 +62,9 @@ const greenBG = css`
   text-align: left;
   cursor: pointer;
   p {
-    margin: 0;
+    margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
+    line-height: 1.5;
   }
   &:hover {
     background: ${theme.colour.greenLight};
@@ -85,8 +86,9 @@ const redBG = css`
   text-align: left;
   cursor: pointer;
   p {
-    margin: 0;
+    margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
+    line-height: 1.5;
   }
   &:hover {
     background: ${theme.colour.redLight};
@@ -185,6 +187,7 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
 export const Grid2 = ({
   releases: { releases },
   titleTimestamp,
+  titleColour,
   link = false,
   tab
 }) => {
@@ -215,6 +218,7 @@ export const Grid2 = ({
                           style={check}
                           description={verifications.description}
                           title={controls.control}
+                          titleColour={titleColour}
                           titleTimestamp={titleTimestamp}
                           timestamp={verifications.timestamp}
                           link={link}

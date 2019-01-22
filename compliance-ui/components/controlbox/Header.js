@@ -7,7 +7,6 @@ const topInfo = css`
   justify-content: space-between;
   span:first-of-type {
     font-size: ${theme.font.lg};
-    color: ${theme.colour.blackLight};
     font-weight: 700;
     margin-bottom: ${theme.spacing.md};
     width: 80%;
@@ -39,11 +38,35 @@ const topInfo = css`
   `)};
 `;
 
-export const Header = ({ title, status, timestamp, titleTimestamp }) => {
+const passingTitle = css`
+  color: ${theme.colour.greenDark};
+`;
+
+const failingTitle = css`
+  color: ${theme.colour.redDark};
+`;
+
+export const Header = ({
+  title,
+  status,
+  timestamp,
+  titleTimestamp,
+  titleColour
+}) => {
   return (
     <div className={topInfo}>
-      <span data-testid="control-box-title">
-        {titleTimestamp ? timestamp : title}
+      <span
+        className={
+          status === "true" && titleColour === true
+            ? passingTitle
+            : status === "false" && titleColour === true
+            ? failingTitle
+            : null
+        }
+        name="control-box-title"
+        data-testid="control-box-title"
+      >
+        {titleTimestamp ? `${timestamp}` : title}
       </span>
       {status === "true" ? (
         <span data-testid="control-box-pass" className={passingText}>

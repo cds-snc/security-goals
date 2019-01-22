@@ -327,7 +327,7 @@ with failed tests taking priority */
       {chunks.map(chunk => {
         pageNumber++;
         return (
-          <Page>
+          <Page key={`page: ${pageNumber}`}>
             <header name="header" className={bar}>
               <h1 className={h1}>Are we compliant yet?</h1>
               <Logo alt="CDS Logo" style={logo} />
