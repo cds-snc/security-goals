@@ -214,152 +214,15 @@ export const Details = ({ data, err, id }) => {
     return <Failed />;
   }
 
-  let mockData = {
-    releases: [
-      {
-        _id: "11111111111111111111",
-        release: "11111111",
-        timestamp: "1546621762448",
-        passed: "false",
-        passing: "22",
-        total: "28",
-        controls: [
-          {
-            control: "SA-11",
-            fileId: "11111111111111111111111111--SA-11",
-            verifications: [
-              {
-                origin: "cdssnc/pod-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:26Z",
-                passed: "true",
-                description:
-                  "The cluster uses Kube hunter for vulnerability scanning.",
-                release: "11111111",
-                component: "Infrastructure",
-                references: "kube-hunter"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:55Z",
-                passed: "false",
-                description:
-                  "The application developers follow a security assessment plan.",
-                release: "11111111",
-                component: "Policy",
-                references:
-                  "https://github.com/cds-snc/compliance-policy-documents/security-assessment-plan.md"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:37Z",
-                passed: "false",
-                description:
-                  "The application uses an ESLint file to do so static code analysis.",
-                release: "11111111",
-                component: "Source code",
-                references:
-                  "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/.eslintrc.json"
-              },
-              {
-                origin: "cdssnc/github-snyk-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:19Z",
-                passed: "false",
-                description:
-                  "The application uses snyk to detect package vulnerabilities.",
-                release: "11111111",
-                component: "Infrastructure",
-                references: "https://github.com/cds-snc/mrpinchy-confession-box"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:53Z",
-                passed: "true",
-                description:
-                  "The application contains tests to validate inputs and error logging.",
-                release: "11111111",
-                component: "Source code",
-                references:
-                  "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        _id: "22222222222222222222",
-        release: "22222222",
-        timestamp: "1546621762448",
-        passed: "false",
-        passing: "22",
-        total: "28",
-        controls: [
-          {
-            control: "SA-11",
-            fileId: "2222222222222222222222222--SA-11",
-            verifications: [
-              {
-                origin: "cdssnc/pod-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:26Z",
-                passed: "true",
-                description:
-                  "The cluster uses Kube hunter for vulnerability scanning.",
-                release: "22222222",
-                component: "Infrastructure",
-                references: "kube-hunter"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:55Z",
-                passed: "true",
-                description:
-                  "The application developers follow a security assessment plan.",
-                release: "22222222",
-                component: "Policy",
-                references:
-                  "https://github.com/cds-snc/compliance-policy-documents/security-assessment-plan.md"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:37Z",
-                passed: "true",
-                description:
-                  "The application uses an ESLint file to do so static code analysis.",
-                release: "22222222",
-                component: "Source code",
-                references:
-                  "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/.eslintrc.json"
-              },
-              {
-                origin: "cdssnc/github-snyk-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:19Z",
-                passed: "false",
-                description:
-                  "The application uses snyk to detect package vulnerabilities.",
-                release: "22222222",
-                component: "Infrastructure",
-                references: "https://github.com/cds-snc/mrpinchy-confession-box"
-              },
-              {
-                origin: "cdssnc/url-check-compliance:latest",
-                timestamp: "2019-01-04T17:09:53Z",
-                passed: "false",
-                description:
-                  "The application contains tests to validate inputs and error logging.",
-                release: "22222222",
-                component: "Source code",
-                references:
-                  "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  };
+  {
+    /*
+  This array will contain the sorted data based on the verifications.passed = false
+  */
+  }
 
   let sortedData = { releases: [] };
 
-  mockData.releases.map((release, index) => {
+  data.controlReleaseData.releases.map((release, index) => {
     var releaseCounter = index;
     sortedData.releases.push({
       _id: release._id,
@@ -372,15 +235,46 @@ export const Details = ({ data, err, id }) => {
     });
 
     release.controls.map((controls, index) => {
+      var controlCounter = index;
       sortedData.releases[releaseCounter].controls.push({
         control: controls.control,
         fileId: controls.fileId,
         verifications: []
       });
+
+      controls.verifications.map((verifications, index) => {
+        if (verifications.passed === "false") {
+          sortedData.releases[releaseCounter].controls[
+            controlCounter
+          ].verifications.push({
+            origin: verifications.origin,
+            timestamp: verifications.timestamp,
+            passed: verifications.passed,
+            description: verifications.description,
+            release: verifications.release,
+            component: verifications.component,
+            references: verifications.references
+          });
+        }
+      });
+
+      controls.verifications.map((verifications, index) => {
+        if (verifications.passed === "true") {
+          sortedData.releases[releaseCounter].controls[
+            controlCounter
+          ].verifications.push({
+            origin: verifications.origin,
+            timestamp: verifications.timestamp,
+            passed: verifications.passed,
+            description: verifications.description,
+            release: verifications.release,
+            component: verifications.component,
+            references: verifications.references
+          });
+        }
+      });
     });
   });
-
-  console.log(sortedData.releases);
 
   return (
     <div data-testid="details" className={details}>
@@ -400,7 +294,7 @@ export const Details = ({ data, err, id }) => {
 
             <Grid2
               titleColour={true}
-              releases={mockData}
+              releases={sortedData}
               titleTimestamp={true}
             />
           </React.Fragment>
