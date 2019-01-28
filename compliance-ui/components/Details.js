@@ -214,6 +214,68 @@ export const Details = ({ data, err, id }) => {
     return <Failed />;
   }
 
+  {
+    /*
+  This array will contain the sorted data based on the verifications.passed = false
+  */
+  }
+
+  let sortedData = { releases: [] };
+
+  data.controlReleaseData.releases.map((release, index) => {
+    var releaseCounter = index;
+    sortedData.releases.push({
+      _id: release._id,
+      release: release.release,
+      timestamp: release.timestamp,
+      passed: release.passed,
+      passing: release.passing,
+      total: release.total,
+      controls: []
+    });
+
+    release.controls.map((controls, index) => {
+      var controlCounter = index;
+      sortedData.releases[releaseCounter].controls.push({
+        control: controls.control,
+        fileId: controls.fileId,
+        verifications: []
+      });
+
+      controls.verifications.map((verifications, index) => {
+        if (verifications.passed === "false") {
+          sortedData.releases[releaseCounter].controls[
+            controlCounter
+          ].verifications.push({
+            origin: verifications.origin,
+            timestamp: verifications.timestamp,
+            passed: verifications.passed,
+            description: verifications.description,
+            release: verifications.release,
+            component: verifications.component,
+            references: verifications.references
+          });
+        }
+      });
+
+      controls.verifications.map((verifications, index) => {
+        if (verifications.passed === "true") {
+          sortedData.releases[releaseCounter].controls[
+            controlCounter
+          ].verifications.push({
+            origin: verifications.origin,
+            timestamp: verifications.timestamp,
+            passed: verifications.passed,
+            description: verifications.description,
+            release: verifications.release,
+            component: verifications.component,
+            references: verifications.references
+          });
+        }
+      });
+    });
+  });
+
   return (
     <div data-testid="details" className={details}>
       <div className={detailsWrap}>
@@ -232,7 +294,7 @@ export const Details = ({ data, err, id }) => {
 
             <Grid2
               titleColour={true}
-              releases={data.controlReleaseData}
+              releases={sortedData}
               titleTimestamp={true}
             />
           </React.Fragment>
