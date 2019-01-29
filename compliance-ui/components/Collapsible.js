@@ -38,7 +38,7 @@ const container = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
-  h1[name="collapsible-h1"] {
+  h2[name="collapsible-h1"] {
     margin-top: 0;
     color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
@@ -82,18 +82,28 @@ export class Collapsible extends React.Component {
 
   render() {
     const { title, description, control } = this.props;
+    var newDescription;
+
+    if (description.length === 0) {
+      newDescription =
+        "The description seems to be missing. Sorry for the inconvenience, please try back at a later time if you are still looking for more information on the control in question.";
+    }
     return (
       <div>
-        <div className={container}>
+        <div
+          tabIndex="0"
+          aria-label={`Control ${title} ${newDescription}:  `}
+          className={container}
+        >
           <div className={toggleContainer}>
-            <h1 name="collapsible-h1">{title}</h1>
+            <h2 name="collapsible-h1">{title}</h2>
             <div className={this.state.open ? collapseIn : collapse}>
-              {description.length === 0 ? (
-                <MainDescription
-                  key="collapsible"
-                  description="The description seems to be missing. Sorry for the inconvenience, please try back at a later time if you are still looking for more information on the control in question."
-                />
-              ) : null}
+              <MainDescription
+                key="collapsible"
+                description={
+                  description.length === 0 ? newDescription : description
+                }
+              />
               {description.map(description => {
                 return (
                   <MainDescription

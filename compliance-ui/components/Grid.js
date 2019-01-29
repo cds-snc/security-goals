@@ -204,17 +204,31 @@ export const Grid2 = ({
   titleTimestamp,
   titleColour,
   link = false,
-  tab
+  tab,
+  controlTitle
 }) => {
   return (
     <div>
       {releases.map(item => {
         return (
           <React.Fragment key={item.release}>
-            <a href={`/singlerelease/${item.release}`}>
+            <a
+              aria-label={`Heading: release #: ${
+                item.release
+              }, click to navigate to the release page
+            , or tab to view the ${controlTitle} control history for this release`}
+              href={`/singlerelease/${item.release}`}
+            >
               <h1 name="history-h1">Release #{item.release}</h1>
             </a>
-            <ul name="grid" className={grid} tabIndex="0">
+            <ul
+              name="grid"
+              className={grid}
+              tabIndex="0"
+              aria-label={`${controlTitle} Control list for release #: ${
+                item.release
+              }  `}
+            >
               {item.controls.map(controls => {
                 const controlID = controls.control;
                 return (

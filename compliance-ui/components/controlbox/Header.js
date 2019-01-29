@@ -72,11 +72,19 @@ export const Header = ({
         {titleTimestamp ? `${timestamp}` : title}
       </h3>
       {status === "true" ? (
-        <span data-testid="control-box-pass" className={passingText}>
+        <span
+          name="passing-badge"
+          data-testid="control-box-pass"
+          className={passingText}
+        >
           Passed
         </span>
       ) : (
-        <span data-testid="control-box-fail" className={failingText}>
+        <span
+          name="failing-badge"
+          data-testid="control-box-fail"
+          className={failingText}
+        >
           Failed
         </span>
       )}

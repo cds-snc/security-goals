@@ -34,7 +34,9 @@ const detailsWrap = css`
     text-decoration: underline;
     color: ${theme.colour.blackLight};
   }
-
+  li[name="control-box"] {
+    padding: ${theme.spacing.lg} 0;
+  }
   li[name="control-box"]:hover {
     background: white;
   }
@@ -293,6 +295,7 @@ export const Details = ({ data, err, id }) => {
             />
 
             <Grid2
+              controlTitle={id}
               titleColour={true}
               releases={sortedData}
               titleTimestamp={true}
@@ -308,12 +311,5 @@ export const Details = ({ data, err, id }) => {
     </div>
   );
 };
-
-const missing = (
-  <section className={history}>
-    <h1 name="history-h1">History:</h1>
-    <Grid2 tab="0" controls={verificationsData()} />
-  </section>
-);
 
 export default withRouter(Details);
