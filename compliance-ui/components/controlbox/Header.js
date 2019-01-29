@@ -5,13 +5,16 @@ import { Timestamp } from "./Timestamp";
 const topInfo = css`
   display: flex;
   justify-content: space-between;
-  span:first-of-type {
+  h3 {
     font-size: ${theme.font.lg};
     font-weight: 700;
+    margin-top: 0;
     margin-bottom: ${theme.spacing.md};
+    margin-left: ${theme.spacing.lg};
     width: 80%;
   }
-  span:nth-of-type(2) {
+  span:first-of-type {
+    margin-right: ${theme.spacing.lg};
     font-size: ${theme.font.sm};
     font-weight: 700;
     height: 1.4rem;
@@ -55,7 +58,7 @@ export const Header = ({
 }) => {
   return (
     <div className={topInfo}>
-      <span
+      <h3
         className={
           status === "true" && titleColour === true
             ? passingTitle
@@ -67,7 +70,7 @@ export const Header = ({
         data-testid="control-box-title"
       >
         {titleTimestamp ? `${timestamp}` : title}
-      </span>
+      </h3>
       {status === "true" ? (
         <span data-testid="control-box-pass" className={passingText}>
           Passed

@@ -9,7 +9,6 @@ const grid = css`
   padding: 0;
   li {
     list-style: none;
-    padding: ${theme.spacing.lg} ${theme.spacing.lg};
     position: static;
     border-top: 1px solid ${theme.colour.grayOutline};
     border-left: 1px solid ${theme.colour.grayOutline};
@@ -61,6 +60,11 @@ const greenBG = css`
   overflow: hidden;
   text-align: left;
   cursor: pointer;
+
+  a {
+    padding: ${theme.spacing.xl};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -85,6 +89,11 @@ const redBG = css`
   overflow: hidden;
   text-align: left;
   cursor: pointer;
+
+  a {
+    padding: ${theme.spacing.xl};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -113,7 +122,13 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
     <div>
       {releases.map(item => {
         return (
-          <ul key={item.release} name="grid" className={grid} tabIndex="0">
+          <ul
+            aria-label={`Control list for release #: ${item.release}`}
+            key={item.release}
+            name="grid"
+            className={grid}
+            tabIndex="0"
+          >
             {item.controls.map(controls => {
               const controlID = controls.control;
               var stop = false;

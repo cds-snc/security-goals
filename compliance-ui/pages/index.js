@@ -11,6 +11,7 @@ const releases = css`
   margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
 
   h1 {
+    display: inline-block;
     font-size: ${theme.font.xl};
     color: ${theme.colour.blackLight};
   }
@@ -34,10 +35,8 @@ const releaseList = css`
     list-style: none;
   }
 
-  li:last-of-type {
-    div[name="release-box"] {
-      border-bottom: 1px solid ${theme.colour.grayOutline};
-    }
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -88,7 +87,7 @@ const ReleasesPage = ({ data }) => {
   return (
     <Layout pdf="pdf-releases">
       <div className={releases}>
-        <h1> Latest Releases: </h1>
+        <h1 tabIndex="0"> Latest Releases: </h1>
         <ul className={releaseList}>
           {sortedData.map((singleRelease, index) => {
             var myDate = Number(singleRelease.timestamp);

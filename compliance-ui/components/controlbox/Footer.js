@@ -10,6 +10,7 @@ const bottomInfo = css`
     font-size: ${theme.font.md};
     color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
+    margin-left: ${theme.spacing.lg};
     width: 80%;
   }
 
