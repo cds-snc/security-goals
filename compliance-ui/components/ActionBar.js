@@ -8,11 +8,14 @@ const actions = css`
   align-items: center;
   justify-content: space-between;
   background: ${theme.colour.blackLight};
-  padding: ${theme.spacing.sm} ${theme.spacing.xxl};
+  padding: ${theme.spacing.sm} 0 2rem ${theme.spacing.xxl};
 
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.xs} ${theme.spacing.xl} ${theme.spacing.xs}
-      ${theme.spacing.xl};
+    padding: ${theme.spacing.sm} 0 2rem ${theme.spacing.xl};
+  `)};
+
+  ${mediaQuery.md(css`
+    padding: ${theme.spacing.sm} 0 2rem ${theme.spacing.xl};
   `)};
 
   ${mediaQuery.sm(css`
@@ -21,6 +24,8 @@ const actions = css`
       font-size: ${theme.font.sm};
     }
 
+    padding: ${theme.spacing.sm} 0 2rem ${theme.spacing.xl};
+
     img {
       display: none;
     }
@@ -28,11 +33,6 @@ const actions = css`
     svg {
       height: 0.4rem;
     }
-
-    ${mediaQuery.lg(css`
-      padding: ${theme.spacing.xs} ${theme.spacing.xl} ${theme.spacing.md}
-        ${theme.spacing.xl};
-    `)};
   `)};
 `;
 

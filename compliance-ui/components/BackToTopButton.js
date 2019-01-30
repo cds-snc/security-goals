@@ -6,7 +6,7 @@ const topPage = css`
   display: flex;
   align-items: center;
   color: ${theme.colour.black};
-  margin: ${theme.spacing.md} 0 ${theme.spacing.xl} ${theme.spacing.xxl};
+  margin: ${theme.spacing.lg} 0 ${theme.spacing.xxl} ${theme.spacing.xxl};
   text-decoration: underline;
   cursor: pointer;
 
@@ -36,7 +36,12 @@ const topPage = css`
 
 export const BackToTopButton = ({ click }) => {
   return (
-    <div className={topPage} onClick={click}>
+    <div
+      tabIndex="0"
+      className={topPage}
+      onClick={click}
+      aria-label="click this link to navigate to the top of the page"
+    >
       <UpArrowCircle />
       <span>Back To Top of Page</span>
     </div>

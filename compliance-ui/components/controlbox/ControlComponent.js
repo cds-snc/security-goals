@@ -1,7 +1,7 @@
 export const ControlComponent = ({ component }) => {
   if (!component) return null;
   return (
-    <p>
+    <p name="component">
       <strong>Component:</strong> {component}
     </p>
   );

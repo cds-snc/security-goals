@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const WithLink = ({ children, id, link }) => {
   const url = `/controls/${id}`;
-  const label = `This link will take you to the ${id} details page`;
+  const label = `Control: ${id}`;
   return link ? (
     <Link as={url} href={`/details?control=${id}`}>
       <a data-testid="control-box-link" aria-label={label}>
