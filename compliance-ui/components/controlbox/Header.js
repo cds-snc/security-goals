@@ -22,21 +22,21 @@ const topInfo = css`
   }
 
   ${mediaQuery.sm(css`
-    display: block;
     margin-bottom: ${theme.spacing.sm};
-
-    span:first-of-type {
-      width: 100%;
+    justify-content: flex-start;
+    h3 {
+      width: auto;
       font-size: ${theme.font.md};
+      margin-bottom: ${theme.spacing.sm};
     }
 
-    span:nth-of-type(2) {
+    span:first-of-type {
       position: relative;
-      bottom: 0.1rem;
       font-size: ${theme.font.xs};
       font-weight: 700;
-      margin-left: ${theme.spacing.sm};
-      padding: 0.18rem 0.45rem;
+      margin-left: ${theme.spacing.lg};
+      margin-bottom: 0;
+      height: 1.1rem;
     }
   `)};
 `;
