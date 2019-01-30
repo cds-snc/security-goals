@@ -34,7 +34,9 @@ const detailsWrap = css`
     text-decoration: underline;
     color: ${theme.colour.blackLight};
   }
-
+  li[name="control-box"] {
+    padding: ${theme.spacing.lg} 0;
+  }
   li[name="control-box"]:hover {
     background: white;
   }
@@ -87,6 +89,10 @@ const details = css`
     `)};
   }
 
+  div[name="control-inner-container"]:focus {
+    outline: none;
+  }
+
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-top: ${theme.spacing.xl};
@@ -117,6 +123,10 @@ const details = css`
       width: 60%;
     }
 
+    p[name="component"] {
+      margin-bottom: 0;
+    }
+
     div p {
       width: 100%;
     }
@@ -135,6 +145,10 @@ const details = css`
     ${mediaQuery.sm(css`
       div p {
         font-size: ${theme.font.xs};
+      }
+
+      p {
+        width: 85%;
       }
     `)};
   }
@@ -293,6 +307,8 @@ export const Details = ({ data, err, id }) => {
             />
 
             <Grid2
+              tab="0"
+              controlTitle={id}
               titleColour={true}
               releases={sortedData}
               titleTimestamp={true}
@@ -308,12 +324,5 @@ export const Details = ({ data, err, id }) => {
     </div>
   );
 };
-
-const missing = (
-  <section className={history}>
-    <h1 name="history-h1">History:</h1>
-    <Grid2 tab="0" controls={verificationsData()} />
-  </section>
-);
 
 export default withRouter(Details);

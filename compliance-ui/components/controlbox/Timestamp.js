@@ -26,6 +26,7 @@ const failingCircle = css`
 const timeStamp = css`
   display: flex;
   align-items: center;
+  margin-left: ${theme.spacing.lg};
 `;
 
 export const Timestamp = ({ status, timestamp }) => {

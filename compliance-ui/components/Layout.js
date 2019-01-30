@@ -13,31 +13,9 @@ const layout = css`
 const actions = css`
   width: 100%;
 
-  span {
-    padding-bottom: ${theme.spacing.lg};
-  }
-
-  svg {
-    margin-bottom: ${theme.spacing.lg};
-  }
-
-  ${mediaQuery.lg(css`
-    span {
-      padding-bottom: ${theme.spacing.lg};
-    }
-
-    svg {
-      margin-bottom: ${theme.spacing.lg};
-    }
-  `)};
-
   ${mediaQuery.sm(css`
     div[name="action-bar"] {
       padding-top: 0;
-    }
-    span {
-      padding-bottom: ${theme.spacing.sm};
-      padding-top: ${theme.spacing.sm};
     }
 
     svg {
@@ -47,14 +25,14 @@ const actions = css`
 `;
 
 const actionsBottom = css`
-  background: ${theme.colour.grayLight};
+  padding-top: ${theme.spacing.lg};
+  background: ${theme.colour.blackLight};
   svg {
     fill: ${theme.colour.white};
-    margin-left: ${theme.spacing.sm};
+    margin-right: ${theme.spacing.sm};
   }
 
   span {
-    margin: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.lg} 0;
     color: ${theme.colour.white};
     text-decoration: underline;
   }
@@ -62,11 +40,6 @@ const actionsBottom = css`
   ${mediaQuery.sm(css`
     svg {
       display: none;
-    }
-
-    span {
-      margin: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.md}
-        ${theme.spacing.sm};
     }
   `)}
 `;

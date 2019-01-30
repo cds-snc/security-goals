@@ -16,7 +16,8 @@ const bar = css`
   `)};
 
   ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.lg} 0 ${theme.spacing.xl};
+    padding: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.sm}
+      ${theme.spacing.xl};
   `)};
 `;
 

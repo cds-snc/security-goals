@@ -5,13 +5,16 @@ import { Timestamp } from "./Timestamp";
 const topInfo = css`
   display: flex;
   justify-content: space-between;
-  span:first-of-type {
+  h3 {
     font-size: ${theme.font.lg};
     font-weight: 700;
+    margin-top: 0;
     margin-bottom: ${theme.spacing.md};
+    margin-left: ${theme.spacing.lg};
     width: 80%;
   }
-  span:nth-of-type(2) {
+  span:first-of-type {
+    margin-right: ${theme.spacing.lg};
     font-size: ${theme.font.sm};
     font-weight: 700;
     height: 1.4rem;
@@ -19,21 +22,21 @@ const topInfo = css`
   }
 
   ${mediaQuery.sm(css`
-    display: block;
     margin-bottom: ${theme.spacing.sm};
-
-    span:first-of-type {
-      width: 100%;
+    justify-content: flex-start;
+    h3 {
+      width: auto;
       font-size: ${theme.font.md};
+      margin-bottom: ${theme.spacing.sm};
     }
 
-    span:nth-of-type(2) {
+    span:first-of-type {
       position: relative;
-      bottom: 0.1rem;
       font-size: ${theme.font.xs};
       font-weight: 700;
-      margin-left: ${theme.spacing.sm};
-      padding: 0.18rem 0.45rem;
+      margin-left: ${theme.spacing.lg};
+      margin-bottom: 0;
+      height: 1.1rem;
     }
   `)};
 `;
@@ -51,11 +54,12 @@ export const Header = ({
   status,
   timestamp,
   titleTimestamp,
-  titleColour
+  titleColour,
+  formattedDate
 }) => {
   return (
     <div className={topInfo}>
-      <span
+      <h3
         className={
           status === "true" && titleColour === true
             ? passingTitle
@@ -67,13 +71,21 @@ export const Header = ({
         data-testid="control-box-title"
       >
         {titleTimestamp ? `${timestamp}` : title}
-      </span>
+      </h3>
       {status === "true" ? (
-        <span data-testid="control-box-pass" className={passingText}>
+        <span
+          name="passing-badge"
+          data-testid="control-box-pass"
+          className={passingText}
+        >
           Passed
         </span>
       ) : (
-        <span data-testid="control-box-fail" className={failingText}>
+        <span
+          name="failing-badge"
+          data-testid="control-box-fail"
+          className={failingText}
+        >
           Failed
         </span>
       )}

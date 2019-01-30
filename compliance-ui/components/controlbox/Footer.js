@@ -10,6 +10,7 @@ const bottomInfo = css`
     font-size: ${theme.font.md};
     color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
+    margin-left: ${theme.spacing.lg};
     width: 80%;
   }
 
@@ -21,7 +22,7 @@ const bottomInfo = css`
   ${mediaQuery.sm(css`
     p {
       font-size: ${theme.font.sm};
-      width: 100%;
+      width: 85%;
     }
 
     a {
