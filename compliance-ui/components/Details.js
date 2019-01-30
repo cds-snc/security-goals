@@ -89,6 +89,10 @@ const details = css`
     `)};
   }
 
+  div[name="control-inner-container"]:focus {
+    outline: none;
+  }
+
   h1[name="history-h1"] {
     font-size: ${theme.font.xl};
     margin-top: ${theme.spacing.xl};
@@ -303,6 +307,7 @@ export const Details = ({ data, err, id }) => {
             />
 
             <Grid2
+              tab="0"
               controlTitle={id}
               titleColour={true}
               releases={sortedData}

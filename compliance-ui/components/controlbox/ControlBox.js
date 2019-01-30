@@ -21,7 +21,6 @@ export const ControlBox = ({
   var controlStatus = status === "true" ? "passed" : "failed";
   return (
     <li
-      tabIndex={tab}
       data-testid="control-box"
       name="control-box"
       className={style}
@@ -29,7 +28,7 @@ export const ControlBox = ({
       aria-label={`has ${controlStatus}. Description of check: ${description}, ${formattedDate}`}
     >
       <WithLink tabIndex="0" id={id} link={link}>
-        <div>
+        <div name="control-inner-container" tabIndex={tab}>
           <Header
             title={title}
             status={status}

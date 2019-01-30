@@ -176,7 +176,6 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
                         <ControlBox
                           key={index}
                           status={verifications.passed}
-                          tab={tab}
                           id={controlID}
                           references={verifications.references}
                           component={verifications.component}
