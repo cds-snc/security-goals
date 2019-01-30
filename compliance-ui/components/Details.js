@@ -119,6 +119,10 @@ const details = css`
       width: 60%;
     }
 
+    p[name="component"] {
+      margin-bottom: 0;
+    }
+
     div p {
       width: 100%;
     }
@@ -137,6 +141,10 @@ const details = css`
     ${mediaQuery.sm(css`
       div p {
         font-size: ${theme.font.xs};
+      }
+
+      p {
+        width: 85%;
       }
     `)};
   }

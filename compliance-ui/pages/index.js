@@ -14,6 +14,7 @@ const releases = css`
     display: inline-block;
     font-size: ${theme.font.xl};
     color: ${theme.colour.blackLight};
+    margin: 0;
   }
 
   ${mediaQuery.lg(css`
