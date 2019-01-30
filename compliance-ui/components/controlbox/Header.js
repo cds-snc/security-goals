@@ -54,7 +54,8 @@ export const Header = ({
   status,
   timestamp,
   titleTimestamp,
-  titleColour
+  titleColour,
+  formattedDate
 }) => {
   return (
     <div className={topInfo}>

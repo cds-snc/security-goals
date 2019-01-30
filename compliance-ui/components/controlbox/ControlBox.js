@@ -27,7 +27,7 @@ export const ControlBox = ({
       tabIndex="-1"
       aria-label={`has ${controlStatus}. Description of check: ${description}, ${formattedDate}`}
     >
-      <WithLink tabIndex="0" id={id} link={link}>
+      <WithLink tabIndex="-1" id={id} link={link}>
         <div name="control-inner-container" tabIndex={tab}>
           <Header
             title={title}
