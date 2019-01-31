@@ -12,18 +12,11 @@ const topPage = css`
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    margin: 0 ${theme.spacing.sm} 0 ${theme.spacing.sm};
   }
 
-  ${mediaQuery.lg(css`
-    margin: ${theme.spacing.lg} 0 ${theme.spacing.lg} ${theme.spacing.xl};
-  `)};
-
   ${mediaQuery.sm(css`
-    margin: ${theme.spacing.lg} 0 ${theme.spacing.lg} ${theme.spacing.xl};
     span {
       font-size: ${theme.font.sm};
-      margin-left: ${theme.spacing.sm};
     }
 
     svg {

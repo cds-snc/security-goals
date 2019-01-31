@@ -21,14 +21,25 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-const home = css`
-  a[name="back"] {
-    margin-left: ${theme.spacing.xxl};
-    margin-top: ${theme.spacing.xl};
+const singleReleasePage = css`
+  span[name="back-text"] {
+    margin-left: ${theme.spacing.xs};
   }
+  a[name="back"]:first-of-type {
+    margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xxl};
+  }
+
+  a[name="back"]:last-of-type {
+    margin: ${theme.spacing.lg} 0 3rem ${theme.spacing.xxl};
+  }
+
   ${mediaQuery.lg(css`
-    a[name="back"] {
-      margin-left: ${theme.spacing.xl};
+    a[name="back"]:first-of-type {
+      margin: ${theme.spacing.xl} 0 0 ${theme.spacing.xl};
+    }
+
+    a[name="back"]:last-of-type {
+      margin: ${theme.spacing.lg} 0 3rem ${theme.spacing.xl};
     }
   `)};
   ${mediaQuery.sm(css`
@@ -37,8 +48,27 @@ const home = css`
       margin-top: ${theme.spacing.lg};
 
       svg {
-        height: 0.4rem;
+        height: 0;
+        display: none;
       }
+
+      span[name="back-text"] {
+        margin-left: -0.7rem;
+      }
+    }
+
+    a[name="back"]:last-of-type {
+      font-size: ${theme.font.sm};
+      margin-bottom: ${theme.spacing.lg};
+    }
+
+    svg {
+      height: 0;
+      display: none;
+    }
+
+    span[name="back-text"] {
+      margin-left: -0.7rem;
     }
   `)};
 `;
@@ -65,10 +95,10 @@ class SingleReleasePage extends React.Component {
 
     return (
       <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
-        <div data-testid="home" className={home}>
+        <div data-testid="home" className={singleReleasePage}>
           <a name="back" href="/" className={back}>
             <BackIcon fill={theme.colour.blackLight} />
-            Back to home
+            <span name="back-text">Back to home</span>
           </a>
           <IsReady
             data={data}
@@ -78,7 +108,10 @@ class SingleReleasePage extends React.Component {
           />
 
           <Grid releases={data} link={true} />
-          <BackToTopButton click={this.clickHandler} />
+          <a name="back" href="/" className={back}>
+            <BackIcon fill={theme.colour.blackLight} />
+            <span name="back-text">Back to home</span>
+          </a>
         </div>
       </Layout>
     );
