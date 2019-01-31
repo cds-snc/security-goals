@@ -6,7 +6,6 @@ import React from "react";
 const actions = css`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background: ${theme.colour.blackLight};
   padding: ${theme.spacing.sm} 0 2rem ${theme.spacing.xxl};
 
@@ -36,10 +35,14 @@ const actions = css`
   `)};
 `;
 
-const ActionBar = ({ id = "", pdf = "" }) => {
+const ActionBar = ({ id = "", pdf = "", back2top = false, click }) => {
   return (
     <div name="action-bar" className={actions}>
-      <PrintButton link={`/${pdf}/${id}`} />
+      {back2top === false ? (
+        <PrintButton link={`/${pdf}/${id}`} />
+      ) : (
+        <BackToTopButton click={click} />
+      )}
     </div>
   );
 };
