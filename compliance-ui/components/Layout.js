@@ -1,6 +1,7 @@
 import { hydrate, css } from "react-emotion";
 import { PageHead, Header, Home, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
+import React from "react";
 
 const layout = css`
   height: 100vh;
@@ -65,7 +66,7 @@ class Layout extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
   }
   clickHandler() {
-    console.log("click");
+    document.getElementById("back2top").focus();
   }
   render() {
     const { children, pdf = "", id = "" } = this.props;
