@@ -6,7 +6,6 @@ const topPage = css`
   display: flex;
   align-items: center;
   color: ${theme.colour.black};
-  margin: ${theme.spacing.lg} 0 ${theme.spacing.xxl} ${theme.spacing.xxl};
   text-decoration: underline;
   cursor: pointer;
 
