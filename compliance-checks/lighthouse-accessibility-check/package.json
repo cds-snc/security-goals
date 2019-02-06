@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "build": "./node_modules/.bin/pkg -c './package.json' -t node10-alpine-x64  -o main --debug index.js",
+    "build": "./node_modules/.bin/pkg -c './package.json' -t node10-alpine-x64,node10-macos-x64   -o main --debug index.js",
     "test": "jest"
   },
   "pkg": {

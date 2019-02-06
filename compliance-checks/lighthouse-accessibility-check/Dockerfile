@@ -5,8 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm build
+RUN npm run-script build
+RUN pwd
 
 FROM node:alpine
-COPY /main /
-CMD ["/main"]
+COPY --from=build-env /app/main-alpine /
+CMD ["/main-alpine"]

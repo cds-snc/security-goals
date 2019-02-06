@@ -4,11 +4,9 @@ const lighthouse = require("lighthouse");
 const chromeLauncher = require("chrome-launcher");
 const BrowserFetcher = require("puppeteer/lib/BrowserFetcher");
 
+/* IMPORTANT ensure the correct node modules path here */
 const browserFetcher = new BrowserFetcher(
-  path.join(
-    __dirname,
-    "node_modules/puppeteer/"
-  ) /* note the modules path here */
+  path.join(__dirname, "../../node_modules/puppeteer/")
 );
 
 const packageJson = require("puppeteer/package.json");
@@ -87,20 +85,26 @@ const checkFileContent = data => {
 };
 
 const scanURL = async (url = process.env.URL) => {
+  console.log(`Launching chromeLauncher... ${url}`);
+  console.log(`chromePath: ${revisionInfo.executablePath}`);
+
   const chrome = await chromeLauncher.launch({
     chromeFlags: opts.chromeFlags,
     chromePath: revisionInfo.executablePath
   });
 
   opts.lighthouseFlags.port = chrome.port;
-  console.log(`Launching lighthouse for ${url} port:${chrome.port}`);
+
+  console.log(`Launching lighthouse on port:${chrome.port}`);
+
   const res = await lighthouse(url, opts.lighthouseFlags);
   await chrome.kill();
+
   if (res && res.report) {
+    console.log(res.report);
     return JSON.parse(res.report);
   } else {
-    console.log("failed to pull lighthouse report");
-    return false;
+    throw new Error("failed to pull lighthouse report");
   }
 };
 
