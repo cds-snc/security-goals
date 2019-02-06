@@ -49,16 +49,37 @@ const getValues = (data = {}) => {
 
 const checkReport = {
   origin: "",
-  timestamp: Date.now(),
   satisfies: [],
-  passed: true,
-  description: "",
   component: "Source code",
-  references: ""
+  references: "",
+  timestamp: Date.now(),
+  passed: true,
+  description: ""
 };
 
 const populateCheckContent = description => {
-  return { ...checkReport, description };
+  const ORIGIN = process.env.ORIGIN ? process.env.ORIGIN : "Missing origin";
+
+  const SATISFIES = process.env.SATISFIES
+    ? process.env.SATISFIES.split(",")
+    : "";
+
+  const COMPONENT = process.env.COMPONENT
+    ? process.env.COMPONENT
+    : "Missing component";
+
+  const URL = process.env.URL ? process.env.URL : "Missing Url";
+
+  return {
+    ...checkReport,
+    ...{
+      description: description,
+      origin: ORIGIN,
+      satisfies: SATISFIES,
+      component: COMPONENT,
+      references: URL
+    }
+  };
 };
 
 const checkFileContent = data => {

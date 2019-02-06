@@ -5,7 +5,8 @@ const { scanURL, writeCheckFile, getCheckFileContent } = require("./lib");
   try {
     const data = await scanURL();
     const categories = data.categories;
-    writeCheckFile(process.env.OUT_PATH, getCheckFileContent(categories));
+    const path = process.env.OUT_PATH ? process.env.OUT_PATH : "/checks/";
+    writeCheckFile(path, getCheckFileContent(categories));
   } catch (e) {
     console.log(e.message);
   }

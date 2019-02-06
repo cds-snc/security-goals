@@ -31,7 +31,7 @@ test("populateCheckContent returns object for check file", () => {
   const desc = "my description";
   const result = populateCheckContent(desc);
   expect(result.description).toEqual(desc);
-  expect(result.component).toEqual(report.component);
+  expect(result.component).toEqual("Missing component");
 });
 
 test("checkFileContent returns valid content for the check file", () => {
