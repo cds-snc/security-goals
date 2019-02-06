@@ -1,5 +1,5 @@
 const { scanURL, writeCheckFile, getCheckFileContent } = require("./lib");
-require("dotenv-safe").config({ allowEmptyValues: true });
+//require("dotenv-safe").config({ allowEmptyValues: true });
 
 (async () => {
   try {
