@@ -8,5 +8,5 @@ COPY . .
 RUN npm build
 
 FROM node:alpine
-COPY /main-alpine /
-CMD ["/main-alpine"]
+COPY /main /
+CMD ["/main"]
