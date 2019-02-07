@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "build": "./node_modules/.bin/pkg -c './package.json' -t node10-alpine-x64,node10-macos-x64   -o main --debug index.js",
     "test": "jest"
   },
   "pkg": {
@@ -25,7 +24,6 @@
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
-    "jest": "^24.1.0",
-    "pkg": "^4.3.7"
+    "jest": "^24.1.0"
   }
 }

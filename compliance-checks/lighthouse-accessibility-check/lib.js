@@ -6,7 +6,7 @@ const BrowserFetcher = require("puppeteer/lib/BrowserFetcher");
 
 /* IMPORTANT ensure the correct node modules path here */
 const browserFetcher = new BrowserFetcher(
-  path.join(__dirname, "../../node_modules/puppeteer/")
+  path.join(__dirname, "node_modules/puppeteer/")
 );
 
 const packageJson = require("puppeteer/package.json");
@@ -101,7 +101,6 @@ const scanURL = async (url = process.env.URL) => {
   await chrome.kill();
 
   if (res && res.report) {
-    console.log(res.report);
     return JSON.parse(res.report);
   } else {
     throw new Error("failed to pull lighthouse report");
