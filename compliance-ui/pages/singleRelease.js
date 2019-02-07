@@ -82,10 +82,52 @@ if (typeof window !== "undefined") {
 class SingleReleasePage extends React.Component {
   constructor(props) {
     super(props);
-    this.clickHandler = this.clickHandler.bind(this);
+    this.keyHandler = this.keyHandler.bind(this);
   }
-  clickHandler() {
-    this.statusRef.focus();
+
+  keyHandler() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("control-link")
+    );
+
+    var currentItem = document.activeElement;
+    var currentItemIndex = items.indexOf(currentItem);
+    var nextItem = currentItemIndex;
+    var screenWidth = window.innerWidth;
+
+    if (event.key == "ArrowRight") {
+      nextItem++;
+      nextItem >= items.length ? (nextItem = 0) : null;
+      items[nextItem].focus();
+    }
+
+    if (event.key == "ArrowLeft") {
+      nextItem--;
+      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      items[nextItem].focus();
+    }
+
+    if (event.key == "ArrowDown") {
+      if (screenWidth <= 1050) {
+        nextItem++;
+      } else {
+        nextItem += 2;
+      }
+      nextItem >= items.length ? (nextItem = 0) : null;
+      items[nextItem].focus();
+    }
+
+    if (event.key == "ArrowUp") {
+      if (screenWidth <= 1050) {
+        nextItem--;
+      } else {
+        nextItem -= 2;
+      }
+      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      items[nextItem].focus();
+    }
+
+    console.log();
   }
   render() {
     const { data, err, router = false, releaseParam } = this.props;
@@ -100,14 +142,14 @@ class SingleReleasePage extends React.Component {
             <BackIcon fill={theme.colour.blackLight} />
             <span name="back-text">Back to home</span>
           </a>
-          <IsReady
-            data={data}
-            statusRef={statusRef => {
-              this.statusRef = statusRef;
-            }}
-          />
+          <IsReady data={data} />
 
-          <Grid releases={data} link={true} />
+          <Grid
+            keyDown={this.keyHandler}
+            releases={data}
+            link={true}
+            keyDown={this.keyHandler}
+          />
           <a name="back" href="/" className={back}>
             <BackIcon fill={theme.colour.blackLight} />
             <span name="back-text">Back to home</span>

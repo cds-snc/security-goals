@@ -8,18 +8,8 @@ import { format, parse } from "date-fns";
 import { getReleases, formatTimestamp } from "../util";
 
 const testPage = css`
-  li.selected {
+  li:focus {
     background: yellow;
-  }
-  a:hover {
-    color: blue;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-  ul {
-    list-style-type: none;
   }
 `;
 
@@ -38,37 +28,38 @@ class TestPage extends React.Component {
     var items = Array.prototype.slice.call(
       document.getElementsByClassName("item")
     );
-    console.log(items);
 
     var currentItem = document.activeElement;
-
-    if (event.key == "ArrowUp") {
-      console.log(items.indexOf(currentItem));
-      console.log(currentItem);
-    }
+    var currentItemIndex = items.indexOf(currentItem);
 
     if (event.key == "ArrowDown") {
-      console.log(document.activeElement.className);
+      currentItemIndex++;
+
+      if (currentItemIndex === items.length) {
+        currentItemIndex = 0;
+      }
+
+      items[currentItemIndex].focus();
+
+      console.log(currentItemIndex);
     }
 
-    {
-      /* var currentElement = document.activeElement;
-    var listItems = document.getElementsByClassName("item");
     if (event.key == "ArrowUp") {
-      console.log(listItems.indexOf(currentElement));
-    }
+      currentItemIndex--;
 
-    if (event.key == "ArrowDown") {
-      console.log(document.activeElement.className);
-    }
-    */
+      if (currentItemIndex === -1) {
+        currentItemIndex = items.length - 1;
+      }
+
+      items[currentItemIndex].focus();
+
+      console.log(currentItemIndex);
     }
   }
   render() {
     return (
       <React.Fragment>
-        <input type="text" />
-        <ul tabIndex="0">
+        <ul tabIndex="0" className={testPage}>
           <li tabIndex="0" className="item" onKeyDown={this.handleKeyPress}>
             Item 1
           </li>

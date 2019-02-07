@@ -117,7 +117,12 @@ const cbContainer = css`
   width: 100%;
 `;
 
-export const Grid = ({ releases: { releases }, link = false, tab }) => {
+export const Grid = ({
+  releases: { releases },
+  link = false,
+  tab,
+  keyDown
+}) => {
   return (
     <div>
       {releases.map(item => {
@@ -142,6 +147,7 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
 
                       return (
                         <ControlBox
+                          keyDown={keyDown}
                           key={index}
                           status={verifications.passed}
                           tab={tab}
@@ -174,6 +180,7 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
 
                       return (
                         <ControlBox
+                          keyDown={keyDown}
                           key={index}
                           status={verifications.passed}
                           id={controlID}
