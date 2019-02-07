@@ -7,7 +7,7 @@ import {
   getReleases,
   formatTimestamp
 } from "../util";
-import { Grid, IsReady, PageHead, Failed, PdfSummary } from "../components";
+import { IsReady, PageHead, Failed, PdfSummary } from "../components";
 import { theme } from "../components/styles";
 import ReleaseBox from "../components/ReleaseBox";
 import Layout from "../components/Layout";

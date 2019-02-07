@@ -117,11 +117,11 @@ const cbContainer = css`
   width: 100%;
 `;
 
-export const Grid = ({
+export const GridSingleRelease = ({
   releases: { releases },
   link = false,
   tab,
-  keyDown
+  keyDownSingleRelease
 }) => {
   return (
     <div>
@@ -147,7 +147,7 @@ export const Grid = ({
 
                       return (
                         <ControlBox
-                          keyDown={keyDown}
+                          keyDownSingleRelease={keyDownSingleRelease}
                           key={index}
                           status={verifications.passed}
                           tab={tab}
@@ -180,7 +180,7 @@ export const Grid = ({
 
                       return (
                         <ControlBox
-                          keyDown={keyDown}
+                          keyDownSingleRelease={keyDownSingleRelease}
                           key={index}
                           status={verifications.passed}
                           id={controlID}
@@ -205,13 +205,14 @@ export const Grid = ({
   );
 };
 
-export const Grid2 = ({
+export const GridDetails = ({
   releases: { releases },
   titleTimestamp,
   titleColour,
   link = false,
   tab,
-  controlTitle
+  controlTitle,
+  keyDownDetails
 }) => {
   return (
     <div>
@@ -245,6 +246,7 @@ export const Grid2 = ({
                       return (
                         <ControlBox
                           key={index}
+                          keyDownDetails={keyDownDetails}
                           status={verifications.passed}
                           tab={tab}
                           id={controlID}
