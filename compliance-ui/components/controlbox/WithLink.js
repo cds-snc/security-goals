@@ -6,6 +6,7 @@ export const WithLink = ({ children, id, link, keyDownSingleRelease }) => {
   return link ? (
     <Link as={url} href={`/details?control=${id}`}>
       <a
+        tabIndex="-1"
         name="control-link"
         onKeyDown={keyDownSingleRelease}
         data-testid="control-box-link"

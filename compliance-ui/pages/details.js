@@ -12,11 +12,12 @@ if (typeof window !== "undefined") {
 class DetailsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.keyHandler = this.keyHandler.bind(this);
+    this.keyHandlerDetails = this.keyHandlerDetails.bind(this);
+    this.keyHandlerUL = this.keyHandlerUL.bind(this);
     getControlStatus();
   }
 
-  keyHandler() {
+  keyHandlerDetails() {
     var items = Array.prototype.slice.call(
       document.getElementsByName("control-inner-container")
     );
@@ -30,12 +31,24 @@ class DetailsPage extends React.Component {
       nextItem++;
       nextItem >= items.length ? (nextItem = 0) : null;
       items[nextItem].focus();
+
+      console.log(document.activeElement);
     }
 
     if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
       nextItem--;
       nextItem < 0 ? (nextItem = items.length - 1) : null;
       items[nextItem].focus();
+    }
+  }
+
+  keyHandlerUL() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("control-inner-container")
+    );
+
+    if (event.key == "Enter") {
+      items[0].focus();
     }
   }
 
@@ -48,7 +61,8 @@ class DetailsPage extends React.Component {
     return (
       <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
         <Details
-          keyDownDetails={this.keyHandler}
+          keyDownDetails={this.keyHandlerDetails}
+          keyDownUL={this.keyHandlerUL}
           id={controlParam}
           data={data}
           err={err}

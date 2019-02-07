@@ -255,7 +255,7 @@ const backBottom = css`
   margin: 0;
 `;
 
-export const Details = ({ data, err, id, keyDownDetails }) => {
+export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
   if (err) {
     return <Failed />;
   }
@@ -339,12 +339,13 @@ export const Details = ({ data, err, id, keyDownDetails }) => {
             />
 
             <GridDetails
-              tab="0"
+              tab="-1"
               controlTitle={id}
               titleColour={true}
               releases={sortedData}
               titleTimestamp={true}
               keyDownDetails={keyDownDetails}
+              keyDownUL={keyDownUL}
             />
             <a name="back" href="/" className={backBottom}>
               <BackIcon fill={theme.colour.blackLight} />

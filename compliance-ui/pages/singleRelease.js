@@ -82,10 +82,11 @@ if (typeof window !== "undefined") {
 class SingleReleasePage extends React.Component {
   constructor(props) {
     super(props);
-    this.keyHandler = this.keyHandler.bind(this);
+    this.keyHandlerSingleRelease = this.keyHandlerSingleRelease.bind(this);
+    this.keyHandlerUL = this.keyHandlerUL.bind(this);
   }
 
-  keyHandler() {
+  keyHandlerSingleRelease() {
     var items = Array.prototype.slice.call(
       document.getElementsByName("control-link")
     );
@@ -127,7 +128,17 @@ class SingleReleasePage extends React.Component {
       items[nextItem].focus();
     }
 
-    console.log();
+    console.log("WTF");
+  }
+
+  keyHandlerUL() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("control-link")
+    );
+
+    if (event.key == "Enter") {
+      items[0].focus();
+    }
   }
   render() {
     const { data, err, router = false, releaseParam } = this.props;
@@ -145,7 +156,8 @@ class SingleReleasePage extends React.Component {
           <IsReady data={data} />
 
           <GridSingleRelease
-            keyDownSingleRelease={this.keyHandler}
+            keyDownSingleRelease={this.keyHandlerSingleRelease}
+            keyDownUL={this.keyHandlerUL}
             releases={data}
             link={true}
             keyDown={this.keyHandler}

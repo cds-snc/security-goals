@@ -27,7 +27,8 @@ const outputReferences = text => {
     __html: linkifyUrls(text, {
       attributes: {
         target: "_blank",
-        rel: "noopener"
+        rel: "noopener",
+        tabIndex: "-1"
       },
       value: splitOutFileName
     })

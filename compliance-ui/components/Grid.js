@@ -121,13 +121,15 @@ export const GridSingleRelease = ({
   releases: { releases },
   link = false,
   tab,
-  keyDownSingleRelease
+  keyDownSingleRelease,
+  keyDownUL
 }) => {
   return (
     <div>
       {releases.map(item => {
         return (
           <ul
+            onKeyDown={keyDownUL}
             aria-label={`Control list for release #: ${item.release}`}
             key={item.release}
             name="grid"
@@ -212,7 +214,8 @@ export const GridDetails = ({
   link = false,
   tab,
   controlTitle,
-  keyDownDetails
+  keyDownDetails,
+  keyDownUL
 }) => {
   return (
     <div>
@@ -229,6 +232,7 @@ export const GridDetails = ({
               <h1 name="history-h1">Release #{item.release}</h1>
             </a>
             <ul
+              onKeyDown={keyDownUL}
               name="grid"
               className={grid}
               tabIndex="0"
