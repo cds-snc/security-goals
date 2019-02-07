@@ -1,8 +1,9 @@
 import { withRouter } from "next/router";
-import { Grid2, Failed, Spinner, ActionBar, BackIcon } from "./";
+import { GridDetails, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
+import ReactDOM from "react-dom";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
 
@@ -254,7 +255,7 @@ const backBottom = css`
   margin: 0;
 `;
 
-export const Details = ({ data, err, id }) => {
+export const Details = ({ data, err, id, keyDownDetails }) => {
   if (err) {
     return <Failed />;
   }
@@ -337,12 +338,13 @@ export const Details = ({ data, err, id }) => {
               control={id}
             />
 
-            <Grid2
+            <GridDetails
               tab="0"
               controlTitle={id}
               titleColour={true}
               releases={sortedData}
               titleTimestamp={true}
+              keyDownDetails={keyDownDetails}
             />
             <a name="back" href="/" className={backBottom}>
               <BackIcon fill={theme.colour.blackLight} />

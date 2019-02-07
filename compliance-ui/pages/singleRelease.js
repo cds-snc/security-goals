@@ -3,7 +3,7 @@ import {
   PageHead,
   Header,
   IsReady,
-  Grid,
+  GridSingleRelease,
   ActionBar,
   Failed,
   BackToTopButton
@@ -144,8 +144,8 @@ class SingleReleasePage extends React.Component {
           </a>
           <IsReady data={data} />
 
-          <Grid
-            keyDown={this.keyHandler}
+          <GridSingleRelease
+            keyDownSingleRelease={this.keyHandler}
             releases={data}
             link={true}
             keyDown={this.keyHandler}

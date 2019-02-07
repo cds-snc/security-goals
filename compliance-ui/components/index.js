@@ -1,6 +1,6 @@
 export { default as Header } from "./Header";
 export { default as Failed } from "./Failed";
-export { Grid, Grid2 } from "./Grid";
+export { GridSingleRelease, GridDetails } from "./Grid";
 export { default as IsReady } from "./status/IsReady";
 export { default as Details } from "./Details";
 export { Count } from "./status/Count";
