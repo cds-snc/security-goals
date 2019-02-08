@@ -43,6 +43,7 @@ const ActionBar = ({ id = "", pdf = "", back2top = false, click }) => {
       ) : (
         <BackToTopButton click={click} />
       )}
+
     </div>
   );
 };

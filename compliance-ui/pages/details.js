@@ -59,6 +59,7 @@ class DetailsPage extends React.Component {
 
     return (
       <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
+
         <Details
           keyDownDetails={this.keyHandlerDetails}
           keyDownUL={this.keyHandlerUL}
@@ -66,6 +67,7 @@ class DetailsPage extends React.Component {
           data={data}
           err={err}
         />
+
       </Layout>
     );
   }

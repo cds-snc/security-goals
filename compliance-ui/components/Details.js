@@ -295,6 +295,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
 
       controls.verifications.map((verifications, index) => {
         var urlCheck = isUrl(verifications.references);
+        
         if (verifications.passed === "false") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -305,14 +306,18 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
             description: verifications.description,
             release: verifications.release,
             component: verifications.component,
+
             references: verifications.references,
             urlCheck: urlCheck
+
           });
         }
       });
 
       controls.verifications.map((verifications, index) => {
+
         var urlCheck = isUrl(verifications.references);
+
         if (verifications.passed === "true") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -325,6 +330,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
             component: verifications.component,
             references: verifications.references,
             urlCheck: urlCheck
+
           });
         }
       });
@@ -347,6 +353,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               control={id}
             />
 
+
             <GridDetails
               controlTitle={id}
               titleColour={true}
@@ -359,6 +366,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
+
           </React.Fragment>
         )}
         {!id && (

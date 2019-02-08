@@ -235,7 +235,6 @@ background: white;
   div[name="timestamp"] {
     margin:${theme.spacing.md} 0 0 0;
   }
-
 `;
 
 const number = css`
