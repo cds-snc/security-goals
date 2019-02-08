@@ -195,10 +195,7 @@ export const GridSingleRelease = ({
                           keyDownSingleRelease={keyDownSingleRelease}
                           key={index}
                           status={verifications.passed}
-<<<<<<< HEAD
-=======
                           tab={tab}
->>>>>>> Fixes
                           id={controlID}
                           references={verifications.references}
                           component={verifications.component}
