@@ -44,6 +44,9 @@ class DetailsPage extends React.Component {
       document.getElementsByName("ref-link")
     );
     if (event.key == " ") {
+      window.onkeydown = function(e) {
+        return !(e.key == " ");
+      };
       items[0].focus();
     }
   }

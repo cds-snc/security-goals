@@ -137,7 +137,7 @@ class SingleReleasePage extends React.Component {
     );
 
     window.onkeydown = function(e) {
-      return !(e.keyCode == 32);
+      return !(e.key == " ");
     };
 
     if (event.key == " ") {
