@@ -273,6 +273,7 @@ export const GridDetails = ({
                           titleTimestamp={titleTimestamp}
                           timestamp={verifications.timestamp}
                           link={link}
+                          urlCheck={verifications.urlCheck}
                         />
                       );
                     })}

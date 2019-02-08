@@ -255,6 +255,11 @@ const backBottom = css`
   margin: 0;
 `;
 
+function isUrl(s) {
+  var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  return regexp.test(s);
+}
+
 export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
   if (err) {
     return <Failed />;
@@ -289,6 +294,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
       });
 
       controls.verifications.map((verifications, index) => {
+        var urlCheck = isUrl(verifications.references);
         if (verifications.passed === "false") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -299,12 +305,14 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
             description: verifications.description,
             release: verifications.release,
             component: verifications.component,
-            references: verifications.references
+            references: verifications.references,
+            urlCheck: urlCheck
           });
         }
       });
 
       controls.verifications.map((verifications, index) => {
+        var urlCheck = isUrl(verifications.references);
         if (verifications.passed === "true") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -315,7 +323,8 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
             description: verifications.description,
             release: verifications.release,
             component: verifications.component,
-            references: verifications.references
+            references: verifications.references,
+            urlCheck: urlCheck
           });
         }
       });

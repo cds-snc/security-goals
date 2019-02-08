@@ -16,12 +16,12 @@ const splitOutFileName = url => {
   return `${arr[arr.length - 1]}`;
 };
 
-export const References = ({ text = "" }) => {
+export const References = ({ text = "", urlCheck }) => {
   if (!text) return null;
   return (
     <p className={references}>
       <strong>Reference(s): </strong>
-      <a tabIndex="-1" name="ref-link" href={text}>
+      <a tabIndex="-1" name="ref-link" href={urlCheck === true ? text : "#"}>
         {text}
       </a>
     </p>

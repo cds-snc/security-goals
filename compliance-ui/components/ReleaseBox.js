@@ -135,11 +135,24 @@ const failingFocus = css`
   }
 `;
 
-const ReleaseBox = ({ release, timestamp, passed, passing, total, link }) => {
+const ReleaseBox = ({
+  release,
+  timestamp,
+  passed,
+  passing,
+  total,
+  link,
+  keyDownAllReleases
+}) => {
   const status = passed === "true" ? "Passed" : "Failed";
   return (
     <li className={passed === "true" ? passingFocus : failingFocus}>
-      <a name="releasebox-link" href={link}>
+      <a
+        tabIndex="-1"
+        name="releasebox-link"
+        href={link}
+        onKeyDown={keyDownAllReleases}
+      >
         <div
           aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing, timestamp: ${timestamp}`}
           name="release-box"

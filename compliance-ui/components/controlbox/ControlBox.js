@@ -17,6 +17,7 @@ export const ControlBox = ({
   titleTimestamp,
   keyDownSingleRelease,
   keyDownDetails,
+  urlCheck,
   tab
 }) => {
   var formattedDate = formatTimestamp(timestamp);
@@ -42,6 +43,7 @@ export const ControlBox = ({
             description={description}
             timestamp={formattedDate}
             references={references}
+            urlCheck={urlCheck}
             component={component}
             titleTimestamp={titleTimestamp}
           />
