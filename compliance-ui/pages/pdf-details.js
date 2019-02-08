@@ -207,7 +207,7 @@ const PdfDetailsPage = ({
           );
         })}
         <h1 name="history-h1">Control History ({pageNumber}):</h1>
-        <ul name="grid" className={grid} tabIndex="0">
+        <ul name="grid" className={grid}>
           <div key="cb-container" className={cbContainer}>
             {firstChunk.map((verifications, index) => {
               return (
@@ -244,7 +244,7 @@ const PdfDetailsPage = ({
               <Logo alt="CDS Logo" style={logo} />
             </header>
             <h1 name="history-h1">Control History ({pageNumber}):</h1>
-            <ul name="grid" className={grid} tabIndex="0">
+            <ul name="grid" className={grid}>
               <div key="cb-container" className={cbContainer}>
                 {chunk.map((verifications, index) => {
                   return (
