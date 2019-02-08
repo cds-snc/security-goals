@@ -47,70 +47,127 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-const ReleasesPage = ({ data }) => {
-  let sortedData = [];
-
-  {
-    /* MAPPING THROUGH THE DATA AND SORTING IT INTO A NEW ARRAY */
+class ReleasesPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.keyHandlerAllReleases = this.keyHandlerAllReleases.bind(this);
+    this.keyHandlerUL = this.keyHandlerUL.bind(this);
   }
 
-  {
-    /* FIRST MAPPING THE FAILED DATA */
-  }
+  keyHandlerAllReleases() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("releasebox-link")
+    );
 
-  data.releases.map(release => {
-    if (release.passed === "false") {
-      sortedData.push({
-        release: `${release.release}`,
-        timestamp: `${release.timestamp}`,
-        passed: `${release.passed}`,
-        passing: `${release.passing}`,
-        total: `${release.total}`
-      });
+    var currentItem = document.activeElement;
+    var currentItemIndex = items.indexOf(currentItem);
+    var nextItem = currentItemIndex;
+    var screenWidth = window.innerWidth;
+
+    if (event.key == "ArrowRight" || event.key == "ArrowDown") {
+      window.onkeydown = function(e) {
+        return !(e.key == "ArrowDown");
+      };
+      nextItem++;
+      nextItem >= items.length ? (nextItem = 0) : null;
+      items[nextItem].focus();
     }
-  });
 
-  {
-    /* AND THEN MAPPING THE PASSING DATA */
+    if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
+      window.onkeydown = function(e) {
+        return !(e.key == "ArrowUp");
+      };
+      nextItem--;
+      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      items[nextItem].focus();
+    }
   }
 
-  data.releases.map(release => {
-    if (release.passed === "true") {
-      sortedData.push({
-        release: `${release.release}`,
-        timestamp: `${release.timestamp}`,
-        passed: `${release.passed}`,
-        passing: `${release.passing}`,
-        total: `${release.total}`
-      });
+  keyHandlerUL() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("releasebox-link")
+    );
+
+    window.onkeydown = function(e) {
+      return !(e.key == " ");
+    };
+
+    if (event.key == " ") {
+      items[0].focus();
     }
-  });
-  return (
-    <Layout pdf="pdf-releases">
-      <div className={releases}>
-        <h1 tabIndex="0"> Latest Releases: </h1>
-        <ul className={releaseList}>
-          {sortedData.map((singleRelease, index) => {
-            var myDate = Number(singleRelease.timestamp);
-            var formattedDate = formatTimestamp(myDate);
-            const key = `${singleRelease.release}`;
-            return (
-              <ReleaseBox
-                release={singleRelease.release}
-                passed={singleRelease.passed}
-                timestamp={formattedDate}
-                passing={singleRelease.passing}
-                total={singleRelease.total}
-                link={`/singlerelease/${key}`}
-                key={singleRelease.release}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    </Layout>
-  );
-};
+  }
+
+  render() {
+    const { data } = this.props;
+    let sortedData = [];
+
+    {
+      /* MAPPING THROUGH THE DATA AND SORTING IT INTO A NEW ARRAY */
+    }
+
+    {
+      /* FIRST MAPPING THE FAILED DATA */
+    }
+
+    data.releases.map(release => {
+      if (release.passed === "false") {
+        sortedData.push({
+          release: `${release.release}`,
+          timestamp: `${release.timestamp}`,
+          passed: `${release.passed}`,
+          passing: `${release.passing}`,
+          total: `${release.total}`
+        });
+      }
+    });
+
+    {
+      /* AND THEN MAPPING THE PASSING DATA */
+    }
+
+    data.releases.map(release => {
+      if (release.passed === "true") {
+        sortedData.push({
+          release: `${release.release}`,
+          timestamp: `${release.timestamp}`,
+          passed: `${release.passed}`,
+          passing: `${release.passing}`,
+          total: `${release.total}`
+        });
+      }
+    });
+    return (
+      <Layout pdf="pdf-releases">
+        <div className={releases}>
+          <h1 tabIndex="0"> Latest Releases: </h1>
+          <ul
+            onKeyDown={this.keyHandlerUL}
+            className={releaseList}
+            tabIndex="0"
+          >
+            {sortedData.map((singleRelease, index) => {
+              var myDate = Number(singleRelease.timestamp);
+              var formattedDate = formatTimestamp(myDate);
+              const key = `${singleRelease.release}`;
+              return (
+                <ReleaseBox
+                  release={singleRelease.release}
+                  passed={singleRelease.passed}
+                  timestamp={formattedDate}
+                  keyDownAllReleases={this.keyHandlerAllReleases}
+                  passing={singleRelease.passing}
+                  total={singleRelease.total}
+                  link={`/singlerelease/${key}`}
+                  key={singleRelease.release}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      </Layout>
+    );
+  }
+}
 
 ReleasesPage.getInitialProps = getReleases;
 

@@ -7,7 +7,7 @@ import {
   getSingleRelease,
   formatTimestamp
 } from "../util";
-import { Grid, IsReady, PageHead, Failed, PdfSummary } from "../components";
+import { IsReady, PageHead, Failed, PdfSummary } from "../components";
 import { theme } from "../components/styles";
 import ReleaseBox from "../components/ReleaseBox";
 import Layout from "../components/Layout";
@@ -161,7 +161,7 @@ const releaseTitle = css`
 
   h3[name="releasebox-title"] {
     font-size: ${theme.font.lg};
-    margin: 0 0 ${theme.spacing.sm} 0;
+    margin: 0;
   }
 
   h3[name="releasebox-title"] span {
@@ -228,6 +228,13 @@ background: white;
     margin-bottom: 8px;
   }
 
+  h3[name="control-box-title"] {
+    margin: 0 0 ${theme.spacing.md} 0;
+  }
+
+  div[name="timestamp"] {
+    margin:${theme.spacing.md} 0 0 0;
+  }
 `;
 
 const number = css`

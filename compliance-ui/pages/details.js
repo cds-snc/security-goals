@@ -10,9 +10,47 @@ if (typeof window !== "undefined") {
 }
 
 class DetailsPage extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.keyHandlerDetails = this.keyHandlerDetails.bind(this);
+    this.keyHandlerUL = this.keyHandlerUL.bind(this);
     getControlStatus();
   }
+
+  keyHandlerDetails() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("ref-link")
+    );
+
+    var currentItem = document.activeElement;
+    var currentItemIndex = items.indexOf(currentItem);
+    var nextItem = currentItemIndex;
+
+    if (event.key == "ArrowRight" || event.key == "ArrowDown") {
+      nextItem++;
+      nextItem >= items.length ? (nextItem = 0) : null;
+      items[nextItem].focus();
+    }
+
+    if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
+      nextItem--;
+      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      items[nextItem].focus();
+    }
+  }
+
+  keyHandlerUL() {
+    var items = Array.prototype.slice.call(
+      document.getElementsByName("ref-link")
+    );
+    if (event.key == " ") {
+      window.onkeydown = function(e) {
+        return !(e.key == " ");
+      };
+      items[0].focus();
+    }
+  }
+
   render() {
     const { data, err, router = false, controlParam } = this.props;
     if (err) {
@@ -21,7 +59,13 @@ class DetailsPage extends React.Component {
 
     return (
       <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
-        <Details id={controlParam} data={data} err={err} />
+        <Details
+          keyDownDetails={this.keyHandlerDetails}
+          keyDownUL={this.keyHandlerUL}
+          id={controlParam}
+          data={data}
+          err={err}
+        />
       </Layout>
     );
   }

@@ -1,8 +1,9 @@
 import { withRouter } from "next/router";
-import { Grid2, Failed, Spinner, ActionBar, BackIcon } from "./";
+import { GridDetails, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
 import { verificationsData, fromRouter } from "../util/";
 import { css } from "emotion";
+import ReactDOM from "react-dom";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
 
@@ -28,7 +29,6 @@ const controlInfo = css`
 const detailsWrap = css`
   min-height: 100%;
   padding: ${theme.spacing.xl} ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl};
-  margin-bottom: ${theme.spacing.xxl};
 
   a {
     text-decoration: underline;
@@ -41,13 +41,25 @@ const detailsWrap = css`
     background: white;
   }
 
+  span[name="back-text"] {
+    margin-left: ${theme.spacing.xs};
+  }
+
   a[name="back"]:first-of-type {
     margin-bottom: ${theme.spacing.lg};
   }
 
+  a[name="back"]:last-of-type {
+    margin-top: ${theme.spacing.lg};
+    margin-bottom: ${theme.spacing.xxl};
+  }
+
   ${mediaQuery.lg(css`
-    padding: ${theme.spacing.xl} ${theme.spacing.xl} ${theme.spacing.xl}
+    padding: ${theme.spacing.xl} ${theme.spacing.xl} ${theme.spacing.xxl}
       ${theme.spacing.xl};
+
+      a[name="back"]:last-of-type {
+        margin-bottom: 0;
   `)};
 
   ${mediaQuery.sm(css`
@@ -58,11 +70,24 @@ const detailsWrap = css`
       margin-top: ${theme.spacing.sm};
     }
 
+    span[name="back-text"] {
+      margin-left: -0.7rem;
+    }
+
     a[name="back"]:first-of-type {
       font-size: ${theme.font.sm};
 
       svg {
-        height: 0.4rem;
+        height: 0;
+      }
+    }
+
+    a[name="back"]:last-of-type {
+      font-size: ${theme.font.sm};
+      margin-bottom: 0;
+
+      svg {
+        height: 0;
       }
     }
 
@@ -223,7 +248,19 @@ const back = css`
   font-size: ${theme.font.md};
 `;
 
-export const Details = ({ data, err, id }) => {
+const backBottom = css`
+  display: inline-block;
+  color: ${theme.colour.black};
+  font-size: ${theme.font.md};
+  margin: 0;
+`;
+
+function isUrl(s) {
+  var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  return regexp.test(s);
+}
+
+export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
   if (err) {
     return <Failed />;
   }
@@ -257,6 +294,7 @@ export const Details = ({ data, err, id }) => {
       });
 
       controls.verifications.map((verifications, index) => {
+        var urlCheck = isUrl(verifications.references);
         if (verifications.passed === "false") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -267,12 +305,14 @@ export const Details = ({ data, err, id }) => {
             description: verifications.description,
             release: verifications.release,
             component: verifications.component,
-            references: verifications.references
+            references: verifications.references,
+            urlCheck: urlCheck
           });
         }
       });
 
       controls.verifications.map((verifications, index) => {
+        var urlCheck = isUrl(verifications.references);
         if (verifications.passed === "true") {
           sortedData.releases[releaseCounter].controls[
             controlCounter
@@ -283,7 +323,8 @@ export const Details = ({ data, err, id }) => {
             description: verifications.description,
             release: verifications.release,
             component: verifications.component,
-            references: verifications.references
+            references: verifications.references,
+            urlCheck: urlCheck
           });
         }
       });
@@ -297,7 +338,7 @@ export const Details = ({ data, err, id }) => {
           <React.Fragment>
             <a name="back" href="/" className={back}>
               <BackIcon fill={theme.colour.blackLight} />
-              Back to home
+              <span name="back-text">Back to home</span>
             </a>
             <h1 name="verification-h1">Verification:</h1>
             <Collapsible
@@ -306,13 +347,18 @@ export const Details = ({ data, err, id }) => {
               control={id}
             />
 
-            <Grid2
-              tab="0"
+            <GridDetails
               controlTitle={id}
               titleColour={true}
               releases={sortedData}
               titleTimestamp={true}
+              keyDownDetails={keyDownDetails}
+              keyDownUL={keyDownUL}
             />
+            <a name="back" href="/" className={backBottom}>
+              <BackIcon fill={theme.colour.blackLight} />
+              <span name="back-text">Back to home</span>
+            </a>
           </React.Fragment>
         )}
         {!id && (

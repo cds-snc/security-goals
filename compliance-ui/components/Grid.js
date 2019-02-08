@@ -65,6 +65,11 @@ const greenBG = css`
     padding: ${theme.spacing.xl};
   }
 
+  a[name="ref-link"]:focus {
+    background: ${theme.colour.greenDark};
+    color: ${theme.colour.white};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -94,6 +99,11 @@ const redBG = css`
     padding: ${theme.spacing.xl};
   }
 
+  a[name="ref-link"]:focus {
+    background: ${theme.colour.redDark};
+    color: ${theme.colour.white};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -117,17 +127,24 @@ const cbContainer = css`
   width: 100%;
 `;
 
-export const Grid = ({ releases: { releases }, link = false, tab }) => {
+export const GridSingleRelease = ({
+  releases: { releases },
+  link = false,
+  tab,
+  keyDownSingleRelease,
+  keyDownUL
+}) => {
   return (
     <div>
       {releases.map(item => {
         return (
           <ul
+            tabIndex="0"
+            onKeyDown={keyDownUL}
             aria-label={`Control list for release #: ${item.release}`}
             key={item.release}
             name="grid"
             className={grid}
-            tabIndex="0"
           >
             {item.controls.map(controls => {
               const controlID = controls.control;
@@ -142,6 +159,7 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
 
                       return (
                         <ControlBox
+                          keyDownSingleRelease={keyDownSingleRelease}
                           key={index}
                           status={verifications.passed}
                           tab={tab}
@@ -174,8 +192,10 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
 
                       return (
                         <ControlBox
+                          keyDownSingleRelease={keyDownSingleRelease}
                           key={index}
                           status={verifications.passed}
+                          tab={tab}
                           id={controlID}
                           references={verifications.references}
                           component={verifications.component}
@@ -198,13 +218,15 @@ export const Grid = ({ releases: { releases }, link = false, tab }) => {
   );
 };
 
-export const Grid2 = ({
+export const GridDetails = ({
   releases: { releases },
   titleTimestamp,
   titleColour,
   link = false,
   tab,
-  controlTitle
+  controlTitle,
+  keyDownDetails,
+  keyDownUL
 }) => {
   return (
     <div>
@@ -221,9 +243,10 @@ export const Grid2 = ({
               <h1 name="history-h1">Release #{item.release}</h1>
             </a>
             <ul
+              tabIndex="0"
+              onKeyDown={keyDownUL}
               name="grid"
               className={grid}
-              tabIndex="0"
               aria-label={`${controlTitle} Control list for release #: ${
                 item.release
               }  `}
@@ -238,6 +261,7 @@ export const Grid2 = ({
                       return (
                         <ControlBox
                           key={index}
+                          keyDownDetails={keyDownDetails}
                           status={verifications.passed}
                           tab={tab}
                           id={controlID}
@@ -250,6 +274,7 @@ export const Grid2 = ({
                           titleTimestamp={titleTimestamp}
                           timestamp={verifications.timestamp}
                           link={link}
+                          urlCheck={verifications.urlCheck}
                         />
                       );
                     })}

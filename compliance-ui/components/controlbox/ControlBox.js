@@ -15,6 +15,9 @@ export const ControlBox = ({
   references,
   component,
   titleTimestamp,
+  keyDownSingleRelease,
+  keyDownDetails,
+  urlCheck,
   tab
 }) => {
   var formattedDate = formatTimestamp(timestamp);
@@ -24,11 +27,10 @@ export const ControlBox = ({
       data-testid="control-box"
       name="control-box"
       className={style}
-      tabIndex="-1"
       aria-label={`has ${controlStatus}. Description of check: ${description}, ${formattedDate}`}
     >
-      <WithLink tabIndex="-1" id={id} link={link}>
-        <div name="control-inner-container" tabIndex={tab}>
+      <WithLink keyDownSingleRelease={keyDownSingleRelease} id={id} link={link}>
+        <div onKeyDown={keyDownDetails} name="control-inner-container">
           <Header
             title={title}
             status={status}
@@ -41,6 +43,7 @@ export const ControlBox = ({
             description={description}
             timestamp={formattedDate}
             references={references}
+            urlCheck={urlCheck}
             component={component}
             titleTimestamp={titleTimestamp}
           />

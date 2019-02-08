@@ -1,6 +1,7 @@
 import { hydrate, css } from "react-emotion";
 import { PageHead, Header, Home, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
+import React from "react";
 
 const layout = css`
   height: 100vh;
@@ -59,25 +60,35 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-const Layout = ({ children, pdf = "", id = "" }) => {
-  return (
-    <div className={layout}>
-      <div className={content}>
-        <PageHead />
-        <Header />
-        <div className={actions}>
-          <ActionBar pdf={pdf} id={id} />
+class Layout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+  clickHandler() {
+    document.getElementById("back2top").focus();
+  }
+  render() {
+    const { children, pdf = "", id = "" } = this.props;
+    return (
+      <div className={layout}>
+        <div className={content}>
+          <PageHead />
+          <Header />
+          <div className={actions}>
+            <ActionBar pdf={pdf} id={id} />
+          </div>
+          {children}
         </div>
-        {children}
-      </div>
 
-      <div className={footer}>
-        <div className={actionsBottom}>
-          <ActionBar />
+        <div className={footer}>
+          <div className={actionsBottom}>
+            <ActionBar back2top={true} click={this.clickHandler} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Layout;
