@@ -90,10 +90,6 @@ const flattenAndSave = async (file = {}, save = () => {}) => {
     // merge existing and new controls
     obj.controls = [...existingControls, ...newControls]
   } else {
-<<<<<<< HEAD
-=======
-    console.log(obj.controls)
->>>>>>> Fixes
     obj.controls = existingControls
   }
 
