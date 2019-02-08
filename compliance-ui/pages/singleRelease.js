@@ -136,7 +136,11 @@ class SingleReleasePage extends React.Component {
       document.getElementsByName("control-link")
     );
 
-    if (event.key == "Enter") {
+    window.onkeydown = function(e) {
+      return !(e.keyCode == 32);
+    };
+
+    if (event.key == " ") {
       items[0].focus();
     }
   }

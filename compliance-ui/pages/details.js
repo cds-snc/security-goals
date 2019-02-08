@@ -19,20 +19,17 @@ class DetailsPage extends React.Component {
 
   keyHandlerDetails() {
     var items = Array.prototype.slice.call(
-      document.getElementsByName("control-inner-container")
+      document.getElementsByName("ref-link")
     );
 
     var currentItem = document.activeElement;
     var currentItemIndex = items.indexOf(currentItem);
     var nextItem = currentItemIndex;
-    var screenWidth = window.innerWidth;
 
     if (event.key == "ArrowRight" || event.key == "ArrowDown") {
       nextItem++;
       nextItem >= items.length ? (nextItem = 0) : null;
       items[nextItem].focus();
-
-      console.log(document.activeElement);
     }
 
     if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
@@ -44,10 +41,9 @@ class DetailsPage extends React.Component {
 
   keyHandlerUL() {
     var items = Array.prototype.slice.call(
-      document.getElementsByName("control-inner-container")
+      document.getElementsByName("ref-link")
     );
-
-    if (event.key == "Enter") {
+    if (event.key == " ") {
       items[0].focus();
     }
   }

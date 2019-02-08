@@ -339,7 +339,6 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
             />
 
             <GridDetails
-              tab="-1"
               controlTitle={id}
               titleColour={true}
               releases={sortedData}

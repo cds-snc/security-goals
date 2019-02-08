@@ -65,6 +65,11 @@ const greenBG = css`
     padding: ${theme.spacing.xl};
   }
 
+  a[name="ref-link"]:focus {
+    background: ${theme.colour.greenDark};
+    color: ${theme.colour.white};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -92,6 +97,11 @@ const redBG = css`
 
   a {
     padding: ${theme.spacing.xl};
+  }
+
+  a[name="ref-link"]:focus {
+    background: ${theme.colour.redDark};
+    color: ${theme.colour.white};
   }
 
   p {
@@ -129,12 +139,12 @@ export const GridSingleRelease = ({
       {releases.map(item => {
         return (
           <ul
+            tabIndex="0"
             onKeyDown={keyDownUL}
             aria-label={`Control list for release #: ${item.release}`}
             key={item.release}
             name="grid"
             className={grid}
-            tabIndex="0"
           >
             {item.controls.map(controls => {
               const controlID = controls.control;
@@ -232,10 +242,10 @@ export const GridDetails = ({
               <h1 name="history-h1">Release #{item.release}</h1>
             </a>
             <ul
+              tabIndex="0"
               onKeyDown={keyDownUL}
               name="grid"
               className={grid}
-              tabIndex="0"
               aria-label={`${controlTitle} Control list for release #: ${
                 item.release
               }  `}
