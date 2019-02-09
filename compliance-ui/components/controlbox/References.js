@@ -16,12 +16,28 @@ const splitOutFileName = url => {
   return `${arr[arr.length - 1]}`;
 };
 
-export const References = ({ text = "", urlCheck }) => {
+export const References = ({
+  text = "",
+  urlCheck,
+  timestamp,
+  description,
+  component,
+  status
+}) => {
   if (!text) return null;
+  var passing = "Verification passed:";
+  if (status === "false") {
+    passing = "Verification failed:";
+  }
   return (
     <p className={references}>
       <strong>Reference(s): </strong>
-      <a tabIndex="-1" name="ref-link" href={urlCheck === true ? text : "#"}>
+      <a
+        aria-label={`${passing} ${timestamp}, description of check: ${description}, verification reference: ${text}, component category: ${component}`}
+        tabIndex="-1"
+        name="ref-link"
+        href={urlCheck === true ? text : "#"}
+      >
         {text}
       </a>
     </p>

@@ -238,7 +238,8 @@ export const GridDetails = ({
   tab,
   controlTitle,
   keyDownDetails,
-  keyDownUL
+  keyDownUL,
+  detailsPage
 }) => {
   return (
     <div>
@@ -287,6 +288,7 @@ export const GridDetails = ({
                           timestamp={verifications.timestamp}
                           link={link}
                           urlCheck={verifications.urlCheck}
+                          detailsPage={detailsPage}
                         />
                       );
                     })}

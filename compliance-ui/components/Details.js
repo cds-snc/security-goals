@@ -354,6 +354,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               titleTimestamp={true}
               keyDownDetails={keyDownDetails}
               keyDownUL={keyDownUL}
+              detailsPage={true}
             />
             <a name="back" href="/" className={backBottom}>
               <BackIcon fill={theme.colour.blackLight} />
