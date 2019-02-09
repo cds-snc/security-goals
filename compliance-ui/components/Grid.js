@@ -75,6 +75,10 @@ const greenBG = css`
     color: ${theme.colour.black};
   }
 
+  a[name="release-link"] {
+    width: auto;
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};

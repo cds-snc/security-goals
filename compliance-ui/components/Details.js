@@ -119,6 +119,8 @@ const details = css`
   }
 
   h1[name="history-h1"] {
+    display: inline-block;
+    text-decoration: underline;
     font-size: ${theme.font.xl};
     margin-top: ${theme.spacing.xl};
     color: ${theme.colour.blackLight};

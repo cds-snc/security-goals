@@ -61,9 +61,13 @@ const toggle = css`
     font-weight: 700;
     color: ${theme.colour.blackLight};
   }
-  width: 100%;
+  width: 15rem;
   display: flex;
   align-items: center;
+
+  ${mediaQuery.sm(css`
+    width: 100%;
+  `)}
 `;
 
 export class Collapsible extends React.Component {
