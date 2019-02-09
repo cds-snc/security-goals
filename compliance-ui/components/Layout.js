@@ -80,15 +80,17 @@ class Layout extends React.Component {
     return (
       <div className={layout}>
         <div className={content}>
-          <PageHead />
-          <Header />
-          <div className={actions}>
-            <ActionBar pdf={pdf} id={id} />
+          <div>
+            <PageHead />
+            <Header />
+            <div className={actions}>
+              <ActionBar pdf={pdf} id={id} />
+            </div>
           </div>
-          {children}
+          <div role="main">{children}</div>
         </div>
 
-        <div className={footer}>
+        <div role="contentinfo" className={footer}>
           <div className={actionsBottom}>
             <ActionBar
               back2top={true}
