@@ -64,9 +64,16 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.clickHandler = this.clickHandler.bind(this);
+    this.keyHandler = this.keyHandler.bind(this);
   }
   clickHandler() {
     document.getElementById("back2top").focus();
+  }
+
+  keyHandler() {
+    if (event.key == "Enter") {
+      document.getElementById("back2top").focus();
+    }
   }
   render() {
     const { children, pdf = "", id = "" } = this.props;
@@ -83,7 +90,11 @@ class Layout extends React.Component {
 
         <div className={footer}>
           <div className={actionsBottom}>
-            <ActionBar back2top={true} click={this.clickHandler} />
+            <ActionBar
+              back2top={true}
+              click={this.clickHandler}
+              keyDownTop={this.keyHandler}
+            />
           </div>
         </div>
       </div>

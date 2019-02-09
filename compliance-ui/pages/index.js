@@ -144,6 +144,7 @@ class ReleasesPage extends React.Component {
             onKeyDown={this.keyHandlerUL}
             className={releaseList}
             tabIndex="0"
+            aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
           >
             {sortedData.map((singleRelease, index) => {
               var myDate = Number(singleRelease.timestamp);

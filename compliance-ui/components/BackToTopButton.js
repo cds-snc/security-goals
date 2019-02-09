@@ -26,13 +26,14 @@ const topPage = css`
   `)};
 `;
 
-export const BackToTopButton = ({ click }) => {
+export const BackToTopButton = ({ click, keyDownTop }) => {
   return (
     <div
       tabIndex="0"
       className={topPage}
       onClick={click}
-      aria-label="click this link to navigate to the top of the page"
+      onKeyDown={keyDownTop}
+      aria-label="click or press 'Enter' on this link to navigate to the top of the page"
     >
       <UpArrowCircle />
       <span>Back To Top of Page</span>

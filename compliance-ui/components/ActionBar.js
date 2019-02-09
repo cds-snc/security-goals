@@ -35,13 +35,19 @@ const actions = css`
   `)};
 `;
 
-const ActionBar = ({ id = "", pdf = "", back2top = false, click }) => {
+const ActionBar = ({
+  id = "",
+  pdf = "",
+  back2top = false,
+  click,
+  keyDownTop
+}) => {
   return (
     <div name="action-bar" className={actions}>
       {back2top === false ? (
         <PrintButton link={`/${pdf}/${id}`} />
       ) : (
-        <BackToTopButton click={click} />
+        <BackToTopButton click={click} keyDownTop={keyDownTop} />
       )}
     </div>
   );

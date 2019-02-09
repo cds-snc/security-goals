@@ -11,6 +11,8 @@ const formatDescription = text => {
 export const MainDescription = ({ description }) => {
   return (
     <p
+      tabIndex="-1"
+      id="main-description"
       data-testid="main-description"
       dangerouslySetInnerHTML={outputDescription(description)}
     />

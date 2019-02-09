@@ -70,6 +70,11 @@ const greenBG = css`
     color: ${theme.colour.white};
   }
 
+  a[name="ref-link"]:hover {
+    background: ${theme.colour.greenLight};
+    color: ${theme.colour.black};
+  }
+
   p {
     margin: 0 0 ${theme.spacing.md} 0;
     font-size: ${theme.font.md};
@@ -102,6 +107,11 @@ const redBG = css`
   a[name="ref-link"]:focus {
     background: ${theme.colour.redDark};
     color: ${theme.colour.white};
+  }
+
+  a[name="ref-link"]:hover {
+    background: ${theme.colour.redLight};
+    color: ${theme.colour.black};
   }
 
   p {
@@ -141,7 +151,9 @@ export const GridSingleRelease = ({
           <ul
             tabIndex="0"
             onKeyDown={keyDownUL}
-            aria-label={`Control list for release #: ${item.release}`}
+            aria-label={`This is a list of controls for release #: ${
+              item.release
+            }, press spacebar to enter the group and use your arrow keys to navigate through the list items`}
             key={item.release}
             name="grid"
             className={grid}
@@ -236,7 +248,7 @@ export const GridDetails = ({
             <a
               aria-label={`Heading: release #: ${
                 item.release
-              }, click to navigate to the release page
+              }, click or press 'Enter' to navigate to the release page
             , or tab to view the ${controlTitle} control history for this release`}
               href={`/singlerelease/${item.release}`}
             >
@@ -249,7 +261,7 @@ export const GridDetails = ({
               className={grid}
               aria-label={`${controlTitle} Control list for release #: ${
                 item.release
-              }  `}
+              }, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
             >
               {item.controls.map(controls => {
                 const controlID = controls.control;

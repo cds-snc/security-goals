@@ -146,7 +146,10 @@ const ReleaseBox = ({
 }) => {
   const status = passed === "true" ? "Passed" : "Failed";
   return (
-    <li className={passed === "true" ? passingFocus : failingFocus}>
+    <li
+      aria-label={`${timestamp}`}
+      className={passed === "true" ? passingFocus : failingFocus}
+    >
       <a
         tabIndex="-1"
         name="releasebox-link"
@@ -154,7 +157,7 @@ const ReleaseBox = ({
         onKeyDown={keyDownAllReleases}
       >
         <div
-          aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing, timestamp: ${timestamp}`}
+          aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing`}
           name="release-box"
           className={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
         >
