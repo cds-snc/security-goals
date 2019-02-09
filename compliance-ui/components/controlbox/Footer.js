@@ -57,7 +57,14 @@ export const Footer = ({
   return (
     <div className={bottomInfo}>
       <Description description={description} />
-      <References text={references} urlCheck={urlCheck} />
+      <References
+        timestamp={timestamp}
+        description={description}
+        component={component}
+        text={references}
+        status={status}
+        urlCheck={urlCheck}
+      />
       <div className={bottomMobile} name="bottom-mobile">
         <ControlComponent component={component} />
         {titleTimestamp ? null : (

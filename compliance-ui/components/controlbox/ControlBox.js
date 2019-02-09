@@ -18,6 +18,7 @@ export const ControlBox = ({
   keyDownSingleRelease,
   keyDownDetails,
   urlCheck,
+  detailsPage,
   tab
 }) => {
   var formattedDate = formatTimestamp(timestamp);
@@ -27,7 +28,11 @@ export const ControlBox = ({
       data-testid="control-box"
       name="control-box"
       className={style}
-      aria-label={`has ${controlStatus}. Description of check: ${description}, ${formattedDate}`}
+      aria-label={
+        detailsPage
+          ? "click or press 'Enter' on the link to navigate to the control reference."
+          : `has ${controlStatus}. Description of check: ${description}, ${formattedDate}`
+      }
     >
       <WithLink keyDownSingleRelease={keyDownSingleRelease} id={id} link={link}>
         <div onKeyDown={keyDownDetails} name="control-inner-container">
@@ -46,6 +51,7 @@ export const ControlBox = ({
             urlCheck={urlCheck}
             component={component}
             titleTimestamp={titleTimestamp}
+            status={status}
           />
         </div>
       </WithLink>

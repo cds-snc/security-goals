@@ -5,7 +5,7 @@ import { Timestamp } from "./Timestamp";
 const topInfo = css`
   display: flex;
   justify-content: space-between;
-  h3 {
+  h2 {
     font-size: ${theme.font.lg};
     font-weight: 700;
     margin-top: 0;
@@ -24,7 +24,7 @@ const topInfo = css`
   ${mediaQuery.sm(css`
     margin-bottom: ${theme.spacing.sm};
     justify-content: flex-start;
-    h3 {
+    h2 {
       width: auto;
       font-size: ${theme.font.md};
       margin-bottom: ${theme.spacing.sm};
@@ -59,7 +59,7 @@ export const Header = ({
 }) => {
   return (
     <div className={topInfo}>
-      <h3
+      <h2
         className={
           status === "true" && titleColour === true
             ? passingTitle
@@ -71,7 +71,7 @@ export const Header = ({
         data-testid="control-box-title"
       >
         {titleTimestamp ? `${timestamp}` : title}
-      </h3>
+      </h2>
       {status === "true" ? (
         <span
           name="passing-badge"
