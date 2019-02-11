@@ -23,7 +23,8 @@ const { scanURL, writeCheckFile, checkFileContent } = require("./lib");
     }
 
     const categories = data.categories;
-    const path = process.env.OUT_PATH ? process.env.OUT_PATH : "";
+
+    const path = process.env.OUT_PATH ? process.env.OUT_PATH : "/checks/";
     writeCheckFile(path, checkFileContent(categories));
   } catch (e) {
     console.log(e.message);
