@@ -38,7 +38,7 @@ const container = css`
   background: ${theme.colour.white};
   padding: ${theme.spacing.lg};
   line-height: 1.6rem;
-  h2[name="collapsible-h1"] {
+  h2[name="collapsible-h2"] {
     margin-top: 0;
     color: ${theme.colour.blackLight};
     margin-bottom: ${theme.spacing.md};
@@ -47,7 +47,7 @@ const container = css`
   }
 
   ${mediaQuery.sm(css`
-    h1[name="collapsible-h1"] {
+    h2[name="collapsible-h2"] {
       font-size: ${theme.font.lg};
     }
   `)};
@@ -61,12 +61,14 @@ const toggle = css`
     font-weight: 700;
     color: ${theme.colour.blackLight};
   }
-  width: 15rem;
-  display: flex;
-  align-items: center;
+  display: inline-flex;
 
   ${mediaQuery.sm(css`
-    width: 100%;
+    p {
+      font-size: ${theme.font.sm};
+      position: relative;
+      top: 0.1rem;
+    }
   `)}
 `;
 
@@ -114,7 +116,7 @@ export class Collapsible extends React.Component {
       <div>
         <div className={container}>
           <div className={toggleContainer}>
-            <h2 name="collapsible-h1">{title}</h2>
+            <h2 name="collapsible-h2">{title}</h2>
             <div className={this.state.open ? collapseIn : collapse}>
               {description.length === 0 ? (
                 <MainDescription
