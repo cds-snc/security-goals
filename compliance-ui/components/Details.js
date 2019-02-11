@@ -124,6 +124,8 @@ const details = css`
     font-size: ${theme.font.xl};
     margin-top: ${theme.spacing.xl};
     color: ${theme.colour.blackLight};
+    width: 100%;
+    word-wrap: break-word;
 
     ${mediaQuery.sm(css`
       font-size: ${theme.font.lg};
