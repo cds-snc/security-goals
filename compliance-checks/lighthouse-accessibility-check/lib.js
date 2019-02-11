@@ -3,6 +3,7 @@ const fs = require("fs");
 const lighthouse = require("lighthouse");
 const chromeLauncher = require("chrome-launcher");
 const BrowserFetcher = require("puppeteer/lib/BrowserFetcher");
+const uuidv4 = require('uuid/v4');
 
 /* IMPORTANT ensure the correct node modules path here */
 const browserFetcher = new BrowserFetcher(
@@ -25,7 +26,8 @@ let opts = {
 };
 
 const writeCheckFile = (path = "", content = "") => {
-  fs.writeFile(`${path}report.json`, content, function(err) {
+  const id = uuidv4();
+  fs.writeFile(`${path}${id}.json`, content, function(err) {
     if (err) {
       return console.log(err);
     }
@@ -39,10 +41,10 @@ const getValues = (data = {}) => {
   Object.keys(data).forEach(function(key) {
     let score = data[key].score;
     score = Math.round(score * 100);
-    report.push(`${key} ${score}`);
+    report.push(`${key.toUpperCase()} ${score}`);
   });
 
-  return report.join(",");
+  return report.join(", ");
 };
 
 const checkReport = {
@@ -50,9 +52,10 @@ const checkReport = {
   satisfies: [],
   component: "Source code",
   references: "",
-  timestamp: Date.now(),
+  timestamp: new Date().toISOString(),
   passed: true,
-  description: ""
+  description: "",
+  release: ""
 };
 
 const populateCheckContent = description => {
@@ -68,14 +71,17 @@ const populateCheckContent = description => {
 
   const URL = process.env.URL ? process.env.URL : "Missing Url";
 
+  const RELEASE = process.env.RELEASE ? process.env.RELEASE : null;
+
   return {
     ...checkReport,
     ...{
-      description: description,
+      description: `Lighthouse returned the following scores: ${description}`,
       origin: ORIGIN,
       satisfies: SATISFIES,
       component: COMPONENT,
-      references: URL
+      references: URL,
+      release: RELEASE
     }
   };
 };

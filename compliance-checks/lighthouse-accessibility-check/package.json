@@ -7,13 +7,6 @@
     "start": "node index",
     "test": "jest"
   },
-  "pkg": {
-    "scripts": "index.js",
-    "assets": [
-      "/node_modules/**/*",
-      ".env.example"
-    ]
-  },
   "keywords": [],
   "author": "",
   "license": "MIT",
@@ -21,7 +14,8 @@
     "chrome-launcher": "^0.10.5",
     "dotenv-safe": "^6.1.0",
     "lighthouse": "^4.1.0",
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.12.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^24.1.0"
