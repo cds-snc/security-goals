@@ -78,6 +78,7 @@ const releaseTitlePassing = css`
     font-size: ${theme.font.lg};
     margin: 0 0 0.3rem 0;
     color: ${theme.colour.greenDark};
+    word-wrap: break-word;
   }
 
   ${mediaQuery.md(css`
