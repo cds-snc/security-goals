@@ -47,7 +47,7 @@ const container = css`
   }
 
   ${mediaQuery.sm(css`
-    h1[name="collapsible-h1"] {
+    h2[name="collapsible-h1"] {
       font-size: ${theme.font.lg};
     }
   `)};
@@ -61,12 +61,14 @@ const toggle = css`
     font-weight: 700;
     color: ${theme.colour.blackLight};
   }
-  width: 15rem;
-  display: flex;
-  align-items: center;
+  display: inline-flex;
 
   ${mediaQuery.sm(css`
-    width: 100%;
+    p {
+      font-size: ${theme.font.sm};
+      position: relative;
+      top: 0.1rem;
+    }
   `)}
 `;
 
