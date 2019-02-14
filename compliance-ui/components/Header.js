@@ -1,45 +1,31 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
+import { ActionBar } from "../components";
 
 const bar = css`
-  padding: ${theme.spacing.md} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
-  width: 100%;
   background: ${theme.colour.blackLight};
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  ${mediaQuery.lg(css`
-    padding: ${theme.spacing.md} ${theme.spacing.lg} 0 ${theme.spacing.xl};
-  `)};
-
-  ${mediaQuery.sm(css`
-    padding: ${theme.spacing.lg} ${theme.spacing.lg} ${theme.spacing.sm}
-      ${theme.spacing.xl};
-  `)};
-`;
-
-const h1 = css`
-  font-size: ${theme.font.xl};
-  line-height: 2.8rem;
-  font-weight: 650;
   color: ${theme.colour.white};
-  margin: 0;
 
-  ${mediaQuery.xl(css`
+  h1 {
     font-size: ${theme.font.xl};
-  `)};
+    padding: ${theme.spacing.lg} 0 0 ${theme.spacing.xxl};
+    margin:0;
 
-  ${mediaQuery.lg(css`
-    font-size: 18pt;
-  `)};
+    ${mediaQuery.lg(css`
+      font-size: 18pt;
+      padding: ${theme.spacing.lg} 0 0 ${theme.spacing.xl};
+    `)}
 
-  ${mediaQuery.sm(css`
-    font-size: ${theme.font.lg};
-    line-height: 1.4rem;
-  `)};
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+      padding: ${theme.spacing.lg} 0 ${theme.spacing.xs} ${theme.spacing.xl};
+    `)}
+
+    ${mediaQuery.xs(css`
+      padding: ${theme.spacing.lg} 0 ${theme.spacing.md} ${theme.spacing.xl};
+    `)}
+  }
 `;
 
 const logo = css`
@@ -66,10 +52,29 @@ const logo = css`
   `)};
 `;
 
-const Header = () => (
-  <header name="header" className={bar}>
-    <h1 className={h1}>Are we compliant yet?</h1>
-    <Logo alt="CDS Logo" style={logo} />
+const actions = css`
+  width: 100%;
+
+  ${mediaQuery.sm(css`
+    div[name="action-bar"] {
+      padding-top: 0;
+    }
+
+    svg {
+      display: none;
+    }
+  `)};
+`;
+
+const Header = ({ pdf = "", id = "" }) => (
+  <header name="header">
+    <div className={bar}>
+      <h1>Are we compliant yet?</h1>
+      <Logo alt="CDS Logo" style={logo} />
+      <div className={actions}>
+        <ActionBar pdf={pdf} id={id} />
+      </div>
+    </div>
   </header>
 );
 

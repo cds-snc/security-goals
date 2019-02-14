@@ -21,7 +21,7 @@ export const Logo = ({ style }) => {
     <div className={style}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        id="Layer_1"
+        id="Layer_1_Logo"
         viewBox="0 0 144 144"
         className={logoSVG}
       >
