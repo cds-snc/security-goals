@@ -1,7 +1,7 @@
 export const UpArrowCircle = () => {
   return (
     <svg
-      id="Layer_1"
+      id="Layer_1_Up"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 496 496"

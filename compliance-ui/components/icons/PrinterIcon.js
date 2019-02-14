@@ -1,7 +1,7 @@
 export const PrinterIcon = () => {
   return (
     <svg
-      id="Layer_1"
+      id="Layer_1_PrinterIcon"
       data-name="Layer 1"
       name="printer-icon"
       xmlns="http://www.w3.org/2000/svg"

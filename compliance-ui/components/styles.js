@@ -1,11 +1,5 @@
 import { css } from "react-emotion";
 
-/*
-  This function is usually for hover events and such
-  col: is the color in hex
-  amt: is how much you want to darken or lighten, 20 is a good start.
-*/
-
 export const breakpoints = {
   xs: 330,
   sm: 575,
@@ -22,9 +16,9 @@ export const theme = {
     white: "#fff",
     grayOutline: "#b7b7b7",
     grayLight: "#f0efef",
-    redDark: "#CD1D26",
+    redDark: "#AD1D26",
     redLight: "#f8d9dd",
-    greenDark: "#258742",
+    greenDark: "#006600",
     greenLight: "#e0f0e0",
     focusFill: "#F8F7F7",
     focusOutline: "#ADADAD"

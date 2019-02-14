@@ -11,20 +11,6 @@ const layout = css`
   flex-direction: column;
 `;
 
-const actions = css`
-  width: 100%;
-
-  ${mediaQuery.sm(css`
-    div[name="action-bar"] {
-      padding-top: 0;
-    }
-
-    svg {
-      display: none;
-    }
-  `)};
-`;
-
 const actionsBottom = css`
   padding-top: ${theme.spacing.lg};
   background: ${theme.colour.blackLight};
@@ -79,15 +65,10 @@ class Layout extends React.Component {
     const { children, pdf = "", id = "" } = this.props;
     return (
       <div className={layout}>
-        <div className={content}>
-          <div>
-            <PageHead />
-            <Header />
-            <div className={actions}>
-              <ActionBar pdf={pdf} id={id} />
-            </div>
-          </div>
-          <div role="main">{children}</div>
+        <PageHead />
+        <Header pdf={pdf} id={id} />
+        <div role="main" className={content}>
+          {children}
         </div>
 
         <div role="contentinfo" className={footer}>

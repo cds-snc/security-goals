@@ -151,27 +151,29 @@ class SingleReleasePage extends React.Component {
     }
 
     return (
-      <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
-        <div data-testid="home" className={singleReleasePage}>
-          <a name="back" href="/" className={back}>
-            <BackIcon fill={theme.colour.blackLight} />
-            <span name="back-text">Back to home</span>
-          </a>
-          <IsReady data={data} />
+      <div>
+        <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
+          <div data-testid="home" className={singleReleasePage}>
+            <a name="back" href="/" className={back}>
+              <BackIcon fill={theme.colour.blackLight} />
+              <span name="back-text">Back to home</span>
+            </a>
+            <IsReady data={data} />
 
-          <GridSingleRelease
-            keyDownSingleRelease={this.keyHandlerSingleRelease}
-            keyDownUL={this.keyHandlerUL}
-            releases={data}
-            link={true}
-            keyDown={this.keyHandler}
-          />
-          <a name="back" href="/" className={back}>
-            <BackIcon fill={theme.colour.blackLight} />
-            <span name="back-text">Back to home</span>
-          </a>
-        </div>
-      </Layout>
+            <GridSingleRelease
+              keyDownSingleRelease={this.keyHandlerSingleRelease}
+              keyDownUL={this.keyHandlerUL}
+              releases={data}
+              link={true}
+              keyDown={this.keyHandler}
+            />
+            <a name="back" href="/" className={back}>
+              <BackIcon fill={theme.colour.blackLight} />
+              <span name="back-text">Back to home</span>
+            </a>
+          </div>
+        </Layout>
+      </div>
     );
   }
 }
