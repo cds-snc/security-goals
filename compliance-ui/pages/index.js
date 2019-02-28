@@ -1,5 +1,5 @@
 import { hydrate, css } from "react-emotion";
-import { PageHead, Header, Home, ActionBar } from "../components";
+import { PageHead, Header, Home, ActionBar, Failed } from "../components";
 import { theme, actionsBottom, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import ReleaseBox from "../components/ReleaseBox";
@@ -108,34 +108,39 @@ class ReleasesPage extends React.Component {
     {
       /* FIRST MAPPING THE FAILED DATA */
     }
+    if (data) {
+      data.releases.map(release => {
+        if (release.passed === "false") {
+          sortedData.push({
+            release: `${release.release}`,
+            timestamp: `${release.timestamp}`,
+            passed: `${release.passed}`,
+            passing: `${release.passing}`,
+            total: `${release.total}`
+          });
+        }
+      });
 
-    data.releases.map(release => {
-      if (release.passed === "false") {
-        sortedData.push({
-          release: `${release.release}`,
-          timestamp: `${release.timestamp}`,
-          passed: `${release.passed}`,
-          passing: `${release.passing}`,
-          total: `${release.total}`
-        });
+      {
+        /* AND THEN MAPPING THE PASSING DATA */
       }
-    });
 
-    {
-      /* AND THEN MAPPING THE PASSING DATA */
+      data.releases.map(release => {
+        if (release.passed === "true") {
+          sortedData.push({
+            release: `${release.release}`,
+            timestamp: `${release.timestamp}`,
+            passed: `${release.passed}`,
+            passing: `${release.passing}`,
+            total: `${release.total}`
+          });
+        }
+      });
     }
 
-    data.releases.map(release => {
-      if (release.passed === "true") {
-        sortedData.push({
-          release: `${release.release}`,
-          timestamp: `${release.timestamp}`,
-          passed: `${release.passed}`,
-          passing: `${release.passing}`,
-          total: `${release.total}`
-        });
-      }
-    });
+    if (!data) {
+      return <Failed />;
+    }
     return (
       <Layout pdf="pdf-releases">
         <div className={releases}>

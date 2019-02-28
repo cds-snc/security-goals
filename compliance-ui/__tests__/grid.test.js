@@ -1,18 +1,30 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Grid } from "../components";
+import { data } from "../__mocks__/mockDataSingleRelease.js";
+import { GridSingleRelease, GridDetails } from "../components/Grid";
 import { passFailData } from "../util";
 import "jest-dom/extend-expect";
 import { controls } from "../__mocks__/controls";
 
 afterEach(cleanup); // <-- add this
 
-test("Grid (No Data) - renders no controls found", async () => {
-  const { getByTestId } = render(<Grid />);
-  expect(getByTestId("not-found")).toHaveTextContent("No Verifications found");
+test("Single Release Grid (w/ Data) - renders no controls found", async () => {
+  const { getByTestId } = render(<GridSingleRelease releases={data} />);
 });
 
-test("Grid - renders control boxes", async () => {
+test("Details Grid (w/ Data) - renders no controls found", async () => {
+  const { getByTestId } = render(<GridDetails releases={data} />);
+});
+
+test("Single Release Grid (No Data) - renders no controls found", async () => {
+  const { getByTestId } = render(<GridSingleRelease />);
+});
+
+test("Details Grid (No Data) - renders no controls found", async () => {
+  const { getByTestId } = render(<GridDetails />);
+});
+
+/* test("Grid - renders control boxes", async () => {
   const data = await passFailData(controls.data);
   const { getByTestId } = render(<Grid controls={data} />);
 
@@ -26,3 +38,4 @@ test("Grid - renders control boxes", async () => {
     "The application follows Account Management policy as laid out in documentation."
   );
 });
+*/

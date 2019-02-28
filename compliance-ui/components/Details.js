@@ -1,7 +1,7 @@
 import { withRouter } from "next/router";
 import { GridDetails, Failed, Spinner, ActionBar, BackIcon } from "./";
 import { useState, useEffect } from "react";
-import { verificationsData, fromRouter } from "../util/";
+import { fromRouter } from "../util/";
 import { css } from "emotion";
 import ReactDOM from "react-dom";
 import { theme, mediaQuery } from "./styles";
@@ -344,7 +344,9 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
-            <h1 name="verification-h1">Verification:</h1>
+            <h1 data-testid="verification-h1" name="verification-h1">
+              Verification:
+            </h1>
             <Collapsible
               title={id}
               description={data.controlData}

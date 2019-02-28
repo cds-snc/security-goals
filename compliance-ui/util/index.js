@@ -7,24 +7,6 @@ import {
 } from "../api";
 import { fetchGraphQL } from "../api/fetchGraphQL";
 
-export const verificationsData = (data = false, overrides = {}) => {
-  let result = { items: [] };
-
-  if (!data || !data.control || !data.control.verifications) return result;
-  result.items = data.control.verifications.map(item => {
-    return {
-      id: data.control.id,
-      name: data.control.name,
-      status: item.passed == "true", // eslint-disable-line eqeqeq
-      ...item,
-      timestamp: formatTimestamp(item.timestamp),
-      ...overrides
-    };
-  });
-
-  return result;
-};
-
 const sortByKey = (array, key) => {
   return array.sort(function(a, b) {
     var x = a[key];

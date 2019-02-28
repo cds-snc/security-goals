@@ -12,7 +12,7 @@ import { theme, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
 import { controlStatus } from "../api";
-import { fromRouter, getSingleRelease } from "../util";
+import { getSingleRelease } from "../util";
 import { BackIcon } from "../components";
 
 const back = css`
@@ -127,8 +127,6 @@ class SingleReleasePage extends React.Component {
       nextItem < 0 ? (nextItem = items.length - 1) : null;
       items[nextItem].focus();
     }
-
-    console.log("WTF");
   }
 
   keyHandlerUL() {
@@ -146,7 +144,7 @@ class SingleReleasePage extends React.Component {
   }
   render() {
     const { data, err, router = false, releaseParam } = this.props;
-    if (err) {
+    if (err || !data) {
       return <Failed />;
     }
 

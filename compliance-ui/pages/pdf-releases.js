@@ -1,15 +1,7 @@
 import { css } from "react-emotion";
-import {
-  chunkArray,
-  getAllControlsStatus,
-  getControlStatus,
-  verificationsData,
-  getReleases,
-  formatTimestamp
-} from "../util";
-import { IsReady, PageHead, Failed, PdfSummary } from "../components";
+import { chunkArray, getReleases, formatTimestamp } from "../util";
+import { PageHead, Failed } from "../components";
 import { theme } from "../components/styles";
-import ReleaseBox from "../components/ReleaseBox";
 import Layout from "../components/Layout";
 import { Logo } from "../components/Logo";
 import Link from "next/link";
@@ -314,26 +306,8 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
 };
 
 PdfReleasesPage.getInitialProps = async ({ req }) => {
-  // request for a single control
-  /*if (req.params.control) {
-    const d = await getControlStatus({ req });
-
-    if (!d || !d.data) return;
-
-    return {
-      data: verificationsData(d.data),
-      perPage: 5,
-      summary: (
-        <Page>
-          <PdfSummary data={d.data} />
-        </Page>
-      )
-    };
-  }*/
-
-  // request overview
   const result = await getReleases();
-  return { err: result.err, data: result.data, perPage: 8, summary: false };
+  return { err: result.err, data: result.data, perPage: 6, summary: false };
 };
 
 export default PdfReleasesPage;

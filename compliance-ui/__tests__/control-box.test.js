@@ -5,30 +5,20 @@ import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this
 
-/*
-link,
-  id,
-  status,
-  name = "",
-  description = "",
-  timestamp = ""
-*/
-
 test("Control Box", async () => {
   const { getByTestId } = render(
     <ControlBox
-      name="The Control"
       description="the description"
       id="S1"
+      title="S1 is the title"
+      status="true"
       link={true}
       status={false}
     />
   );
   // debug();
 
-  expect(getByTestId("control-box-title")).toHaveTextContent(
-    "S1 - The Control"
-  );
+  expect(getByTestId("control-box-title")).toHaveTextContent("S1 is the title");
 
   expect(getByTestId("control-box-link")).toHaveAttribute(
     "href",
