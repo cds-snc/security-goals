@@ -4,7 +4,6 @@ import { data } from "../__mocks__/mockDataSingleRelease.js";
 import { GridSingleRelease, GridDetails } from "../components/Grid";
 import { passFailData } from "../util";
 import "jest-dom/extend-expect";
-import { controls } from "../__mocks__/controls";
 
 afterEach(cleanup); // <-- add this
 

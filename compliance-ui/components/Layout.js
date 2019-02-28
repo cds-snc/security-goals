@@ -1,4 +1,4 @@
-import { hydrate, css } from "react-emotion";
+import { css } from "react-emotion";
 import { PageHead, Header, Home, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import React from "react";
