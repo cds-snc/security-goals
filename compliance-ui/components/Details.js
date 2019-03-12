@@ -1,9 +1,6 @@
 import { withRouter } from "next/router";
-import { GridDetails, Failed, Spinner, ActionBar, BackIcon } from "./";
-import { useState, useEffect } from "react";
-import { verificationsData, fromRouter } from "../util/";
+import { GridDetails, Spinner, BackIcon } from "./";
 import { css } from "emotion";
-import ReactDOM from "react-dom";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
 
@@ -209,43 +206,6 @@ const details = css`
   }
 `;
 
-const history = css`
-  margin-bottom: ${theme.spacing.xxl};
-  h1[name="history-h1"] {
-    font-size: ${theme.font.xl};
-    margin-bottom: ${theme.spacing.sm};
-    color: ${theme.colour.blackLight};
-  }
-
-  p[name="desc"] {
-    width: 80%;
-    line-height: 1.6rem;
-  }
-  ${mediaQuery.xl(css`
-    p[name="desc"] {
-      width: 70%;
-      line-height: 1.6rem;
-    }
-  `)};
-
-  ${mediaQuery.lg(css`
-    margin-bottom: ${theme.spacing.xl};
-  `)};
-
-  ${mediaQuery.sm(css`
-    margin-bottom: ${theme.spacing.lg};
-
-    h1[name="history-h1"] {
-      font-size: ${theme.font.lg};
-    }
-
-    p[name="desc"] {
-      width: 100%;
-      line-height: 1.4rem;
-    }
-  `)};
-`;
-
 const back = css`
   display: inline-block;
   color: ${theme.colour.black};
@@ -259,81 +219,101 @@ const backBottom = css`
   margin: 0;
 `;
 
+const center = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1em;
+`;
+
 function isUrl(s) {
-  var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
   return regexp.test(s);
 }
 
 export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
-  if (err) {
-    return <Failed />;
-  }
-
-  {
-    /*
+  /*
   This array will contain the sorted data based on the verifications.passed = false
   */
-  }
 
   let sortedData = { releases: [] };
 
-  data.controlReleaseData.releases.map((release, index) => {
-    var releaseCounter = index;
-    sortedData.releases.push({
-      _id: release._id,
-      release: release.release,
-      timestamp: release.timestamp,
-      passed: release.passed,
-      passing: release.passing,
-      total: release.total,
-      controls: []
+  if (data) {
+    data.controlReleaseData.releases.map((release, index) => {
+      var releaseCounter = index;
+      sortedData.releases.push({
+        _id: release._id,
+        release: release.release,
+        timestamp: release.timestamp,
+        passed: release.passed,
+        passing: release.passing,
+        total: release.total,
+        controls: []
+      });
+
+      release.controls.map((controls, index) => {
+        var controlCounter = index;
+        sortedData.releases[releaseCounter].controls.push({
+          control: controls.control,
+          fileId: controls.fileId,
+          verifications: []
+        });
+
+        controls.verifications.map((verifications, index) => {
+          var urlCheck = isUrl(verifications.references);
+          if (verifications.passed === "false") {
+            sortedData.releases[releaseCounter].controls[
+              controlCounter
+            ].verifications.push({
+              origin: verifications.origin,
+              timestamp: verifications.timestamp,
+              passed: verifications.passed,
+              description: verifications.description,
+              release: verifications.release,
+              component: verifications.component,
+              references: verifications.references,
+              urlCheck: urlCheck
+            });
+          }
+        });
+
+        controls.verifications.map((verifications, index) => {
+          var urlCheck = isUrl(verifications.references);
+          if (verifications.passed === "true") {
+            sortedData.releases[releaseCounter].controls[
+              controlCounter
+            ].verifications.push({
+              origin: verifications.origin,
+              timestamp: verifications.timestamp,
+              passed: verifications.passed,
+              description: verifications.description,
+              release: verifications.release,
+              component: verifications.component,
+              references: verifications.references,
+              urlCheck: urlCheck
+            });
+          }
+        });
+      });
     });
+  }
 
-    release.controls.map((controls, index) => {
-      var controlCounter = index;
-      sortedData.releases[releaseCounter].controls.push({
-        control: controls.control,
-        fileId: controls.fileId,
-        verifications: []
-      });
+  if (!data) {
+    return (
+      <div data-testid="api-fail" className={center}>
+        ⚠️ Failed to fetch GraphQL API data
+      </div>
+    );
+  }
 
-      controls.verifications.map((verifications, index) => {
-        var urlCheck = isUrl(verifications.references);
-        if (verifications.passed === "false") {
-          sortedData.releases[releaseCounter].controls[
-            controlCounter
-          ].verifications.push({
-            origin: verifications.origin,
-            timestamp: verifications.timestamp,
-            passed: verifications.passed,
-            description: verifications.description,
-            release: verifications.release,
-            component: verifications.component,
-            references: verifications.references,
-            urlCheck: urlCheck
-          });
-        }
-      });
-
-      controls.verifications.map((verifications, index) => {
-        var urlCheck = isUrl(verifications.references);
-        if (verifications.passed === "true") {
-          sortedData.releases[releaseCounter].controls[
-            controlCounter
-          ].verifications.push({
-            origin: verifications.origin,
-            timestamp: verifications.timestamp,
-            passed: verifications.passed,
-            description: verifications.description,
-            release: verifications.release,
-            component: verifications.component,
-            references: verifications.references,
-            urlCheck: urlCheck
-          });
-        }
-      });
-    });
-  });
+  if (err) {
+    return (
+      <div data-testid="api-fail" className={center}>
+        ⚠️ Failed to fetch GraphQL API data
+      </div>
+    );
+  }
 
   return (
     <div data-testid="details" className={details}>
@@ -344,22 +324,28 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
-            <h1 name="verification-h1">Verification:</h1>
-            <Collapsible
-              title={id}
-              description={data.controlData}
-              control={id}
-            />
+            <h1 data-testid="verification-h1" name="verification-h1">
+              Verification:
+            </h1>
+            {data ? (
+              <React.Fragment>
+                <Collapsible
+                  title={id}
+                  description={data.controlData}
+                  control={id}
+                />
 
-            <GridDetails
-              controlTitle={id}
-              titleColour={true}
-              releases={sortedData}
-              titleTimestamp={true}
-              keyDownDetails={keyDownDetails}
-              keyDownUL={keyDownUL}
-              detailsPage={true}
-            />
+                <GridDetails
+                  controlTitle={id}
+                  titleColour={true}
+                  releases={sortedData}
+                  titleTimestamp={true}
+                  keyDownDetails={keyDownDetails}
+                  keyDownUL={keyDownUL}
+                  detailsPage={true}
+                />
+              </React.Fragment>
+            ) : null}
             <a name="back" href="/" className={backBottom}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>

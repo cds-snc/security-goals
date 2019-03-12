@@ -1,45 +1,9 @@
-import { hydrate, css } from "react-emotion";
-import { PageHead, Header, Home, ActionBar } from "../components";
-import { theme, actionsBottom, mediaQuery } from "../components/styles";
+import { hydrate } from "react-emotion";
+import { Failed } from "../components";
 import Layout from "../components/Layout";
-import ReleaseBox from "../components/ReleaseBox";
-import { releaseStatus } from "../api";
-import { format, parse } from "date-fns";
-import { getReleases, formatTimestamp } from "../util";
-
-const releases = css`
-  margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
-
-  h1 {
-    display: inline-block;
-    font-size: ${theme.font.xl};
-    color: ${theme.colour.blackLight};
-    margin: 0;
-  }
-
-  ${mediaQuery.lg(css`
-    margin: ${theme.spacing.xl} ${theme.spacing.xl} 0 ${theme.spacing.xl};
-  `)};
-
-  ${mediaQuery.sm(css`
-    h1 {
-      font-size: ${theme.font.lg};
-    }
-  `)};
-`;
-
-const releaseList = css`
-  padding: 0;
-  margin-bottom: ${theme.spacing.xxl};
-
-  li {
-    list-style: none;
-  }
-
-  a {
-    text-decoration: none;
-  }
-`;
+import Home from "../components/Home";
+import { getReleases } from "../util";
+import React from "react";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -54,7 +18,7 @@ class ReleasesPage extends React.Component {
     this.keyHandlerUL = this.keyHandlerUL.bind(this);
   }
 
-  keyHandlerAllReleases() {
+  keyHandlerAllReleases(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("releasebox-link")
     );
@@ -62,37 +26,40 @@ class ReleasesPage extends React.Component {
     var currentItem = document.activeElement;
     var currentItemIndex = items.indexOf(currentItem);
     var nextItem = currentItemIndex;
-    var screenWidth = window.innerWidth;
 
-    if (event.key == "ArrowRight" || event.key == "ArrowDown") {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       window.onkeydown = function(e) {
-        return !(e.key == "ArrowDown");
+        return !(event.key === "ArrowDown");
       };
       nextItem++;
-      nextItem >= items.length ? (nextItem = 0) : null;
+      if (nextItem >= items.length) {
+        nextItem = 0;
+      }
       items[nextItem].focus();
     }
 
-    if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       window.onkeydown = function(e) {
-        return !(e.key == "ArrowUp");
+        return !(event.key === "ArrowUp");
       };
       nextItem--;
-      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      if (nextItem < 0) {
+        nextItem = items.length - 1;
+      }
       items[nextItem].focus();
     }
   }
 
-  keyHandlerUL() {
+  keyHandlerUL(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("releasebox-link")
     );
 
     window.onkeydown = function(e) {
-      return !(e.key == " ");
+      return !(event.key === " ");
     };
 
-    if (event.key == " ") {
+    if (event.key === " ") {
       items[0].focus();
     }
   }
@@ -101,70 +68,48 @@ class ReleasesPage extends React.Component {
     const { data } = this.props;
     let sortedData = [];
 
-    {
-      /* MAPPING THROUGH THE DATA AND SORTING IT INTO A NEW ARRAY */
-    }
+    /* MAPPING THROUGH THE DATA AND SORTING IT INTO A NEW ARRAY */
 
-    {
-      /* FIRST MAPPING THE FAILED DATA */
-    }
+    /* FIRST MAPPING THE FAILED DATA */
 
-    data.releases.map(release => {
-      if (release.passed === "false") {
-        sortedData.push({
-          release: `${release.release}`,
-          timestamp: `${release.timestamp}`,
-          passed: `${release.passed}`,
-          passing: `${release.passing}`,
-          total: `${release.total}`
-        });
-      }
-    });
+    if (data) {
+      data.releases.map(release => {
+        if (release.passed === "false") {
+          sortedData.push({
+            release: `${release.release}`,
+            timestamp: `${release.timestamp}`,
+            passed: `${release.passed}`,
+            passing: `${release.passing}`,
+            total: `${release.total}`
+          });
+        }
+      });
 
-    {
       /* AND THEN MAPPING THE PASSING DATA */
+
+      data.releases.map(release => {
+        if (release.passed === "true") {
+          sortedData.push({
+            release: `${release.release}`,
+            timestamp: `${release.timestamp}`,
+            passed: `${release.passed}`,
+            passing: `${release.passing}`,
+            total: `${release.total}`
+          });
+        }
+      });
     }
 
-    data.releases.map(release => {
-      if (release.passed === "true") {
-        sortedData.push({
-          release: `${release.release}`,
-          timestamp: `${release.timestamp}`,
-          passed: `${release.passed}`,
-          passing: `${release.passing}`,
-          total: `${release.total}`
-        });
-      }
-    });
+    if (!data) {
+      return <Failed />;
+    }
     return (
       <Layout pdf="pdf-releases">
-        <div className={releases}>
-          <h1 tabIndex="0"> Latest Releases: </h1>
-          <ul
-            onKeyDown={this.keyHandlerUL}
-            className={releaseList}
-            tabIndex="0"
-            aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
-          >
-            {sortedData.map((singleRelease, index) => {
-              var myDate = Number(singleRelease.timestamp);
-              var formattedDate = formatTimestamp(myDate);
-              const key = `${singleRelease.release}`;
-              return (
-                <ReleaseBox
-                  release={singleRelease.release}
-                  passed={singleRelease.passed}
-                  timestamp={formattedDate}
-                  keyDownAllReleases={this.keyHandlerAllReleases}
-                  passing={singleRelease.passing}
-                  total={singleRelease.total}
-                  link={`/singlerelease/${key}`}
-                  key={singleRelease.release}
-                />
-              );
-            })}
-          </ul>
-        </div>
+        <Home
+          sortedData={sortedData}
+          keyDownUL={this.keyHandlerUL}
+          keyDownAllReleases={this.keyHandlerAllReleases}
+        />
       </Layout>
     );
   }

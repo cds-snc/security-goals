@@ -31,7 +31,7 @@ const bar = css`
 const logo = css`
   position: absolute;
   right: ${theme.spacing.xxl};
-  top: 1.7rem;
+  top: 1.8rem;
   width: 3.75rem;
   height: 3.75rem;
 
@@ -44,7 +44,7 @@ const logo = css`
   ${mediaQuery.sm(css`
     width: 2.5rem;
     height: 2.5rem;
-    top: 1.7rem;
+    top: 2rem;
   `)};
 
   ${mediaQuery.xs(css`
@@ -54,7 +54,7 @@ const logo = css`
 
 const actions = css`
   width: 100%;
-
+  margin-top: ${theme.spacing.xs};
   ${mediaQuery.sm(css`
     div[name="action-bar"] {
       padding-top: 0;
@@ -67,7 +67,7 @@ const actions = css`
 `;
 
 const Header = ({ pdf = "", id = "" }) => (
-  <header name="header">
+  <header data-testid="header" name="header">
     <div className={bar}>
       <h1>Are we compliant yet?</h1>
       <Logo alt="CDS Logo" style={logo} />

@@ -1,7 +1,8 @@
 import { hydrate } from "react-emotion";
-import { PageHead, Header, Details } from "../components";
-import { getControlStatus, fromRouter } from "../util";
+import { Details } from "../components";
+import { getControlStatus } from "../util";
 import Layout from "../components/Layout";
+import React from "react";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
@@ -17,7 +18,7 @@ class DetailsPage extends React.Component {
     getControlStatus();
   }
 
-  keyHandlerDetails() {
+  keyHandlerDetails(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("ref-link")
     );
@@ -26,33 +27,37 @@ class DetailsPage extends React.Component {
     var currentItemIndex = items.indexOf(currentItem);
     var nextItem = currentItemIndex;
 
-    if (event.key == "ArrowRight" || event.key == "ArrowDown") {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       nextItem++;
-      nextItem >= items.length ? (nextItem = 0) : null;
+      if (nextItem >= items.length) {
+        nextItem = 0;
+      }
       items[nextItem].focus();
     }
 
-    if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       nextItem--;
-      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      if (nextItem < 0) {
+        nextItem = items.length - 1;
+      }
       items[nextItem].focus();
     }
   }
 
-  keyHandlerUL() {
+  keyHandlerUL(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("ref-link")
     );
-    if (event.key == " ") {
+    if (event.key === " ") {
       window.onkeydown = function(e) {
-        return !(e.key == " ");
+        return !(e.key === " ");
       };
       items[0].focus();
     }
   }
 
   render() {
-    const { data, err, router = false, controlParam } = this.props;
+    const { data, err, controlParam } = this.props;
     if (err) {
       return <Failed />;
     }

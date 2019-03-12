@@ -141,101 +141,117 @@ const cbContainer = css`
   width: 100%;
 `;
 
+const errorMessage = css`
+  border: 1px solid ${theme.colour.grayOutline};
+  background: ${theme.colour.white};
+  padding: ${theme.spacing.lg};
+`;
+
 export const GridSingleRelease = ({
-  releases: { releases },
+  releases: { releases } = {},
   link = false,
   tab,
   keyDownSingleRelease,
   keyDownUL
 }) => {
-  return (
-    <div>
-      {releases.map(item => {
-        return (
-          <ul
-            tabIndex="0"
-            onKeyDown={keyDownUL}
-            aria-label={`This is a list of controls for release #: ${
-              item.release
-            }, press spacebar to enter the group and use your arrow keys to navigate through the list items`}
-            key={item.release}
-            name="grid"
-            className={grid}
-          >
-            {item.controls.map(controls => {
-              const controlID = controls.control;
-              var stop = false;
-              return (
-                <React.Fragment key={controlID}>
-                  {controls.verifications.map((verifications, index) => {
-                    const check =
-                      verifications.passed === "true" ? greenBG : redBG;
-                    if (verifications.passed === "false" && stop === false) {
-                      stop = true;
+  if (releases) {
+    return (
+      <div>
+        {releases.map(item => {
+          return (
+            <ul
+              tabIndex="0"
+              onKeyDown={keyDownUL}
+              aria-label={`This is a list of controls for release #: ${
+                item.release
+              }, press spacebar to enter the group and use your arrow keys to navigate through the list items`}
+              key={item.release}
+              name="grid"
+              className={grid}
+            >
+              {item.controls.map(controls => {
+                const controlID = controls.control;
+                var stop = false;
+                return (
+                  <React.Fragment key={controlID}>
+                    {controls.verifications.map((verifications, index) => {
+                      const check =
+                        verifications.passed === "true" ? greenBG : redBG;
+                      if (verifications.passed === "false" && stop === false) {
+                        stop = true;
+                        return (
+                          <ControlBox
+                            keyDownSingleRelease={keyDownSingleRelease}
+                            key={index}
+                            status={verifications.passed}
+                            tab={tab}
+                            id={controlID}
+                            references={verifications.references}
+                            component={verifications.component}
+                            style={check}
+                            description={verifications.description}
+                            title={controls.control}
+                            timestamp={verifications.timestamp}
+                            link={link}
+                          />
+                        );
+                      }
+                    })}
+                  </React.Fragment>
+                );
+              })}
 
-                      return (
-                        <ControlBox
-                          keyDownSingleRelease={keyDownSingleRelease}
-                          key={index}
-                          status={verifications.passed}
-                          tab={tab}
-                          id={controlID}
-                          references={verifications.references}
-                          component={verifications.component}
-                          style={check}
-                          description={verifications.description}
-                          title={controls.control}
-                          timestamp={verifications.timestamp}
-                          link={link}
-                        />
-                      );
-                    }
-                  })}
-                </React.Fragment>
-              );
-            })}
+              {item.controls.map(controls => {
+                const controlID = controls.control;
+                var stop = false;
+                return (
+                  <React.Fragment key={controlID}>
+                    {controls.verifications.map((verifications, index) => {
+                      const check =
+                        verifications.passed === "true" ? greenBG : redBG;
+                      if (verifications.passed === "true" && stop === false) {
+                        stop = true;
 
-            {item.controls.map(controls => {
-              const controlID = controls.control;
-              var stop = false;
-              return (
-                <React.Fragment key={controlID}>
-                  {controls.verifications.map((verifications, index) => {
-                    const check =
-                      verifications.passed === "true" ? greenBG : redBG;
-                    if (verifications.passed === "true" && stop === false) {
-                      stop = true;
-
-                      return (
-                        <ControlBox
-                          keyDownSingleRelease={keyDownSingleRelease}
-                          key={index}
-                          status={verifications.passed}
-                          tab={tab}
-                          id={controlID}
-                          references={verifications.references}
-                          component={verifications.component}
-                          style={check}
-                          description={verifications.description}
-                          title={controls.control}
-                          timestamp={verifications.timestamp}
-                          link={link}
-                        />
-                      );
-                    }
-                  })}
-                </React.Fragment>
-              );
-            })}
-          </ul>
-        );
-      })}
-    </div>
-  );
+                        return (
+                          <ControlBox
+                            keyDownSingleRelease={keyDownSingleRelease}
+                            key={index}
+                            status={verifications.passed}
+                            tab={tab}
+                            id={controlID}
+                            references={verifications.references}
+                            component={verifications.component}
+                            style={check}
+                            description={verifications.description}
+                            title={controls.control}
+                            timestamp={verifications.timestamp}
+                            link={link}
+                          />
+                        );
+                      }
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </ul>
+          );
+        })}
+      </div>
+    );
+  }
+  if (!releases) {
+    return (
+      <p className={errorMessage} data-testid="error-message">
+        <strong>
+          Sorry, something went wrong. No controls could rendered.
+        </strong>
+      </p>
+    );
+  }
 };
 
 export const GridDetails = ({
-  releases: { releases },
+  releases: { releases } = {},
   titleTimestamp,
   titleColour,
   link = false,
@@ -245,64 +261,81 @@ export const GridDetails = ({
   keyDownUL,
   detailsPage
 }) => {
-  return (
-    <div>
-      {releases.map(item => {
-        return (
-          <React.Fragment key={item.release}>
-            <a
-              aria-label={`Heading: release #: ${
-                item.release
-              }, click or press 'Enter' to navigate to the release page
+  if (releases) {
+    return (
+      <div>
+        {releases.map(item => {
+          return (
+            <React.Fragment key={item.release}>
+              <a
+                name="release-link"
+                data-testid="release-link"
+                aria-label={`Heading: release #: ${
+                  item.release
+                }, click or press 'Enter' to navigate to the release page
             , or tab to view the ${controlTitle} control history for this release`}
-              href={`/singlerelease/${item.release}`}
-            >
-              <h1 name="history-h1">Release #{item.release}</h1>
-            </a>
-            <ul
-              tabIndex="0"
-              onKeyDown={keyDownUL}
-              name="grid"
-              className={grid}
-              aria-label={`${controlTitle} Control list for release #: ${
-                item.release
-              }, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
-            >
-              {item.controls.map(controls => {
-                const controlID = controls.control;
-                return (
-                  <div key="cb-container" className={cbContainer}>
-                    {controls.verifications.map((verifications, index) => {
-                      const check =
-                        verifications.passed === "true" ? greenBG : redBG;
-                      return (
-                        <ControlBox
-                          key={index}
-                          keyDownDetails={keyDownDetails}
-                          status={verifications.passed}
-                          tab={tab}
-                          id={controlID}
-                          references={verifications.references}
-                          component={verifications.component}
-                          style={check}
-                          description={verifications.description}
-                          title={controls.control}
-                          titleColour={titleColour}
-                          titleTimestamp={titleTimestamp}
-                          timestamp={verifications.timestamp}
-                          link={link}
-                          urlCheck={verifications.urlCheck}
-                          detailsPage={detailsPage}
-                        />
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </ul>
-          </React.Fragment>
-        );
-      })}
-    </div>
-  );
+                href={`/singlerelease/${item.release}`}
+              >
+                <h1 name="history-h1">Release #{item.release}</h1>
+              </a>
+              <ul
+                data-testid="control-list"
+                tabIndex="0"
+                onKeyDown={keyDownUL}
+                name="grid"
+                className={grid}
+                aria-label={`${controlTitle} Control list for release #: ${
+                  item.release
+                }, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
+              >
+                {item.controls.map((controls, index) => {
+                  const controlID = controls.control;
+                  return (
+                    <div
+                      key={`${cbContainer} - ${index}`}
+                      className={cbContainer}
+                    >
+                      {controls.verifications.map((verifications, index) => {
+                        const check =
+                          verifications.passed === "true" ? greenBG : redBG;
+                        return (
+                          <ControlBox
+                            key={index}
+                            keyDownDetails={keyDownDetails}
+                            status={verifications.passed}
+                            tab={tab}
+                            id={controlID}
+                            references={verifications.references}
+                            component={verifications.component}
+                            style={check}
+                            description={verifications.description}
+                            title={controls.control}
+                            titleColour={titleColour}
+                            titleTimestamp={titleTimestamp}
+                            timestamp={verifications.timestamp}
+                            link={link}
+                            urlCheck={verifications.urlCheck}
+                            detailsPage={detailsPage}
+                          />
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </ul>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    );
+  }
+  if (!releases) {
+    return (
+      <p className={errorMessage} data-testid="error-message">
+        <strong>
+          Sorry, something went wrong. No controls could be rendered.
+        </strong>
+      </p>
+    );
+  }
 };

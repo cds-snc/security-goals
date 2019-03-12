@@ -1,6 +1,4 @@
 import { css } from "emotion";
-import { theme } from "../styles";
-
 const references = css`
   a {
     text-decoration: underline;
@@ -8,13 +6,13 @@ const references = css`
   }
 `;
 
-const splitOutFileName = url => {
+/* const splitOutFileName = url => {
   const arr = new URL(url).pathname.split("/");
   if (!arr) {
     url = "#";
   }
   return `${arr[arr.length - 1]}`;
-};
+}; */
 
 export const References = ({
   text = "",
@@ -30,7 +28,7 @@ export const References = ({
     passing = "Verification failed:";
   }
   return (
-    <p className={references}>
+    <p data-testid="references" className={references}>
       <strong>Reference(s): </strong>
       <a
         aria-label={`${passing} ${timestamp}, description of check: ${description}, verification reference: ${text}, component category: ${component}`}

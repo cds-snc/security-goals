@@ -32,7 +32,11 @@ const timeStamp = css`
 export const Timestamp = ({ status, timestamp }) => {
   const circleCheck = status === "true" ? passingCircle : failingCircle;
   return (
-    <div name="timestamp" className={timeStamp}>
+    <div
+      data-testid="control-box-timestamp"
+      name="timestamp"
+      className={timeStamp}
+    >
       <div name="time-circle" className={circleCheck} />
       <p name="time">{timestamp}</p>
     </div>

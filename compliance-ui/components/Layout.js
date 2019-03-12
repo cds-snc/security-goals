@@ -1,4 +1,4 @@
-import { hydrate, css } from "react-emotion";
+import { css } from "react-emotion";
 import { PageHead, Header, Home, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import React from "react";
@@ -39,12 +39,6 @@ const content = css`
 const footer = css`
   flex-shrink: 0;
 `;
-
-// Adds server generated styles to emotion cache.
-// '__NEXT_DATA__.ids' is set in '_document.js'
-if (typeof window !== "undefined") {
-  hydrate(window.__NEXT_DATA__.ids);
-}
 
 class Layout extends React.Component {
   constructor(props) {

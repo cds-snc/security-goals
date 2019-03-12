@@ -88,18 +88,15 @@ export class Collapsible extends React.Component {
     });
   }
 
-  keyHandler() {
-    if (event.key == "Enter") {
+  keyHandler(event) {
+    if (event.key === "Enter") {
       this.setState({
         open: !this.state.open
       });
 
-      setTimeout(
-        function() {
-          document.getElementById("main-description").focus();
-        }.bind(this),
-        100
-      );
+      setTimeout(function() {
+        document.getElementById("main-description").focus();
+      }, 100);
     }
   }
 
@@ -116,7 +113,9 @@ export class Collapsible extends React.Component {
       <div>
         <div className={container}>
           <div className={toggleContainer}>
-            <h2 name="collapsible-h2">{title}</h2>
+            <h2 data-testid="collapsible-h2" name="collapsible-h2">
+              {title}
+            </h2>
             <div className={this.state.open ? collapseIn : collapse}>
               {description.length === 0 ? (
                 <MainDescription
@@ -137,6 +136,7 @@ export class Collapsible extends React.Component {
 
             {this.state.open ? (
               <div
+                data-testid="toggle-hide"
                 className={toggle}
                 tabIndex="0"
                 onKeyDown={this.keyHandler}
@@ -150,6 +150,7 @@ export class Collapsible extends React.Component {
               </div>
             ) : (
               <div
+                data-testid="toggle-read"
                 className={toggle}
                 tabIndex="0"
                 onKeyDown={this.keyHandler}

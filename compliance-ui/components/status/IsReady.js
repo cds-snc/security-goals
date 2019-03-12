@@ -29,25 +29,35 @@ background: ${theme.colour.greenDark};
 `;
 
 const IsReady = ({ data, statusRef }) => {
-  return (
-    <div>
-      {data.releases.map(release => {
-        return (
-          <div
-            key="statusBar"
-            className={
-              release.passed === "true" ? statusBarPassed : statusBarFailed
-            }
-            ref={statusRef}
-            tabIndex="0"
-          >
-            <PassFailText status={data} />
-            <Count status={data} />
-          </div>
-        );
-      })}
-    </div>
-  );
+  if (data) {
+    return (
+      <div>
+        {data.releases.map(release => {
+          return (
+            <div
+              key="statusBar"
+              className={
+                release.passed === "true" ? statusBarPassed : statusBarFailed
+              }
+              ref={statusRef}
+              tabIndex="0"
+            >
+              <PassFailText status={data} />
+              <Count status={data} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+  if (!data) {
+    return (
+      <p>
+        Sorry, something went wrong. The status of the release could not be
+        found.
+      </p>
+    );
+  }
 };
 
 export default IsReady;

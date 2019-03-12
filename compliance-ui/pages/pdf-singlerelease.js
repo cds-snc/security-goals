@@ -1,16 +1,7 @@
 import { css } from "react-emotion";
-import {
-  chunkArray,
-  getAllControlsStatus,
-  getControlStatus,
-  verificationsData,
-  getSingleRelease,
-  formatTimestamp
-} from "../util";
-import { IsReady, PageHead, Failed, PdfSummary } from "../components";
+import { chunkArray, getSingleRelease } from "../util";
+import { PageHead, Failed } from "../components";
 import { theme } from "../components/styles";
-import ReleaseBox from "../components/ReleaseBox";
-import Layout from "../components/Layout";
 import { Logo } from "../components/Logo";
 import Link from "next/link";
 import { ControlBox } from "../components/index";
@@ -384,6 +375,7 @@ PdfSinglePage.getInitialProps = async ({ req }) => {
   }*/
 
   // request overview
+  console.log(req.params);
   const result = await getSingleRelease();
   return { err: result.err, data: result.data, perPage: 5, summary: false };
 };
