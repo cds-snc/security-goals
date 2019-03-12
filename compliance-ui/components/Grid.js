@@ -141,6 +141,12 @@ const cbContainer = css`
   width: 100%;
 `;
 
+const errorMessage = css`
+  border: 1px solid ${theme.colour.grayOutline};
+  background: ${theme.colour.white};
+  padding: ${theme.spacing.lg};
+`;
+
 export const GridSingleRelease = ({
   releases: { releases } = {},
   link = false,
@@ -234,7 +240,13 @@ export const GridSingleRelease = ({
     );
   }
   if (!releases) {
-    return <p>Sorry, something went wrong. No controls could be found.</p>;
+    return (
+      <p className={errorMessage} data-testid="error-message">
+        <strong>
+          Sorry, something went wrong. No controls could rendered.
+        </strong>
+      </p>
+    );
   }
 };
 
@@ -256,6 +268,8 @@ export const GridDetails = ({
           return (
             <React.Fragment key={item.release}>
               <a
+                name="release-link"
+                data-testid="release-link"
                 aria-label={`Heading: release #: ${
                   item.release
                 }, click or press 'Enter' to navigate to the release page
@@ -265,6 +279,7 @@ export const GridDetails = ({
                 <h1 name="history-h1">Release #{item.release}</h1>
               </a>
               <ul
+                data-testid="control-list"
                 tabIndex="0"
                 onKeyDown={keyDownUL}
                 name="grid"
@@ -315,6 +330,12 @@ export const GridDetails = ({
     );
   }
   if (!releases) {
-    return <p>Sorry, something went wrong. No controls could be found.</p>;
+    return (
+      <p className={errorMessage} data-testid="error-message">
+        <strong>
+          Sorry, something went wrong. No controls could be rendered.
+        </strong>
+      </p>
+    );
   }
 };

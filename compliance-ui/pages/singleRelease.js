@@ -1,19 +1,9 @@
 import { hydrate, css } from "react-emotion";
-import {
-  PageHead,
-  Header,
-  IsReady,
-  GridSingleRelease,
-  ActionBar,
-  Failed,
-  BackToTopButton
-} from "../components";
+import { IsReady, GridSingleRelease, Failed, BackIcon } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import React from "react";
-import { controlStatus } from "../api";
 import { getSingleRelease } from "../util";
-import { BackIcon } from "../components";
 
 const back = css`
   display: inline-block;
@@ -73,6 +63,12 @@ const singleReleasePage = css`
   `)};
 `;
 
+// Adds server generated styles to emotion cache.
+// '__NEXT_DATA__.ids' is set in '_document.js'
+if (typeof window !== "undefined") {
+  hydrate(window.__NEXT_DATA__.ids);
+}
+
 class SingleReleasePage extends React.Component {
   constructor(props) {
     super(props);
@@ -80,7 +76,7 @@ class SingleReleasePage extends React.Component {
     this.keyHandlerUL = this.keyHandlerUL.bind(this);
   }
 
-  keyHandlerSingleRelease() {
+  keyHandlerSingleRelease(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("control-link")
     );
@@ -90,54 +86,63 @@ class SingleReleasePage extends React.Component {
     var nextItem = currentItemIndex;
     var screenWidth = window.innerWidth;
 
-    if (event.key == "ArrowRight") {
+    if (event.key === "ArrowRight") {
       nextItem++;
-      nextItem >= items.length ? (nextItem = 0) : null;
+      if (nextItem >= items.length) {
+        nextItem = 0;
+      }
       items[nextItem].focus();
     }
 
-    if (event.key == "ArrowLeft") {
+    if (event.key === "ArrowLeft") {
       nextItem--;
-      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      if (nextItem < 0) {
+        nextItem = items.length - 1;
+      }
       items[nextItem].focus();
     }
 
-    if (event.key == "ArrowDown") {
+    if (event.key === "ArrowDown") {
       if (screenWidth <= 1050) {
         nextItem++;
       } else {
         nextItem += 2;
       }
-      nextItem >= items.length ? (nextItem = 0) : null;
+
+      if (nextItem >= items.length) {
+        nextItem = 0;
+      }
       items[nextItem].focus();
     }
 
-    if (event.key == "ArrowUp") {
+    if (event.key === "ArrowUp") {
       if (screenWidth <= 1050) {
         nextItem--;
       } else {
         nextItem -= 2;
       }
-      nextItem < 0 ? (nextItem = items.length - 1) : null;
+      if (nextItem < 0) {
+        nextItem = items.length - 1;
+      }
       items[nextItem].focus();
     }
   }
 
-  keyHandlerUL() {
+  keyHandlerUL(event) {
     var items = Array.prototype.slice.call(
       document.getElementsByName("control-link")
     );
 
     window.onkeydown = function(e) {
-      return !(e.key == " ");
+      return !(e.key === " ");
     };
 
-    if (event.key == " ") {
+    if (event.key === " ") {
       items[0].focus();
     }
   }
   render() {
-    const { data, err, router = false, releaseParam } = this.props;
+    const { data, err, releaseParam } = this.props;
     if (err || !data) {
       return <Failed />;
     }
