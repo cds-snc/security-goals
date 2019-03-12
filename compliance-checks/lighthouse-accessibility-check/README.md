@@ -10,12 +10,13 @@ The following environmental variables are required:
 | SATISFIES | The controls this check satisfies ex. 'AB-12'                        | `""`    |
 
 The following environmental variables are optional:
-| Name | Description | Default
-|---|---|---
-| COMPONENT | The component of the application this check refers to ex. `Source code` | `"Missing component"`
-| DESCRIPTION | A description of what the check does | `"Missing description"`
-| ORIGIN | The name of the docker container that ran the check | `"Missing origin"`
-| OUT_PATH | The directory the output JSON gets written to | `"/checks/"`
+
+| Name        | Description                                                             | Default                 |
+| ----------- | ----------------------------------------------------------------------- | ----------------------- |
+| COMPONENT   | The component of the application this check refers to ex. `Source code` | `"Missing component"`   |
+| DESCRIPTION | A description of what the check does                                    | `"Missing description"` |
+| ORIGIN      | The name of the docker container that ran the check                     | `"Missing origin"`      |
+| OUT_PATH    | The directory the output JSON gets written to                           | `"/checks/"`            |
 
 A job might look something like this:
 
