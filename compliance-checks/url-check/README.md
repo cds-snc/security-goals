@@ -6,7 +6,7 @@ The following environmental variables are required:
 
 | Name      | Description                                                                                          | Default |
 | --------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| URL       | The URL to check ex. 'https://github.com/cds-snc/symmorfosi/blob/master/compliance-api/.eslintrc.js' | `""`    |
+| URL       | The URL to check ex. `https://github.com/cds-snc/symmorfosi/blob/master/compliance-api/.eslintrc.js` | `""`    |
 | SATISFIES | The controls this check satisfies ex. 'AB-12'                                                        | `""`    |
 
 The following environmental variables are optional:
