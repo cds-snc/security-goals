@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import ReleaseBox from "../components/ReleaseBox.js";
+import ReleaseBox from "../../components/ReleaseBox.js";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this
@@ -13,7 +13,7 @@ test("Renders Passing Release Box", async () => {
       timestamp="10:00pm, September 12th, 1990"
       passing="28"
       total="28"
-      link={`/singlerelease/123456789`}
+      link="/singlerelease/123456789"
     />
   );
 

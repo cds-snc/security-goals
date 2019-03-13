@@ -1,8 +1,8 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Details } from "../components";
+import { Details } from "../../components";
 import "jest-dom/extend-expect";
-import { data } from "../__mocks__/mockData.js";
+import { data } from "../../__mocks__/mockData.js";
 
 afterEach(cleanup); // <-- add this
 

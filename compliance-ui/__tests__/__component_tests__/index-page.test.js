@@ -1,12 +1,12 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { data } from "../__mocks__/mockDataIndex.js";
+import { data } from "../../__mocks__/mockDataIndex.js";
 
 global.window.__NEXT_DATA__ = {
   ids: []
 };
 
-const ReleasesPage = require("../pages/index").default;
+const ReleasesPage = require("../../pages/index").default;
 
 afterEach(cleanup); // <-- add this
 

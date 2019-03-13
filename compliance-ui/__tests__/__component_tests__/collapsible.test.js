@@ -1,10 +1,10 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Collapsible } from "../components/Collapsible";
+import { Collapsible } from "../../components/Collapsible";
 import {
   collapseData,
   collapseDataEmpty
-} from "../__mocks__/mockDataCollapsible.js";
+} from "../../__mocks__/mockDataCollapsible.js";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this

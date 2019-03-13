@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import Layout from "../components/Layout.js";
+import Layout from "../../components/Layout.js";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this

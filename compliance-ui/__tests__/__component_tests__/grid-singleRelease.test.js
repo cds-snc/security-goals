@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { data } from "../__mocks__/mockDataSingleRelease.js";
-import { GridSingleRelease } from "../components/Grid";
+import { data } from "../../__mocks__/mockDataSingleRelease.js";
+import { GridSingleRelease } from "../../components/Grid";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this
