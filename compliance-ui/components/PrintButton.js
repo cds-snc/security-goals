@@ -20,9 +20,15 @@ const print = css`
 
 export const PrintButton = ({ link = "", id = "" }) => {
   return (
-    <a name="print-button" id="back2top" className={print} href={link}>
+    <a
+      data-testid="print-link"
+      name="print-button"
+      id="back2top"
+      className={print}
+      href={link}
+    >
       <PrinterIcon />
-      <span>Print this page (PDF)</span>
+      <span data-testid="print-message">Print this page (PDF)</span>
     </a>
   );
 };

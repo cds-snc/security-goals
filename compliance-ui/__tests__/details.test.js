@@ -53,5 +53,3 @@ test("Details with no data, renders <Failed />", async () => {
   const { getByTestId } = render(<Details id="SA-11" />);
   expect(getByTestId("api-fail")).toHaveTextContent("Failed to fetch");
 });
-
-// Still need to add toggle test

@@ -69,7 +69,7 @@ const actions = css`
 const Header = ({ pdf = "", id = "" }) => (
   <header data-testid="header" name="header">
     <div className={bar}>
-      <h1>Are we compliant yet?</h1>
+      <h1 data-testid="main-header-h1">Are we compliant yet?</h1>
       <Logo alt="CDS Logo" style={logo} />
       <div className={actions}>
         <ActionBar pdf={pdf} id={id} />

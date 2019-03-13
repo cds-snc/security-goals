@@ -1,6 +1,5 @@
 import { css } from "emotion";
 import { theme, mediaQuery } from "./styles";
-import Link from "next/link";
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -152,12 +151,14 @@ const ReleaseBox = ({
       className={passed === "true" ? passingFocus : failingFocus}
     >
       <a
+        data-testid="release-box-link"
         tabIndex="-1"
         name="releasebox-link"
         href={link}
         onKeyDown={keyDownAllReleases}
       >
         <div
+          data-testid="release-box"
           aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing`}
           name="release-box"
           className={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
@@ -168,14 +169,20 @@ const ReleaseBox = ({
                 passed === "true" ? releaseTitlePassing : releaseTitleFailing
               }
             >
-              <h2 name="releasebox-title">
+              <h2 data-testid="release-box-title" name="releasebox-title">
                 {passed === "true" ? "Passed" : "Failed"} release: #{release}
               </h2>{" "}
-              <time name="releasebox-timestamp">{timestamp}</time>
+              <time
+                data-testid="release-box-timestamp"
+                name="releasebox-timestamp"
+              >
+                {timestamp}
+              </time>
             </div>
             <div name="release-badges" className={releaseBadges}>
               <span
                 name="releasebox-passing"
+                data-testid="release-box-passing"
                 className={passed === "true" ? passingText : failingText}
               >
                 {passing} / {total} checks
