@@ -555,3 +555,34 @@ export const data = {
     }
   ]
 };
+
+export const sortedData = [
+  {
+    release: "1546522884800",
+    timestamp: "1546543542058",
+    passed: "false",
+    passing: "22",
+    total: "28"
+  },
+  {
+    release: "43c61288-ef33-11e8-908e-06d86cf01138",
+    timestamp: "1544557988479",
+    passed: "false",
+    passing: "3",
+    total: "5"
+  },
+  {
+    release: "80e61288-ef33-11e8-908e-06d86cf01138",
+    timestamp: "1543937501586",
+    passed: "false",
+    passing: "1",
+    total: "2"
+  },
+  {
+    release: "60e61288-ef33-11e8-908e-06d86cf01138",
+    timestamp: "1543937500707",
+    passed: "true",
+    passing: "3",
+    total: "3"
+  }
+];

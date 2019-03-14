@@ -40,11 +40,15 @@ const releaseList = css`
 const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
   return (
     <div className={releases}>
-      <h1 tabIndex="0"> Latest Releases: </h1>
+      <h1 data-testid="index-h1" tabIndex="0">
+        {" "}
+        Latest Releases:{" "}
+      </h1>
       <ul
         onKeyDown={keyDownUL}
         className={releaseList}
         tabIndex="0"
+        data-testid="release-list"
         aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
       >
         {sortedData.map((singleRelease, index) => {

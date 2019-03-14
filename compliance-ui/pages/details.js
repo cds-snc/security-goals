@@ -61,7 +61,6 @@ class DetailsPage extends React.Component {
     if (err) {
       return <Failed />;
     }
-
     return (
       <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
         <Details
