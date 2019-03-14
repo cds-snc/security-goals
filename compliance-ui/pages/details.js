@@ -15,7 +15,6 @@ class DetailsPage extends React.Component {
     super(props);
     this.keyHandlerDetails = this.keyHandlerDetails.bind(this);
     this.keyHandlerUL = this.keyHandlerUL.bind(this);
-    getControlStatus();
   }
 
   keyHandlerDetails(event) {
@@ -61,6 +60,7 @@ class DetailsPage extends React.Component {
     if (err) {
       return <Failed />;
     }
+
     return (
       <Layout styles={{ paddingTop: "0" }} pdf={`pdf-details/${controlParam}`}>
         <Details

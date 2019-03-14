@@ -22,7 +22,6 @@ test("Renders DetailsPage", async () => {
   const references = getAllByTestId("references");
   const components = getAllByTestId("component");
 
-  expect(getByTestId("header"));
   expect(getByTestId("main-header-h1")).toHaveTextContent(
     "Are we compliant yet?"
   );
@@ -37,11 +36,6 @@ test("Renders DetailsPage", async () => {
   expect(getByTestId("cds-logo")).toHaveAttribute(
     "id",
     "CDS Logo White Outline"
-  );
-  expect(getByTestId("back-to-top")).toHaveTextContent("Back To Top of Page");
-  expect(getByTestId("back-to-top")).toHaveAttribute(
-    "aria-label",
-    "click or press 'Enter' on this link to navigate to the top of the page"
   );
 
   expect(getByTestId("verification-h1")).toHaveTextContent("Verification:");
@@ -69,4 +63,17 @@ test("Renders DetailsPage", async () => {
 
   expect(components).toHaveLength(27);
   expect(components[0]).toHaveTextContent("Component: Source code");
+
+  expect(getByTestId("back-to-top")).toHaveTextContent("Back To Top of Page");
+  expect(getByTestId("back-to-top")).toHaveAttribute(
+    "aria-label",
+    "click or press 'Enter' on this link to navigate to the top of the page"
+  );
+});
+
+test("Renders DetailsPage", async () => {
+  const { getByTestId } = render(<DetailsPage />);
+  expect(getByTestId("api-fail")).toHaveTextContent(
+    "Failed to fetch GraphQL API data"
+  );
 });

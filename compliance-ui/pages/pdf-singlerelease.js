@@ -1,8 +1,9 @@
 import { css } from "react-emotion";
-import { chunkArray, getSingleRelease } from "../util";
+import { chunkArray } from "../util";
 import { PageHead, Failed, ControlBox } from "../components";
 import { theme } from "../components/styles";
 import { Logo } from "../components/Logo";
+import { controlStatus } from "../api";
 
 const greenBG = css`
   font-size: ${theme.font.lg};
@@ -131,6 +132,15 @@ const Page = ({ children }) => {
   return <div className={page}>{children}</div>;
 };
 
+export const getSingleRelease = async release => {
+  const result = await controlStatus(release);
+  const props = { err: false, data: result, releaseParam: release };
+  if (result instanceof Error) {
+    props.err = result.message;
+  }
+  return props;
+};
+
 /* https://medium.com/@raphaelstbler/advanced-pdf-generation-for-node-js-using-puppeteer-e168253e159c */
 const PdfSinglePage = ({ err, data, perPage, summary = false }) => {
   if (err) {
@@ -200,7 +210,6 @@ with failed tests taking priority */
       </React.Fragment>
     );
   });
-
   const chunks = chunkArray(sortedData, perPage);
   var pageNumber = 0;
 
@@ -246,7 +255,7 @@ with failed tests taking priority */
 };
 
 PdfSinglePage.getInitialProps = async ({ req }) => {
-  const result = await getSingleRelease();
+  const result = await getSingleRelease(req.params.release);
   return { err: result.err, data: result.data, perPage: 5, summary: false };
 };
 

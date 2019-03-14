@@ -11,10 +11,9 @@ const ReleasesPage = require("../../pages/index").default;
 
 afterEach(cleanup); // <-- add this
 
-test("Renders ReleasesPage", async () => {
+test("Renders ReleasesPage Boxes (w/ Data)", async () => {
   const { getByTestId, getAllByTestId } = render(<ReleasesPage data={data} />);
   const releaseLinks = getAllByTestId("release-box-link");
-  expect(getByTestId("header"));
   expect(getByTestId("main-header-h1")).toHaveTextContent(
     "Are we compliant yet?"
   );
@@ -27,13 +26,21 @@ test("Renders ReleasesPage", async () => {
     "id",
     "CDS Logo White Outline"
   );
+
+  expect(getByTestId("index-h1")).toHaveTextContent("Latest Releases:");
+  expect(getByTestId("release-list"));
+  expect(releaseLinks).toHaveLength(4);
+
   expect(getByTestId("back-to-top")).toHaveTextContent("Back To Top of Page");
   expect(getByTestId("back-to-top")).toHaveAttribute(
     "aria-label",
     "click or press 'Enter' on this link to navigate to the top of the page"
   );
+});
 
-  expect(getByTestId("index-h1")).toHaveTextContent("Latest Releases:");
-  expect(getByTestId("release-list"));
-  expect(releaseLinks).toHaveLength(4);
+test("Renders <Failed /> w/ no data", async () => {
+  const { getByTestId } = render(<ReleasesPage />);
+  expect(getByTestId("api-fail")).toHaveTextContent(
+    "Failed to fetch GraphQL API data"
+  );
 });
