@@ -1,5 +1,5 @@
 import { css } from "react-emotion";
-import { PageHead, Header, Home, ActionBar } from "../components";
+import { PageHead, Header, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import React from "react";
 
@@ -50,8 +50,8 @@ class Layout extends React.Component {
     document.getElementById("back2top").focus();
   }
 
-  keyHandler() {
-    if (event.key == "Enter") {
+  keyHandler(event) {
+    if (event.key === "Enter") {
       document.getElementById("back2top").focus();
     }
   }
@@ -61,12 +61,12 @@ class Layout extends React.Component {
       <div className={layout}>
         <PageHead />
         <Header pdf={pdf} id={id} />
-        <div role="main" className={content}>
+        <div data-testid="layout-children" role="main" className={content}>
           {children}
         </div>
 
-        <div role="contentinfo" className={footer}>
-          <div className={actionsBottom}>
+        <div data-testid="footer" role="contentinfo" className={footer}>
+          <div data-testid="actions-bottom" className={actionsBottom}>
             <ActionBar
               back2top={true}
               click={this.clickHandler}

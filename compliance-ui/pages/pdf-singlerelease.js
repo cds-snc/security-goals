@@ -1,42 +1,9 @@
 import { css } from "react-emotion";
-import { chunkArray, getSingleRelease } from "../util";
-import { PageHead, Failed } from "../components";
+import { chunkArray } from "../util";
+import { PageHead, Failed, ControlBox } from "../components";
 import { theme } from "../components/styles";
 import { Logo } from "../components/Logo";
-import Link from "next/link";
-import { ControlBox } from "../components/index";
-
-const grid = css`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 ${theme.spacing.xxl};
-  padding: 0;
-  li {
-    list-style: none;
-    padding: ${theme.spacing.lg} ${theme.spacing.lg};
-    position: static;
-    border-top: 1px solid ${theme.colour.grayOutline};
-    border-left: 1px solid ${theme.colour.grayOutline};
-    background: ${theme.colour.white};
-  }
-
-  li:nth-of-type(2n) {
-    border-right: 1px solid ${theme.colour.grayOutline};
-  }
-
-  li:last-of-type {
-    border-right: 1px solid ${theme.colour.grayOutline};
-    border-bottom: 1px solid ${theme.colour.grayOutline};
-  }
-
-  li:nth-last-child(2) {
-    border-bottom: 1px solid ${theme.colour.grayOutline};
-  }
-  a {
-    text-decoration: none;
-    color: ${theme.colour.black};
-  }
-`;
+import { controlStatus } from "../api";
 
 const greenBG = css`
   font-size: ${theme.font.lg};
@@ -84,86 +51,6 @@ const redBG = css`
       outline: none;
     }
   }
-`;
-
-const cbContainer = css`
-  width: 100%;
-`;
-
-const releaseBoxPassing = css`
-  padding: ${theme.spacing.md} ${theme.spacing.lg};
-  background: ${theme.colour.white};
-
-  p {
-    margin: 0;
-    font-size: ${theme.font.sm};
-    color: ${theme.colour.blackLight};
-    font-weight: 700;
-  }
-
-  div[name="inner-container"] {
-    display: flex;
-    font-size: ${theme.font.lg};
-    color: ${theme.colour.black};
-    justify-content: space-between;
-    margin-bottom: ${theme.spacing.xs};
-  }
-`;
-
-const releaseBoxFailing = css`
-  ${releaseBoxPassing};
-`;
-
-const passingText = css`
-  color: ${theme.colour.white};
-  background: ${theme.colour.greenDark};
-  margin-left: ${theme.spacing.sm};
-  padding: ${theme.spacing.xs};
-  font-size: ${theme.font.sm};
-  border-radius: 5px;
-`;
-
-const failingText = css`
-${passingText}
-  background: ${theme.colour.redDark};
-
-`;
-
-const releaseFocusPassing = css`
-  text-decoration: none;
-
-  div:focus {
-    outline-offset: -4px;
-    outline: 4px solid ${theme.colour.greenDark};
-  }
-`;
-
-const releaseFocusFailing = css`
-  text-decoration: none;
-
-  div:focus {
-    outline-offset: -4px;
-    outline: 4px solid ${theme.colour.redDark};
-  }
-`;
-
-const releaseTitle = css`
-  width: 40rem;
-
-  h3[name="releasebox-title"] {
-    font-size: ${theme.font.lg};
-    margin: 0;
-  }
-
-  h3[name="releasebox-title"] span {
-    font-size: ${theme.font.lg};
-    color: ${theme.colour.redDark};
-  }
-`;
-const releaseBadges = css`
-  width: 15rem;
-  font-weight: 700;
-  text-align: right;
 `;
 
 const bar = css`
@@ -235,8 +122,23 @@ const number = css`
   margin-top: ${theme.spacing.xl};
 `;
 
+const cbContainer = css`
+  h2 {
+    margin-left: 0;
+  }
+`;
+
 const Page = ({ children }) => {
   return <div className={page}>{children}</div>;
+};
+
+export const getSingleRelease = async release => {
+  const result = await controlStatus(release);
+  const props = { err: false, data: result, releaseParam: release };
+  if (result instanceof Error) {
+    props.err = result.message;
+  }
+  return props;
 };
 
 /* https://medium.com/@raphaelstbler/advanced-pdf-generation-for-node-js-using-puppeteer-e168253e159c */
@@ -250,14 +152,11 @@ const PdfSinglePage = ({ err, data, perPage, summary = false }) => {
   }
 
   const sortedData = [];
-  {
-    /* This entire mapping is used to push the data into a new array sorted
+  /* This entire mapping is used to push the data into a new array sorted
 with failed tests taking priority */
-  }
 
-  {
-    /* STARTING WITH THE FAILED CONTROLS */
-  }
+  /* STARTING WITH THE FAILED CONTROLS */
+
   data.releases.map(release => {
     return (
       <React.Fragment key={release.release}>
@@ -284,9 +183,7 @@ with failed tests taking priority */
     );
   });
 
-  {
-    /* THEN THE PASSING CONTROLS */
-  }
+  /* THEN THE PASSING CONTROLS */
 
   data.releases.map(release => {
     return (
@@ -313,7 +210,6 @@ with failed tests taking priority */
       </React.Fragment>
     );
   });
-
   const chunks = chunkArray(sortedData, perPage);
   var pageNumber = 0;
 
@@ -326,26 +222,30 @@ with failed tests taking priority */
         pageNumber++;
         return (
           <Page key={`page: ${pageNumber}`}>
-            <header name="header" className={bar}>
-              <h1 className={h1}>Are we compliant yet?</h1>
+            <header data-testid="header" name="header" className={bar}>
+              <h1 data-testid="main-header-h1" className={h1}>
+                Are we compliant yet?
+              </h1>
               <Logo alt="CDS Logo" style={logo} />
             </header>
-            {chunk.map((verifications, index) => {
-              const check = verifications.passed === "true" ? greenBG : redBG;
-              return (
-                <ControlBox
-                  key={index}
-                  status={verifications.passed}
-                  id={verifications.control}
-                  style={check}
-                  description={verifications.description}
-                  title={verifications.control}
-                  timestamp={verifications.timestamp}
-                />
-              );
-            })}
+            <div data-testid="pdf-control-list" className={cbContainer}>
+              {chunk.map((verifications, index) => {
+                const check = verifications.passed === "true" ? greenBG : redBG;
+                return (
+                  <ControlBox
+                    key={index}
+                    status={verifications.passed}
+                    id={verifications.control}
+                    style={check}
+                    description={verifications.description}
+                    title={verifications.control}
+                    timestamp={verifications.timestamp}
+                  />
+                );
+              })}
+            </div>
             <div className={number}>
-              <span>
+              <span data-testid="page-number">
                 <strong>- Page {pageNumber} -</strong>
               </span>
             </div>
@@ -357,26 +257,7 @@ with failed tests taking priority */
 };
 
 PdfSinglePage.getInitialProps = async ({ req }) => {
-  // request for a single control
-  /*if (req.params.control) {
-    const d = await getControlStatus({ req });
-
-    if (!d || !d.data) return;
-
-    return {
-      data: verificationsData(d.data),
-      perPage: 5,
-      summary: (
-        <Page>
-          <PdfSummary data={d.data} />
-        </Page>
-      )
-    };
-  }*/
-
-  // request overview
-  console.log(req.params);
-  const result = await getSingleRelease();
+  const result = await getSingleRelease(req.params.release);
   return { err: result.err, data: result.data, perPage: 5, summary: false };
 };
 

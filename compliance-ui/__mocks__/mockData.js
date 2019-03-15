@@ -1,4 +1,4 @@
-export const data = {
+export const dataDetails = {
   controlData: [],
   controlReleaseData: {
     releases: [

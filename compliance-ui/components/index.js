@@ -4,7 +4,6 @@ export { GridSingleRelease, GridDetails } from "./Grid";
 export { default as IsReady } from "./status/IsReady";
 export { default as Details } from "./Details";
 export { Count } from "./status/Count";
-export { PdfSummary } from "./PdfSummary";
 export { PassFailText } from "./status/PassFailText";
 export { ControlBox } from "./controlbox/ControlBox";
 export { MainDescription } from "./controlbox/MainDescription";

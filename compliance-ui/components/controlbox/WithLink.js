@@ -16,6 +16,6 @@ export const WithLink = ({ children, id, link, keyDownSingleRelease }) => {
       </a>
     </Link>
   ) : (
-    children
+    <div data-testid="with-link-children">{children}</div>
   );
 };

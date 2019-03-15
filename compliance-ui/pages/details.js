@@ -15,7 +15,6 @@ class DetailsPage extends React.Component {
     super(props);
     this.keyHandlerDetails = this.keyHandlerDetails.bind(this);
     this.keyHandlerUL = this.keyHandlerUL.bind(this);
-    getControlStatus();
   }
 
   keyHandlerDetails(event) {

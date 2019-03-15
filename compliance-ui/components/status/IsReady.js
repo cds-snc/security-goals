@@ -28,6 +28,17 @@ ${statusBarFailed}
 background: ${theme.colour.greenDark};
 `;
 
+const errorMessage = css`
+  border: 1px solid ${theme.colour.grayOutline};
+  background: ${theme.colour.white};
+  padding: ${theme.spacing.lg};
+  margin: ${theme.spacing.md} ${theme.spacing.xxl};
+
+  ${mediaQuery.lg(css`
+    margin: ${theme.spacing.md} ${theme.spacing.xl};
+  `)}
+`;
+
 const IsReady = ({ data, statusRef }) => {
   if (data) {
     return (
@@ -35,6 +46,7 @@ const IsReady = ({ data, statusRef }) => {
         {data.releases.map(release => {
           return (
             <div
+              data-testid="status-bar"
               key="statusBar"
               className={
                 release.passed === "true" ? statusBarPassed : statusBarFailed
@@ -52,9 +64,11 @@ const IsReady = ({ data, statusRef }) => {
   }
   if (!data) {
     return (
-      <p>
-        Sorry, something went wrong. The status of the release could not be
-        found.
+      <p className={errorMessage} data-testid="error-message">
+        <strong>
+          Sorry, something went wrong. The status of the release could not be
+          found.
+        </strong>
       </p>
     );
   }

@@ -160,6 +160,7 @@ export const GridSingleRelease = ({
         {releases.map(item => {
           return (
             <ul
+              data-testid="control-list"
               tabIndex="0"
               onKeyDown={keyDownUL}
               aria-label={`This is a list of controls for release #: ${
@@ -243,7 +244,7 @@ export const GridSingleRelease = ({
     return (
       <p className={errorMessage} data-testid="error-message">
         <strong>
-          Sorry, something went wrong. No controls could rendered.
+          Sorry, something went wrong. No controls could be rendered.
         </strong>
       </p>
     );

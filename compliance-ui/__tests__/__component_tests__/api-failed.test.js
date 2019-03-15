@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Failed } from "../components";
+import { Failed } from "../../components";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this

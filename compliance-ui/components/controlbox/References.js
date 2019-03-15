@@ -33,6 +33,7 @@ export const References = ({
       <a
         aria-label={`${passing} ${timestamp}, description of check: ${description}, verification reference: ${text}, component category: ${component}`}
         tabIndex="-1"
+        data-testid="references-link"
         name="ref-link"
         href={urlCheck === true ? text : "#"}
       >

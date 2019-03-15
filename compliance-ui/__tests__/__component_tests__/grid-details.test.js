@@ -1,12 +1,12 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { sortedData } from "../__mocks__/mockDataDetails.js";
-import { GridDetails } from "../components/Grid";
+import { sortedData } from "../../__mocks__/mockDataDetails.js";
+import { GridDetails } from "../../components/Grid";
 import "jest-dom/extend-expect";
 
 afterEach(cleanup); // <-- add this
 
-test("Details Grid (w/ Data) renders controls", async () => {
+test("Details Grid (w/ Data) renders controls (Timestamp as Title separated by Release)", async () => {
   const { getByTestId, getAllByTestId } = render(
     <GridDetails
       controlTitle="PL-8"

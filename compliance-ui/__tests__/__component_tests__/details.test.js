@@ -1,14 +1,14 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Details } from "../components";
+import { Details } from "../../components";
 import "jest-dom/extend-expect";
-import { data } from "../__mocks__/mockData.js";
+import { dataDetails } from "../../__mocks__/mockData.js";
 
 afterEach(cleanup); // <-- add this
 
 test("Details page renders control boxes from input data", async () => {
   const { getByTestId, getAllByTestId } = render(
-    <Details id="SA-11" data={data} />
+    <Details id="SA-11" data={dataDetails} />
   );
 
   const releaseLinks = getAllByTestId("release-link");
@@ -45,7 +45,9 @@ test("Details page renders control boxes from input data", async () => {
 });
 
 test("Details page error renders <Failed />", async () => {
-  const { getByTestId } = render(<Details id="SA-11" err="true" data={data} />);
+  const { getByTestId } = render(
+    <Details id="SA-11" err="true" data={dataDetails} />
+  );
   expect(getByTestId("api-fail")).toHaveTextContent("Failed to fetch");
 });
 
@@ -53,5 +55,3 @@ test("Details with no data, renders <Failed />", async () => {
   const { getByTestId } = render(<Details id="SA-11" />);
   expect(getByTestId("api-fail")).toHaveTextContent("Failed to fetch");
 });
-
-// Still need to add toggle test

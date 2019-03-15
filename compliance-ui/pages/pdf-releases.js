@@ -2,7 +2,6 @@ import { css } from "react-emotion";
 import { chunkArray, getReleases, formatTimestamp } from "../util";
 import { PageHead, Failed } from "../components";
 import { theme } from "../components/styles";
-import Layout from "../components/Layout";
 import { Logo } from "../components/Logo";
 import Link from "next/link";
 
@@ -164,15 +163,11 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
     return <Failed />;
   }
 
-  {
-    /* SORTING THE DATA INTO A NEW ARRAY */
-  }
+  /* SORTING THE DATA INTO A NEW ARRAY */
 
   let sortedData = [];
 
-  {
-    /* STARTING WITH MAPPING THROUGH THE FAILED DATA */
-  }
+  /* STARTING WITH MAPPING THROUGH THE FAILED DATA */
 
   data.releases.map(release => {
     if (release.passed === "false") {
@@ -186,9 +181,7 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
     }
   });
 
-  {
-    /* AND THEN MAPPING THROUGH THE PASSED DATA */
-  }
+  /* AND THEN MAPPING THROUGH THE PASSED DATA */
 
   data.releases.map(release => {
     if (release.passed === "true") {
@@ -211,21 +204,23 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
         pageNumber++;
         return (
           <div key={pageNumber} className={pdfContainer}>
-            <header name="header" className={bar}>
-              <h1 className={h1}>Are we compliant yet?</h1>
+            <header data-testid="header" name="header" className={bar}>
+              <h1 data-testid="main-header-h1" className={h1}>
+                Are we compliant yet?
+              </h1>
               <Logo alt="CDS Logo" style={logo} />
             </header>
             <div className={page}>
               <PageHead title="PDF - Releases" />
               <Page key="0">
-                <h1>Latest Releases:</h1>
-                <ul>
+                <h1 data-testid="pdf-latest-releases">Latest Releases:</h1>
+                <ul data-testid="pdf-control-list">
                   {chunk.map((singleRelease, index) => {
                     var myDate = Number(singleRelease.timestamp);
                     var formattedDate = formatTimestamp(myDate);
                     const key = `${singleRelease.release}`;
                     return (
-                      <li key={index}>
+                      <li data-testid="pdf-release-box-li" key={index}>
                         <Link
                           as={`/singlerelease/${key}`}
                           href={`/singlerelease/${key}`}
@@ -256,14 +251,17 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
                                   }
                                 >
                                   <h3 name="releasebox-title">
-                                    <span>
+                                    <span data-testid="pdf-release-title">
                                       {singleRelease.passed === "true"
                                         ? "Passed"
                                         : "Failed"}{" "}
                                       release: #{singleRelease.release}
                                     </span>
                                   </h3>{" "}
-                                  <p name="releasebox-timestamp">
+                                  <p
+                                    data-testid="pdf-release-timestamp"
+                                    name="releasebox-timestamp"
+                                  >
                                     {formattedDate}
                                   </p>
                                 </div>
@@ -272,6 +270,7 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
                                   className={releaseBadges}
                                 >
                                   <span
+                                    data-testid="pdf-release-box-passing"
                                     name="releasebox-passing"
                                     className={
                                       singleRelease.passed === "true"
@@ -292,7 +291,7 @@ const PdfReleasesPage = ({ err, data, perPage, summary = false }) => {
                   })}
                 </ul>
                 <div className={number}>
-                  <span>
+                  <span data-testid="page-number">
                     <strong>- Page {pageNumber} -</strong>
                   </span>
                 </div>

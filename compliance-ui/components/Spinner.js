@@ -1,7 +1,7 @@
 import { css, keyframes } from "emotion";
 
 const skbounce = keyframes`
-  0% {  
+  0% {
     -webkit-transform: scale(0);
     transform: scale(0);
   } 100% {
@@ -21,5 +21,11 @@ const spinner = css`
 `;
 
 export const Spinner = () => {
-  return <div className={spinner} />;
+  return (
+    <div
+      data-testid="spinner"
+      aria-label="The component is loading..."
+      className={spinner}
+    />
+  );
 };

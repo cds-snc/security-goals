@@ -29,6 +29,7 @@ const topPage = css`
 export const BackToTopButton = ({ click, keyDownTop }) => {
   return (
     <div
+      data-testid="back-to-top"
       tabIndex="0"
       className={topPage}
       onClick={click}
