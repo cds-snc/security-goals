@@ -222,11 +222,13 @@ with failed tests taking priority */
         pageNumber++;
         return (
           <Page key={`page: ${pageNumber}`}>
-            <header name="header" className={bar}>
-              <h1 className={h1}>Are we compliant yet?</h1>
+            <header data-testid="header" name="header" className={bar}>
+              <h1 data-testid="main-header-h1" className={h1}>
+                Are we compliant yet?
+              </h1>
               <Logo alt="CDS Logo" style={logo} />
             </header>
-            <div className={cbContainer}>
+            <div data-testid="pdf-control-list" className={cbContainer}>
               {chunk.map((verifications, index) => {
                 const check = verifications.passed === "true" ? greenBG : redBG;
                 return (
@@ -243,7 +245,7 @@ with failed tests taking priority */
               })}
             </div>
             <div className={number}>
-              <span>
+              <span data-testid="page-number">
                 <strong>- Page {pageNumber} -</strong>
               </span>
             </div>

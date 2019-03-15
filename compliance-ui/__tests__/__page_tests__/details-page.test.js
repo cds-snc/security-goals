@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
 import "jest-dom/extend-expect";
-import { data } from "../../__mocks__/mockData.js";
+import { dataDetails } from "../../__mocks__/mockData.js";
 
 global.window.__NEXT_DATA__ = {
   ids: []
@@ -13,7 +13,7 @@ afterEach(cleanup); // <-- add this
 
 test("Renders DetailsPage", async () => {
   const { getByTestId, getAllByTestId } = render(
-    <DetailsPage data={data} controlParam="SA-11" />
+    <DetailsPage data={dataDetails} controlParam="SA-11" />
   );
 
   const releaseLinks = getAllByTestId("release-link");

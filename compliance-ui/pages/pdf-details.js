@@ -1,10 +1,8 @@
 import { css } from "react-emotion";
 import { chunkArray } from "../util";
-import { PageHead, Failed } from "../components";
+import { PageHead, Failed, ControlBox } from "../components";
 import { theme } from "../components/styles";
 import { Logo } from "../components/Logo";
-import Link from "next/link";
-import { ControlBox } from "../components/index";
 import { detailStatus } from "../api";
 
 const grid = css`
@@ -91,7 +89,6 @@ const Page = ({ children }) => {
 const getControlStatus = async control => {
   const result = await detailStatus(decodeURI(control));
   const props = { data: result, err: false, controlParam: control };
-
   if (result instanceof Error) {
     props.err = result.message;
   }
@@ -181,8 +178,10 @@ const PdfDetailsPage = ({
       <PageHead title="PDF - Releases" />
 
       <Page>
-        <header name="header" className={bar}>
-          <h1 className={h1}>Are we compliant yet?</h1>
+        <header data-testid="header" name="header" className={bar}>
+          <h1 data-testid="main-header-h1" className={h1}>
+            Are we compliant yet?
+          </h1>
           <Logo alt="CDS Logo" style={logo} />
         </header>
 
@@ -193,13 +192,22 @@ const PdfDetailsPage = ({
         {data.controlData.map((summaryItem, index) => {
           return (
             <React.Fragment key={`controlData: ${summaryItem.id} - ${index}`}>
-              <h1 name="h1-pdf-details">{summaryItem.id} Details:</h1>
-              <p name="pdf-details-description">{summaryItem.description}</p>
+              <h1 data-testid="pdf-details-h1" name="h1-pdf-details">
+                {summaryItem.id} Details:
+              </h1>
+              <p
+                data-testid="pdf-details-description"
+                name="pdf-details-description"
+              >
+                {summaryItem.description}
+              </p>
             </React.Fragment>
           );
         })}
-        <h1 name="history-h1">Control History ({pageNumber}):</h1>
-        <ul name="grid" className={grid}>
+        <h1 data-testid="history-h1" name="history-h1">
+          Control History ({pageNumber}):
+        </h1>
+        <ul name="grid" data-testid="pdf-control-list" className={grid}>
           <div key="cb-container" className={cbContainer}>
             {firstChunk.map((verifications, index) => {
               return (
@@ -220,7 +228,7 @@ const PdfDetailsPage = ({
           </div>
         </ul>
         <div className={number}>
-          <span>
+          <span data-testid="page-number">
             <strong>- Page {pageNumber} -</strong>
           </span>
         </div>
@@ -231,12 +239,16 @@ const PdfDetailsPage = ({
 
         return (
           <Page key={`page: ${pageNumber}`}>
-            <header name="header" className={bar}>
-              <h1 className={h1}>Are we compliant yet?</h1>
+            <header data-testid="header" name="header" className={bar}>
+              <h1 data-testid="main-header-h1" className={h1}>
+                Are we compliant yet?
+              </h1>
               <Logo alt="CDS Logo" style={logo} />
             </header>
-            <h1 name="history-h1">Control History ({pageNumber}):</h1>
-            <ul name="grid" className={grid}>
+            <h1 data-testid="history-h1" name="history-h1">
+              Control History ({pageNumber}):
+            </h1>
+            <ul name="grid" data-testid="control-list" className={grid}>
               <div key="cb-container" className={cbContainer}>
                 {chunk.map((verifications, index) => {
                   return (
