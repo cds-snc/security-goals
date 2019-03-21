@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-describe("<Collapsible />'s toggle button expands and closes the <MainDescription />", function() {
+/* describe("<Collapsible />'s toggle button expands and closes the <MainDescription /> (mouse)", function() {
   it("successfully loads...", function() {
     cy.visit("http://localhost:4000/controls/AU-6");
 
@@ -31,5 +31,17 @@ describe("<Collapsible />'s toggle button expands and closes the <MainDescriptio
     cy.get("[data-testid='toggle-hide']").should("not.exist");
 
     cy.get("[data-testid='toggle-read']").should("exist");
+  });
+});
+
+*/
+
+describe("<Collapsible />'s toggle button expands and closes the <MainDescription /> (keyboard)", function() {
+  it("successfully loads...", function() {
+    cy.visit("http://localhost:4000/controls/AU-6");
+    cy.get("[data-testid='print-link']")
+      .tab()
+      .tab()
+      .trigger("keydown", { key: "Enter" });
   });
 });
