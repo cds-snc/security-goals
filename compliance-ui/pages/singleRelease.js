@@ -151,7 +151,7 @@ class SingleReleasePage extends React.Component {
       <div>
         <Layout pdf={`pdf-singlerelease/${releaseParam}`}>
           <div data-testid="home" className={singleReleasePage}>
-            <a name="back" href="/" className={back}>
+            <a data-testid="back-button" name="back" href="/" className={back}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
@@ -164,7 +164,7 @@ class SingleReleasePage extends React.Component {
               link={true}
               keyDown={this.keyHandler}
             />
-            <a name="back" href="/" className={back}>
+            <a data-testid="back-button" name="back" href="/" className={back}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>

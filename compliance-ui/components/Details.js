@@ -320,7 +320,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
       <div className={detailsWrap}>
         {id && (
           <React.Fragment>
-            <a name="back" href="/" className={back}>
+            <a data-testid="back-button" name="back" href="/" className={back}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
@@ -346,7 +346,12 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
                 />
               </React.Fragment>
             ) : null}
-            <a name="back" href="/" className={backBottom}>
+            <a
+              data-testid="back-button"
+              name="back"
+              href="/"
+              className={backBottom}
+            >
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>

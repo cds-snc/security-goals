@@ -4,14 +4,28 @@ describe("<Collapsible />'s toggle button expands and closes the <MainDescriptio
   it("successfully loads...", function() {
     cy.visit("http://localhost:4000/controls/AU-6");
 
+    // assert that there is no main-description on the page at this point in time
+    cy.get("[data-testid='main-description']").should("not.be.visible");
+
+    // assert that page contains toggle-read button and that it matches the right description
     cy.get("[data-testid='toggle-read']").should(
       "contain",
       "Read the AU-6 description"
     );
+
+    // assert that toggle-hide is not on the page at this point in time
+    cy.get("[data-testid='toggle-hide']").should("not.exist");
+
+    // click the toggle-read button to expand the description
     cy.get("[data-testid='toggle-read']").click();
 
+    // assert that toggle-read disappears and toggle-hide appears after button click
     cy.get("[data-testid='toggle-read']").should("not.exist");
+    cy.get("[data-testid='toggle-hide']")
+      .should("exist")
+      .and("contain", "Hide the AU-6 description");
 
+    // assert that main description is now visible and matches the proper description
     cy.get("[data-testid='main-description']")
       .should(
         "contain",
@@ -20,17 +34,16 @@ describe("<Collapsible />'s toggle button expands and closes the <MainDescriptio
       .and(
         "contain",
         "(B) The organization reports findings to [Assignment: organization-defined personnel or roles]."
-      );
+      )
+      .and("be.visible");
 
-    cy.get("[data-testid='toggle-hide']").should(
-      "contain",
-      "Hide the AU-6 description"
-    );
-
+    // click toggle-hide to collapse the description
     cy.get("[data-testid='toggle-hide']").click();
-    cy.get("[data-testid='toggle-hide']").should("not.exist");
 
-    cy.get("[data-testid='toggle-read']").should("exist");
+    // assert description has collapsed
+    cy.get("[data-testid='toggle-hide']").should("not.exist"); // toggle-hide should be gone
+    cy.get("[data-testid='toggle-read']").should("exist"); // toggle-read should have replaced it on click
+    cy.get("[data-testid='main-description']").should("not.be.visible"); // main description should not be visible anymore
   });
 });
 
@@ -63,7 +76,8 @@ describe("<Collapsible />'s toggle button expands and closes the <MainDescriptio
       .and(
         "contain",
         "(B) The organization reports findings to [Assignment: organization-defined personnel or roles]."
-      );
+      )
+      .and("be.visible");
 
     // tab to toggle button and assert that text has changed from Read to Hide press Enter to toggle once more
     cy.focused().tab();
