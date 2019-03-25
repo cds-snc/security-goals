@@ -29,7 +29,7 @@ class ReleasesPage extends React.Component {
 
     if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       window.onkeydown = function(e) {
-        return !(event.key === "ArrowDown");
+        return !(event.key === "ArrowRight" || event.key === "ArrowDown");
       };
       nextItem++;
       if (nextItem >= items.length) {
@@ -40,7 +40,7 @@ class ReleasesPage extends React.Component {
 
     if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       window.onkeydown = function(e) {
-        return !(event.key === "ArrowUp");
+        return !(event.key === "ArrowLeft" || event.key === "ArrowUp");
       };
       nextItem--;
       if (nextItem < 0) {

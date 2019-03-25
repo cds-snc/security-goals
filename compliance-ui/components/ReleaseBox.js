@@ -147,6 +147,8 @@ const ReleaseBox = ({
   const status = passed === "true" ? "Passed" : "Failed";
   return (
     <li
+      name="release-box-list-item"
+      data-testid="release-box-list-item"
       aria-label={`${timestamp}`}
       className={passed === "true" ? passingFocus : failingFocus}
     >
