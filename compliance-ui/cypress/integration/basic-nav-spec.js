@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-/*
 describe("Basic navigation", function() {
   // testing page navigation by selecting first item in each list
   it("Index >> 1546522884800 >> AU-6 >> 1546522884800", function() {
@@ -52,8 +51,6 @@ describe("Basic navigation", function() {
   });
 });
 
-*/
-
 describe("Keyboard navigation", function() {
   // testing page navigation by selecting first item in each list
   it("Index >> 1546522884800 >> AU-6 >> 1546522884800", function() {
@@ -81,7 +78,7 @@ describe("Keyboard navigation", function() {
 
     cy.get("[data-testid='release-box-list-item']")
       .first()
-      .click();
+      .click(); //this is the mouse click talked about above
 
     cy.url().should("contain", "/singlerelease/1546522884800");
 
@@ -107,7 +104,7 @@ describe("Keyboard navigation", function() {
 
     cy.get("[data-testid='control-box']")
       .first()
-      .click();
+      .click(); //this is the mouse click talked about above
 
     cy.url().should("contain", "/controls/AU-6");
 
