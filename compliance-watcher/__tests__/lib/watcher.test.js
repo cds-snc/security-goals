@@ -114,7 +114,9 @@ describe('restartJobs', () => {
       .get('/apis/batch/v1/namespaces/symmorfosi-jobs/jobs')
       .reply(200, {})
     await restartJobs(kc)
-    expect(scope.pendingMocks()).toEqual([])
+    expect(scope.pendingMocks()).toEqual([
+      'GET https://foo.company.com:443/apis/batch/v1/namespaces/symmorfosi-jobs/jobs',
+    ])
   })
 
   it('deletes a returned job and recreates it', async () => {
@@ -130,7 +132,11 @@ describe('restartJobs', () => {
       .post(`/apis/batch/v1/namespaces/symmorfosi-jobs/jobs`)
       .reply(200)
     await restartJobs(kc)
-    expect(scope.pendingMocks()).toEqual([])
+    expect(scope.pendingMocks()).toEqual([
+      'GET https://foo.company.com:443/apis/batch/v1/namespaces/symmorfosi-jobs/jobs',
+      'DELETE https://foo.company.com:443/apis/batch/v1/namespaces/symmorfosi-jobs/jobs/pi',
+      'POST https://foo.company.com:443/apis/batch/v1/namespaces/symmorfosi-jobs/jobs',
+    ])
   })
 
   it('looks for jobs in a user defined namespace', async () => {
