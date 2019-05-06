@@ -25,7 +25,7 @@ The tools is built using the following components:
 | compliance-api     | Ingress checks and serves them up through a GraphQL API                            | No               |
 | compliance-ui      | A user interface to explore data from the API                                      | No               |
 | compliance-watcher | A tool to run compliance checks inside a Kubernetes cluster                        | Yes              |
-| compliance-checks  | A set of compliance check docker containers that do the actual compliance checking | Yes              |
+| [security-goals-checks](https://github.com/cds-snc/security-goals-checks)  | A set of security goals check containers that do the actual checking | Yes              |
 
 ### Goals for the tool
 
