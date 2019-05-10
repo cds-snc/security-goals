@@ -1,0 +1,32 @@
+steps:
+  - name: 'node:alpine'
+    dir: 'api'
+    entrypoint: 'npm'
+    args: ['ci']
+  - name: "node:alpine"
+    dir: 'api'
+    entrypoint: 'npm'
+    args: ['test']
+    env:
+     - 'CHECKS_PATH=src/__tests__/testData/checks'
+     - 'DEFINITIONS_URL=https://raw.githubusercontent.com/cds-snc/ITSG-33-definitions/master/ITSG-33a.yaml'
+     - 'CERTIFICATION_URL=https://raw.githubusercontent.com/cds-snc/ITSG-33-baselines/master/light.yaml'
+     - 'DB_URI=mongodb://'
+     - 'DB_USER='
+     - 'DB_PASS='
+  - name: 'gcr.io/cloud-builders/docker'
+    dir: 'api'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/api:$SHORT_SHA',
+        '-t',
+        'gcr.io/$PROJECT_ID/api:latest',
+        '-f',
+        'Dockerfile',
+        '.',
+      ]
+images:
+  - 'gcr.io/$PROJECT_ID/api:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/api:latest'
