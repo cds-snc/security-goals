@@ -3,7 +3,7 @@ import fetch from "isomorphic-fetch";
 export const generateReleaseId = async (): Promise<string> => {
   if (process.env.GITHUB_REPO !== undefined) {
     const repo = process.env.GITHUB_REPO;
-    console.log(repo)
+    console.log(repo);
     return fetch("//api.github.com/repos/" + repo + "/commits?branch=master")
       .then((response) => {
         if (response.status >= 400) {

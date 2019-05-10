@@ -13,7 +13,7 @@ async function asyncForEach(
 
 export const runJobs = async () => {
   try {
-    const kc = new k8s.KubeConfig()
+    const kc = new k8s.KubeConfig();
 
     if (process.env.NODE_ENV === "production") {
       kc.loadFromCluster();
@@ -25,7 +25,7 @@ export const runJobs = async () => {
     const namespace = process.env.JOBS_NAMESPACE || "security-goals";
 
     // Generate release ID
-    const releaseId = await generateReleaseId()
+    const releaseId = await generateReleaseId();
 
     const res = await jobsApi.listNamespacedJob(namespace);
 
@@ -35,9 +35,9 @@ export const runJobs = async () => {
         try {
           const name: string = item.metadata.name;
           console.log("Restarting", name);
-          jobsApi.deleteNamespacedJob(name, namespace, item)
-          const body = await modifyJob(item, releaseId)
-          await jobsApi.createNamespacedJob(namespace, body)
+          jobsApi.deleteNamespacedJob(name, namespace, item);
+          const body = await modifyJob(item, releaseId);
+          await jobsApi.createNamespacedJob(namespace, body);
         } catch (err) {
           console.log(err);
         }
@@ -47,4 +47,4 @@ export const runJobs = async () => {
   } catch (err) {
     console.log(err);
   }
-}
+};

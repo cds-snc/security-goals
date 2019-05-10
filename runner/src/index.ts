@@ -1,6 +1,6 @@
 import express from "express";
 import uuid from "uuid/v4";
-import {runJobs} from "./lib/runJobs"
+import {runJobs} from "./lib/runJobs";
 
 export const app: express.Application = express();
 
@@ -18,10 +18,10 @@ app.get("/ready", (req: express.Request, res: express.Response): void => {
 app.post(`/${path}`, (req: express.Request, res: express.Response) => {
   runJobs();
   res.send("Running jobs");
-})
+});
 
 app.listen(port, (err: Error) => {
-  if (err){throw err;}
-  console.log(`> Ready on http://localhost:${port}`)
-  console.log(`> Webhook listening on: /${path}`)
-})
+  if (err) {throw err; }
+  console.log(`> Ready on http://localhost:${port}`);
+  console.log(`> Webhook listening on: /${path}`);
+});
