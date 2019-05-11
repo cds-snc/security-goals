@@ -1,4 +1,5 @@
-import k8s from "@kubernetes/client-node";
+import k8s = require("@kubernetes/client-node");
+import { V1DeleteOptions } from "@kubernetes/client-node";
 import {generateReleaseId} from "./generateReleaseId";
 import {modifyJob} from "./modifyJob";
 
@@ -35,7 +36,16 @@ export const runJobs = async () => {
         try {
           const name: string = item.metadata.name;
           console.log("Restarting", name);
-          jobsApi.deleteNamespacedJob(name, namespace, item);
+          const options: V1DeleteOptions = {
+            apiVersion: "batch/v1",
+            dryRun: null,
+            gracePeriodSeconds: null,
+            kind: "DeleteOptions",
+            orphanDependents: null,
+            preconditions: null,
+            propagationPolicy: "Foreground"
+          };
+          jobsApi.deleteNamespacedJob(name, namespace, "false", options);
           const body = await modifyJob(item, releaseId);
           await jobsApi.createNamespacedJob(namespace, body);
         } catch (err) {
