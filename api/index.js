@@ -6,6 +6,7 @@ const { dbConnect } = require('./src/db/connect')
 const { clearCollection } = require('./src/db/clearCollection')
 const { watchChecks } = require('./src/db/watcher')
 const { saveFiles } = require('./src/db/save')
+
 ;(async () => {
   const {
     DEFINITIONS_URL: definitionsUrl,
