@@ -1,5 +1,5 @@
 const request = require('supertest')
-const { Server } = require('../Server')
+const { Server } = require('../server')
 
 describe('Server', () => {
   it('has Cross Origin Resource Sharing enabled for all domains', async () => {
