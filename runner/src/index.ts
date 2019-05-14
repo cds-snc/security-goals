@@ -20,10 +20,6 @@ app.post(`*/${path}`, (req: express.Request, res: express.Response): void => {
   res.status(200).send("Running jobs");
 });
 
-app.get("*", (req: express.Request, res: express.Response): void => {
-  console.log(req.headers);
-});
-
 app.listen(port, (err: Error) => {
   if (err) {throw err; }
   console.log(`> Ready on http://localhost:${port}`);
