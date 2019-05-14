@@ -15,9 +15,13 @@ app.get("*/ready", (req: express.Request, res: express.Response): void => {
   res.status(200).send("yes");
 });
 
-app.post(`*/${path}`, (req: express.Request, res: express.Response) => {
+app.post(`*/${path}`, (req: express.Request, res: express.Response): void => {
   runJobs();
-  res.send("Running jobs");
+  res.status(200).send("Running jobs");
+});
+
+app.get("*", (req: express.Request, res: express.Response): void => {
+  console.log(req.headers);
 });
 
 app.listen(port, (err: Error) => {
