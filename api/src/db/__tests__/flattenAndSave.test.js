@@ -39,10 +39,8 @@ describe('flattenAndSave', () => {
   })
 
   it('keeps existing release data', async () => {
+    await flattenAndSave(fixture, mockSave)
     expect(mockSave.mock.calls.length).toBe(1)
-    const result = await flattenAndSave(fixture, mockSave)
-    //@ todo
-    expect(1).toEqual(1)
   })
 
   it('keeps existing control if multiple exists', async () => {
