@@ -1,11 +1,11 @@
 require('dotenv-safe').config({ allowEmptyValues: true })
-const { fetchYaml } = require('./src/fetchYaml.js')
-const { createCompliance } = require('./src/createCompliance.js')
-const { Server } = require('./src/server')
-const { dbConnect } = require('./src/db/connect')
-const { clearCollection } = require('./src/db/clearCollection')
-const { watchChecks } = require('./src/db/watcher')
-const { saveFiles } = require('./src/db/save')
+const { fetchYaml } = require('./dist/fetchYaml.js')
+const { createCompliance } = require('./dist/createCompliance.js')
+const { Server } = require('./dist/server')
+const { dbConnect } = require('./dist/db/connect')
+const { clearCollection } = require('./dist/db/clearCollection')
+const { watchChecks } = require('./dist/db/watcher')
+const { saveFiles } = require('./dist/db/save')
 
 ;(async () => {
   const {
