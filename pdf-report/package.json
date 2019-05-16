@@ -4,22 +4,25 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "test": "tsc && jest --forceExit",
+    "start": "tsc && NODE_ENV=production node index",
+    "dev":"nodemon index",
     "build": "tsc",
-    "prestart": "npm run build",
-    "start": "node .",
-    "test": "jest --forceExit",
-    "watch": "tsc && tsc-watch"
+    "tsc-watch": "tsc --watch",
+    "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "clear": "node index --delete true"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "graphql-request": "^1.8.2",
     "pdfkit": "^0.9.1"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
     "@types/jest": "^24.0.12",
     "@types/nock": "^10.0.1",
@@ -28,6 +31,7 @@
     "@types/supertest": "^2.0.7",
     "jest": "^24.8.0",
     "nock": "^10.0.6",
+    "nodemon": "^1.19.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
