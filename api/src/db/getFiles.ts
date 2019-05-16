@@ -1,16 +1,12 @@
 const { promises: fs, constants: fsConstants } = require('fs')
-const { join, basename } = require('path') // eslint-disable-line no-unused-vars
+const { join } = require('path')
 const { readFile } = require('./readFile')
-const chalk = require('chalk')
-const log = console.log
 
-const note = message => {
-  log(chalk.black.bgGreen('\n\n' + message))
-}
+import { note } from '../utils/note'
 
-const getFiles = async (path = process.env.CHECKS_PATH) => {
+export const getFiles = async (path: string = process.env.CHECKS_PATH) => {
   try {
-    let access = await fs.access(path, fsConstants.R_OK) // eslint-disable-line no-unused-vars
+    await fs.access(path, fsConstants.R_OK)
   } catch ({ message }) {
     throw new Error(`Checks directory isn't a readable directory: ${message}`)
   }
@@ -25,7 +21,8 @@ const getFiles = async (path = process.env.CHECKS_PATH) => {
   let jsonFiles = files
     .filter(f => f.match(/.json$/) !== null)
     .map(f => join(path, f.match(/.json$/).input))
-  let checks = await Promise.all(
+
+  let checks: string[] = await Promise.all(
     jsonFiles.map(async file => {
       return readFile(file)
     }),
@@ -35,5 +32,3 @@ const getFiles = async (path = process.env.CHECKS_PATH) => {
     return JSON.parse(c)
   })
 }
-
-module.exports.getFiles = getFiles

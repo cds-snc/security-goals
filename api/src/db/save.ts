@@ -1,16 +1,10 @@
-// @ts-check
 const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
 const { q } = require('./queue')
-// @ts-ignore
 const merge = require('object-array-merge')
-const chalk = require('chalk')
-const log = console.log
 
-const note = message => {
-  // @ts-ignore
-  log(chalk.black.bgGreen('\n\n' + message))
-}
+import { File } from '../interfaces/File'
+import { note } from '../utils/note'
 
 const getFileData = async () => {
   try {
@@ -71,7 +65,10 @@ const checkControlExists = (fileControls, existingControls) => {
   return newControls
 }
 
-const flattenAndSave = async (file = {}, save = () => {}) => {
+const flattenAndSave = async (
+  file: File = {},
+  save: (file: File) => {} | void = () => {},
+) => {
   if (!file || !file.satisfies) return
 
   const obj = await mapToControlEntry(file)
@@ -150,9 +147,7 @@ const saveFiles = async () => {
   try {
     const files = await getFileData()
     const cb = async file => {
-      // eslint-disable-next-line no-unused-vars
-      const obj = await flattenAndSave(file, async obj => {
-        // @ts-ignore
+      await flattenAndSave(file, (obj: File) => {
         if (!obj || !obj.release) {
           return
         }
