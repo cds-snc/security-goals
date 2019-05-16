@@ -1,11 +1,11 @@
 steps:
   - name: 'node:alpine'
     dir: 'api'
-    entrypoint: 'npm'
-    args: ['ci']
+    entrypoint: 'yarn'
+    args: ['install']
   - name: "node:alpine"
     dir: 'api'
-    entrypoint: 'npm'
+    entrypoint: 'yarn'
     args: ['test']
     env:
      - 'CHECKS_PATH=src/__tests__/testData/checks'
