@@ -1,11 +1,11 @@
 steps:
   - name: node:11.10-alpine
     dir: pdf-report
-    entrypoint: npm
+    entrypoint: yarn
     args: ['install']
   - name: node:11.10-alpine
     dir: pdf-report
-    entrypoint: npm
+    entrypoint: yarn
     args: ['test']
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'pdf-report'
