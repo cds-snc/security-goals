@@ -1,20 +1,7 @@
 const { flattenAndSave } = require('../save')
-const fs = require('fs')
-const path = require('path')
+const { logToFile } = require('../../utils/logToFile')
 
 jest.mock('../queries')
-
-const logToFile = result => {
-  try {
-    fs.writeFileSync(
-      path.resolve(__dirname, 'log.json'),
-      JSON.stringify(result, null, 4),
-    )
-  } catch (err) {
-    // An error occurred
-    console.error(err)
-  }
-}
 
 const fixture = {
   origin: 'cdssnc/pod-check-compliance:latest',

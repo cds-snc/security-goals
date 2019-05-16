@@ -1,12 +1,12 @@
 {
   "name": "compliance",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "tsc && jest --forceExit",
     "start": "tsc && NODE_ENV=production node index",
-    "dev":"nodemon index",
+    "dev": "tsc && nodemon index",
     "build": "tsc",
     "tsc-watch": "tsc --watch",
     "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
@@ -65,7 +65,6 @@
     "prettier": "^1.17.1",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
-    "tsc-watch": "^2.2.0",
     "typescript": "^3.4.5"
   },
   "husky": {
