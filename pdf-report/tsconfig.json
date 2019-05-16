@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es5",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*",
+        "node_modules/jest-extended/types/**/*.d.ts"
+    ],
+    "exclude": [
+        "src/__mocks__", 
+        "**/*.test.*", 
+        "src/__tests__", 
+        "src/interfaces"
+    ]
+}
