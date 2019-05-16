@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tsc && jest --forceExit",
-    "start": "tsc && NODE_ENV=production node index",
+    "start": "NODE_ENV=production node index",
     "dev": "tsc && nodemon index",
     "build": "tsc",
     "tsc-watch": "tsc --watch",
