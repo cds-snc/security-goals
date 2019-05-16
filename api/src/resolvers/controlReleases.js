@@ -13,6 +13,7 @@ const { GraphQLString } = require('graphql')
   }  
 }
 */
+
 const controlReleases = {
   description: 'Returns a single control and all the releases',
   type: ControlReleases,
@@ -23,9 +24,9 @@ const controlReleases = {
     },
   },
   resolve: async (root, { id }) => {
+    // eslint-disable-line no-unused-vars
     try {
       const results = await getControl(id)
-      const controls = []
       results.map(item => {
         item.controls = [item.controls]
       })

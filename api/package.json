@@ -6,8 +6,9 @@
   "scripts": {
     "test": "tsc && jest --forceExit",
     "start": "tsc && NODE_ENV=production node index",
+    "dev":"nodemon index",
     "build": "tsc",
-    "watch": "tsc && tsc-watch",
+    "tsc-watch": "tsc --watch",
     "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "clear": "node index --delete true"
   },
