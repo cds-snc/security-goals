@@ -1,6 +1,5 @@
 const { Release } = require('../types/Release')
 const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql')
-// const GraphqlQueryTree = require('graphql-query-tree').default
 const { releaseModel } = require('../db/model')
 
 // db query
@@ -57,10 +56,14 @@ const releases = {
   // eslint-disable-next-line no-unused-vars
   resolve: async (root, { releaseId, limit }, context, info) => {
     try {
-      // const tree = new GraphqlQueryTree(info)
-      // const withControls = tree.isSelected('controls')
       const withControls = true
-      return await getRelease({ releaseId, limit, withControls })
+      const releases = await getRelease({ releaseId, limit, withControls })
+      return releases.filter(item => {
+        // handle null release
+        if (item.release) {
+          return item
+        }
+      })
     } catch (e) {
       console.log(e.message)
     }
