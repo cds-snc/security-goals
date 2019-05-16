@@ -20,7 +20,7 @@ export const generateReport = (release: any, controls: any): PDFKit.PDFDocument 
 const addControl = (doc: PDFKit.PDFDocument, control: any, controls: any, index: number): PDFKit.PDFDocument => {
   doc.addPage();
   doc.fontSize(18);
-  doc.text(`${index + 1}. ${control.control} - ${(controls[control.control] ? controls[control.control].name : placeHolderTitle)}`));
+  doc.text(`${index + 1}. ${control.control} - ${(controls[control.control] ? controls[control.control].name : placeHolderTitle)}`);
   doc.fontSize(12);
   doc.moveDown();
   doc.text("Control description", {underline: true});
