@@ -2,6 +2,7 @@ const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
 const { q } = require('./queue')
 const merge = require('object-array-merge')
+const { forceBoolean } = require('../utils/forceBoolean')
 
 import { File } from '../interfaces/File'
 import { note } from '../utils/note'
@@ -108,7 +109,7 @@ const asyncForEach = async (array, callback) => {
   }
 }
 
-const mapToControlEntry = async file => {
+const mapToControlEntry = async (file: File) => {
   let obj = {
     release: undefined,
     controls: [],
@@ -117,6 +118,10 @@ const mapToControlEntry = async file => {
   await asyncForEach(file.satisfies, async control => {
     // eslint-disable-next-line no-unused-vars
     const { satisfies, ...check } = file // get obj without satisfies prop
+
+    const cleanedCheck = { ...check, passed: forceBoolean(check.passed) }
+
+    //let check = console.log(typeof check.passed)
 
     if (file && !file.release) {
       note(`☠ no release property set ${file.fileRef}`)
@@ -127,7 +132,7 @@ const mapToControlEntry = async file => {
     obj.controls.push({
       control,
       fileId: `${file.fileRef}--${control}`,
-      verifications: [check],
+      verifications: [cleanedCheck],
     })
   })
 
