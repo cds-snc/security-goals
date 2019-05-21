@@ -2,7 +2,7 @@ import { getUniqueName, uniqueArray } from "../../lib/getUnique";
 
 test("returns a string with random number removed", async () => {
   const name = getUniqueName("au-8-1-security-goals-auto-1558459587082");
-  expect(name).toEqual("au-8-1-security-goals-auto");
+  expect(name).toEqual("au-8-1");
 });
 
 test("returns a uniqueArray ", async () => {

@@ -3,7 +3,8 @@
 export const getUniqueName = (name: string) => {
   const arr = name.split("-");
   arr.pop();
-  return arr.join("-");
+  const splitName: string = arr.join("-");
+  return splitName.replace("-security-goals-auto", "");
 };
 
 interface IPod {

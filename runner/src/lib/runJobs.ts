@@ -41,7 +41,6 @@ export const runJobs = async (): Promise<void> => {
   }
 
   const items = uniqueArray(res.body.items);
-  console.log(items.length);
 
   await asyncForEach(items, async (item) => {
     const name: string = item.metadata.name;
@@ -58,6 +57,7 @@ export const runJobs = async (): Promise<void> => {
     };
     await jobsApi.deleteNamespacedJob(name, namespace, "false", options);
     const body = await modifyJob(item, releaseId);
+    console.log("starting", body.metadata.name);
     await jobsApi.createNamespacedJob(namespace, body);
   });
 
