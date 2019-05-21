@@ -2,6 +2,7 @@ const { promises: fs } = require('fs')
 const { basename } = require('path')
 
 import { File } from '../interfaces/File'
+import { noteError } from '../utils/note'
 
 const getFileName = (filepath: string) => {
   return basename(filepath, '.json')
@@ -14,7 +15,7 @@ const readFile = async (file: string): Promise<string> => {
   try {
     obj = JSON.parse(content)
   } catch (e) {
-    console.warn(`🚨error parsing ${file}`)
+    noteError(`☠ error parsing ${file}`)
   }
 
   // add filename to content for reference

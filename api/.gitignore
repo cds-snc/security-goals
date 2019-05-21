@@ -5,3 +5,4 @@ node_modules
 log.json
 /src/__tests__/testData/checks3/*
 /src/__tests__/testData/checks4/*
+/src/__tests__/testData/prod-checks/*
