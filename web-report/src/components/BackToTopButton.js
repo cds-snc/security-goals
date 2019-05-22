@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
-import { UpArrowCircle } from "./";
+import { UpArrowCircle } from "./icons/UpArrowCircle";
 
 const topPage = css`
   display: flex;

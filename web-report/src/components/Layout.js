@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { PageHead, Header, ActionBar } from "../components";
+import { Header, ActionBar } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import React from "react";
 
@@ -59,15 +59,14 @@ class Layout extends React.Component {
   render() {
     const { children, pdf = "", id = "" } = this.props;
     return (
-      <div className={layout}>
-        <PageHead />
+      <div css={layout}>
         <Header pdf={pdf} id={id} />
-        <div data-testid="layout-children" role="main" className={content}>
+        <div data-testid="layout-children" role="main" css={content}>
           {children}
         </div>
 
-        <div data-testid="footer" role="contentinfo" className={footer}>
-          <div data-testid="actions-bottom" className={actionsBottom}>
+        <div data-testid="footer" role="contentinfo" css={footer}>
+          <div data-testid="actions-bottom" css={actionsBottom}>
             <ActionBar
               back2top={true}
               click={this.clickHandler}

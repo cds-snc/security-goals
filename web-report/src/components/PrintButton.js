@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme } from "./styles";
-import { PrinterIcon } from "./";
+import { PrinterIcon } from "./icons/PrinterIcon";
 
 const print = css`
   color: #fff;

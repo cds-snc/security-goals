@@ -1,11 +1,14 @@
 import { format, parse } from "date-fns";
+/*
 import {
   allControlsStatus,
   controlStatus,
   releaseStatus,
   detailStatus
 } from "../api";
+
 import { fetchGraphQL } from "../api/fetchGraphQL";
+*/
 
 const sortByKey = (array, key) => {
   return array.sort(function(a, b) {
