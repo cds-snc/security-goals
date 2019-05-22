@@ -1,13 +1,9 @@
 /** @jsx jsx */
+import React from "react";
 import { jsx, css } from "@emotion/core";
-
 import Layout from "../components/Layout";
 import Home from "../components/Home";
-
 import { releaseStatus } from "../../api/index";
-
-import React from "react";
-
 import "./Home.css";
 
 const red = css`
