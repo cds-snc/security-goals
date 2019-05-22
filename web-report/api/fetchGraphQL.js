@@ -1,10 +1,10 @@
 const request = require("graphql-request").request;
 
 export const fetchGraphQL = async query => {
-  const endpoint = process.env.API_URL;
+  const endpoint = process.env.RAZZLE_API_URL;
 
   if (!endpoint && String(process.env.NODE_ENV) !== "test") {
-    console.warn("No process.env.API_URL passed");
+    console.warn("No process.env.RAZZLE_API_URL passed");
     return false;
   }
 
