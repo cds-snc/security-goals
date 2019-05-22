@@ -112,12 +112,12 @@ export class Collapsible extends React.Component {
 
     return (
       <div>
-        <div className={container}>
-          <div className={toggleContainer}>
+        <div css={container}>
+          <div css={toggleContainer}>
             <h2 data-testid="collapsible-h2" name="collapsible-h2">
               {title}
             </h2>
-            <div className={this.state.open ? collapseIn : collapse}>
+            <div css={this.state.open ? collapseIn : collapse}>
               {description.length === 0 ? (
                 <MainDescription
                   key="collapsible"
@@ -138,28 +138,28 @@ export class Collapsible extends React.Component {
             {this.state.open ? (
               <div
                 data-testid="toggle-hide"
-                className={toggle}
+                css={toggle}
                 tabIndex="0"
                 onKeyDown={this.keyHandler}
                 onClick={this.toggle}
                 aria-label={`The description for verification ${title} is expanded. Click or press 'Enter' to collapse the description`}
               >
                 <p>Hide the {control} description</p>
-                <span className={arrowDown}>
+                <span css={arrowDown}>
                   <UpArrowCircle />
                 </span>
               </div>
             ) : (
               <div
                 data-testid="toggle-read"
-                className={toggle}
+                css={toggle}
                 tabIndex="0"
                 onKeyDown={this.keyHandler}
                 onClick={this.toggle}
                 aria-label={`Verification ${title}. The description for this verification is collapsed. Click or press 'Enter' to expand the description`}
               >
                 <p>Read the {control} description</p>
-                <span className={arrowUp}>
+                <span css={arrowUp}>
                   <UpArrowCircle />
                 </span>
               </div>

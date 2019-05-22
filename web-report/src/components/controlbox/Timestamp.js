@@ -37,9 +37,9 @@ export const Timestamp = ({ status, timestamp }) => {
     <div
       data-testid="control-box-timestamp"
       name="timestamp"
-      className={timeStamp}
+      css={timeStamp}
     >
-      <div name="time-circle" className={circleCheck} />
+      <div name="time-circle" css={circleCheck} />
       <p name="time">{timestamp}</p>
     </div>
   );

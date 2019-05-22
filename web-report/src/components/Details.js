@@ -300,7 +300,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
 
   if (!data) {
     return (
-      <div data-testid="api-fail" className={center}>
+      <div data-testid="api-fail" css={center}>
         ⚠️ Failed to fetch GraphQL API data
       </div>
     );
@@ -308,18 +308,18 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
 
   if (err) {
     return (
-      <div data-testid="api-fail" className={center}>
+      <div data-testid="api-fail" css={center}>
         ⚠️ Failed to fetch GraphQL API data
       </div>
     );
   }
 
   return (
-    <div data-testid="details" className={details}>
-      <div className={detailsWrap}>
+    <div data-testid="details" css={details}>
+      <div css={detailsWrap}>
         {id && (
           <React.Fragment>
-            <a data-testid="back-button" name="back" href="/" className={back}>
+            <a data-testid="back-button" name="back" href="/" css={back}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
@@ -349,7 +349,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
               data-testid="back-button"
               name="back"
               href="/"
-              className={backBottom}
+              css={backBottom}
             >
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
@@ -357,7 +357,7 @@ export const Details = ({ data, err, id, keyDownDetails, keyDownUL }) => {
           </React.Fragment>
         )}
         {!id && (
-          <div className={controlInfo}>
+          <div css={controlInfo}>
             <Spinner />
           </div>
         )}

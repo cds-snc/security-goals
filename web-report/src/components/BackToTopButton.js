@@ -32,7 +32,7 @@ export const BackToTopButton = ({ click, keyDownTop }) => {
     <div
       data-testid="back-to-top"
       tabIndex="0"
-      className={topPage}
+      css={topPage}
       onClick={click}
       onKeyDown={keyDownTop}
       aria-label="click or press 'Enter' on this link to navigate to the top of the page"

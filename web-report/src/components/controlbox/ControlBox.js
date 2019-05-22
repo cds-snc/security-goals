@@ -27,7 +27,7 @@ export const ControlBox = ({
     <li
       data-testid="control-box"
       name="control-box"
-      className={style}
+      css={style}
       aria-label={
         detailsPage
           ? "click or press 'Enter' on the link to navigate to the control reference."

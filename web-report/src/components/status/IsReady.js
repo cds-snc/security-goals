@@ -48,7 +48,7 @@ const IsReady = ({ data, statusRef }) => {
             <div
               data-testid="status-bar"
               key="statusBar"
-              className={
+              css={
                 release.passed === "true" ? statusBarPassed : statusBarFailed
               }
               ref={statusRef}

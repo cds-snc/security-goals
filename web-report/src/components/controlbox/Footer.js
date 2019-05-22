@@ -56,7 +56,7 @@ export const Footer = ({
   urlCheck
 }) => {
   return (
-    <div className={bottomInfo}>
+    <div css={bottomInfo}>
       <Description description={description} />
       <References
         timestamp={timestamp}
@@ -66,7 +66,7 @@ export const Footer = ({
         status={status}
         urlCheck={urlCheck}
       />
-      <div className={bottomMobile} name="bottom-mobile">
+      <div css={bottomMobile} name="bottom-mobile">
         <ControlComponent component={component} />
         {titleTimestamp ? null : (
           <Timestamp status={status} timestamp={timestamp} />

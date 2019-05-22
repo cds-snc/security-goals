@@ -25,7 +25,7 @@ export const PrintButton = ({ link = "", id = "" }) => {
       data-testid="print-link"
       name="print-button"
       id="back2top"
-      className={print}
+      css={print}
       href={link}
     >
       <PrinterIcon />

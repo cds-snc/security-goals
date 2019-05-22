@@ -12,7 +12,7 @@ const Failed = () => {
 
   return (
     <Layout>
-      <div data-testid="api-fail" className={center}>
+      <div data-testid="api-fail" css={center}>
         ⚠️ Failed to fetch GraphQL API data
       </div>
     </Layout>

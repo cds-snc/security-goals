@@ -27,7 +27,7 @@ export const Spinner = () => {
     <div
       data-testid="spinner"
       aria-label="The component is loading..."
-      className={spinner}
+      css={spinner}
     />
   );
 };

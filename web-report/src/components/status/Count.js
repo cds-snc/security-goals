@@ -23,7 +23,7 @@ const errorMessage = css`
 export const Count = ({ status }) => {
   if (status) {
     return (
-      <div className={stats} data-testid="total">
+      <div css={stats} data-testid="total">
         {status.releases.map(release => {
           return (
             <span key="count">
@@ -37,7 +37,7 @@ export const Count = ({ status }) => {
 
   if (!status) {
     return (
-      <div data-testid="error-message" className={errorMessage}>
+      <div data-testid="error-message" css={errorMessage}>
         <p>Status Counter is missing data.</p>
       </div>
     );

@@ -151,7 +151,7 @@ const ReleaseBox = ({
       name="release-box-list-item"
       data-testid="release-box-list-item"
       aria-label={`${timestamp}`}
-      className={passed === "true" ? passingFocus : failingFocus}
+      css={passed === "true" ? passingFocus : failingFocus}
     >
       <a
         data-testid="release-box-link"
@@ -164,11 +164,11 @@ const ReleaseBox = ({
           data-testid="release-box"
           aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing`}
           name="release-box"
-          className={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
+          css={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
         >
           <div name="inner-container">
             <div
-              className={
+              css={
                 passed === "true" ? releaseTitlePassing : releaseTitleFailing
               }
             >
@@ -182,11 +182,11 @@ const ReleaseBox = ({
                 {timestamp}
               </time>
             </div>
-            <div name="release-badges" className={releaseBadges}>
+            <div name="release-badges" css={releaseBadges}>
               <span
                 name="releasebox-passing"
                 data-testid="release-box-passing"
-                className={passed === "true" ? passingText : failingText}
+                css={passed === "true" ? passingText : failingText}
               >
                 {passing} / {total} checks
               </span>

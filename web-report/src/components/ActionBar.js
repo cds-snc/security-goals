@@ -44,7 +44,7 @@ const ActionBar = ({
   keyDownTop
 }) => {
   return (
-    <div name="action-bar" className={actions}>
+    <div name="action-bar" css={actions}>
       {back2top === false ? (
         <PrintButton link={`/${pdf}/${id}`} />
       ) : (

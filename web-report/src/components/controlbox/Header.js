@@ -61,7 +61,7 @@ export const Header = ({
   return (
     <div data-testid="top-container" className={topInfo}>
       <h2
-        className={
+        css={
           status === "true" && titleColour === true
             ? passingTitle
             : status === "false" && titleColour === true
@@ -77,7 +77,7 @@ export const Header = ({
         <span
           name="passing-badge"
           data-testid="control-box-pass"
-          className={passingText}
+          css={passingText}
         >
           Passed
         </span>
@@ -85,7 +85,7 @@ export const Header = ({
         <span
           name="failing-badge"
           data-testid="control-box-fail"
-          className={failingText}
+          css={failingText}
         >
           Failed
         </span>

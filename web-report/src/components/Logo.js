@@ -19,13 +19,13 @@ const logoSVG = css`
 
 export const Logo = ({ style }) => {
   return (
-    <div className={style}>
+    <div css={style}>
       <svg
         data-testid="cds-logo"
         xmlns="http://www.w3.org/2000/svg"
         id="CDS Logo White Outline"
         viewBox="0 0 144 144"
-        className={logoSVG}
+        css={logoSVG}
       >
         <path data-testid="logo-path-1" d="M0 0h144v144H0z" />
         <path

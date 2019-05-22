@@ -169,7 +169,7 @@ export const GridSingleRelease = ({
               }, press spacebar to enter the group and use your arrow keys to navigate through the list items`}
               key={item.release}
               name="grid"
-              className={grid}
+              css={grid}
             >
               {item.controls.map(controls => {
                 const controlID = controls.control;
@@ -243,7 +243,7 @@ export const GridSingleRelease = ({
   }
   if (!releases) {
     return (
-      <p className={errorMessage} data-testid="error-message">
+      <p css={errorMessage} data-testid="error-message">
         <strong>
           Sorry, something went wrong. No controls could be rendered.
         </strong>

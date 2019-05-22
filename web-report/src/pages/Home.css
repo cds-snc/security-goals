@@ -1,33 +1,21 @@
-.Home {
-  text-align: center;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fafafa;
+  font-family: -apple-system, system-ui, arial;
+  font-weight: 400;
+  color: #444;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.Home-logo {
-  animation: Home-logo-spin infinite 20s linear;
-  height: 80px;
+* {
+  box-sizing: border-box;
 }
 
-.Home-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.Home-intro {
-  font-size: large;
-}
-
-.Home-resources {
-  list-style: none;
-}
-
-.Home-resources > li {
-  display: inline-block;
-  padding: 1rem;
-}
-
-@keyframes Home-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+#app {
+  height: 100%;
 }

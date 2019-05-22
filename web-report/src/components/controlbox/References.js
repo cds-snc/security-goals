@@ -29,7 +29,7 @@ export const References = ({
     passing = "Verification failed:";
   }
   return (
-    <p data-testid="references" className={references}>
+    <p data-testid="references" css={references}>
       <strong>Reference(s): </strong>
       <a
         aria-label={`${passing} ${timestamp}, description of check: ${description}, verification reference: ${text}, component category: ${component}`}
