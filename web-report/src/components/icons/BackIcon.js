@@ -1,3 +1,6 @@
+
+import React from "react";
+
 export const BackIcon = ({ fill = "#FFF" }) => {
   return (
     <svg

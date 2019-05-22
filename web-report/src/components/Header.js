@@ -2,7 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
-//import { ActionBar } from "../components";
+import ActionBar from "../components/ActionBar";
 
 const bar = css`
   background: ${theme.colour.blackLight};
@@ -73,7 +73,7 @@ const Header = ({ pdf = "", id = "" }) => (
       <h1 data-testid="main-header-h1">Are we compliant yet?</h1>
       <Logo alt="CDS Logo" style={logo} />
       <div css={actions}>
-        { /* <ActionBar pdf={pdf} id={id} /> */ }
+        <ActionBar pdf={pdf} id={id} />
       </div>
     </div>
   </header>
