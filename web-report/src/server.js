@@ -3,6 +3,7 @@ import React from "react";
 import { StaticRouter } from "react-router-dom";
 import express from "express";
 import { renderToString } from "react-dom/server";
+import { renderStylesToString } from 'emotion-server'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -12,11 +13,11 @@ server
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get("/*", (req, res) => {
     const context = {};
-    const markup = renderToString(
+    const markup = renderStylesToString(renderToString(
       <StaticRouter context={context} location={req.url}>
         <App />
       </StaticRouter>
-    );
+    ));
 
     if (context.url) {
       res.redirect(context.url);

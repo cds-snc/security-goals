@@ -11,7 +11,10 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "babel-plugin-emotion": "^10.0.9",
+    "date-fns": "^1.30.1",
     "dotenv": "^8.0.0",
+    "emotion": "^10.0.9",
+    "emotion-server": "^10.0.9",
     "express": "^4.17.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
