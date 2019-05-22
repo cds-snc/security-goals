@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const releaseSchema = new mongoose.Schema(
   {
     release: String,

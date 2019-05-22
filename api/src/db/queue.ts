@@ -2,10 +2,10 @@ const q = {
   items: [],
   maxItems: 1,
   current: 0,
-  setItems: function(arr) {
+  setItems: (arr: any[]) => {
     this.items = arr
   },
-  doAction: function(cb) {
+  doAction: (cb) => {
     let items = this.getItems()
 
     if (items === false) {
@@ -15,7 +15,7 @@ const q = {
 
     cb(items[0])
   },
-  getItems: function() {
+  getItems: () => {
     const arr = this.items.slice(this.current, this.maxItems + this.current)
     this.current += this.maxItems
 
@@ -24,7 +24,7 @@ const q = {
     }
 
     return false
-  },
+  }
 }
 
 module.exports.q = q

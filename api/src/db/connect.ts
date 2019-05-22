@@ -1,12 +1,22 @@
+import { Connection } from "mongoose";
+
 const mongoose = require('mongoose')
+
 mongoose.set('useFindAndModify', false)
 mongoose.set('bufferCommands', false)
 
-const connect = async (uri, user = '', password = '') => {
-  const mongodbUri = uri
+interface ConnectOptions {
+  useNewUrlParser: boolean;
+  auth?: {};
+}
+
+const connect = async (uri: string, user:string = "", password:string = ""): Promise<Connection | void> => {
+
+  const mongodbUri:string = uri
   let connect = null
+
   try {
-    const options = {
+    const options: ConnectOptions = {
       useNewUrlParser: true,
     }
 
