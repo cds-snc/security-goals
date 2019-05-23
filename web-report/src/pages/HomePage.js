@@ -18,7 +18,6 @@ class HomePage extends React.Component {
 
   componentDidMount = async () => {
     const data = await releaseStatus();
-    console.log(data);
     this.setState({ data: data.releases });
   };
 

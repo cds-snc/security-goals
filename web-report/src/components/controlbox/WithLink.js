@@ -1,10 +1,7 @@
-//import Link from "next/link";
+/** @jsx jsx */
 import React from "react";
+import { jsx, css } from "@emotion/core";
 import { Link } from "react-router-dom";
-
-const Link = () => {
-  return null;
-};
 
 export const WithLink = ({ children, id, link, keyDownSingleRelease }) => {
   const url = `/controls/${id}`;

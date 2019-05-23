@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react";
 import { jsx, css } from "@emotion/core";
 import { ControlBox } from "./index";
 import { theme, mediaQuery } from "./styles";
@@ -81,7 +82,7 @@ const greenBG = css`
   }
 
   p {
-    margin: 0 0 ${theme.spacing.md} 0;
+    margin: 0 0 ${theme.spacing.md} 1.5em;
     font-size: ${theme.font.md};
     line-height: 1.5;
   }
@@ -149,7 +150,7 @@ const errorMessage = css`
 `;
 
 export const GridSingleRelease = ({
-  releases: { releases } = {},
+  releases: releases = {},
   link = false,
   tab,
   keyDownSingleRelease,
@@ -285,7 +286,7 @@ export const GridDetails = ({
                 tabIndex="0"
                 onKeyDown={keyDownUL}
                 name="grid"
-                className={grid}
+                css={grid}
                 aria-label={`${controlTitle} Control list for release #: ${
                   item.release
                 }, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
@@ -295,7 +296,7 @@ export const GridDetails = ({
                   return (
                     <div
                       key={`${cbContainer} - ${index}`}
-                      className={cbContainer}
+                      css={cbContainer}
                     >
                       {controls.verifications.map((verifications, index) => {
                         const check =
@@ -333,7 +334,7 @@ export const GridDetails = ({
   }
   if (!releases) {
     return (
-      <p className={errorMessage} data-testid="error-message">
+      <p css={errorMessage} data-testid="error-message">
         <strong>
           Sorry, something went wrong. No controls could be rendered.
         </strong>

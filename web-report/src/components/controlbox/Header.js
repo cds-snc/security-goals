@@ -59,7 +59,7 @@ export const Header = ({
   formattedDate
 }) => {
   return (
-    <div data-testid="top-container" className={topInfo}>
+    <div data-testid="top-container" css={topInfo}>
       <h2
         css={
           status === "true" && titleColour === true

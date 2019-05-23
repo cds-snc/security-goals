@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import { GridDetails, Spinner, BackIcon } from "./";
-import { css } from "emotion";
+import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
 

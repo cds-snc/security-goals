@@ -8,7 +8,7 @@ import "./App.css";
 const App = () => (
   <Switch>
     <Route exact={true} path="/" component={HomePage} />
-    <Route exact={true} path="/singlerelease/*" component={ReleasePage} />
+    <Route exact={true} path="/singlerelease/:controlParam" component={ReleasePage} />
   </Switch>
 );
 

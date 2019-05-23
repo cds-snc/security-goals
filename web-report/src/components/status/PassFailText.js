@@ -1,4 +1,6 @@
-import { css } from "emotion";
+/** @jsx jsx */
+import React from "react";
+import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../styles";
 
 const container = css`
@@ -30,10 +32,10 @@ const isReadyText = css`
 
 export const PassFailText = ({ status = { passed: 0, total: -1 } }) => {
   return (
-    <div className={container}>
-      {status.releases.map(release => {
+    <div css={container}>
+      {status.map(release => {
         return (
-          <h2 key="passFail" data-testid="status-text" className={isReadyText}>
+          <h2 key="passFail" data-testid="status-text" css={isReadyText}>
             {release.passed === "true"
               ? "All the checks have passed"
               : "Some checks have failed"}

@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from "react";
-import { css } from "emotion";
+import { jsx, css } from "@emotion/core";
 import { Count, PassFailText } from "../index";
 import { theme, roundedEdges, mediaQuery } from "../styles";
 
@@ -43,7 +44,7 @@ const IsReady = ({ data, statusRef }) => {
   if (data) {
     return (
       <div>
-        {data.releases.map(release => {
+        {data.map(release => {
           return (
             <div
               data-testid="status-bar"
@@ -64,7 +65,7 @@ const IsReady = ({ data, statusRef }) => {
   }
   if (!data) {
     return (
-      <p className={errorMessage} data-testid="error-message">
+      <p css={errorMessage} data-testid="error-message">
         <strong>
           Sorry, something went wrong. The status of the release could not be
           found.

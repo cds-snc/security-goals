@@ -1,4 +1,6 @@
-import { css } from "emotion";
+/** @jsx jsx */
+import React from "react";
+import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../styles";
 
 const stats = css`
@@ -24,7 +26,7 @@ export const Count = ({ status }) => {
   if (status) {
     return (
       <div css={stats} data-testid="total">
-        {status.releases.map(release => {
+        {status.map(release => {
           return (
             <span key="count">
               {release.passing} of {release.total} passing

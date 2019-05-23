@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import React from "react";
+import { jsx, css } from "@emotion/core";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { WithLink } from "./WithLink";
