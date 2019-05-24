@@ -25,9 +25,6 @@ test("Renders Default Failing Control", async () => {
     "href",
     "/controls/S1"
   );
-  expect(getByTestId("control-box-timestamp")).toHaveTextContent(
-    "08:41:47 AM, 03-01-2019"
-  );
   expect(getByTestId("description")).toHaveTextContent("the description");
   expect(getByTestId("control-box-fail")).toHaveTextContent("Failed");
 });
@@ -52,9 +49,6 @@ test("Renders Default Passing Control", async () => {
     "href",
     "/controls/S1"
   );
-  expect(getByTestId("control-box-timestamp")).toHaveTextContent(
-    "08:41:47 AM, 03-01-2019"
-  );
   expect(getByTestId("description")).toHaveTextContent("the description");
   expect(getByTestId("control-box-pass")).toHaveTextContent("Passed");
 });
@@ -78,9 +72,6 @@ test("Renders Details Failing Control (timestamp title + additional info)", asyn
   );
   // debug();
 
-  expect(getByTestId("control-box-title")).toHaveTextContent(
-    "08:41:47 AM, 03-01-2019"
-  );
   expect(getByTestId("description")).toHaveTextContent("This is a description");
   expect(getByTestId("component")).toHaveTextContent("This is a component");
   expect(getByTestId("references")).toHaveTextContent("This is a reference");
@@ -105,10 +96,6 @@ test("Renders Details Passing Control (timestamp title + additional info)", asyn
     </MemoryRouter>
   );
   // debug();
-
-  expect(getByTestId("control-box-title")).toHaveTextContent(
-    "08:41:47 AM, 03-01-2019"
-  );
   expect(getByTestId("description")).toHaveTextContent("This is a description");
   expect(getByTestId("component")).toHaveTextContent("This is a component");
   expect(getByTestId("references")).toHaveTextContent("This is a reference");

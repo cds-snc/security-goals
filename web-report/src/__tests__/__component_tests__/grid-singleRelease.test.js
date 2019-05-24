@@ -24,7 +24,6 @@ test("Single Release Grid w/ Data renders controls", async () => {
   expect(controlBoxLinks).toHaveLength(29);
 
   expect(controlBoxTitles[0]).toHaveTextContent("AU-6");
-  expect(controlBoxTimestamps[0]).toHaveTextContent("08:41:47 AM, 03-01-2019");
   expect(controlBoxLinks[0]).toHaveAttribute("href", "/controls/AU-6");
 });
 

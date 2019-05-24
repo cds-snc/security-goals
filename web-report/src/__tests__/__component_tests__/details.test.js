@@ -33,7 +33,6 @@ test("Details page renders control boxes from input data", async () => {
   expect(controlBoxes).toHaveLength(27);
 
   expect(controlBoxTitles).toHaveLength(27);
-  expect(controlBoxTitles[0]).toHaveTextContent("10:28:17 AM, 11-02-2019");
 
   expect(references).toHaveLength(27);
   expect(references[0]).toHaveTextContent(

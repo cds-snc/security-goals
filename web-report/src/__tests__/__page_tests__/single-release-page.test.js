@@ -56,7 +56,6 @@ test("Renders Single Release Page with status bar and control boxes (w/ data)", 
   expect(controlBoxTitles[0]).toHaveTextContent("AU-6");
 
   expect(controlBoxTimestamps).toHaveLength(29);
-  expect(controlBoxTimestamps[0]).toHaveTextContent("08:41:47 AM, 03-01-2019");
 
   expect(getByTestId("back-to-top")).toHaveTextContent("Back To Top of Page");
   expect(getByTestId("back-to-top")).toHaveAttribute(

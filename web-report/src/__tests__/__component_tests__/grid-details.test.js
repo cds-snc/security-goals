@@ -33,7 +33,6 @@ test("Details Grid (w/ Data) renders controls (Timestamp as Title separated by R
   expect(controlBoxes).toHaveLength(1);
 
   expect(controlBoxTitles).toHaveLength(1);
-  expect(controlBoxTitles[0]).toHaveTextContent("08:41:43 AM, 03-01-2019");
 
   expect(references).toHaveLength(1);
   expect(references[0]).toHaveTextContent(
