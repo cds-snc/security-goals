@@ -7,7 +7,7 @@ const server = http.createServer(app);
 let currentApp = app;
 
 const getEnv = c => process.env[c];
-const port = getEnv('PORT')
+const port = getEnv('PORT') || 3000
 
 server.listen(port, error => {
   if (error) {

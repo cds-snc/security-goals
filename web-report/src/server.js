@@ -11,7 +11,7 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 server
   .disable("x-powered-by")
-  .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+  .use(express.static(runtimeConfig.relative_path + process.env.RAZZLE_PUBLIC_DIR))
   .get("/*", (req, res) => {
     const context = {};
     const markup = renderStylesToString(renderToString(
@@ -29,18 +29,18 @@ server
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8" />
-        <title>Welcome to Razzle</title>
+        <title>Security Goals Web Report</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${
           assets.client.css
-            ? `<link rel="stylesheet" href="${assets.client.css}">`
+            ? `<link rel="stylesheet" href="${runtimeConfig.relative_path}${assets.client.css}">`
             : ""
         }
         <script>window.env = ${serialize(runtimeConfig)};</script>  
         ${
           process.env.NODE_ENV === "production"
-            ? `<script src="${assets.client.js}" defer></script>`
-            : `<script src="${assets.client.js}" defer crossorigin></script>`
+            ? `<script src="${runtimeConfig.relative_path}${assets.client.js}" defer></script>`
+            : `<script src="${runtimeConfig.relative_path}${assets.client.js}" defer crossorigin></script>`
         }
     </head>
     <body>
