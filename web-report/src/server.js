@@ -4,7 +4,8 @@ import { StaticRouter } from "react-router-dom";
 import express from "express";
 import { renderToString } from "react-dom/server";
 import { renderStylesToString } from 'emotion-server'
-
+import serialize from 'serialize-javascript';
+import { runtimeConfig } from './config';
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const server = express();
@@ -35,6 +36,7 @@ server
             ? `<link rel="stylesheet" href="${assets.client.css}">`
             : ""
         }
+        <script>window.env = ${serialize(runtimeConfig)};</script>  
         ${
           process.env.NODE_ENV === "production"
             ? `<script src="${assets.client.js}" defer></script>`
