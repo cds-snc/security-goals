@@ -1,7 +1,7 @@
 /** @jsx jsx */
+import React from "react";
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../components/styles";
-import React from "react";
 import { UpArrowCircle } from "../components/icons/UpArrowCircle";
 import { MainDescription } from "./";
 
@@ -102,7 +102,7 @@ export class Collapsible extends React.Component {
   }
 
   render() {
-    const { title, description, control } = this.props;
+    const { title, description = [], control } = this.props;
     var newDescription;
 
     if (description.length === 0) {

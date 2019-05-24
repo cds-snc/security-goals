@@ -20,6 +20,7 @@ const print = css`
 `;
 
 export const PrintButton = ({ link = "", id = "" }) => {
+  /*
   return (
     <a
       data-testid="print-link"
@@ -32,4 +33,6 @@ export const PrintButton = ({ link = "", id = "" }) => {
       <span data-testid="print-message">Print this page (PDF)</span>
     </a>
   );
+  */
+ return ""
 };

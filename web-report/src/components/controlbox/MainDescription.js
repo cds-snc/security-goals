@@ -1,3 +1,5 @@
+import React from "react";
+
 const outputDescription = text => {
   return {
     __html: formatDescription(text)

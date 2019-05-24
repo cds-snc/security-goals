@@ -73,7 +73,7 @@ class ReleasePage extends React.Component {
   }
 
   componentDidMount = async () => {
-    const data = await controlStatus(this.props.match.params.controlParam);
+    const data = await controlStatus(this.props.match.params.releaseId);
     this.setState({ data: data.releases });
   };
 

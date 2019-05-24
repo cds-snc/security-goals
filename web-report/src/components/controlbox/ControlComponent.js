@@ -1,3 +1,7 @@
+/** @jsx jsx */
+import React from "react";
+import { jsx } from "@emotion/core";
+
 export const ControlComponent = ({ component }) => {
   if (!component) return null;
   return (
