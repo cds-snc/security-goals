@@ -7,6 +7,8 @@ steps:
     dir: web-report
     entrypoint: npm
     args: ['test']
+    env:
+    - 'CI=true'
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'web-report'
     args:
