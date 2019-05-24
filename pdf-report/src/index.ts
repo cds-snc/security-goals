@@ -18,7 +18,7 @@ app.get("*/ready", (req: express.Request, res: express.Response): void => {
   res.status(200).send("yes");
 });
 
-app.get(`*/report`, async (req: express.Request, res: express.Response): Promise<void> => {
+app.get(`*/`, async (req: express.Request, res: express.Response): Promise<void> => {
   const controls = await fetchControls();
   const release = await fetchRelease();
 
