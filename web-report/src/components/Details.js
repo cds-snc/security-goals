@@ -229,11 +229,6 @@ const center = css`
 `;
 
 export const Details = ({ data, sortedData, err, id, keyDownDetails, keyDownUL }) => {
-  /*
-  This array will contain the sorted data based on the verifications.passed = false
-  */
-
-
   return (
     <div data-testid="details" css={details}>
       <div css={detailsWrap}>

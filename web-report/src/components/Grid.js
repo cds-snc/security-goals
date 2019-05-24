@@ -150,13 +150,13 @@ const errorMessage = css`
 `;
 
 export const GridSingleRelease = ({
-  releases: releases = {},
+  releases: releases = [],
   link = false,
   tab,
   keyDownSingleRelease,
   keyDownUL
 }) => {
-  if (releases) {
+  if (releases.length > 0) {
     return (
       <div>
         {releases.map(item => {
@@ -242,7 +242,7 @@ export const GridSingleRelease = ({
       </div>
     );
   }
-  if (!releases) {
+  if (releases.length == 0) {
     return (
       <p css={errorMessage} data-testid="error-message">
         <strong>
