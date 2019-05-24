@@ -3,6 +3,7 @@ import React from "react";
 import { jsx, css } from "@emotion/core";
 import { ControlBox } from "./index";
 import { theme, mediaQuery } from "./styles";
+import { runtimeConfig } from '../config';
 
 const grid = css`
   display: flex;
@@ -277,7 +278,7 @@ export const GridDetails = ({
                   item.release
                 }, click or press 'Enter' to navigate to the release page
             , or tab to view the ${controlTitle} control history for this release`}
-                href={`/singlerelease/${item.release}`}
+                href={`${runtimeConfig.relative_path}/singlerelease/${item.release}`}
               >
                 <h1 name="history-h1">Release #{item.release}</h1>
               </a>

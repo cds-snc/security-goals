@@ -5,6 +5,7 @@ import { IsReady, GridSingleRelease, Failed, BackIcon } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import { controlStatus } from "../../api/index";
+import { runtimeConfig } from '../config';
 
 const back = css`
   display: inline-block;
@@ -148,7 +149,7 @@ class ReleasePage extends React.Component {
     return (
       <Layout>
         <div data-testid="home" css={singleReleasePage}>
-          <a data-testid="back-button" name="back" href="/" css={back}>
+          <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
             <BackIcon fill={theme.colour.blackLight} />
             <span name="back-text">Back to home</span>
           </a>
@@ -161,7 +162,7 @@ class ReleasePage extends React.Component {
             link={true}
             keyDown={this.keyHandler}
           />
-          <a data-testid="back-button" name="back" href="/" css={back}>
+          <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
             <BackIcon fill={theme.colour.blackLight} />
             <span name="back-text">Back to home</span>
           </a>

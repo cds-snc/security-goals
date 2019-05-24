@@ -4,6 +4,7 @@ import { GridDetails, Spinner, BackIcon } from "./";
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
+import { runtimeConfig } from '../config';
 
 const controlInfo = css`
   border: 1px solid ${theme.colour.grayOutline};
@@ -234,7 +235,7 @@ export const Details = ({ data, sortedData, err, id, keyDownDetails, keyDownUL }
       <div css={detailsWrap}>
         {id && (
           <React.Fragment>
-            <a data-testid="back-button" name="back" href="/" css={back}>
+            <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
               <BackIcon fill={theme.colour.blackLight} />
               <span name="back-text">Back to home</span>
             </a>
@@ -263,7 +264,7 @@ export const Details = ({ data, sortedData, err, id, keyDownDetails, keyDownUL }
             <a
               data-testid="back-button"
               name="back"
-              href="/"
+              href={`${runtimeConfig.relative_path}/`}
               css={backBottom}
             >
               <BackIcon fill={theme.colour.blackLight} />

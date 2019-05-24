@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../components/styles";
 import ReleaseBox from "../components/ReleaseBox";
 import { formatTimestamp } from "../util";
+import { runtimeConfig } from '../config';
 
 const releases = css`
   margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
@@ -64,7 +65,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
               keyDownAllReleases={keyDownAllReleases}
               passing={singleRelease.passing}
               total={singleRelease.total}
-              link={`/singlerelease/${key}`}
+              link={`${runtimeConfig.relative_path}/singlerelease/${key}`}
               key={singleRelease.release}
             />
           );
