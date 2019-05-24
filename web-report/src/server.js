@@ -11,7 +11,7 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 server
   .disable("x-powered-by")
-  .use(express.static(runtimeConfig.relative_path + process.env.RAZZLE_PUBLIC_DIR))
+  .use(runtimeConfig.relative_path, express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get("/*", (req, res) => {
     const context = {};
     const markup = renderStylesToString(renderToString(
