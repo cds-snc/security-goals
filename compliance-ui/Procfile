@@ -1,1 +1,0 @@
-web: cd compliance-ui && npm run start
