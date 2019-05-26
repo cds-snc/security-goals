@@ -2,6 +2,10 @@
 
 [![Phase](https://img.shields.io/badge/Phase-Alpha-f90277.svg)](https://digital.canada.ca/products/)
 
+### Demo
+
+A demo can be found here: [https://github.com/cds-snc/security-goals-demo](https://github.com/cds-snc/security-goals-demo)
+
 ### Purpose
 
 The purpose of this tool is to automate compliance checking for Kubernetes based applications. It assumes that certain aspects of compliance such as security and accessibility can be validated through automation, and therefore run at every deployment of the application. It leverages the introspectability of the Kubernetes cluster as well as multitude of external APIs that expose such information (ex. The GitHub API exposes data around code review).
@@ -21,9 +25,10 @@ The tools is built using the following components:
 
 | Name               | Description                                                                        | Fully documented |
 | ------------------ | ---------------------------------------------------------------------------------- | ---------------- |
-| compliance-api     | Ingress checks and serves them up through a GraphQL API                            | No               |
-| compliance-ui      | A user interface to explore data from the API                                      | No               |
-| compliance-watcher | A tool to run compliance checks inside a Kubernetes cluster                        | Yes              |
+| api                | Ingress checks and serves them up through a GraphQL API                            | No               |
+| pdf-report         | A PDF report of complaince data                                                    | No               |
+| web-report         | A user interface to explore data from the API                                      | No               |
+| runner             | A tool to run compliance checks inside a Kubernetes cluster                        | Yes              |
 | [security-goals-checks](https://github.com/cds-snc/security-goals-checks)  | A set of security goals check containers that do the actual checking | Yes              |
 
 ### Goals for the tool
