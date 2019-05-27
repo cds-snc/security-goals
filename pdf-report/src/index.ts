@@ -10,6 +10,7 @@ export const app: express.Application = express();
 
 const port: number = parseInt(process.env.PORT, 10) || 3000;
 
+
 app.get("*/alive", (req: express.Request, res: express.Response): void => {
   res.status(200).send("yes");
 });
@@ -18,9 +19,10 @@ app.get("*/ready", (req: express.Request, res: express.Response): void => {
   res.status(200).send("yes");
 });
 
-app.get(`*/`, async (req: express.Request, res: express.Response): Promise<void> => {
+app.get([`*/:id`, `*/`], async (req: express.Request, res: express.Response): Promise<void> => {
+
   const controls = await fetchControls();
-  const release = await fetchRelease();
+  const release = await fetchRelease(req.params.id);
 
   const filename = `security-goals-${Date.now()}.pdf`;
 

@@ -10,8 +10,11 @@ export const fetchControls = async () => {
   return controlList;
 };
 
-export const fetchRelease = async () => {
-  const releaseId = await lastReleaseId();
+export const fetchRelease = async (id?: string) => {
+  let releaseId = id;
+  if (!releaseId) {
+    releaseId = await lastReleaseId();
+  }
   const release = releaseData(releaseId);
   return release;
 };
