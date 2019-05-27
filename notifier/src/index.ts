@@ -19,7 +19,7 @@ app.get("*/ready", (req: express.Request, res: express.Response): void => {
 
 app.get(`*/`, async (req: express.Request, res: express.Response): Promise<void> => {
   const release = await fetchRelease();
-  if(release.passed === "false"){
+  if(release.passed === "false" && process.env.SLACK_WEBHOOK){
     notifySlack(release);
   }
   res.status(200).send("OK");
