@@ -3,11 +3,15 @@ import request = require("graphql-request");
 export const fetchControls = async () => {
   const query = `{controls{id name description}}`;
   const controls = await fetch(query);
-  const controlList: { [key: string]: {name: string, description: string} } = {};
-  controls.controls.forEach((c: { [key: string]: string; }) => {
-    controlList[c.id] = {name: c.name, description: c.description};
-  });
-  return controlList;
+  if (controls) {
+    const controlList: { [key: string]: {name: string, description: string} } = {};
+    controls.controls.forEach((c: { [key: string]: string; }) => {
+      controlList[c.id] = {name: c.name, description: c.description};
+    });
+    return controlList;
+  } else {
+    return false;
+  }
 };
 
 export const fetchRelease = async (id?: string) => {
@@ -15,14 +19,22 @@ export const fetchRelease = async (id?: string) => {
   if (!releaseId) {
     releaseId = await lastReleaseId();
   }
-  const release = releaseData(releaseId);
-  return release;
+  if (releaseId) {
+    const release = releaseData(releaseId);
+    return release;
+  } else {
+    return false;
+  }
 };
 
 const lastReleaseId = async () => {
   const query = `query{releases{release}}`;
   const releases = await fetch(query);
-  return releases.releases[0].release;
+  if (releases) {
+    return releases.releases[0].release;
+  } else {
+    return false;
+  }
 };
 
 const releaseData = async (releaseId: string) => {
@@ -51,7 +63,7 @@ const releaseData = async (releaseId: string) => {
   return release.releases[0];
 };
 
-const fetch = async (query: string) => {
+const fetch = async (query: string): Promise<any> => {
   const endpoint = process.env.API_URL;
 
   if (!endpoint && String(process.env.NODE_ENV) !== "test") {
@@ -61,7 +73,7 @@ const fetch = async (query: string) => {
 
   const data = await request.request(endpoint, query).catch((err) => {
     console.error(err.message);
-    return err;
+    return false;
   });
 
   return data;
