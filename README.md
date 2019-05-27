@@ -59,3 +59,6 @@ Following is a graphical representation of the same flow:
 ### Questions?
 
 Please contact us through any of the multiple ways listed on our [website](https://digital.canada.ca/).
+
+![Compliance Sheriff](https://user-images.githubusercontent.com/867334/58421189-5a7d8480-805d-11e9-8cfb-cff5b04cf62d.png)
+
