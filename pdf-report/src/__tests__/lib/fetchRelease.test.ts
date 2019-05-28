@@ -43,6 +43,7 @@ test("fetchControls returns all controls in the API", async () => {
     .reply(200, {"data":{"controls":[{"id":"AC-1","name":"Access Control Policy And Procedures","description":"DESC"}]}});
 
   const controlResult = await fetchControls();
+  console.log(controlResult)
   expect(controlResult).not.toEqual(false);
   expect(controlResult.hasOwnProperty("AC-1")).toEqual(true);
 });
