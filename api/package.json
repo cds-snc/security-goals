@@ -58,11 +58,5 @@
     "prettier": "^1.17.1",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test && lint-staged",
-      "pre-push": "npm test"
-    }
   }
 }
