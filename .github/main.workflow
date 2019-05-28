@@ -4,7 +4,7 @@ workflow "test" {
     "test notifier",
     "test pdf-report",
     "test runner",
-    "test web-report"
+    "test web-report",
   ]
   on = "push"
 }
@@ -62,5 +62,7 @@ action "test web-report" {
   uses = "docker://culturehq/actions-yarn:latest"
   needs = ["install web-report"]
   args = "--cwd web-report test"
+  env = {
+    CI = "true"
+  }
 }
-
