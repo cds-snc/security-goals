@@ -2,10 +2,10 @@ workflow "test" {
   resolves = [
     "test api",
     "test notifier",
-    "test performance-index"
+    "test performance-index",
     "test pdf-report",
     "test runner",
-    "test web-report",
+    "test web-report"
   ]
   on = "push"
 }
