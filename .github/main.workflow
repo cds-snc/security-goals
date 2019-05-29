@@ -2,6 +2,7 @@ workflow "test" {
   resolves = [
     "test api",
     "test notifier",
+    "test performance-index"
     "test pdf-report",
     "test runner",
     "test web-report",
@@ -62,6 +63,20 @@ action "test web-report" {
   uses = "docker://culturehq/actions-yarn:latest"
   needs = ["install web-report"]
   args = "--cwd web-report test"
+  env = {
+    CI = "true"
+  }
+}
+
+action "install performance-index" {
+  uses = "docker://culturehq/actions-yarn:latest"
+  args = "--cwd performance-index install"
+}
+
+action "test performance-index" {
+  uses = "docker://culturehq/actions-yarn:latest"
+  needs = ["install performance-index"]
+  args = "--cwd performance-index test"
   env = {
     CI = "true"
   }
