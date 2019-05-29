@@ -4,6 +4,7 @@ import { modifyJob } from "./modifyJob";
 import RunLock from "./RunLock";
 import { uniqueArray } from "../lib/getUnique";
 import { V1DeleteOptions } from "@kubernetes/client-node";
+import { executeWebhook } from "./executeWebhook";
 
 async function asyncForEach(
   array: any[],
@@ -61,7 +62,7 @@ export const runJobs = async (): Promise<void> => {
     await jobsApi.createNamespacedJob(namespace, body);
   });
 
-  // console.log("runJobs done unlock", RunLock.locked);
+  await executeWebhook();
   RunLock.locked = false;
   return;
 };
