@@ -70,7 +70,7 @@ class ReleasePage extends React.Component {
     super(props);
     this.keyHandlerSingleRelease = this.keyHandlerSingleRelease.bind(this);
     this.keyHandlerUL = this.keyHandlerUL.bind(this);
-    this.state = { data: [] };
+    this.state = { data: [], releaseId: props.match.params.releaseId };
   }
 
   componentDidMount = async () => {
@@ -145,9 +145,9 @@ class ReleasePage extends React.Component {
   }
 
   render() {
-    const { data } = this.state;
+    const { data, releaseId } = this.state;
     return (
-      <Layout>
+      <Layout pdf={releaseId}>
         <div data-testid="home" css={singleReleasePage}>
           <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
             <BackIcon fill={theme.colour.blackLight} />

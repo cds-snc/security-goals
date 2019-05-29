@@ -9,6 +9,9 @@ jest.mock("../../../api/index", () => ({
   controlStatus: jest.fn()
 }));
 
+jest.mock("../../../src/config", () => ({
+  runtimeConfig: {relative_path: "", pdf_report_url: "https://foo/"}
+}));
 
 const SingleReleasePage = require("../../pages/ReleasePage").default;
 
@@ -30,15 +33,15 @@ test("Renders Single Release Page with status bar and control boxes (w/ data)", 
   expect(getByTestId("main-header-h1")).toHaveTextContent(
     "Are we compliant yet?"
   );
-  /*
+  
   expect(getByTestId("print-message")).toHaveTextContent(
     "Print this page (PDF)"
   );
   expect(getByTestId("print-link")).toHaveAttribute(
     "href",
-    "/pdf-singlerelease/1546522884800/"
+    "https://foo/1546522884800"
   );
-  */
+  
   expect(getByTestId("cds-logo")).toHaveAttribute(
     "id",
     "CDS Logo White Outline"

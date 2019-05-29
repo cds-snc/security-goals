@@ -8,12 +8,17 @@ jest.mock("../../../api/index", () => ({
   detailStatus: jest.fn()
 }));
 
+jest.mock("../../../src/config", () => ({
+  runtimeConfig: {relative_path: "", pdf_report_url: "https://foo"}
+}));
+
 const DetailsPage = require("../../pages/DetailsPage").default;
 
 afterEach(cleanup); // <-- add this
 
 test("Renders DetailsPage", async () => {
   detailStatus.mockReturnValue(dataDetails)
+
   const { getByTestId, getAllByTestId } = render(
     <DetailsPage controlParam="SA-11" match={{params: {controlId: "SA-11"}}}/>
   );
@@ -27,15 +32,16 @@ test("Renders DetailsPage", async () => {
   expect(getByTestId("main-header-h1")).toHaveTextContent(
     "Are we compliant yet?"
   );
-  /*
+  
   expect(getByTestId("print-message")).toHaveTextContent(
     "Print this page (PDF)"
-  );
+  )
+
   expect(getByTestId("print-link")).toHaveAttribute(
     "href",
-    "/pdf-details/SA-11/"
+    "https://foo"
   );
-  */
+  
   expect(getByTestId("cds-logo")).toHaveAttribute(
     "id",
     "CDS Logo White Outline"
