@@ -5,6 +5,7 @@ import express from "express";
 import { renderToString } from "react-dom/server";
 import { renderStylesToString } from 'emotion-server'
 import serialize from 'serialize-javascript';
+require('dotenv').config()
 import { runtimeConfig } from './config';
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
