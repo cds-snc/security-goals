@@ -57,10 +57,10 @@ class Layout extends React.Component {
     }
   }
   render() {
-    const { children, pdf = "", id = "" } = this.props;
+    const { children, pdf = "" } = this.props;
     return (
       <div css={layout}>
-        <Header pdf={pdf} id={id} />
+        <Header pdf={pdf} />
         <div data-testid="layout-children" role="main" css={content}>
           {children}
         </div>

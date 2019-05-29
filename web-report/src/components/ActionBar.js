@@ -37,7 +37,6 @@ const actions = css`
 `;
 
 const ActionBar = ({
-  id = "",
   pdf = "",
   back2top = false,
   click,
@@ -46,7 +45,7 @@ const ActionBar = ({
   return (
     <div name="action-bar" css={actions}>
       {back2top === false ? (
-        <PrintButton link={`/${pdf}/${id}`} />
+        <PrintButton link={`${pdf}`} />
       ) : (
         <BackToTopButton click={click} keyDownTop={keyDownTop} />
       )}

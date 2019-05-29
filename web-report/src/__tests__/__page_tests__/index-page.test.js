@@ -9,6 +9,9 @@ jest.mock("../../../api/index", () => ({
   releaseStatus: jest.fn()
 }));
 
+jest.mock("../../../src/config", () => ({
+  runtimeConfig: {relative_path: "", pdf_report_url: "https://foo"}
+}));
 
 const ReleasesPage = require("../../pages/HomePage").default;
 
@@ -24,12 +27,12 @@ test("Renders ReleasesPage Boxes (w/ Data)", async () => {
     expect(getByTestId("main-header-h1")).toHaveTextContent(
       "Are we compliant yet?"
     );
-    /*
+
     expect(getByTestId("print-message")).toHaveTextContent(
       "Print this page (PDF)"
     );
-    expect(getByTestId("print-link")).toHaveAttribute("href", "/pdf-releases/");
-    */
+
+    expect(getByTestId("print-link")).toHaveAttribute("href", "https://foo");
 
     expect(getByTestId("cds-logo")).toHaveAttribute(
       "id",
