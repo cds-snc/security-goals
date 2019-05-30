@@ -1,5 +1,5 @@
 const forceBoolean = (val: boolean | string): boolean => {
-  return String(val).toLowerCase() == 'true'
-}
+  return String(val).toLowerCase() == "true";
+};
 
-module.exports.forceBoolean = forceBoolean
+module.exports.forceBoolean = forceBoolean;

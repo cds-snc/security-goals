@@ -4,7 +4,7 @@ const matchObjectInArray = () => {
       const pass = this.equals(
         received,
         expect.arrayContaining([expect.objectContaining(argument)]),
-      )
+      );
 
       if (pass) {
         return {
@@ -13,7 +13,7 @@ const matchObjectInArray = () => {
               received,
             )} not to contain object ${this.utils.printExpected(argument)}`,
           pass: true,
-        }
+        };
       } else {
         return {
           message: () =>
@@ -21,10 +21,10 @@ const matchObjectInArray = () => {
               received,
             )} to contain object ${this.utils.printExpected(argument)}`,
           pass: false,
-        }
+        };
       }
     },
-  }
-}
+  };
+};
 
-module.exports.matchObjectInArray = matchObjectInArray
+module.exports.matchObjectInArray = matchObjectInArray;

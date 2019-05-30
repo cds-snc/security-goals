@@ -1,6 +1,6 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel',
+  preset: "ts-jest/presets/js-with-babel",
   clearMocks: true,
-  testEnvironment: 'node',
-  roots: ['<rootDir>/src/'],
-}
+  testEnvironment: "node",
+  roots: ["<rootDir>/src/"],
+};

@@ -1,4 +1,4 @@
 {
-    "watch": ["./dist/"],
-    "ext": "js, css"
+  "watch": ["./dist/"],
+  "ext": "js, css"
 }

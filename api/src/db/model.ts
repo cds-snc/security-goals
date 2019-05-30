@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const releaseSchema = new mongoose.Schema(
   {
@@ -9,6 +9,6 @@ const releaseSchema = new mongoose.Schema(
     total: Number,
   },
   { timestamps: true },
-)
+);
 
-module.exports.releaseModel = mongoose.model('releases', releaseSchema)
+module.exports.releaseModel = mongoose.model("releases", releaseSchema);

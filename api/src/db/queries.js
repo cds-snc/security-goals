@@ -1,26 +1,26 @@
-const { releaseModel } = require('./model')
-const chalk = require('chalk')
-const log = console.log
+const { releaseModel } = require("./model");
+const chalk = require("chalk");
+const log = console.log;
 
 const note = message => {
   // @ts-ignore
-  log(chalk.black.bgGreen('\n\n' + message))
-}
+  log(chalk.black.bgGreen("\n\n" + message));
+};
 
 const getControl = async control => {
-  note(`=== get control ===`)
+  note(`=== get control ===`);
 
   // @todo update this query to target single release
   // add => { $match: { 'controls.control': control, release } },
 
   const result = await releaseModel
     .aggregate([
-      { $unwind: '$controls' },
-      { $match: { 'controls.control': control } },
+      { $unwind: "$controls" },
+      { $match: { "controls.control": control } },
       {
         $project: {
           release: 1,
-          timestamp: '$createdAt',
+          timestamp: "$createdAt",
           controls: 1,
           passed: 1,
           passing: 1,
@@ -33,78 +33,78 @@ const getControl = async control => {
         },
       },
     ])
-    .exec()
+    .exec();
 
-  return result
-}
+  return result;
+};
 
 // SAVE ==========================================
 
-const sumArray = (a, c) => a + c
+const sumArray = (a, c) => a + c;
 
 const sumReleaseControls = async results => {
   const checks = results.reduce((accumulator, item) => {
-    const verifications = item.controls.verifications
-    const keys = Object.keys(verifications)
+    const verifications = item.controls.verifications;
+    const keys = Object.keys(verifications);
     const verified = keys.filter(i => {
-      return verifications[i].passed
-    })
+      return verifications[i].passed;
+    });
 
-    let passing = 0
+    let passing = 0;
 
     if (verified.length === keys.length) {
-      passing++
+      passing++;
     }
 
-    return [...accumulator, passing]
-  }, [])
+    return [...accumulator, passing];
+  }, []);
 
-  const passing = checks.reduce(sumArray, 0)
-  const total = checks.length
-  let passed = false
+  const passing = checks.reduce(sumArray, 0);
+  const total = checks.length;
+  let passed = false;
 
   if (passing === total) {
-    passed = true
+    passed = true;
   }
 
   return {
     passed,
     passing,
     total,
-  }
-}
+  };
+};
 
 const checkExists = async obj => {
-  const result = await releaseModel.find({ release: obj.release }).exec()
-  return result
-}
+  const result = await releaseModel.find({ release: obj.release }).exec();
+  return result;
+};
 
 const saveReleaseToDB = async obj => {
-  const query = { release: obj.release }
+  const query = { release: obj.release };
 
-  const options = { upsert: true, new: true, setDefaultsOnInsert: true }
+  const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
   // find and update or insert new
   try {
-    await releaseModel.findOneAndUpdate(query, obj, options).exec()
-    await sumRelease(obj.release)
-    return
+    await releaseModel.findOneAndUpdate(query, obj, options).exec();
+    await sumRelease(obj.release);
+    return;
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message);
   }
-}
+};
 
 const unwindReleaseControls = async sha => {
   return releaseModel
-    .aggregate([{ $match: { release: sha } }, { $unwind: '$controls' }])
-    .exec()
-}
+    .aggregate([{ $match: { release: sha } }, { $unwind: "$controls" }])
+    .exec();
+};
 
 const sumRelease = async sha => {
-  const results = await unwindReleaseControls(sha)
-  const totals = await sumReleaseControls(results)
-  return updateRelease(sha, totals)
-}
+  const results = await unwindReleaseControls(sha);
+  const totals = await sumReleaseControls(results);
+  return updateRelease(sha, totals);
+};
 
 // update release with totals
 const updateRelease = async (sha, { passing, total }) => {
@@ -117,12 +117,12 @@ const updateRelease = async (sha, { passing, total }) => {
         passed: passing === total,
       },
     )
-    .exec()
-}
+    .exec();
+};
 
 module.exports = {
   getControl,
   sumRelease,
   checkExists,
   saveReleaseToDB,
-}
+};

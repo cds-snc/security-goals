@@ -1,19 +1,19 @@
 module.exports = {
-  extends: ['standard', 'prettier'],
-  plugins: ['jest'],
+  extends: ["prettier"],
+  plugins: ["jest"],
   env: {
-    'jest/globals': true,
+    "jest/globals": true,
   },
   rules: {
-    'comma-dangle': ['error', 'always-multiline'],
-    'no-unused-vars': [
-      'error',
+    "comma-dangle": ["error", "always-multiline"],
+    "no-unused-vars": [
+      "error",
       {
-        vars: 'all',
-        args: 'all',
-        varsIgnorePattern: '_',
-        argsIgnorePattern: '_',
+        vars: "all",
+        args: "all",
+        varsIgnorePattern: "_",
+        argsIgnorePattern: "_",
       },
     ],
   },
-}
+};

@@ -1,34 +1,34 @@
-const { promises: fs, constants: fsConstants } = require('fs')
-const { join } = require('path')
-const { readFile } = require('./readFile')
+const { promises: fs, constants: fsConstants } = require("fs");
+const { join } = require("path");
+const { readFile } = require("./readFile");
 
-import { note } from '../utils/note'
+import { note } from "../utils/note";
 
 export const getFiles = async (path: string = process.env.CHECKS_PATH) => {
   try {
-    await fs.access(path, fsConstants.R_OK)
+    await fs.access(path, fsConstants.R_OK);
   } catch ({ message }) {
-    throw new Error(`Checks directory isn't a readable directory: ${message}`)
+    throw new Error(`Checks directory isn't a readable directory: ${message}`);
   }
-  let files = await fs.readdir(path)
+  let files = await fs.readdir(path);
 
   if (!files) {
-    note('☠ files not found')
+    note("☠ files not found");
   }
 
-  note(`★ found ${files.length} files`)
+  note(`★ found ${files.length} files`);
 
   let jsonFiles = files
     .filter(f => f.match(/.json$/) !== null)
-    .map(f => join(path, f.match(/.json$/).input))
+    .map(f => join(path, f.match(/.json$/).input));
 
   let checks: string[] = await Promise.all(
     jsonFiles.map(async file => {
-      return readFile(file)
+      return readFile(file);
     }),
-  )
+  );
 
   return checks.map(c => {
-    return JSON.parse(c)
-  })
-}
+    return JSON.parse(c);
+  });
+};
