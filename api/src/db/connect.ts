@@ -1,4 +1,4 @@
-import { Connection } from 'mongoose'
+import { Connection } from "mongoose";
 
 const mongoose = require("mongoose");
 
@@ -12,19 +12,11 @@ interface ConnectOptions {
 
 const connect = async (
   uri: string,
-<<<<<<< HEAD
   user: string = "",
   password: string = "",
 ): Promise<Connection | void> => {
   const mongodbUri: string = uri;
   let connect = null;
-=======
-  user: string = '',
-  password: string = '',
-): Promise<Connection | void> => {
-  const mongodbUri: string = uri
-  let connect = null
->>>>>>> use chokidar
 
   try {
     const options: ConnectOptions = {
@@ -40,11 +32,7 @@ const connect = async (
 
     connect = await mongoose
       .connect(mongodbUri, options)
-<<<<<<< HEAD
       .then(() => console.log("⚡ Database connected"));
-=======
-      .then(() => console.log('⚡ Database connected'))
->>>>>>> use chokidar
   } catch (err) {
     console.error("⚠ Database connection error:", err.message);
     return false;

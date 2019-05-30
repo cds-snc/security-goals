@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import queue from "async/queue";
 import { File } from "../interfaces/File";
 import { note } from "../utils/note";
@@ -8,17 +7,6 @@ const { checkExists, saveReleaseToDB } = require("./queries");
 const merge = require("object-array-merge");
 const { forceBoolean } = require("../utils/forceBoolean");
 
-=======
-import queue from 'async/queue'
-import { File } from '../interfaces/File'
-import { note } from '../utils/note'
-
-const { getFiles } = require('./getFiles')
-const { checkExists, saveReleaseToDB } = require('./queries')
-const merge = require('object-array-merge')
-const { forceBoolean } = require('../utils/forceBoolean')
-
->>>>>>> use chokidar
 const getFileData = async () => {
   try {
     const data = await getFiles();
@@ -165,7 +153,6 @@ export const saveFile = async file => {
 const queueCB = async file => {
   await flattenAndSave(file, (obj: File) => {
     if (!obj || !obj.release) {
-<<<<<<< HEAD
       return;
     }
     return saveReleaseToDB(obj);
@@ -178,20 +165,6 @@ export const saveFiles = async () => {
   try {
     const files = await getFileData();
     q.push(files);
-=======
-      return
-    }
-    return saveReleaseToDB(obj)
-  })
-}
-
-const q = queue(queueCB, 1)
-
-export const saveFiles = async () => {
-  try {
-    const files = await getFileData()
-    q.push(files)
->>>>>>> use chokidar
 
     //q.setItems(files)
   } catch (e) {
