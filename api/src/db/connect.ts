@@ -1,4 +1,4 @@
-import { Connection } from "mongoose";
+import { Connection } from 'mongoose'
 
 const mongoose = require('mongoose')
 
@@ -10,9 +10,12 @@ interface ConnectOptions {
   auth?: {};
 }
 
-const connect = async (uri: string, user:string = "", password:string = ""): Promise<Connection | void> => {
-
-  const mongodbUri:string = uri
+const connect = async (
+  uri: string,
+  user: string = '',
+  password: string = '',
+): Promise<Connection | void> => {
+  const mongodbUri: string = uri
   let connect = null
 
   try {
@@ -28,10 +31,7 @@ const connect = async (uri: string, user:string = "", password:string = ""): Pro
     }
 
     connect = await mongoose
-      .connect(
-        mongodbUri,
-        options,
-      )
+      .connect(mongodbUri, options)
       .then(() => console.log('⚡ Database connected'))
   } catch (err) {
     console.error('⚠ Database connection error:', err.message)

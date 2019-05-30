@@ -1,11 +1,13 @@
-const { getFiles } = require('./getFiles')
-const { checkExists, saveReleaseToDB } = require('./queries')
-const { q } = require('./queue')
-const merge = require('object-array-merge')
-const { forceBoolean } = require('../utils/forceBoolean')
-
+import queue from 'async/queue'
 import { File } from '../interfaces/File'
 import { note } from '../utils/note'
+
+const { getFiles } = require('./getFiles')
+const { checkExists, saveReleaseToDB } = require('./queries')
+
+// const { q } = require('./queue')
+const merge = require('object-array-merge')
+const { forceBoolean } = require('../utils/forceBoolean')
 
 const getFileData = async () => {
   try {
@@ -66,7 +68,7 @@ const checkControlExists = (fileControls, existingControls) => {
   return newControls
 }
 
-const flattenAndSave = async (
+export const flattenAndSave = async (
   file: File = {},
   save: (file: File) => {} | void = () => {},
 ) => {
@@ -109,7 +111,7 @@ const asyncForEach = async (array, callback) => {
   }
 }
 
-const mapToControlEntry = async (file: File) => {
+export const mapToControlEntry = async (file: File) => {
   let obj = {
     release: undefined,
     controls: [],
@@ -139,7 +141,7 @@ const mapToControlEntry = async (file: File) => {
   return obj
 }
 
-const saveFile = async file => {
+export const saveFile = async file => {
   try {
     return await flattenAndSave(file, saveReleaseToDB)
   } catch (e) {
@@ -148,21 +150,25 @@ const saveFile = async file => {
   }
 }
 
-const saveFiles = async () => {
+//
+
+const queueCB = async file => {
+  await flattenAndSave(file, (obj: File) => {
+    if (!obj || !obj.release) {
+      return
+    }
+    return saveReleaseToDB(obj)
+  })
+}
+
+const q = queue(queueCB, 1)
+
+export const saveFiles = async () => {
   try {
     const files = await getFileData()
-    const cb = async file => {
-      await flattenAndSave(file, (obj: File) => {
-        if (!obj || !obj.release) {
-          return
-        }
-        return saveReleaseToDB(obj)
-      })
-      q.doAction(cb)
-    }
+    q.push(files)
 
-    q.setItems(files)
-    q.doAction(cb)
+    //q.setItems(files)
   } catch (e) {
     console.log(e.message)
     // process.exit()

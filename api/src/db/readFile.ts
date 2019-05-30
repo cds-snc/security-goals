@@ -4,11 +4,11 @@ const { basename } = require('path')
 import { File } from '../interfaces/File'
 import { noteError } from '../utils/note'
 
-const getFileName = (filepath: string) => {
+export const getFileName = (filepath: string) => {
   return basename(filepath, '.json')
 }
 
-const readFile = async (file: string): Promise<string> => {
+export const readFile = async (file: string): Promise<string> => {
   const content = await fs.readFile(file, { encoding: 'utf-8' })
   let obj: File = {}
 

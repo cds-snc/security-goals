@@ -4,7 +4,7 @@ const { complianceDefinitions } = require('./dist/complianceDefinitions.js')
 const { Server } = require('./dist/server')
 const { dbConnect } = require('./dist/db/connect')
 const { clearCollection } = require('./dist/db/clearCollection')
-const { watchChecks } = require('./dist/db/watcher')
+const { watchChecks } = require('./dist/watcher')
 const { saveFiles } = require('./dist/db/save')
 
 ;(async () => {
