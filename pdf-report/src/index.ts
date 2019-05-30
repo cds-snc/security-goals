@@ -35,7 +35,6 @@ app.get([`*/:id`, `*/`], async (req: express.Request, res: express.Response): Pr
   doc.end();
 });
 
-app.listen(port, (err: Error) => {
-  if (err) {throw err; }
+app.listen(port, () => {
   console.log(`> Ready on http://localhost:${port}`);
 });
