@@ -1,11 +1,11 @@
-require("dotenv-safe").config({ allowEmptyValues: true });
-const { fetchYaml } = require("./dist/fetchYaml.js");
-const { complianceDefinitions } = require("./dist/complianceDefinitions.js");
-const { Server } = require("./dist/server");
-const { dbConnect } = require("./dist/db/connect");
-const { clearCollection } = require("./dist/db/clearCollection");
-const { watchChecks } = require("./dist/watcher");
-const { saveFiles } = require("./dist/db/save");
+require('dotenv-safe').config({ allowEmptyValues: true })
+const { fetchYaml } = require('./dist/fetchYaml.js')
+const { complianceDefinitions } = require('./dist/complianceDefinitions.js')
+const { Server } = require('./dist/server')
+const { dbConnect } = require('./dist/db/connect')
+const { clearCollection } = require('./dist/db/clearCollection')
+const { watchChecks } = require('./dist/watcher')
+const { saveFiles } = require('./dist/db/save')
 
 (async () => {
   const { DEFINITIONS_URL: definitionsUrl } = process.env;

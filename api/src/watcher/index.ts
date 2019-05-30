@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import chokidar from "chokidar";
 import queue from "async/queue";
 import { saveFile } from "../db/save";
@@ -13,10 +14,28 @@ const globalQueue = queue(async (file, cb: () => {}) => {
   counter++;
   cb();
 }, 1);
+=======
+import chokidar from 'chokidar'
+import queue from 'async/queue'
+import { saveFile } from '../db/save'
+import { readFile } from '../db/readFile'
+import { Event } from '../interfaces/Event'
+
+const watchPath = process.env.CHECKS_PATH
+
+let counter: number = 0
+
+const globalQueue = queue(async (file, cb: () => {}) => {
+  await saveFile(file)
+  counter++
+  cb()
+}, 1)
+>>>>>>> use chokidar
 
 // Define our watching parameters
 const listener = (event: Event, path: string) => {
   switch (event) {
+<<<<<<< HEAD
     case "add":
       console.log("The file", path, "was created");
       saveWatchedFile(path);
@@ -43,3 +62,24 @@ export const watchChecks = (): void => {
     })
     .on("all", listener);
 };
+=======
+    case 'add':
+      console.log('The file', path, 'was created')
+      saveWatchedFile(path)
+      break
+  }
+}
+
+export const saveWatchedFile = async (path: string) => {
+  // "checks/0-1542896172725.json"
+  const file = await readFile(path)
+  const data = JSON.parse(file)
+  globalQueue.push(data, () => {
+    console.log(`finished processing ${path} ${counter}`)
+  })
+}
+
+export const watchChecks = (): void => {
+  chokidar.watch(watchPath, {}).on('all', listener)
+}
+>>>>>>> use chokidar
