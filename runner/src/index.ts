@@ -36,10 +36,7 @@ app.post(
   }
 );
 
-app.listen(port, (err: Error) => {
-  if (err) {
-    throw err;
-  }
+app.listen(port, () => {
   console.log(`> Ready on http://localhost:${port}`);
   console.log(`> Webhook listening on: /${path}`);
 });
