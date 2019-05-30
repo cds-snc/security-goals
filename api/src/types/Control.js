@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLList, GraphQLString, G } = require("graphql");
+const { GraphQLObjectType, GraphQLList, GraphQLString } = require("graphql");
 const { Verification } = require("./Verification");
 
 /*
