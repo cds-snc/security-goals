@@ -3,7 +3,6 @@ const {
   GraphQLList,
   GraphQLString,
   GraphQLInt,
-  GraphQLList,
   GraphQLEnumType,
 } = require("graphql");
 
@@ -26,7 +25,7 @@ const getRelease = async ({
   withControls = false,
 }) => {
   let match = {};
-  
+
   if (releaseId) {
     match = { release: releaseId };
   }
