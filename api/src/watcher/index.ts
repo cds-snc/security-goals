@@ -33,6 +33,13 @@ export const saveWatchedFile = async (path: string) => {
   });
 };
 
+// looks for json files
+// ignores .dotfiles
 export const watchChecks = (): void => {
-  chokidar.watch(watchPath, {}).on("all", listener);
+  chokidar
+    .watch(`${watchPath}/*.json`, {
+      ignored: [/(^|[\/\\])\../],
+      ignoreInitial: true,
+    })
+    .on("all", listener);
 };
