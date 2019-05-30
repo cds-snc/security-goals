@@ -4,8 +4,6 @@ import { note } from '../utils/note'
 
 const { getFiles } = require('./getFiles')
 const { checkExists, saveReleaseToDB } = require('./queries')
-
-// const { q } = require('./queue')
 const merge = require('object-array-merge')
 const { forceBoolean } = require('../utils/forceBoolean')
 
