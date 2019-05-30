@@ -19,20 +19,29 @@ app.get("*/ready", (req: express.Request, res: express.Response): void => {
   res.status(200).send("yes");
 });
 
-app.get([`*/:id`, `*/`], async (req: express.Request, res: express.Response): Promise<void> => {
+app.get([`*/`], async (req: express.Request, res: express.Response): Promise<void> => {
+  let id;
+  if (req.params[0]) {
+    id = req.params[0].split("/");
+    id = id[id.length - 1];
+  }
 
   const controls = await fetchControls();
-  const release = await fetchRelease(req.params.id);
+  const release = await fetchRelease(id);
 
-  const filename = `security-goals-${Date.now()}.pdf`;
+  if (release) {
+    const filename = `security-goals-${Date.now()}.pdf`;
 
-  res.setHeader("Content-disposition", 'attachment; filename="' + filename + '"');
-  res.setHeader("Content-type", "application/pdf");
+    res.setHeader("Content-disposition", 'attachment; filename="' + filename + '"');
+    res.setHeader("Content-type", "application/pdf");
 
-  const doc = generateReport(release, controls);
+    const doc = generateReport(release, controls);
 
-  doc.pipe(res);
-  doc.end();
+    doc.pipe(res);
+    doc.end();
+  } else {
+    res.status(404).send("Release not found");
+  }
 });
 
 app.listen(port, () => {
