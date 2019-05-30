@@ -1,19 +1,19 @@
-const { Release } = require('../types/Release')
-const { GraphQLList } = require('graphql')
-const { releaseModel } = require('../db/model')
+const { Release } = require("../types/Release");
+const { GraphQLList } = require("graphql");
+const { releaseModel } = require("../db/model");
 
 // db query
 const getLatestRelease = async () => {
-  let match = {}
+  let match = {};
 
   const fields = {
     release: 1,
-    timestamp: '$createdAt',
+    timestamp: "$createdAt",
     passed: 1,
     passing: 1,
     total: 1,
     controls: 1,
-  }
+  };
 
   const result = await releaseModel
     .aggregate([
@@ -24,28 +24,28 @@ const getLatestRelease = async () => {
       { $sort: { timestamp: -1 } },
       { $limit: 1 },
     ])
-    .exec()
+    .exec();
 
-  return result
-}
+  return result;
+};
 
 const latest = {
-  description: 'Returns the latest release',
+  description: "Returns the latest release",
   type: new GraphQLList(Release),
   // eslint-disable-next-line no-unused-vars
   resolve: async root => {
     try {
-      const releases = await getLatestRelease()
+      const releases = await getLatestRelease();
       return releases.filter(item => {
         // handle null release
         if (item.release) {
-          return item
+          return item;
         }
-      })
+      });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   },
-}
+};
 
-module.exports.latest = latest
+module.exports.latest = latest;

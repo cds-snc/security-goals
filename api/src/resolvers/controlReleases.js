@@ -1,6 +1,6 @@
-const { getControl } = require('../db/queries')
-const { ControlReleases } = require('../types/ControlReleases')
-const { GraphQLString } = require('graphql')
+const { getControl } = require("../db/queries");
+const { ControlReleases } = require("../types/ControlReleases");
+const { GraphQLString } = require("graphql");
 /*
 {
   controlReleases(id: "SA-11 (1)"){
@@ -15,27 +15,27 @@ const { GraphQLString } = require('graphql')
 */
 
 const controlReleases = {
-  description: 'Returns a single control and all the releases',
+  description: "Returns a single control and all the releases",
   type: ControlReleases,
   args: {
     id: {
       type: GraphQLString,
-      description: 'return a single control',
+      description: "return a single control",
     },
   },
   resolve: async (root, { id }) => {
     // eslint-disable-line no-unused-vars
     try {
-      const results = await getControl(id)
+      const results = await getControl(id);
       results.map(item => {
-        item.controls = [item.controls]
-      })
+        item.controls = [item.controls];
+      });
 
-      return { releases: results }
+      return { releases: results };
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   },
-}
+};
 
-module.exports.controlReleases = controlReleases
+module.exports.controlReleases = controlReleases;

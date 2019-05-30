@@ -1,19 +1,18 @@
-const { releaseModel } = require('./model')
+const { releaseModel } = require("./model");
 
 const clearCollection = async (): Promise<false> => {
+  const argv: any = require("minimist")(process.argv.slice(2));
 
-  const argv: any = require('minimist')(process.argv.slice(2))
-
-  if (argv.delete === 'true') {
+  if (argv.delete === "true") {
     try {
-      await releaseModel.deleteMany({})
-      process.exit()
+      await releaseModel.deleteMany({});
+      process.exit();
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   }
 
-  return false
-}
+  return false;
+};
 
-module.exports.clearCollection = clearCollection
+module.exports.clearCollection = clearCollection;
