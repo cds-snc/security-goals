@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-report 
+  name:  web-report
+  namespace: security-goals
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: web-report 
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web-report
+    spec:
+      containers:
+        - image: gcr.io/security-goals/web-report
+          imagePullPolicy: Always
+          name: web-report 
+          env:
+            - name: PORT
+              value: '3000'
+            - name: API_URL
+              value: '/security-goals/api'
+            - name: RELATIVE_PATH
+              value: '/web-report'
+          resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
