@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pdf-report 
+  name:  pdf-report
+  namespace: security-goals
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: pdf-report 
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pdf-report
+    spec:
+      containers:
+        - image: gcr.io/security-goals/pdf-report
+          imagePullPolicy: Always
+          name: pdf-report 
+          env:
+            - name: PORT
+              value: '3000'
+            - name: API_URL
+              value: 'https://security-goals-demo.cdssandbox.xyz/security-goals/api'
+          resources: {}
+          livenessProbe:
+            httpGet:
+              path: /alive
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5 
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
