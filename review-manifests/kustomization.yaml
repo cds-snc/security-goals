@@ -1,0 +1,22 @@
+resources:
+  - namespace.yaml 
+  - checks-claim.yaml
+  - mongo-claim.yaml
+  - mongo-deployment.yaml
+  - mongo-service.yaml
+  - api-deployment.yaml
+  - api-service.yaml
+  - app-deployment.yaml
+  - app-service.yaml
+  - pdf-report-deployment.yaml
+  - pdf-report-service.yaml
+  - web-report-deployment.yaml
+  - web-report-service.yaml
+  - cluster-role-binding.yaml
+  - cluster-role.yaml
+  - traefik-ingress.yaml
+  - traefik-ingress-controller-cluster-role.yaml
+  - traefik-ingress-controller-cluster-role-binding.yaml
+  - traefik-ingress-controller-deployment.yaml
+  - traefik-ingress-controller-service-account.yaml
+  - traefik-ingress-service.yaml

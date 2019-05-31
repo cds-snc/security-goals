@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: runner 
+  name:  runner
+  namespace: security-goals
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: runner 
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: runner
+    spec:
+      containers:
+        - image: gcr.io/security-goals/runner
+          imagePullPolicy: Always
+          name: runner 
+          env:
+            - name: PORT
+              value: '3000'
+            - name: WEBHOOK_URL
+              value: 'run_security_posture'
+            - name: WEBHOOK_URL
+              value: 'run_security_posture'
+            - name: GITHUB_REPO
+              value: 'cds-snc/cra-alpha'
+          resources: {}
+          livenessProbe:
+            httpGet:
+              path: /alive
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5 
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
