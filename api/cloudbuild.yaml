@@ -1,9 +1,9 @@
 steps:
-  - name: 'node:alpine'
+  - name: 'node:12.3.1-alpine'
     dir: 'api'
     entrypoint: 'yarn'
     args: ['install']
-  - name: "node:alpine"
+  - name: "node:12.3.1-alpine"
     dir: 'api'
     entrypoint: 'yarn'
     args: ['test']
