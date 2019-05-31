@@ -21,6 +21,14 @@ spec:
       labels:
         app: api
     spec:
+      initContainers:
+      - image: 'gcr.io/security-goals/sample-data'
+        imagePullPolicy: Always
+        name: 'sample-data'
+        command: [ "/bin/sh", "-ce", "cp /sample_data/* /checks" ]
+        volumeMounts:
+        - name: compliance-checks
+          mountPath: /checks
       containers:
         - image: gcr.io/security-goals/api
           imagePullPolicy: Always
