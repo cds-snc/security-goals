@@ -12,6 +12,9 @@
     "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "clear": "node index --delete true"
   },
+  "engines": {
+      "node": "12.3.1"
+  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
