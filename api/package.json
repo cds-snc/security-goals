@@ -3,9 +3,6 @@
   "version": "2.0.2",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "12.3.1"
-  },
   "scripts": {
     "test": "tsc && jest --forceExit",
     "start": "NODE_ENV=production node index",
@@ -16,7 +13,7 @@
     "clear": "node index --delete true"
   },
   "engines": {
-      "node": "12.3.1"
+    "node": "12.3.1"
   },
   "lint-staged": {
     "*.js": [
