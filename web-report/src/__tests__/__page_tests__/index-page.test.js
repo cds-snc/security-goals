@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render, wait} from "react-testing-library";
+import { cleanup, render, wait} from "@testing-library/react";
 import { data } from "../../__mocks__/mockDataIndex.js";
 import "jest-dom/extend-expect";
 import { releaseStatus } from "../../../api/index";

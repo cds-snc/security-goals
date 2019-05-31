@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { Count } from "../../components/status/Count.js";
 import { data } from "../../__mocks__/mockDataSingleRelease.js";
 import "jest-dom/extend-expect";

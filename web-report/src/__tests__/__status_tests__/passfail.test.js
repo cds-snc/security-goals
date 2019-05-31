@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { PassFailText } from "../../components";
 import "jest-dom/extend-expect";
 import { data, passingData } from "../../__mocks__/mockDataSingleRelease.js";
