@@ -11,12 +11,12 @@ workflow "test" {
 }
 
 action "install api" {
-  uses = "docker://culturehq/actions-yarn:latest"
+  uses = "docker://node/node:12.3.1-alpine"
   args = "--cwd api install"
 }
 
 action "test api" {
-  uses = "docker://culturehq/actions-yarn:latest"
+  uses = "docker://node/node:12.3.1-alpine"
   needs = ["install api"]
   args = "--cwd api test"
 }
