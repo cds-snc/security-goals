@@ -29,7 +29,7 @@ spec:
             - name: PORT
               value: '3000'
             - name: API_URL
-              value: '/security-goals/api'
+              value: 'api.security-goals.svc.cluster.local:3000/api'
           resources: {}
           livenessProbe:
             httpGet:
