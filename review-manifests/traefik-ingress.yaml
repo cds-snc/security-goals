@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: traefik-ingress
+  namespace: security-goals
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: app
+              servicePort: 3000
+          - path: /security-goals
+            backend:
+              serviceName: api
+              servicePort: 3000
+          - path: /runner
+            backend:
+              serviceName: runner
+              servicePort: 3000
+          - path: /performance-index
+            backend:
+              serviceName: performance-index
+              servicePort: 3000
+          - path: /pdf-report
+            backend:
+              serviceName: pdf-report
+              servicePort: 3000
+          - path: /web-report
+            backend:
+              serviceName: web-report
+              servicePort: 3000

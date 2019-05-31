@@ -1,0 +1,8 @@
+{
+  "dockerfiles": {
+    "gcr.io/security-goals/api": "api/.",
+    "gcr.io/security-goals/pdf-report": "pdf-report/.",
+    "gcr.io/security-goals/web-report": "web-report/."
+  },
+  "overlay": "review-manifests"
+}
