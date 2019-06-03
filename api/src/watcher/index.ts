@@ -32,7 +32,11 @@ export const saveWatchedFile = async (path: string) => {
   globalQueue.push(data, () => {
     console.log(`finished processing ${path} ${counter}`);
     // add .processed to the end of the filename
-    renameFile(path);
+    try {
+      renameFile(path);
+    } catch (err) {
+      throw err;
+    }
   });
 };
 
