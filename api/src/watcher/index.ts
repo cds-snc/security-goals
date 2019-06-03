@@ -31,18 +31,17 @@ export const saveWatchedFile = async (path: string) => {
   const data = JSON.parse(file);
   globalQueue.push(data, () => {
     console.log(`finished processing ${path} ${counter}`);
-
     // add .processed to the end of the filename
     renameFile(path);
   });
 };
 
 // looks for json files
-// ignores .dotfiles
+// ignores everything but .json files
 export const watchChecks = (): void => {
   chokidar
     .watch(`${watchPath}/*.json`, {
-      ignored: [/(^|[\/\\])\../],
+      ignored: /^(?!.*\.json$).*$/,
       ignoreInitial: true,
     })
     .on("all", listener);
