@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { ControlComponent } from "../../components/controlbox/ControlComponent.js";
 import "jest-dom/extend-expect";
 

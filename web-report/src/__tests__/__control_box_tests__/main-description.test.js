@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { MainDescription } from "../../components/controlbox/MainDescription.js";
 import "jest-dom/extend-expect";
 
