@@ -3,6 +3,7 @@ import queue from "async/queue";
 import { saveFile } from "../db/save";
 import { readFile } from "../db/readFile";
 import { Event } from "../interfaces/Event";
+import { renameFile } from "../utils/renameFile";
 
 const watchPath = process.env.CHECKS_PATH;
 
@@ -30,6 +31,9 @@ export const saveWatchedFile = async (path: string) => {
   const data = JSON.parse(file);
   globalQueue.push(data, () => {
     console.log(`finished processing ${path} ${counter}`);
+
+    // add .processed to the end of the filename
+    renameFile(path);
   });
 };
 
