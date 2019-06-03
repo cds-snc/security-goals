@@ -41,7 +41,7 @@ export const saveWatchedFile = async (path: string) => {
 export const watchChecks = (): void => {
   chokidar
     .watch(`${watchPath}/*.json`, {
-      ignored: /^(?!.*\.json$).*$/,
+      ignored: [/(^|[\/\\])\../],
       ignoreInitial: true,
     })
     .on("all", listener);
