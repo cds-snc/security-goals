@@ -7,8 +7,18 @@ const note = message => {
   log(chalk.black.bgGreen("\n\n" + message));
 };
 
-const getControl = async control => {
-  note(`=== get control ===`);
+const getControl = async (control, releaseType) => {
+  note(`=== get control === releaseType ${releaseType}`);
+
+  //
+  let matchFilter = {};
+  if (releaseType === "failing") {
+    matchFilter = { passed: false };
+  }
+
+  if (releaseType === "passing") {
+    matchFilter = { passed: true };
+  }
 
   // @todo update this query to target single release
   // add => { $match: { 'controls.control': control, release } },
@@ -17,7 +27,7 @@ const getControl = async control => {
     .aggregate([
       { $unwind: "$controls" },
       { $match: { "controls.control": control } },
-      { $match: { "passed": true } },
+      { $match: matchFilter },
       {
         $project: {
           release: 1,
