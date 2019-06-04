@@ -1,6 +1,7 @@
 const { promises: fs, constants: fsConstants } = require("fs");
 const { join } = require("path");
 const { readFile } = require("./readFile");
+import { renameFile } from "../utils/renameFile";
 
 import { note } from "../utils/note";
 
