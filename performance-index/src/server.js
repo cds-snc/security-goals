@@ -3,6 +3,9 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+import serialize from 'serialize-javascript';
+require('dotenv').config()
+import { runtimeConfig } from './config';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -27,13 +30,14 @@ server
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8" />
-        <title>Welcome to Razzle</title>
+        <title>Performance index</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${
           assets.client.css
             ? `<link rel="stylesheet" href="${assets.client.css}">`
             : ''
         }
+        <script>window.env = ${serialize(runtimeConfig)};</script> 
         ${
           process.env.NODE_ENV === 'production'
             ? `<script src="${assets.client.js}" defer></script>`
