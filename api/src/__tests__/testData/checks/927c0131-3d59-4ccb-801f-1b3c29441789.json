@@ -1,0 +1,10 @@
+{
+  "origin": "sa_11_1:latest",
+  "timestamp": "2018-10-25T14:33:26Z",
+  "satisfies": ["SA-X"],
+  "passed": "true",
+  "description": "The application uses an ESLint file to do so static code analysis.",
+  "component": "source_code",
+  "references": "https://github.com/cds-snc/vac-benefits-directory/blob/master/.eslintrc.json",
+  "release": "10e61288-ef33-11e8-908e-06d86cf01138"
+}

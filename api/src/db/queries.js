@@ -17,6 +17,7 @@ const getControl = async control => {
     .aggregate([
       { $unwind: "$controls" },
       { $match: { "controls.control": control } },
+      { $match: { "passed": true } },
       {
         $project: {
           release: 1,

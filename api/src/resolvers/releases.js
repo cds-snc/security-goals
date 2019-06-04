@@ -1,21 +1,8 @@
 const { Release } = require("../types/Release");
-const {
-  GraphQLList,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLEnumType,
-} = require("graphql");
+const { GraphQLList, GraphQLString, GraphQLInt } = require("graphql");
 
 const { releaseModel } = require("../db/model");
-
-const ReleaseType = new GraphQLEnumType({
-  name: "ReleaseType",
-  values: {
-    ALL: { value: "all" },
-    PASSING: { value: "passing" },
-    FAILING: { value: "failing" },
-  },
-});
+const { ReleaseType } = require("../interfaces/ReleaseType");
 
 // db query
 const getRelease = async ({

@@ -159,14 +159,18 @@ const queueCB = async file => {
   });
 };
 
-const q = queue(queueCB, 1);
+const q = queue(async (item: File, cb: (item: File) => {}) => {
+  await queueCB(item);
+  cb(item);
+}, 1);
 
 export const saveFiles = async () => {
   try {
     const files = await getFileData();
-    q.push(files);
 
-    //q.setItems(files)
+    q.push(files, (item: File) => {
+      console.log("finished processing file", item);
+    });
   } catch (e) {
     console.log(e.message);
     // process.exit()
