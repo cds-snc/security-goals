@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { Details } from "../../components";
 import "jest-dom/extend-expect";
 import { dataDetails } from "../../__mocks__/mockData.js";
@@ -8,7 +8,11 @@ afterEach(cleanup); // <-- add this
 
 test("Details page renders control boxes from input data", async () => {
   const { getByTestId, getAllByTestId } = render(
-    <Details id="SA-11" data={dataDetails} sortedData={dataDetails.controlReleaseData} />
+    <Details
+      id="SA-11"
+      data={dataDetails}
+      sortedData={dataDetails.controlReleaseData}
+    />
   );
 
   const releaseLinks = getAllByTestId("release-link");
@@ -28,8 +32,6 @@ test("Details page renders control boxes from input data", async () => {
     "href",
     "/singlerelease/6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619"
   );
-
-  expect(getByTestId("control-list"));
   expect(controlBoxes).toHaveLength(27);
 
   expect(controlBoxTitles).toHaveLength(27);

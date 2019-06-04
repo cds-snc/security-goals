@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import Home from "../../components/Home.js";
 import { sortedData } from "../../__mocks__/mockDataIndex.js";
 import "jest-dom/extend-expect";

@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import { ControlBox } from "../../components";
 import "jest-dom/extend-expect";
 import { MemoryRouter } from 'react-router-dom';

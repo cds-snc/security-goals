@@ -27,7 +27,6 @@ export const PrintButton = ({ link = "" }) => {
     <a
       data-testid="print-link"
       name="print-button"
-      id="back2top"
       css={print}
       href={`${runtimeConfig.pdf_report_url}${link}`}
     >
