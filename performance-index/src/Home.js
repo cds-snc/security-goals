@@ -1,30 +1,103 @@
 import React from 'react';
-import logo from './react.svg';
-import './Home.css';
+import { AreaChart, ResponsiveContainer, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { allReleases } from "./api/index";
+import { getControls, setInitialWeight } from "./util/controls";
+import "./Home.css";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { releases: [], weightedControls: {} };
+  }
+
+  componentDidMount = async () => {
+    const data = await allReleases();
+    const controls = getControls(data.releases);
+    const initialWeight = setInitialWeight(controls);
+    this.setState({ releases: data.releases, weightedControls: initialWeight});
+  };
+
+  changeHandler = (id, e) => {
+    const val = parseInt(e.target.value, 10);
+    if (!isNaN(val)) {
+      let { weightedControls } = this.state;
+      weightedControls[id] = parseInt(e.target.value, 10); 
+      this.setState({ weightedControls: weightedControls});
+    }
+  }
+
+  renderData = () => {
+    if (this.state.weightedControls){
+
+      let { weightedControls } = this.state;
+
+      const rows = Object.keys(weightedControls).map((key, index) => (
+        <li className="weightItem" key={index}>
+          <b>{key}</b>
+          <br/>
+          <input type="text" value={weightedControls[key]} onChange={(e) => this.changeHandler(key,e)}/>
+          <br/>
+          <br/>
+        </li>
+      ));
+
+      return (
+        <ul>
+          {rows}
+        </ul>
+      )
+    }
+  }
+
+  renderLineChart = () => {
+    if (this.state.weightedControls){
+
+      let { releases, weightedControls } = this.state;
+
+      let data = [];
+
+      releases.forEach((release) => {
+        const score = release.controls.reduce((acc, control) => {
+          acc.expected = acc.expected + weightedControls[control.control]
+          if(control.verifications.every((v) => v.passed == "true")) {
+            acc.actual = acc.actual + weightedControls[control.control];
+            return acc;
+          } else {
+            return acc;
+          }
+        }, {actual: 0, expected: 0});
+        const date = new Date(parseInt(release.timestamp, 10));
+        data.push({name: date.toISOString(), actual: score.actual, expected: score.expected})
+      })
+
+      data.reverse();
+      
+      return (
+        <div style={{ width: '100%', height: 500 }}>
+          <ResponsiveContainer>
+            <AreaChart data={data}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <CartesianGrid strokeDasharray="4 4" />
+              <Area type="monotone" dot={{ fill: '#a70000' }} dataKey="expected" stroke="#ff8080" fill="#ff8080" fillOpacity={1}/>
+              <Area type="monotone" dot={{ fill: '#ffcf0a' }} dataKey="actual" stroke="#ffe680" fill="#ffe680" fillOpacity={1}/>
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      )
+    }        
+  }
+
   render() {
     return (
-      <div className="Home">
-        <div className="Home-header">
-          <img src={logo} className="Home-logo" alt="logo" />
-          <h2>Welcome to Razzle</h2>
-        </div>
-        <p className="Home-intro">
-          To get started, edit <code>src/App.js</code> or{' '}
-          <code>src/Home.js</code> and save to reload.
-        </p>
-        <ul className="Home-resources">
-          <li>
-            <a href="https://github.com/jaredpalmer/razzle">Docs</a>
-          </li>
-          <li>
-            <a href="https://github.com/jaredpalmer/razzle/issues">Issues</a>
-          </li>
-          <li>
-            <a href="https://palmer.chat">Community Slack</a>
-          </li>
-        </ul>
+      <div>
+        <h2>Performance Index</h2>
+        {this.renderLineChart()}
+        <hr/>
+        {this.renderData()}
       </div>
     );
   }

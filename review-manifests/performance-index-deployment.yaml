@@ -26,10 +26,10 @@ spec:
           imagePullPolicy: Always
           name: performance-index 
           env:
-            - name: PORT
-              value: '3000'
             - name: API_URL
-              value: 'https://security-goals-demo.cdssandbox.xyz/security-goals/api'
+              value: '/security-goals/api'
+            - name: RELATIVE_PATH
+              value: '/performance-index'
           resources: {}
           livenessProbe:
             httpGet:
