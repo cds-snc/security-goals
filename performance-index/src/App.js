@@ -1,6 +1,5 @@
 import React from "react";
-import Route from "react-router-dom/Route";
-import Switch from "react-router-dom/Switch";
+import { Route, Switch } from "react-router-dom";
 import { runtimeConfig } from './config';
 import Home from "./Home";
 
