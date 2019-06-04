@@ -1,6 +1,7 @@
 const { getControl } = require("../db/queries");
 const { ControlReleases } = require("../types/ControlReleases");
 const { GraphQLString } = require("graphql");
+const { ReleaseType } = require("../interfaces/ReleaseType");
 /*
 {
   controlReleases(id: "SA-11 (1)"){
@@ -22,11 +23,16 @@ const controlReleases = {
       type: GraphQLString,
       description: "return a single control",
     },
+    releaseType: {
+      type: ReleaseType,
+      description:
+        "optional release type - what type of releases do you want to return",
+    },
   },
-  resolve: async (root, { id }) => {
+  resolve: async (root, { id, releaseType }) => {
     // eslint-disable-line no-unused-vars
     try {
-      const results = await getControl(id);
+      const results = await getControl(id, releaseType);
       results.map(item => {
         item.controls = [item.controls];
       });
