@@ -10,6 +10,8 @@ resources:
   - app-service.yaml
   - pdf-report-deployment.yaml
   - pdf-report-service.yaml
+  - performance-index-deployment.yaml
+  - performance-index-service.yaml
   - web-report-deployment.yaml
   - web-report-service.yaml
   - cluster-role-binding.yaml
