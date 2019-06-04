@@ -28,16 +28,6 @@ export const getFiles = async (path: string = process.env.CHECKS_PATH) => {
       return readFile(file);
     }),
   );
-    /*
-  // rename files
-  for(let jsonFile in jsonFiles) {
-    try {
-      renameFile(jsonFiles[jsonFile]);
-    } catch (err) {
-      throw err;
-    }
-  }
-  */
 
   return checks.map(c => {
     return JSON.parse(c);
