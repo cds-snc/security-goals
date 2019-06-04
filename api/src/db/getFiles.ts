@@ -1,6 +1,7 @@
 const { promises: fs, constants: fsConstants } = require("fs");
 const { join } = require("path");
 const { readFile } = require("./readFile");
+import { renameFile } from "../utils/renameFile";
 
 import { note } from "../utils/note";
 
@@ -27,6 +28,15 @@ export const getFiles = async (path: string = process.env.CHECKS_PATH) => {
       return readFile(file);
     }),
   );
+
+  // rename files
+  for(let jsonFile in jsonFiles) {
+    try {
+      renameFile(jsonFiles[jsonFile]);
+    } catch (err) {
+      throw err;
+    }
+  }
 
   return checks.map(c => {
     return JSON.parse(c);
