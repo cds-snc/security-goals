@@ -1,6 +1,7 @@
 import queue from "async/queue";
 import { File } from "../interfaces/File";
 import { note } from "../utils/note";
+import { renameFile } from "../utils/renameFile";
 
 const { getFiles } = require("./getFiles");
 const { checkExists, saveReleaseToDB } = require("./queries");
@@ -167,9 +168,16 @@ const q = queue(async (item: File, cb: (item: File) => {}) => {
 export const saveFiles = async () => {
   try {
     const files = await getFileData();
+    const path = process.env.CHECKS_PATH;
 
     q.push(files, (item: File) => {
       console.log("finished processing file", item);
+      // rename files
+      try {
+        renameFile(path + "/" + item.fileRef + ".json");
+      } catch (err) {
+        throw err;
+      }
     });
   } catch (e) {
     console.log(e.message);
