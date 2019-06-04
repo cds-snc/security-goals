@@ -173,10 +173,12 @@ export const saveFiles = async () => {
     q.push(files, (item: File) => {
       console.log("finished processing file", item);
       // rename files
-      try {
-        renameFile(path + "/" + item.fileRef + ".json");
-      } catch (err) {
-        throw err;
+      if (process.env.NODE_ENV === "production") {
+        try {
+          renameFile(path + "/" + item.fileRef + ".json");
+        } catch (err) {
+          throw err;
+        }
       }
     });
   } catch (e) {
