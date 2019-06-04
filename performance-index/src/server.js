@@ -1,19 +1,19 @@
-import App from './App';
-import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import express from 'express';
-import { renderToString } from 'react-dom/server';
-import serialize from 'serialize-javascript';
-require('dotenv').config()
-import { runtimeConfig } from './config';
+import App from "./App";
+import React from "react";
+import { StaticRouter } from "react-router-dom";
+import express from "express";
+import { renderToString } from "react-dom/server";
+import serialize from "serialize-javascript";
+require("dotenv").config()
+import { runtimeConfig } from "./config";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const server = express();
 server
-  .disable('x-powered-by')
-  .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req, res) => {
+  .disable("x-powered-by")
+  .use(runtimeConfig.relative_path, express.static(process.env.RAZZLE_PUBLIC_DIR))
+  .get("/*", (req, res) => {
     const context = {};
     const markup = renderToString(
       <StaticRouter context={context} location={req.url}>
@@ -34,14 +34,14 @@ server
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${
           assets.client.css
-            ? `<link rel="stylesheet" href="${assets.client.css}">`
-            : ''
+            ? `<link rel="stylesheet" href="${runtimeConfig.relative_path}${assets.client.css}">`
+            : ""
         }
         <script>window.env = ${serialize(runtimeConfig)};</script> 
         ${
-          process.env.NODE_ENV === 'production'
-            ? `<script src="${assets.client.js}" defer></script>`
-            : `<script src="${assets.client.js}" defer crossorigin></script>`
+          process.env.NODE_ENV === "production"
+            ? `<script src="${runtimeConfig.relative_path}${assets.client.js}" defer></script>`
+            : `<script src="${runtimeConfig.relative_path}${assets.client.js}" defer crossorigin></script>`
         }
     </head>
     <body>
