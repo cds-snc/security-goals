@@ -1,5 +1,5 @@
-const { GraphQLList, GraphQLString } = require("graphql");
-const { OpenControl } = require("../types/OpenControl");
+import { GraphQLList, GraphQLString } from "graphql";
+import { OpenControl } from "../types/OpenControl";
 
 const controls = {
   description: "Returns a list of all controls",

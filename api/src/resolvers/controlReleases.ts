@@ -2,9 +2,9 @@ import { getControl } from "../db/queries";
 import { ControlReleases } from "../types/ControlReleases";
 import { GraphQLString } from "graphql";
 import {
-  GraphQLReleaseType,
-  ReleaseTypeValue,
-} from "../interfaces/ReleaseType";
+  VerificationStatus,
+  GraphQLVerificationStatus,
+} from "../interfaces/VerificationStatus";
 /*
 {
   controlReleases(id: "SA-11 (1)"){
@@ -18,16 +18,19 @@ import {
 }
 */
 
-const filterVerifications = (results, releaseType: ReleaseTypeValue) => {
+const filterVerifications = (
+  results,
+  verificationStatus: VerificationStatus,
+) => {
   let filter = false;
   let filterBoolean = null;
 
-  if (releaseType === "passing" || releaseType === "failing") {
+  if (verificationStatus === "passing" || verificationStatus === "failing") {
     filter = true;
 
-    if (releaseType === "passing") {
+    if (verificationStatus === "passing") {
       filterBoolean = true;
-    } else if (releaseType === "failing") {
+    } else if (verificationStatus === "failing") {
       filterBoolean = false;
     }
   }
@@ -62,20 +65,23 @@ const controlReleases = {
       type: GraphQLString,
       description: "return a single control",
     },
-    releaseType: {
-      type: GraphQLReleaseType,
+    verificationStatus: {
+      type: GraphQLVerificationStatus,
       description:
-        "optional release type - what type of releases do you want to return",
+        "optional status type - what type of verification to filter on",
     },
   },
   resolve: async (
     root,
-    { id, releaseType }: { id: string; releaseType: ReleaseTypeValue },
+    {
+      id,
+      verificationStatus,
+    }: { id: string; verificationStatus: VerificationStatus },
   ) => {
     // eslint-disable-line no-unused-vars
     try {
       const results = await getControl(id);
-      const filtered = filterVerifications(results, releaseType);
+      const filtered = filterVerifications(results, verificationStatus);
       return { releases: filtered };
     } catch (e) {
       console.log(e.message);

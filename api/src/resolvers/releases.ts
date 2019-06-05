@@ -3,7 +3,7 @@ import { GraphQLList, GraphQLString, GraphQLInt } from "graphql";
 import { releaseModel } from "../db/model";
 import {
   GraphQLReleaseType,
-  ReleaseTypeValue,
+  ReleaseType,
 } from "../interfaces/ReleaseType";
 
 // db query
@@ -75,7 +75,7 @@ const releases = {
       releaseId,
       limit,
       releaseType,
-    }: { releaseId: string; limit: number; releaseType: ReleaseTypeValue },
+    }: { releaseId: string; limit: number; releaseType: ReleaseType },
     context,
     info,
   ) => {
