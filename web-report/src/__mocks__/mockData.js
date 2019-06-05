@@ -465,5 +465,60 @@ export const dataDetails = {
         ]
       }
     ]
+  },
+  failing: {
+    releases: [
+      {
+        _id: "5c61949629135e0010426b3f",
+        release: "6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619",
+        timestamp: "1549898902013",
+        passed: "true",
+        passing: "4",
+        total: "4",
+        controls: [
+          {
+            control: "SA-11",
+            fileId: "5df22784-79b7-4096-bc14-3ca49f7f12f0--SA-11",
+            verifications: [
+              {
+                origin: "cdssnc/url-check-compliance:latest",
+                timestamp: "2019-02-11T15:28:17Z",
+                passed: "false",
+                description:
+                  "The application uses an ESLint file to do static code analysis in the front end.",
+                release:
+                  "6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619",
+                component: "Source code",
+                references:
+                  "https://github.com/cds-snc/report-a-cybercrime/blob/master/frontend/.eslintrc.json"
+              },
+              {
+                origin: "cdssnc/github-reviews-check-compliance:latest",
+                timestamp: "2019-02-11T15:28:18Z",
+                passed: "false",
+                description:
+                  "The developers perform code review on application pull requests.",
+                release:
+                  "6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619",
+                component: "Infrastructure",
+                references: "https://github.com/cds-snc/report-a-cybercrime"
+              },
+              {
+                origin: "cdssnc/url-check-compliance:latest",
+                timestamp: "2019-02-11T15:28:16Z",
+                passed: "false",
+                description:
+                  "The application uses an ESLint file to do static code analysis in the API.",
+                release:
+                  "6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619",
+                component: "Source code",
+                references:
+                  "https://github.com/cds-snc/report-a-cybercrime/blob/master/api/.eslintrc.js"
+              }
+            ]
+          }
+        ]
+      },
+    ]
   }
 };

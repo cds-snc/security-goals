@@ -53,22 +53,22 @@ test("Renders DetailsPage", async () => {
       "Read the SA-11 description"
     );
 
-    expect(releaseLinks).toHaveLength(9);
+    expect(releaseLinks).toHaveLength(10);
     expect(releaseLinks[0]).toHaveAttribute(
       "href",
       "/singlerelease/6a29e06ffcb4adef8e8e332ac688e71f57450abf-1549898889619"
     );
 
-    expect(controlBoxes).toHaveLength(27);
+    expect(controlBoxes).toHaveLength(30);
 
-    expect(controlBoxTitles).toHaveLength(27);
+    expect(controlBoxTitles).toHaveLength(30);
 
-    expect(references).toHaveLength(27);
+    expect(references).toHaveLength(30);
     expect(references[0]).toHaveTextContent(
       "Reference(s): https://github.com/cds-snc/report-a-cybercrime/blob/master/frontend/.eslintrc.json"
     );
 
-    expect(components).toHaveLength(27);
+    expect(components).toHaveLength(30);
     expect(components[0]).toHaveTextContent("Component: Source code");
 
     expect(getByTestId("back-to-top")).toHaveTextContent("Back To Top of Page");
