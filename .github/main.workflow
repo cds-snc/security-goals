@@ -70,7 +70,7 @@ action "test web-report" {
 
 action "install performance-index" {
   uses = "docker://culturehq/actions-yarn:latest"
-  args = "--cwd performance-index install"
+  args = "--cwd performance-index --network-timeout 100000 install"
 }
 
 action "test performance-index" {
