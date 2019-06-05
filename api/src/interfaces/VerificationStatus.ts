@@ -1,7 +1,7 @@
 const { GraphQLEnumType } = require("graphql");
 
-export const GraphQLReleaseType = new GraphQLEnumType({
-  name: "ReleaseType",
+export const GraphQLVerificationStatus = new GraphQLEnumType({
+  name: "VerificationStatus",
   values: {
     ALL: { value: "all" },
     PASSING: { value: "passing" },
@@ -9,4 +9,4 @@ export const GraphQLReleaseType = new GraphQLEnumType({
   },
 });
 
-export type ReleaseType = "all" | "passing" | "failing";
+export type VerificationStatus = "all" | "passing" | "failing";

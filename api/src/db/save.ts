@@ -171,7 +171,7 @@ export const saveFiles = async () => {
     const path = process.env.CHECKS_PATH;
 
     q.push(files, (item: File) => {
-      console.log("finished processing file", item);
+      //console.log("finished processing file", item);
       // rename files
       if (process.env.NODE_ENV === "production") {
         try {
