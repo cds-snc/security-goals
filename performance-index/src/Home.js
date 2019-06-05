@@ -111,7 +111,7 @@ class Home extends React.Component {
       
         return (
           <div>
-            Risk
+            Chance of loss
             <ul className="list">
               {
                 payload.map((entry, index) => (
@@ -152,7 +152,7 @@ class Home extends React.Component {
       <div>
         <h2>Raw Performance Index</h2>
         {this.renderRawChart()}
-        <h2>Absolute Risk Index</h2>
+        <h2>Absolute chance of loss</h2>
         {this.renderAbsoluteChart()}
         <hr/>
         {this.renderData()}
