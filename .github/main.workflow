@@ -56,13 +56,13 @@ action "test runner" {
 
 action "install web-report" {
   uses = "docker://culturehq/actions-yarn:latest"
-  args = "--cwd web-report install"
+  args = "--cwd web-report --network-timeout 100000 install"
 }
 
 action "test web-report" {
   uses = "docker://culturehq/actions-yarn:latest"
   needs = ["install web-report"]
-  args = "--cwd web-report test"
+  args = "--cwd web-report --network-timeout 100000 test"
   env = {
     CI = "true"
   }
@@ -76,7 +76,7 @@ action "install performance-index" {
 action "test performance-index" {
   uses = "docker://culturehq/actions-yarn:latest"
   needs = ["install performance-index"]
-  args = "--cwd performance-index test"
+  args = "--cwd performance-index --network-timeout 100000 test"
   env = {
     CI = "true"
   }
