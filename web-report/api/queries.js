@@ -66,33 +66,43 @@ const allReleaseQuery = release => {
 const detailsQuery = controlID => {
   return `query{
     controlData: controls(controlId:"${controlID}") {
-        id
-        description
-      }
+      id
+      description
+    }
 
-      controlReleaseData: controlReleases(id:"${controlID}"){
-  releases {
-    _id
-    release
-    timestamp
-    passed
-    passing
-    total
-    controls {
-      control
-      fileId
-      verifications {
-        origin
-        timestamp
-        passed
-        description
+    passing: controlReleases(id:"${controlID}", releaseType: PASSING){
+      releases {
         release
-        component
-        references
+        timestamp
+        controls {
+          verifications {
+            origin
+            passed
+            timestamp
+            description
+            component
+            references
+          }
+        }
       }
     }
-  }
-}
+
+    failing: controlReleases(id:"${controlID}", releaseType: FAILING){
+      releases {
+        release
+        timestamp
+        controls {
+          verifications {
+            origin
+            passed
+            timestamp
+            description
+            component
+            references
+          }
+        }
+      }
+    }
   }`;
 };
 

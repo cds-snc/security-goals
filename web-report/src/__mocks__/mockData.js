@@ -3,7 +3,7 @@ export const dataDetails = {
     id: "SA-11",
     description: "Foo"
   }],
-  controlReleaseData: {
+  passing: {
     releases: [
       {
         _id: "5c61949629135e0010426b3f",

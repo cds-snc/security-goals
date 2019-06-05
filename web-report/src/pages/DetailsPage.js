@@ -94,65 +94,31 @@ class DetailsPage extends React.Component {
     const { data } = this.state;
     let sortedData = { releases: [] };
 
-    if (data.hasOwnProperty("controlData")) {
-      data.controlReleaseData.releases.map((release, index) => {
-        var releaseCounter = index;
-        sortedData.releases.push({
-          _id: release._id,
-          release: release.release,
-          timestamp: release.timestamp,
-          passed: release.passed,
-          passing: release.passing,
-          total: release.total,
-          controls: []
-        });
 
-        release.controls.map((controls, index) => {
-          var controlCounter = index;
-          sortedData.releases[releaseCounter].controls.push({
-            control: controls.control,
-            fileId: controls.fileId,
-            verifications: []
-          });
 
-          controls.verifications.map((verifications, index) => {
-            var urlCheck = isUrl(verifications.references);
-            if (verifications.passed === "false") {
-              sortedData.releases[releaseCounter].controls[
-                controlCounter
-              ].verifications.push({
-                origin: verifications.origin,
-                timestamp: verifications.timestamp,
-                passed: verifications.passed,
-                description: verifications.description,
-                release: verifications.release,
-                component: verifications.component,
-                references: verifications.references,
-                urlCheck: urlCheck
-              });
-            }
-          });
+    if (data.hasOwnProperty("passing") && data.hasOwnProperty("failing")) {
+      console.log(data.passing)
+      data.passing.releases.forEach((r) => (
+        sortedData.releases.push(
+          Object.assign(
+            {}, 
+            {controls: r.controls[0].verifications.map((v) => Object.assign({}, {urlCheck: isUrl(v.references)}, v))},
+            r
+          )
+        )      
+      ));
 
-          controls.verifications.map((verifications, index) => {
-            var urlCheck = isUrl(verifications.references);
-            if (verifications.passed === "true") {
-              sortedData.releases[releaseCounter].controls[
-                controlCounter
-              ].verifications.push({
-                origin: verifications.origin,
-                timestamp: verifications.timestamp,
-                passed: verifications.passed,
-                description: verifications.description,
-                release: verifications.release,
-                component: verifications.component,
-                references: verifications.references,
-                urlCheck: urlCheck
-              });
-            }
-          });
-        });
-      });
-    }
+      data.failing.releases.forEach((r) => (
+        sortedData.releases.push(
+          Object.assign(
+            {}, 
+            {controls: r.controls[0].verifications.map((v) => Object.assign({}, {urlCheck: isUrl(v.references)}, v))},
+            r
+          )
+        )
+      ));
+    };
+
     return sortedData
   }
 
