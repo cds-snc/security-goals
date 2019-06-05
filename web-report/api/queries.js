@@ -70,7 +70,7 @@ const detailsQuery = controlID => {
       description
     }
 
-    passing: controlReleases(id:"${controlID}", releaseType: PASSING){
+    passing: controlReleases(id:"${controlID}", verificationStatus: PASSING){
       releases {
         release
         timestamp
@@ -87,7 +87,7 @@ const detailsQuery = controlID => {
       }
     }
 
-    failing: controlReleases(id:"${controlID}", releaseType: FAILING){
+    failing: controlReleases(id:"${controlID}", verificationStatus: FAILING){
       releases {
         release
         timestamp

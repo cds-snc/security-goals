@@ -97,17 +97,6 @@ class DetailsPage extends React.Component {
 
 
     if (data.hasOwnProperty("passing") && data.hasOwnProperty("failing")) {
-      console.log(data.passing)
-      data.passing.releases.forEach((r) => (
-        sortedData.releases.push(
-          Object.assign(
-            {}, 
-            {controls: r.controls[0].verifications.map((v) => Object.assign({}, {urlCheck: isUrl(v.references)}, v))},
-            r
-          )
-        )      
-      ));
-
       data.failing.releases.forEach((r) => (
         sortedData.releases.push(
           Object.assign(
@@ -116,6 +105,15 @@ class DetailsPage extends React.Component {
             r
           )
         )
+      ));
+      data.passing.releases.forEach((r) => (
+        sortedData.releases.push(
+          Object.assign(
+            {}, 
+            {controls: r.controls[0].verifications.map((v) => Object.assign({}, {urlCheck: isUrl(v.references)}, v))},
+            r
+          )
+        )      
       ));
     };
 
