@@ -1,6 +1,6 @@
 {
   "name": "compliance-api",
-  "version": "2.0.2",
+  "version": "2.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,12 +25,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@types/async": "^2.4.2",
+    "@types/async": "^3.0.0",
     "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.3",
+    "@types/node": "^12.0.4",
     "async": "^3.0.1",
     "chalk": "^2.4.2",
-    "chokidar": "^3.0.0",
+    "chokidar": "^3.0.1",
     "cors": "^2.8.5",
     "cp-file": "^7.0.0",
     "dotenv-safe": "^6.1.0",
@@ -40,7 +40,7 @@
     "graphql-scalar-objectid": "^0.1.1",
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
-    "mongoose": "^5.5.11",
+    "mongoose": "^5.5.12",
     "object-array-merge": "^1.0.1",
     "rimraf": "^2.6.3",
     "typescript": "^3.5.1",

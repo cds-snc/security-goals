@@ -1,6 +1,6 @@
 const { GraphQLEnumType } = require("graphql");
 
-export const ReleaseType = new GraphQLEnumType({
+export const GraphQLReleaseType = new GraphQLEnumType({
   name: "ReleaseType",
   values: {
     ALL: { value: "all" },
@@ -8,3 +8,5 @@ export const ReleaseType = new GraphQLEnumType({
     FAILING: { value: "failing" },
   },
 });
+
+export type ReleaseTypeValue = "all" | "passing" | "failing";

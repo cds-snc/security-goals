@@ -1,8 +1,10 @@
-const { Release } = require("../types/Release");
-const { GraphQLList, GraphQLString, GraphQLInt } = require("graphql");
-
-const { releaseModel } = require("../db/model");
-const { ReleaseType } = require("../interfaces/ReleaseType");
+import { Release } from "../types/Release";
+import { GraphQLList, GraphQLString, GraphQLInt } from "graphql";
+import { releaseModel } from "../db/model";
+import {
+  GraphQLReleaseType,
+  ReleaseTypeValue,
+} from "../interfaces/ReleaseType";
 
 // db query
 const getRelease = async ({
@@ -31,12 +33,8 @@ const getRelease = async ({
     passed: 1,
     passing: 1,
     total: 1,
+    controls: 1,
   };
-
-  // include the control field if requested in the query
-  if (withControls) {
-    fields.controls = 1;
-  }
 
   const result = await releaseModel
     .aggregate([
@@ -61,7 +59,7 @@ const releases = {
       description: "optional release id to limit to specific release",
     },
     releaseType: {
-      type: ReleaseType,
+      type: GraphQLReleaseType,
       description:
         "optional release type - what type of releases do you want to return",
     },
@@ -71,7 +69,16 @@ const releases = {
     },
   },
   // eslint-disable-next-line no-unused-vars
-  resolve: async (root, { releaseId, limit, releaseType }, context, info) => {
+  resolve: async (
+    root,
+    {
+      releaseId,
+      limit,
+      releaseType,
+    }: { releaseId: string; limit: number; releaseType: ReleaseTypeValue },
+    context,
+    info,
+  ) => {
     try {
       const withControls = true;
       const releases = await getRelease({
