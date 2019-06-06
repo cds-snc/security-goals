@@ -81,17 +81,3 @@ action "test performance-index" {
     CI = "true"
   }
 }
-
-workflow "Pull request notify" {
-  on = "pull_request"
-  resolves = ["Ilshidur/action-slack@master"]
-}
-
-action "Ilshidur/action-slack@master" {
-  uses = "Ilshidur/action-slack@master"
-  secrets = ["SLACK_WEBHOOK"]
-  args = "A pull request was added or updated: <https://github.com/cds-snc/security-goals/pull/{{ EVENT_PAYLOAD.pull_request.number }}|{{ EVENT_PAYLOAD.pull_request.title }}>"
-  env = {
-    SLACK_OVERRIDE_MESSAGE = "true"
-  }
-}
