@@ -203,7 +203,7 @@ const details = css`
     width: 100%;
   }
 
-  li:nth-last-child(2) {
+  li:nth-last-of-type(2) {
     border-bottom: 0;
   }
 `;
