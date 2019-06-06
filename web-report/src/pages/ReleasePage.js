@@ -11,6 +11,14 @@ const back = css`
   display: inline-block;
   color: ${theme.colour.black};
   font-size: ${theme.font.md};
+`
+
+const release = css`
+  display: inline-block;
+  color: ${theme.colour.black};
+  font-size: ${theme.font.md};
+  float:right;
+  padding: 50px 80px 0 0;
 `;
 
 const singleReleasePage = css`
@@ -144,6 +152,20 @@ class ReleasePage extends React.Component {
     }
   }
 
+  repoLink() {
+    const { releaseId } = this.state;
+    if (releaseId.includes("-")){
+      const link = `https://github.com/${runtimeConfig.github_repo}/commit/${releaseId.split("-")[0]}`; 
+      return (
+        <a data-testid="release-button" name="release" href={link} css={release} target="_blank">
+          <span name="view-release">View release on GitHub</span>
+        </a>
+      )
+    } else {
+      return false;
+    }
+  }
+  
   render() {
     const { data, releaseId } = this.state;
     return (
@@ -153,6 +175,7 @@ class ReleasePage extends React.Component {
             <BackIcon fill={theme.colour.blackLight} />
             <span name="back-text">Back to home</span>
           </a>
+          { runtimeConfig.github_repo != "" ? this.repoLink() : null}
           <IsReady data={data} />
 
           <GridSingleRelease

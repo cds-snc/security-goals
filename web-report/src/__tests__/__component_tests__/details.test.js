@@ -11,7 +11,7 @@ test("Details page renders control boxes from input data", async () => {
     <Details
       id="SA-11"
       data={dataDetails}
-      sortedData={dataDetails.controlReleaseData}
+      sortedData={dataDetails.passing}
     />
   );
 

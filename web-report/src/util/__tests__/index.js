@@ -1,4 +1,4 @@
-import { cleanup } from "react-testing-library";
+import { cleanup } from "@testing-library/react";
 import { chunkArray } from "../../util";
 import "jest-dom/extend-expect";
 

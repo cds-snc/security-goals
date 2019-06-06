@@ -1,7 +1,7 @@
 export const data = {
   releases: [
     {
-      release: "1546522884800",
+      release: "abcd-1546522884800",
       timestamp: "1546543542058",
       passed: "false",
       passing: "22",

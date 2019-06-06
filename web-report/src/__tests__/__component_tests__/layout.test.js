@@ -9,7 +9,7 @@ test("Renders Layout with Header(+ pdf-link), and Footer (+ back-to-top)", async
   const { getByTestId } = render(<Layout pdf={`pdf-details/AU-6`} />);
   expect(getByTestId("header"));
   expect(getByTestId("main-header-h1")).toHaveTextContent(
-    "Are we compliant yet?"
+    "Are we meeting our security goals?"
   );
   /*
   expect(getByTestId("print-message")).toHaveTextContent(

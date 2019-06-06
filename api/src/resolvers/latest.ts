@@ -1,6 +1,6 @@
-const { Release } = require("../types/Release");
-const { GraphQLList } = require("graphql");
-const { releaseModel } = require("../db/model");
+import { Release } from "../types/Release";
+import { GraphQLList } from "graphql";
+import { releaseModel } from "../db/model";
 
 // db query
 const getLatestRelease = async () => {

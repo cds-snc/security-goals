@@ -3,6 +3,7 @@ import React from "react";
 import { jsx, css } from "@emotion/core";
 import Layout from "../components/Layout";
 import Home from "../components/Home";
+import { Failed } from "../components";
 import { releaseStatus } from "../../api/index";
 import "./Home.css";
 
@@ -23,6 +24,11 @@ class HomePage extends React.Component {
 
   render() {
     const { data } = this.state;
+
+    if (!data || data.length < 1) {
+      return <Failed />;
+    }
+
     return (
       <Layout>
         <Home sortedData={data} />
