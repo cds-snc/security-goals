@@ -33,6 +33,7 @@ const getRelease = async ({
     passed: 1,
     passing: 1,
     total: 1,
+    releaseTimeStamp: Date.now(),
     controls: 1,
   };
 
