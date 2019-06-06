@@ -30,6 +30,8 @@ spec:
               value: '3000'
             - name: API_URL
               value: '/security-goals/api'
+            - name: GITHUB_REPO
+              value: 'cds-snc/cra-alpha'
             - name: PDF_REPORT_URL
               value: '/pdf-report/'
             - name: RELATIVE_PATH
