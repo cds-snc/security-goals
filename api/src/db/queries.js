@@ -29,7 +29,7 @@ const getControl = async control => {
       },
       {
         $sort: {
-          _id: 1,
+          _id: 1
         },
       },
     ])
@@ -103,8 +103,10 @@ const unwindReleaseControls = async sha => {
 const getReleaseDate = async results => {
   let release = results[0].controls.verifications[0].release;
   let d = new Date(0);
-  if (release.lastIndexOf("-") != -1 ) {
-    return d.setUTCMilliseconds(release.substring(release.lastIndexOf("-") + 1));
+  if (release.lastIndexOf("-") != -1) {
+    return d.setUTCMilliseconds(
+      release.substring(release.lastIndexOf("-") + 1),
+    );
   } else {
     return d.setUTCMilliseconds(release);
   }
@@ -126,7 +128,7 @@ const updateRelease = async (sha, { passing, total }, releaseDate) => {
         passing: passing,
         total: total,
         passed: passing === total,
-        releaseTimeStamp: releaseDate
+        releaseTimeStamp: releaseDate,
       },
     )
     .exec();
