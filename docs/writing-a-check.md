@@ -1,31 +1,32 @@
 ## Writing a check
 
-Let's look at the pieces we'll need
+Let's look at the pieces we'll need:
 
-1. Check definition file (yaml)
+1. **Check definition file** (yaml)
+```
+This file will define environmental variables and configuration needed to run our check container
+```
 
-This file will define environmental variables and cofuguration to run our check container
-
-
-2. Check Container
-
-This is a standalone Docker containers that receive input through environmental variables and outputs the results to a JSON file 
-
-
-3. Checks Directory
-
-This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file
-
-
-## Goals for this tutorial
-
-Write a check that will ensure secret scanning is part of your CI pipeline.
-
-
-The end result of our check will be a JSON file written to a checks directory.
-
+2. **Check Container**
 
 ```
+This is a standalone Docker container that will receive input through environmental variables and output the results to a JSON file 
+```
+
+3. **Checks Directory**
+
+```
+This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file
+```
+
+
+## What are we checking for?
+
+Let's write a check that will ensure secret scanning is part of your CI pipeline.  The end result of our check will be a JSON file written to a checks directory.
+
+
+**Sample JSON output** 
+```json
 {
   "origin":"gcr.io/security-goals/checks/url-exists:latest",
   "timestamp":"2018-10-25T14:33:26Z",
@@ -40,16 +41,15 @@ The end result of our check will be a JSON file written to a checks directory.
 }
 ```
 
-## Let's get started
+## Getting started
 
-
-### The check definition file 
+### 1. The check definition file 
 
 We have setup a demo repository [here](https://github.com/cds-snc/security-goals-demo).  
 
-Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see our check definition files.
+Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see a list of check definition files.  
 
-[Here][https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml] we have a check we've created that looks for a string in a file.
+For this tutorial we'll look at the [ia-5-7.yaml](https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml) file where we have a check that looks for a string in a file.
 
 Looks dig into that file.
 
@@ -80,7 +80,7 @@ containers:
 Please see [How do checks work](https://github.com/cds-snc/security-goals-checks#how-do-checks-work) for full details on the definition file
 
 
-### The Check Container
+### 2. The Check Container
 
 In order for our check to run we need to setup a check container.  These containers will run when we trigger a release.
 
@@ -106,8 +106,9 @@ puts check
 ...
 ```
 
-The resulting check file should now have a pass or fail result (JSON file) written to a shared checks directory ready to be picked up by our Security Goals watcher scripts.  
 
-### Results
+### 3. Results written to a shared checks directory
+
+The resulting check file from the code above should now have written a pass or fail result (JSON file) to a shared checks directory ready to be picked up by our Security Goals watcher scripts.  
 
 When the watcher picks up our new file it will write the results to the database where the data will be made available in mutiple formats i.e. a GraphQL api.
