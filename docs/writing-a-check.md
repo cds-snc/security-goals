@@ -29,12 +29,12 @@ Let's write a check that will ensure secret scanning is part of your CI pipeline
   "origin":"gcr.io/security-goals/checks/url-exists:latest",
   "timestamp":"2018-10-25T14:33:26Z",
   "satisfies":[
-     "SA-11 (1)"
+     "IA-5 (7)"
   ],
   "passed":true,
-  "description":"The application uses an ESLint file to do so static code analysis.",
+  "description":"This applications scans for secrets as part of it's CI pipeline",
   "component":"Source code",
-  "references":"https://github.com/cds-snc/vac-benefits-directory/blob/master/.eslintrc.json",
+  "references":"https://raw.githubusercontent.com/cds-snc/cra-alpha/master/.github/main.workflow",
   "release":"abcd-1234"
 }
 ```
