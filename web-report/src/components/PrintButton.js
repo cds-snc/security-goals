@@ -23,7 +23,7 @@ const print = css`
 
 export const PrintButton = ({ link = "" }) => {
   return (
-    (runtimeConfig.pdf_report_url !== "" && !window.location.pathname.includes("/controls/") ? 
+    (runtimeConfig.pdf_report_url !== "" && (!(typeof window !== 'undefined') || !window.location.pathname.includes("/controls/")) ? 
     <a
       data-testid="print-link"
       name="print-button"
