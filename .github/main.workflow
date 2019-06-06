@@ -90,7 +90,7 @@ workflow "Pull request notify" {
 action "Ilshidur/action-slack@master" {
   uses = "Ilshidur/action-slack@master"
   secrets = ["SLACK_WEBHOOK"]
-  args = "A new PR is up: <https://github.com/cds-snc/security-goals/pull/{{ EVENT_PAYLOAD.pull_request.number }}|{{ EVENT_PAYLOAD.pull_request.title }}>"
+  args = "A new pull request was added or updated: <https://github.com/cds-snc/security-goals/pull/{{ EVENT_PAYLOAD.pull_request.number }}|{{ EVENT_PAYLOAD.pull_request.title }}>"
   env = {
     SLACK_OVERRIDE_MESSAGE = "true"
   }
