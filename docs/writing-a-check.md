@@ -1,5 +1,5 @@
 ## What are checks and do I need to write them?
-Checks verify that pieces of the service your working are indeed doing what is outlined in your security posture.
+Checks verify that pieces of the service your working on are indeed doing what is outlined in your security posture.
 
 Your security posture will define what requirements your service is expected to verify against.  This may result in you either using [pre-existing checks](https://github.com/cds-snc/security-goals-checks) that have been made available or writing custom checks for your service.
 
@@ -20,7 +20,7 @@ Let's look at the pieces we'll need:
 3. **Checks Directory**
 
 
-> This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file
+> This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file. Most check containers will by default write it out to `/checks`, but you can override it with the `OUT_PATH` env variable
 
 
 ## What are we checking for?
@@ -108,6 +108,8 @@ puts check
 
 ...
 ```
+
+You can also write your own checks containers as long as the output a JSON file in the above format. There are additional instructions here: [https://github.com/cds-snc/security-goals-checks](https://github.com/cds-snc/security-goals-checks). Please note that the checks container needs to add a release to the JSON.
 
 
 ### 3. Results written the checks directory
