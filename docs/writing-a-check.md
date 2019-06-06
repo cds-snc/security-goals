@@ -43,7 +43,7 @@ Let's write a check that will ensure secret scanning is part of your CI pipeline
 
 ### 1. The check definition file 
 
-We have setup a demo repository [here](https://github.com/cds-snc/security-goals-demo).  Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see a list of check definition files.  We'll look at the [ia-5-7.yaml](https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml) file where we have a check that looks for a string in a file.
+We have setup a [demo repository](https://github.com/cds-snc/security-goals-demo). Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see a list of check definition files.  We'll look at the [ia-5-7.yaml](https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml) file where we have a check that looks for a string in a file.
 
 1. We define the Docker container that will run our check
 ```
