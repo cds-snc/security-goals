@@ -3,21 +3,19 @@
 Let's look at the pieces we'll need:
 
 1. **Check definition file** (yaml)
-```
-This file will define environmental variables and configuration needed to run our check container
-```
+
+> This file will define environmental variables and configuration needed to run our check container
+
 
 2. **Check Container**
 
-```
-This is a standalone Docker container that will receive input through environmental variables and output the results to a JSON file 
-```
+
+> This is a standalone Docker container that will receive input through environmental variables and output the results to a JSON file 
 
 3. **Checks Directory**
 
-```
-This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file
-```
+
+> This is the directory where the results (JSON file) of the check will be written to.  You will define this path in the check definition file
 
 
 ## What are we checking for?
@@ -45,13 +43,7 @@ Let's write a check that will ensure secret scanning is part of your CI pipeline
 
 ### 1. The check definition file 
 
-We have setup a demo repository [here](https://github.com/cds-snc/security-goals-demo).  
-
-Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see a list of check definition files.  
-
-For this tutorial we'll look at the [ia-5-7.yaml](https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml) file where we have a check that looks for a string in a file.
-
-Looks dig into that file.
+We have setup a demo repository [here](https://github.com/cds-snc/security-goals-demo).  Inside the [manifests checks directory](https://github.com/cds-snc/security-goals-demo/tree/master/manifests/checks) we can see a list of check definition files.  We'll look at the [ia-5-7.yaml](https://github.com/cds-snc/security-goals-demo/blob/master/manifests/checks/ia-5-7.yaml) file where we have a check that looks for a string in a file.
 
 1. We define the Docker container that will run our check
 ```
@@ -59,7 +51,7 @@ containers:
     - image: "gcr.io/security-goals/checks/url-contains"
 ```
 
-2. We define a URL / file to visit (main.workflow) and string to look for " seekret-github-action"
+2. We define a URL / file to visit (main.workflow) and string to look for "seekret-github-action"
 ```
 - name: URL
   value: "https://raw.githubusercontent.com/cds-snc/cra-alpha/master/.github/main.workflow"
@@ -67,7 +59,7 @@ containers:
   value: "seekret-github-action"
 ```
 
-3. We setup several other variables and configuration. Of note we give our check a description and a "SATISFIES" key which can be a string or array.
+3. We setup several other variables and configuration. Of note we give our check a description and a "SATISFIES" key which can be a string or array
 
 ```
 - name: DESCRIPTION
@@ -77,7 +69,8 @@ containers:
 
 ```
 
-Please see [How do checks work](https://github.com/cds-snc/security-goals-checks#how-do-checks-work) for full details on the definition file
+For for full details on the definition file please see:
+[How do checks work](https://github.com/cds-snc/security-goals-checks#how-do-checks-work) 
 
 
 ### 2. The Check Container
@@ -90,7 +83,7 @@ This [particular container](https://github.com/cds-snc/security-goals-checks/blo
 
 If you look at the code:
 
-```
+```crystal
 url = URI.parse(check["url"]) // parse the url that we have passed in
 client = HTTP::Client.new(url.host.to_s, tls: context)
 res = client.get(url.full_path) // get the response
