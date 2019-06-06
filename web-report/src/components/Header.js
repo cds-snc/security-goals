@@ -71,7 +71,7 @@ const Header = ({ pdf = "" }) => (
   <header data-testid="header" name="header">
     <div css={bar}>
       <a id="back2top" href="#"></a>
-      <h1 data-testid="main-header-h1">Are we compliant yet?</h1>
+      <h1 data-testid="main-header-h1">Are we meeting our security goals?</h1>
       <Logo alt="CDS Logo" style={logo} />
       <div css={actions}>
         <ActionBar pdf={pdf} />

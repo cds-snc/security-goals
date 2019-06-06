@@ -9,7 +9,7 @@ jest.mock("../../../api/index", () => ({
 }));
 
 jest.mock("../../../src/config", () => ({
-  runtimeConfig: { relative_path: "", pdf_report_url: "https://foo" }
+  runtimeConfig: { github_repo: "cra-alpha", relative_path: "", pdf_report_url: "https://foo" }
 }));
 
 const DetailsPage = require("../../pages/DetailsPage").default;
@@ -33,7 +33,7 @@ test("Renders DetailsPage", async () => {
     const components = getAllByTestId("component");
 
     expect(getByTestId("main-header-h1")).toHaveTextContent(
-      "Are we compliant yet?"
+      "Are we meeting our security goals?"
     );
 
     expect(getByTestId("print-message")).toHaveTextContent(
