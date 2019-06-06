@@ -37,7 +37,7 @@ const grid = css`
     `)};
   }
 
-  li:nth-last-child(2) {
+  li:nth-last-of-type(2) {
     border-bottom: 1px solid ${theme.colour.grayOutline};
 
     ${mediaQuery.lg(css`
