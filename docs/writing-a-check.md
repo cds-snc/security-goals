@@ -1,4 +1,9 @@
-## Writing a check
+### What are checks and do I need to write them?
+Checks verify that pieces of service your working are indeed doing what we have outlined in our security posture.
+
+Your security posture will define what requirements your service is expected to verify against.  This may result in you either using [pre-existing checks](https://github.com/cds-snc/security-goals-checks) that have been made available or writing custom checks for your service.
+
+## How do I write a custom check?
 
 Let's look at the pieces we'll need:
 
@@ -81,12 +86,12 @@ Looking at the [url-contains](https://github.com/cds-snc/security-goals-checks/t
 
 > Checks can be written in any language (Rust, Go, Python, JavaScript) etc... 
 
-If you look at the code it will 
+If you look at the code it will:
 
-1. Parse the url we passed
-2. Fetch the url response
-3. Look for the string we passed
-4. Write the pass or fail result to the checks directory
+- Parse the url we passed
+- Fetch the url response
+- Look for the string we passed
+- Write the pass or fail result to the checks directory
 
 ```
 url = URI.parse(check["url"]) // parse the url that we have passed in
@@ -105,8 +110,8 @@ puts check
 ```
 
 
-### 3. Results written to a shared checks directory
+### 3. Results written the checks directory
 
-The resulting check file from the code above should now have written a pass or fail result (JSON file) to a shared checks directory ready to be picked up by our Security Goals watcher scripts.  
+The resulting check file from the code above will write a pass or fail result (JSON file) to a shared checks directory ready to be picked up by our Security Goals watcher scripts.  
 
-When the watcher picks up our new file it will write the results to the database where the data will be made available in mutiple formats i.e. a GraphQL api.
+When the watcher picks up the new file it will write the results to the database where the data will be made available to multiple endpoints / outputs i.e. a GraphQL api, Web UI, PDF
