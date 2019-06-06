@@ -79,11 +79,16 @@ In order for our check to run we need to setup a check container.  These contain
 
 Looking at the [url-contains](https://github.com/cds-snc/security-goals-checks/tree/master/url-contains) container we'll see that the [code](https://github.com/cds-snc/security-goals-checks/blob/master/url-contains/src/url_contains.cr) is written in [crystal](https://crystal-lang.org).  
 
-Note: Checks can be written in any language (Rust, Go, Python, JavaScript) etc... 
+> Checks can be written in any language (Rust, Go, Python, JavaScript) etc... 
 
-If you look at the code:
+If you look at the code it will 
 
-```crystal
+1. Parse the url we passed
+2. Fetch the url response
+3. Look for the string we passed
+4. Write the pass or fail result to the checks directory
+
+```
 url = URI.parse(check["url"]) // parse the url that we have passed in
 client = HTTP::Client.new(url.host.to_s, tls: context)
 res = client.get(url.full_path) // get the response
