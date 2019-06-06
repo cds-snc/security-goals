@@ -31,6 +31,7 @@ const getRelease = async ({
     passed: 1,
     passing: 1,
     total: 1,
+    releaseTimeStamp: Date.now()
   };
 
   // include the control field if requested in the query

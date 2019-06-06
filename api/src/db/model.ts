@@ -7,6 +7,7 @@ const releaseSchema = new mongoose.Schema(
     passed: Boolean,
     passing: Number,
     total: Number,
+    releaseTimeStamp: Date
   },
   { timestamps: true },
 );

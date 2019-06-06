@@ -111,14 +111,25 @@ const unwindReleaseControls = async sha => {
     .exec();
 };
 
+const getReleaseDate = async results => {
+  let release = results[0].controls.verifications[0].release;
+  let d = new Date(0);
+  if (release.lastIndexOf("-") != -1 ) {
+    return d.setUTCMilliseconds(release.substring(release.lastIndexOf("-") + 1));
+  } else {
+    return d.setUTCMilliseconds(release);
+  }
+};
+
 const sumRelease = async sha => {
   const results = await unwindReleaseControls(sha);
   const totals = await sumReleaseControls(results);
-  return updateRelease(sha, totals);
+  const releaseDate = await getReleaseDate(results);
+  return updateRelease(sha, totals, releaseDate);
 };
 
 // update release with totals
-const updateRelease = async (sha, { passing, total }) => {
+const updateRelease = async (sha, { passing, total }, releaseDate) => {
   await releaseModel
     .findOneAndUpdate(
       { release: sha },
@@ -126,6 +137,7 @@ const updateRelease = async (sha, { passing, total }) => {
         passing: passing,
         total: total,
         passed: passing === total,
+        releaseTimeStamp: releaseDate
       },
     )
     .exec();
