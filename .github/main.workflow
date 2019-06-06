@@ -5,7 +5,7 @@ workflow "test" {
     "test performance-index",
     "test pdf-report",
     "test runner",
-    "test web-report"
+    "test web-report",
   ]
   on = "push"
 }
@@ -80,4 +80,15 @@ action "test performance-index" {
   env = {
     CI = "true"
   }
+}
+
+workflow "Pull request notify" {
+  on = "pull_request"
+  resolves = ["Ilshidur/action-slack@master"]
+}
+
+action "Ilshidur/action-slack@master" {
+  uses = "Ilshidur/action-slack@master"
+  secrets = ["SLACK_WEBHOOK"]
+  args = "<a href=\"https://github.com/cds-snc/security-goals/pull/{{ EVENT_PAYLOAD.pull_request.id }}\">{{ EVENT_PAYLOAD.pull_request.title }}</a>"
 }
