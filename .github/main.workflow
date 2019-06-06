@@ -5,7 +5,7 @@ workflow "test" {
     "test performance-index",
     "test pdf-report",
     "test runner",
-    "test web-report"
+    "test web-report",
   ]
   on = "push"
 }
@@ -79,5 +79,19 @@ action "test performance-index" {
   args = "--cwd performance-index --network-timeout 100000 test"
   env = {
     CI = "true"
+  }
+}
+
+workflow "Pull request notify" {
+  on = "pull_request"
+  resolves = ["Ilshidur/action-slack@master"]
+}
+
+action "Ilshidur/action-slack@master" {
+  uses = "Ilshidur/action-slack@master"
+  secrets = ["SLACK_WEBHOOK"]
+  args = "A pull request was added or updated: <https://github.com/cds-snc/security-goals/pull/{{ EVENT_PAYLOAD.pull_request.number }}|{{ EVENT_PAYLOAD.pull_request.title }}>"
+  env = {
+    SLACK_OVERRIDE_MESSAGE = "true"
   }
 }
