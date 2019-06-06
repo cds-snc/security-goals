@@ -1,5 +1,5 @@
 ## What are checks and do I need to write them?
-Checks verify that pieces of service your working are indeed doing what we have outlined in our security posture.
+Checks verify that pieces of the service your working are indeed doing what is outlined in your security posture.
 
 Your security posture will define what requirements your service is expected to verify against.  This may result in you either using [pre-existing checks](https://github.com/cds-snc/security-goals-checks) that have been made available or writing custom checks for your service.
 
