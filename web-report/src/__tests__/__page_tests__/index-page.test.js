@@ -25,7 +25,7 @@ test("Renders ReleasesPage Boxes (w/ Data)", async () => {
   await wait(() => {
     const releaseLinks = getAllByTestId("release-box-link");
     expect(getByTestId("main-header-h1")).toHaveTextContent(
-      "Are we compliant yet?"
+      "Are we meeting our security goals?"
     );
 
     expect(getByTestId("print-message")).toHaveTextContent(

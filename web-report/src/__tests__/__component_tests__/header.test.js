@@ -14,7 +14,7 @@ test("Header renders with proper message, action bar, and image", async () => {
   );
   expect(getByTestId("header"));
   expect(getByTestId("main-header-h1")).toHaveTextContent(
-    "Are we compliant yet?"
+    "Are we meeting our security goals?"
   );
   /*
   expect(getByTestId("print-message")).toHaveTextContent(

@@ -10,10 +10,10 @@ jest.mock("../../../api/index", () => ({
 }));
 
 jest.mock("../../../src/config", () => ({
-  runtimeConfig: {relative_path: "", pdf_report_url: "https://foo/"}
+  runtimeConfig: {github_repo: "cra-alpha", relative_path: "", pdf_report_url: "https://foo/"}
 }));
 
-const SingleReleasePage = require("../../pages/ReleasePage").default;
+const ReleasePage = require("../../pages/ReleasePage").default;
 
 afterEach(cleanup); // <-- add this
 
@@ -22,7 +22,7 @@ test("Renders Single Release Page with status bar and control boxes (w/ data)", 
 
   const { getByTestId, getAllByTestId } = render(
     <MemoryRouter>
-      <SingleReleasePage data={data} releaseParam="1546522884800" match={{params: {releaseId: "1546522884800"}}} />
+      <ReleasePage data={data} releaseParam="abcd-1546522884800" match={{params: {releaseId: "abcd-1546522884800"}}} />
      </MemoryRouter>
   );
   await wait(() => {
@@ -31,7 +31,7 @@ test("Renders Single Release Page with status bar and control boxes (w/ data)", 
   const controlBoxTimestamps = getAllByTestId("control-box-timestamp");
 
   expect(getByTestId("main-header-h1")).toHaveTextContent(
-    "Are we compliant yet?"
+    "Are we meeting our security goals?"
   );
   
   expect(getByTestId("print-message")).toHaveTextContent(
@@ -39,9 +39,14 @@ test("Renders Single Release Page with status bar and control boxes (w/ data)", 
   );
   expect(getByTestId("print-link")).toHaveAttribute(
     "href",
-    "https://foo/1546522884800"
+    "https://foo/abcd-1546522884800"
   );
   
+  expect(getByTestId("release-button")).toHaveAttribute(
+    "href",
+    "https://github.com/cra-alpha/commit/abcd"
+  );
+
   expect(getByTestId("cds-logo")).toHaveAttribute(
     "id",
     "CDS Logo White Outline"
