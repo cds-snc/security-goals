@@ -33,7 +33,7 @@ const getRelease = async ({
     passed: 1,
     passing: 1,
     total: 1,
-    releaseTimeStamp: Date.now(),
+    releaseTimeStamp: 1,
     controls: 1,
   };
 
@@ -43,7 +43,7 @@ const getRelease = async ({
       {
         $project: fields,
       },
-      { $sort: { timestamp: -1 } },
+      { $sort: { releaseTimeStamp: -1 } },
       { $limit: limit },
     ])
     .exec();
