@@ -77,9 +77,9 @@ For for full details on the definition file please see:
 
 In order for our check to run we need to setup a check container.  These containers will run when we trigger a release.
 
-Lets look at the [url-contains](https://github.com/cds-snc/security-goals-checks/tree/master/url-contains) container.
+Looking at the [url-contains](https://github.com/cds-snc/security-goals-checks/tree/master/url-contains) container we'll see that the [code](https://github.com/cds-snc/security-goals-checks/blob/master/url-contains/src/url_contains.cr) is written in [crystal](https://crystal-lang.org).  
 
-This [particular container](https://github.com/cds-snc/security-goals-checks/blob/master/url-contains/src/url_contains.cr) is written in [crystal](https://crystal-lang.org).  Checks can be written in any language (Rust, Go, Python, JavaScript) etc... 
+Note: Checks can be written in any language (Rust, Go, Python, JavaScript) etc... 
 
 If you look at the code:
 
