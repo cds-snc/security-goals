@@ -77,12 +77,13 @@ export const flattenAndSave = async (
   const result = await checkExists(obj);
 
   // check if there's an existing release
-  if (!result.length) {
+  if (!result || !result.length) {
     // @ts-ignore
     return save(obj);
   }
 
   const existingControls = result[0].controls;
+
   const newControls = checkControlExists(obj.controls, existingControls);
 
   if (newControls.length >= 1) {

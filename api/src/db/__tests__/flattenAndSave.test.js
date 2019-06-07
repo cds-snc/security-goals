@@ -22,7 +22,7 @@ describe("flattenAndSave", () => {
   it("keeps existing control data", async () => {
     const result = await flattenAndSave(fixture, mockSave);
     expect(mockSave.mock.calls.length).toBe(1);
-    expect(result.controls[0].control).toEqual("CA-2 (7)");
+    expect(result.controls[0].control).toEqual("CA-2 (2)");
   });
 
   it("keeps existing release data", async () => {
