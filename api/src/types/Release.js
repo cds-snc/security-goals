@@ -15,6 +15,10 @@ const Release = new GraphQLObjectType({
       description: "release timestamp when the release was created",
       type: GraphQLString,
     },
+    formattedReleaseTimeStamp: {
+      description: "formatted release timestamp %H:%M:%S %d-%m-%Y",
+      type: GraphQLString,
+    },
     controls: { description: "timestamp", type: new GraphQLList(Control) },
     passed: {
       description: "status to determine if all controls for the release passed",
