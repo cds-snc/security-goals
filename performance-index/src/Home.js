@@ -3,6 +3,7 @@ import { AreaChart, ResponsiveContainer, Area, CartesianGrid, XAxis, YAxis, Tool
 import { allReleases } from "./api/index";
 import { getControls, setInitialWeight } from "./util/controls";
 import "./Home.css";
+import Layout from './Layout';
 
 class Home extends React.Component {
   constructor(props) {
@@ -149,14 +150,16 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Raw Performance Index</h2>
-        {this.renderRawChart()}
-        <h2>Chance of negative event</h2>
-        {this.renderAbsoluteChart()}
-        <hr/>
-        {this.renderData()}
-      </div>
+      <Layout>
+        <div>
+          <h2>Raw Performance Index</h2>
+          {this.renderRawChart()}
+          <h2>Chance of negative event</h2>
+          {this.renderAbsoluteChart()}
+          <hr/>
+          {this.renderData()}
+        </div>
+      </Layout>
     );
   }
 }
