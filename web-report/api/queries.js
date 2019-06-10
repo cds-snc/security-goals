@@ -1,21 +1,3 @@
-const setFields = type => {
-  const fields = `${type}{
-        id
-        name
-        description
-        verifications {
-          timestamp
-          origin
-          component
-          description
-          passed
-          references
-        }
-      }`;
-
-  return fields;
-};
-
 const allControlsQuery = () => {
   return `query{
   releases {
@@ -59,6 +41,7 @@ const allReleaseQuery = release => {
       passed
       passing
       total
+      releaseTimeStamp
       }
   }`;
 };

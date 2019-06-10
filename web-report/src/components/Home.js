@@ -54,7 +54,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
         aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
       >
         {sortedData.map((singleRelease, index) => {
-          var myDate = Number(singleRelease.timestamp);
+          var myDate = Number(singleRelease.releaseTimeStamp);
           var formattedDate = formatTimestamp(myDate);
           const key = `${singleRelease.release}`;
           return (
