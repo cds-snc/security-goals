@@ -7,7 +7,7 @@ const note = message => {
   log(chalk.black.bgGreen("\n\n" + message));
 };
 
-const getControl = async control => {
+export const getControl = async control => {
   note(`=== get control ===`);
 
   // @todo update this query to target single release
@@ -29,7 +29,7 @@ const getControl = async control => {
       },
       {
         $sort: {
-          _id: 1
+          _id: 1,
         },
       },
     ])
@@ -100,6 +100,25 @@ const unwindReleaseControls = async sha => {
     .exec();
 };
 
+export const getMinMaxReleaseDates = async () => {
+  const max = await releaseModel
+    .find({})
+    .sort({ releaseTimeStamp: -1 })
+    .limit(1)
+    .exec();
+
+  const min = await releaseModel
+    .find({})
+    .sort({ releaseTimeStamp: 1 })
+    .limit(1)
+    .exec();
+
+  return {
+    min: min[0].releaseTimeStamp,
+    max: max[0].releaseTimeStamp,
+  };
+};
+
 const getReleaseDate = async results => {
   let release = results[0].controls.verifications[0].release;
   let d = new Date(0);
@@ -135,6 +154,7 @@ const updateRelease = async (sha, { passing, total }, releaseDate) => {
 };
 
 module.exports = {
+  getMinMaxReleaseDates,
   getControl,
   sumRelease,
   checkExists,

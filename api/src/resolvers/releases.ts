@@ -1,22 +1,32 @@
 import { Release } from "../types/Release";
 import { GraphQLList, GraphQLString, GraphQLInt } from "graphql";
 import { releaseModel } from "../db/model";
-import {
-  GraphQLReleaseType,
-  ReleaseType,
-} from "../interfaces/ReleaseType";
+import { GraphQLReleaseType, ReleaseType } from "../interfaces/ReleaseType";
+
+const toDate = (date: string) => new Date(date);
+
+const todayYearMonthDay = () => {
+  const date = new Date();
+  const month = date.getUTCMonth() + 1; //months from 1-12
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+
+  return `${year}-${month}-${day}`;
+};
 
 // db query
 const getRelease = async ({
   releaseId = "",
   limit = 10000,
   releaseType = "all",
+  startDate = "2018-01-01",
+  endDate = todayYearMonthDay(),
   withControls = false,
 }) => {
   let match = {};
 
   if (releaseId) {
-    match = { release: releaseId };
+    match = { ...match, release: releaseId };
   }
 
   if (releaseType === "failing") {
@@ -27,6 +37,15 @@ const getRelease = async ({
     match = { ...match, passed: true };
   }
 
+  //set the date range
+  match = {
+    ...match,
+    releaseTimeStamp: {
+      $gte: toDate(startDate),
+      $lte: toDate(endDate),
+    },
+  };
+
   const fields = {
     release: 1,
     timestamp: "$createdAt",
@@ -34,6 +53,9 @@ const getRelease = async ({
     passing: 1,
     total: 1,
     releaseTimeStamp: 1,
+    formattedReleaseTimeStamp: {
+      $dateToString: { format: "%H:%M:%S %d-%m-%Y", date: "$releaseTimeStamp" },
+    },
     controls: 1,
   };
 
@@ -68,6 +90,14 @@ const releases = {
       type: GraphQLInt,
       description: "maximum number of releases to pull",
     },
+    startDate: {
+      type: GraphQLString,
+      description: "optional start date in YYY-MM-DD format",
+    },
+    endDate: {
+      type: GraphQLString,
+      description: "optional end date in YYY-MM-DD format",
+    },
   },
   // eslint-disable-next-line no-unused-vars
   resolve: async (
@@ -76,7 +106,15 @@ const releases = {
       releaseId,
       limit,
       releaseType,
-    }: { releaseId: string; limit: number; releaseType: ReleaseType },
+      startDate,
+      endDate,
+    }: {
+      releaseId: string;
+      limit: number;
+      releaseType: ReleaseType;
+      startDate: string;
+      endDate: string;
+    },
     context,
     info,
   ) => {
@@ -86,6 +124,8 @@ const releases = {
         releaseId,
         limit,
         releaseType,
+        startDate,
+        endDate,
         withControls,
       });
       return releases.filter(item => {
