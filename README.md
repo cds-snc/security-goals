@@ -56,6 +56,13 @@ Following is a graphical representation of the same flow:
 
 ![symmorfosi](https://user-images.githubusercontent.com/867334/54229980-d4c94e80-44db-11e9-9db3-3311887186a2.png)
 
+
+### How do I write a check?
+
+Please see this [guide](https://github.com/cds-snc/security-goals/blob/master/docs/writing-a-check.md)
+
+
+
 ### Questions?
 
 Please contact us through any of the multiple ways listed on our [website](https://digital.canada.ca/).
