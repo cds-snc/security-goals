@@ -2,8 +2,7 @@ import queue from "async/queue";
 import { File } from "../interfaces/File";
 import { note } from "../utils/note";
 import { renameFile } from "../utils/renameFile";
-
-const { getFiles } = require("./getFiles");
+import { getFiles } from "./getFiles";
 const { checkExists, saveReleaseToDB } = require("./queries");
 const merge = require("object-array-merge");
 const { forceBoolean } = require("../utils/forceBoolean");
@@ -165,6 +164,23 @@ const q = queue(async (item: File, cb: (item: File) => {}) => {
   await queueCB(item);
   cb(item);
 }, 1);
+
+let drainCounter = 1;
+
+q.drain(async () => {
+  console.log("all items have been processed");
+  const files = await getFileData();
+  console.log(`missed files count ${files.length} `);
+  // limit the # of attempts we make so we don't end
+  // up in an endless loop
+  if (drainCounter < 5) {
+    await saveFiles();
+    console.log(`drain count ${drainCounter}`);
+    drainCounter++;
+  } else {
+    console.log("reached drain call limit");
+  }
+});
 
 export const saveFiles = async () => {
   try {
