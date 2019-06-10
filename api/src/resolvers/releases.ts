@@ -5,11 +5,11 @@ import { GraphQLReleaseType, ReleaseType } from "../interfaces/ReleaseType";
 
 const toDate = (date: string) => new Date(date);
 
-const todayYearMonthDay = () => {
+const defaultEndDate = () => {
   const date = new Date();
   const month = date.getUTCMonth() + 1; //months from 1-12
   const day = date.getUTCDate();
-  const year = date.getUTCFullYear();
+  const year = date.getUTCFullYear() + 1; // One year ahead
 
   return `${year}-${month}-${day}`;
 };
@@ -20,7 +20,7 @@ const getRelease = async ({
   limit = 10000,
   releaseType = "all",
   startDate = "2018-01-01",
-  endDate = todayYearMonthDay(),
+  endDate = defaultEndDate(),
   withControls = false,
 }) => {
   let match = {};
