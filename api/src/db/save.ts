@@ -164,11 +164,21 @@ const q = queue(async (item: File, cb: (item: File) => {}) => {
   cb(item);
 }, 1);
 
+let drainCounter = 1;
+
 q.drain(async () => {
   console.log("all items have been processed");
   const files = await getFileData();
-  console.log("hey we've missed these files");
-  console.log(files);
+  console.log(`missed files count ${files.length} `);
+  // limit the # of attempts we make so we don't end
+  // up in an endless loop
+  if (drainCounter < 5) {
+    await saveFiles();
+    console.log(`drain count ${drainCounter}`);
+    drainCounter++;
+  } else {
+    console.log("reached drain call limit");
+  }
 });
 
 export const saveFiles = async () => {
