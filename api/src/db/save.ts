@@ -173,7 +173,7 @@ q.drain(async () => {
   console.log(`missed files count ${files.length} `);
   // limit the # of attempts we make so we don't end
   // up in an endless loop
-  if (drainCounter < 5) {
+  if (drainCounter < 5 && files.length >= 1) {
     await saveFiles();
     console.log(`drain count ${drainCounter}`);
     drainCounter++;

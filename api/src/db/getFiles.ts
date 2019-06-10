@@ -17,11 +17,11 @@ export const getFiles = async (path: string = process.env.CHECKS_PATH) => {
     note("☠ files not found");
   }
 
-  note(`★ found ${files.length} files`);
-
   let jsonFiles = files
     .filter(f => f.match(/.json$/) !== null)
     .map(f => join(path, f.match(/.json$/).input));
+
+  note(`★ found ${jsonFiles.length} files`);
 
   let checks: string[] = await Promise.all(
     jsonFiles.map(async file => {
