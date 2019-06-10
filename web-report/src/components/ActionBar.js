@@ -1,7 +1,12 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
-import { PrintButton, BackIcon, BackToTopButton } from "./";
+import {
+  PrintButton,
+  BackIcon,
+  BackToTopButton,
+  LanguageToggleButton
+} from "./";
 import React from "react";
 
 const actions = css`
@@ -36,12 +41,7 @@ const actions = css`
   `)};
 `;
 
-const ActionBar = ({
-  pdf = "",
-  back2top = false,
-  click,
-  keyDownTop
-}) => {
+const ActionBar = ({ pdf = "", back2top = false, click, keyDownTop }) => {
   return (
     <div name="action-bar" css={actions}>
       {back2top === false ? (
@@ -49,6 +49,8 @@ const ActionBar = ({
       ) : (
         <BackToTopButton click={click} keyDownTop={keyDownTop} />
       )}
+
+      <LanguageToggleButton />
     </div>
   );
 };
