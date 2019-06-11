@@ -8,7 +8,7 @@ const placeHolderDescription = "Lorem ipsum dolor sit amet, consectetur adipisci
 export const generateReport = (release: any, controls: any): PDFKit.PDFDocument => {
   let doc = new PDFDocument();
 
-  doc = addTitlePage(doc, `Security Goals Report for the CRA Alpha application`, release.release);
+  doc = addTitlePage(doc, `Security Goals Report for ${process.env.APP_NAME}`, release.release);
   doc = addSummaryPage(doc);
   doc = addTableOfContents(doc, release, controls);
   doc = release.controls.reduce((document: PDFKit.PDFDocument, control: any, index: number) => {
