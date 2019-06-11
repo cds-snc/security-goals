@@ -30,6 +30,8 @@ spec:
               value: '3000'
             - name: API_URL
               value: 'http://api.security-goals.svc.cluster.local:3000/api'
+            - name: APP_NAME
+              value: 'CRA Alpha'
           resources: {}
           livenessProbe:
             httpGet:
