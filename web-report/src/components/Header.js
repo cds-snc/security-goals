@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
+import { I18N } from "./I18N";
 import ActionBar from "../components/ActionBar";
 
 const bar = css`
@@ -70,8 +71,10 @@ const actions = css`
 const Header = ({ pdf = "" }) => (
   <header data-testid="header" name="header">
     <div css={bar}>
-      <a id="back2top" href="#"></a>
-      <h1 data-testid="main-header-h1">Are we meeting our security goals?</h1>
+      <a id="back2top" href="#" />
+      <h1 data-testid="main-header-h1">
+        <I18N t="tagline" />
+      </h1>
       <Logo alt="CDS Logo" style={logo} />
       <div css={actions}>
         <ActionBar pdf={pdf} />

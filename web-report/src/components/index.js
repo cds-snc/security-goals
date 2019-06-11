@@ -12,6 +12,8 @@ export { BackIcon } from "./icons/BackIcon";
 export { PrinterIcon } from "./icons/PrinterIcon";
 export { UpArrowCircle } from "./icons/UpArrowCircle";
 export { PrintButton } from "./PrintButton";
+export { LanguageToggleButton } from "./LanguageToggle";
+export { I18N } from "./I18N";
 export { BackToTopButton } from "./BackToTopButton";
 export { Logo } from "./Logo";
 export { Spinner } from "./Spinner";
