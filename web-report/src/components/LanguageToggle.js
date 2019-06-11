@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import LanguageContext from "../LanguageContext";
+import { I18N } from "./I18N";
 import { theme } from "./styles";
 
 const btn = css`
@@ -16,7 +17,7 @@ const btn = css`
 `;
 
 export const LanguageToggleButton = () => {
-  const { currentLanguage, onLanguageToggle } = useContext(LanguageContext);
+  const { onLanguageToggle } = useContext(LanguageContext);
 
   return (
     <a
@@ -26,7 +27,9 @@ export const LanguageToggleButton = () => {
       css={btn}
       href={`#`}
     >
-      <span data-testid="print-message">Language {currentLanguage}</span>
+      <span data-testid="print-message">
+        <I18N t="current-language" />
+      </span>
     </a>
   );
 };

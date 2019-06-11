@@ -1,7 +1,9 @@
 import React from "react";
+import translations from "./i18n/translations.json";
 
 const defaultState = {
-  currentLanguage: "fr"
+  currentLanguage: "en",
+  translations
 };
 
 const LanguageContext = React.createContext(defaultState);
