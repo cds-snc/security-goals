@@ -1,5 +1,7 @@
 body {
-  padding: 5px 25px;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
 li.weightItem {
