@@ -27,7 +27,7 @@ const topPage = css`
   `)};
 `;
 
-export const BackToTopButton = ({ click, keyDownTop }) => {
+const BackToTopButton = ({ click, keyDownTop }) => {
   return (
     <div
       data-testid="back-to-top"
@@ -42,3 +42,5 @@ export const BackToTopButton = ({ click, keyDownTop }) => {
     </div>
   );
 };
+
+export default BackToTopButton;
