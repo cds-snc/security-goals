@@ -3,7 +3,7 @@ import { AreaChart, ResponsiveContainer, Area, CartesianGrid, XAxis, YAxis, Tool
 import { allReleases } from "./api/index";
 import { getControls, setInitialWeight } from "./util/controls";
 import "./Home.css";
-import Layout from './Layout';
+import Layout from './components/Layout';
 
 class Home extends React.Component {
   constructor(props) {
