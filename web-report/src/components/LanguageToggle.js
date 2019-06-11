@@ -27,7 +27,7 @@ export const LanguageToggleButton = () => {
       css={btn}
       href={`#`}
     >
-      <span data-testid="print-message">
+      <span data-testid="lang-toggle">
         <I18N lang={otherLanguage} t="current-language" />
       </span>
     </a>
