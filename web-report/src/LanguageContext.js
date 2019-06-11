@@ -3,6 +3,7 @@ import translations from "./i18n/translations.json";
 
 const defaultState = {
   currentLanguage: "en",
+  otherLanguage: "fr",
   translations
 };
 
@@ -14,7 +15,14 @@ export class LanguageProvider extends React.Component {
   handleLanguageToggle = () => {
     const { currentLanguage } = this.state;
     let lang = currentLanguage === "en" ? "fr" : "en";
-    this.setState({ currentLanguage: lang });
+
+    let otherLanguage = "fr";
+
+    if (lang === "fr") {
+      otherLanguage = "en";
+    }
+
+    this.setState({ currentLanguage: lang, otherLanguage });
   };
 
   render() {

@@ -17,7 +17,7 @@ const btn = css`
 `;
 
 export const LanguageToggleButton = () => {
-  const { onLanguageToggle } = useContext(LanguageContext);
+  const { otherLanguage, onLanguageToggle } = useContext(LanguageContext);
 
   return (
     <a
@@ -28,7 +28,7 @@ export const LanguageToggleButton = () => {
       href={`#`}
     >
       <span data-testid="print-message">
-        <I18N t="current-language" />
+        <I18N lang={otherLanguage} t="current-language" />
       </span>
     </a>
   );
