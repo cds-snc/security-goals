@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
+import { I18N } from "../I18N";
 import { theme, passingText, failingText, mediaQuery } from "../styles";
 import { Timestamp } from "./Timestamp";
 
@@ -19,7 +20,7 @@ const topInfo = css`
     font-size: ${theme.font.sm};
     font-weight: 700;
     height: 1.4rem;
-    width: 4rem;
+    width: 5rem;
   }
 
   ${mediaQuery.sm(css`
@@ -79,7 +80,7 @@ export const Header = ({
           data-testid="control-box-pass"
           css={passingText}
         >
-          Passed
+          <I18N t="passed" />
         </span>
       ) : (
         <span
@@ -87,7 +88,7 @@ export const Header = ({
           data-testid="control-box-fail"
           css={failingText}
         >
-          Failed
+          <I18N t="failed" />
         </span>
       )}
     </div>

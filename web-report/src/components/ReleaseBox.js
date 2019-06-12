@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
+import { I18N } from "./I18N";
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -173,7 +174,8 @@ const ReleaseBox = ({
               }
             >
               <h2 data-testid="release-box-title" name="releasebox-title">
-                {passed === "true" ? "Passed" : "Failed"} release: #{release}
+                {passed === "true" ? <I18N t="passed" /> : <I18N t="failed" />}{" "}
+                <I18N t="release" /> : #{release}
               </h2>{" "}
               <time
                 data-testid="release-box-timestamp"
@@ -188,7 +190,7 @@ const ReleaseBox = ({
                 data-testid="release-box-passing"
                 css={passed === "true" ? passingText : failingText}
               >
-                {passing} / {total} checks
+                {passing} / {total} <I18N t="checks"/>
               </span>
             </div>
           </div>

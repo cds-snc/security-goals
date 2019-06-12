@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { theme } from "./styles";
 import { PrinterIcon } from "./icons/PrinterIcon";
 import { runtimeConfig } from '../config';
+import { I18N } from "./I18N";
 
 
 const print = css`
@@ -31,7 +32,7 @@ export const PrintButton = ({ link = "" }) => {
       href={`${runtimeConfig.pdf_report_url}${link}`}
     >
       <PrinterIcon />
-      <span data-testid="print-message">Print this page (PDF)</span>
+      <span data-testid="print-message"><I18N t="print-pdf"/></span>
     </a>
   : "" )
   )

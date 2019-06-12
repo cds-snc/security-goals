@@ -4,7 +4,8 @@ import { GridDetails, Spinner, BackIcon } from "./";
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Collapsible } from "./Collapsible";
-import { runtimeConfig } from '../config';
+import { runtimeConfig } from "../config";
+import { I18N } from "./I18N";
 
 const controlInfo = css`
   border: 1px solid ${theme.colour.grayOutline};
@@ -229,18 +230,32 @@ const center = css`
   margin-top: 1em;
 `;
 
-export const Details = ({ data, sortedData, err, id, keyDownDetails, keyDownUL }) => {
+export const Details = ({
+  data,
+  sortedData,
+  err,
+  id,
+  keyDownDetails,
+  keyDownUL
+}) => {
   return (
     <div data-testid="details" css={details}>
       <div css={detailsWrap}>
         {id && (
           <React.Fragment>
-            <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
+            <a
+              data-testid="back-button"
+              name="back"
+              href={`${runtimeConfig.relative_path}/`}
+              css={back}
+            >
               <BackIcon fill={theme.colour.blackLight} />
-              <span name="back-text">Back to home</span>
+              <span name="back-text">
+                <I18N t="back-to-home" />
+              </span>
             </a>
             <h1 data-testid="verification-h1" name="verification-h1">
-              Verification:
+              <I18N t="verification:" />
             </h1>
             {data ? (
               <React.Fragment>
@@ -268,7 +283,9 @@ export const Details = ({ data, sortedData, err, id, keyDownDetails, keyDownUL }
               css={backBottom}
             >
               <BackIcon fill={theme.colour.blackLight} />
-              <span name="back-text">Back to home</span>
+              <span name="back-text">
+                <I18N t="back-to-home" />
+              </span>
             </a>
           </React.Fragment>
         )}
