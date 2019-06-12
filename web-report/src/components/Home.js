@@ -44,7 +44,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
   return (
     <div css={releases}>
       <h1 data-testid="index-h1" tabIndex="0">
-        <I18N t="releases" />
+        <I18N t="releases" />:
       </h1>
       <ul
         onKeyDown={keyDownUL}

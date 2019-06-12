@@ -255,7 +255,7 @@ export const Details = ({
               </span>
             </a>
             <h1 data-testid="verification-h1" name="verification-h1">
-              <I18N t="verification:" />
+              <I18N t="verification" />:
             </h1>
             {data ? (
               <React.Fragment>
