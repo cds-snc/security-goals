@@ -4,7 +4,7 @@ import { allReleases } from "./api/index";
 import { getControls, setInitialWeight } from "./util/controls";
 import "./Home.css";
 import Layout from './components/Layout';
-import { I18N } from "./components/I18N";
+import { I18N, translate } from "./components/I18N";
 
 class Home extends React.Component {
   constructor(props) {
@@ -77,8 +77,8 @@ class Home extends React.Component {
     if (this.state.weightedControls){
 
       const data = this.chartData();
-      const expected = (<I18N t="expected" />);
-      const actual = (<I18N t="actual" />);
+      const expected = translate("expected");
+      const actual = translate("actual")
       
       return (
         <div style={{ width: '100%', height: 500 }}>
@@ -130,8 +130,8 @@ class Home extends React.Component {
         );
       };
 
-      const covered = (<I18N t="covered" />);
-      const remaining = (<I18N t="remaining" />);
+      const covered = translate("covered");
+      const remaining = translate("remaining");
      
       return (
         <div style={{ width: '100%', height: 500 }}>
