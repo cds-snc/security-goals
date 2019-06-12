@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../styles";
+import { I18N } from "../I18N";
 
 const container = css`
   display: flex;
@@ -36,9 +37,11 @@ export const PassFailText = ({ status = { passed: 0, total: -1 } }) => {
       {status.map(release => {
         return (
           <h2 key="passFail" data-testid="status-text" css={isReadyText}>
-            {release.passed === "true"
-              ? "All the checks have passed"
-              : "Some checks have failed"}
+            {release.passed === "true" ? (
+              <I18N t="all-passed" />
+            ) : (
+              <I18N t="some-passed" />
+            )}
           </h2>
         );
       })}
