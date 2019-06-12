@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
+import { runtimeConfig } from '../config';
 
 const bar = css`
   background: ${theme.colour.blackLight};
@@ -56,7 +57,7 @@ const Header = () => (
   <header data-testid="header" name="header">
     <div css={bar}>
       <a id="back2top" href="#"></a>
-      <h1 data-testid="main-header-h1">Security Goals: Performance Index</h1>
+      <h1 data-testid="main-header-h1">{runtimeConfig.app_name} - Security Goals: Performance Index</h1>
       <Logo alt="CDS Logo" style={logo} />
     </div>
   </header>

@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 export const notifySlack = (release: any) => {
   const payload = {
-    "text": `A security goals audit has failed (${release.passing} out of ${release.total} passed)!`,
+    "text": `A security goals audit for ${process.env.APP_NAME} has failed (${release.passing} out of ${release.total} passed)!`,
     "attachments":[
       {
         "fallback":`You are unable to choose an action`,
