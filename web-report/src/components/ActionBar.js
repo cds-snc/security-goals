@@ -74,10 +74,11 @@ const ActionBar = ({ pdf = "", back2top = false, click, keyDownTop }) => {
           ) : (
             <BackToTopButton click={click} keyDownTop={keyDownTop} />
           )}
-
-          <a href={performance_index} css={btn}>
-            <I18N t="performance-index" />
-          </a>
+          {performance_index && (
+            <a href={performance_index} css={btn}>
+              <I18N t="performance-index" />
+            </a>
+          )}
         </div>
 
         <LanguageToggleButton />
