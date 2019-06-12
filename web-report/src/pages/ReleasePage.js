@@ -5,19 +5,20 @@ import { IsReady, GridSingleRelease, Failed, BackIcon } from "../components";
 import { theme, mediaQuery } from "../components/styles";
 import Layout from "../components/Layout";
 import { controlStatus } from "../../api/index";
-import { runtimeConfig } from '../config';
+import { runtimeConfig } from "../config";
+import { I18N } from "../components/I18N";
 
 const back = css`
   display: inline-block;
   color: ${theme.colour.black};
   font-size: ${theme.font.md};
-`
+`;
 
 const release = css`
   display: inline-block;
   color: ${theme.colour.black};
   font-size: ${theme.font.md};
-  float:right;
+  float: right;
   padding: 50px 80px 0 0;
 `;
 
@@ -154,28 +155,43 @@ class ReleasePage extends React.Component {
 
   repoLink() {
     const { releaseId } = this.state;
-    if (releaseId.includes("-")){
-      const link = `https://github.com/${runtimeConfig.github_repo}/commit/${releaseId.split("-")[0]}`; 
+    if (releaseId.includes("-")) {
+      const link = `https://github.com/${runtimeConfig.github_repo}/commit/${
+        releaseId.split("-")[0]
+      }`;
       return (
-        <a data-testid="release-button" name="release" href={link} css={release} target="_blank">
+        <a
+          data-testid="release-button"
+          name="release"
+          href={link}
+          css={release}
+          target="_blank"
+        >
           <span name="view-release">View release on GitHub</span>
         </a>
-      )
+      );
     } else {
       return false;
     }
   }
-  
+
   render() {
     const { data, releaseId } = this.state;
     return (
       <Layout pdf={releaseId}>
         <div data-testid="home" css={singleReleasePage}>
-          <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
+          <a
+            data-testid="back-button"
+            name="back"
+            href={`${runtimeConfig.relative_path}/`}
+            css={back}
+          >
             <BackIcon fill={theme.colour.blackLight} />
-            <span name="back-text">Back to home</span>
+            <span name="back-text">
+              <I18N t="back-to-home" />{" "}
+            </span>
           </a>
-          { runtimeConfig.github_repo != "" ? this.repoLink() : null}
+          {runtimeConfig.github_repo != "" ? this.repoLink() : null}
           <IsReady data={data} />
 
           <GridSingleRelease
@@ -185,9 +201,14 @@ class ReleasePage extends React.Component {
             link={true}
             keyDown={this.keyHandler}
           />
-          <a data-testid="back-button" name="back" href={`${runtimeConfig.relative_path}/`} css={back}>
+          <a
+            data-testid="back-button"
+            name="back"
+            href={`${runtimeConfig.relative_path}/`}
+            css={back}
+          >
             <BackIcon fill={theme.colour.blackLight} />
-            <span name="back-text">Back to home</span>
+            <I18N t="back-to-home" />
           </a>
         </div>
       </Layout>

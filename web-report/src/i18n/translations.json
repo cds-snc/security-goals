@@ -5,10 +5,78 @@
   },
   "releases": {
     "en": "Latest Releases",
-    "fr": "Les dernières nouveautés"
+    "fr": "Latest Releases FR"
+  },
+  "release": {
+    "en": "Release",
+    "fr": "Release FR"
+  },
+  "failed-release": {
+    "en": "Failed Release",
+    "fr": "Failed Release FR"
+  },
+  "passed": {
+    "en": "Passed",
+    "fr": "Passed FR"
+  },
+  "failed": {
+    "en": "Failed",
+    "fr": "Failed FR"
+  },
+  "verification": {
+    "en": "Verification",
+    "fr": "Verification FR"
+  },
+  "passed-release": {
+    "en": "Passed Release",
+    "fr": "Passed Release FR"
+  },
+  "references": {
+    "en": "Reference(s)",
+    "fr": "Reference(s) FR"
+  },
+  "back-to-home": {
+    "en": "Back to home",
+    "fr": "Back to home FR"
+  },
+  "back-to-top": {
+    "en": "Back To Top of Page",
+    "fr": "Back To Top of Page FR"
+  },
+  "print-pdf": {
+    "en": "Print this page (PDF)",
+    "fr": "Print this page (PDF) FR"
+  },
+  "all-passed": {
+    "en": "All the checks have passed",
+    "fr": "All the checks have passed"
+  },
+  "some-passed": {
+    "en": "Some checks have failed",
+    "fr": "Some checks have failed FR"
+  },
+  "passing": {
+    "en": "passing",
+    "fr": "passing FR"
   },
   "tagline": {
     "en": "Are we meeting our security goals?",
     "fr": "Sommes-nous en train d'atteindre nos objectifs de sécurité?"
+  },
+  "hide-the": {
+    "en": "Hide the",
+    "fr": "Hide the fr"
+  },
+  "read-the": {
+    "en": "Read the",
+    "fr": "Read the fr"
+  },
+  "description": {
+    "en": "description",
+    "fr": "description fr"
+  },
+  "checks": {
+    "en": "checks",
+    "fr": "checks fr"
   }
 }
