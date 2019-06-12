@@ -152,9 +152,9 @@ class Home extends React.Component {
     return (
       <Layout>
         <div>
-          <h2>Raw Performance Index</h2>
+          <h2>Weighted sum</h2>
           {this.renderRawChart()}
-          <h2>Chance of negative event</h2>
+          <h2>% of expected goals met including weight</h2>
           {this.renderAbsoluteChart()}
           <hr/>
           {this.renderData()}
