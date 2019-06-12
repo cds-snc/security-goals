@@ -6,5 +6,29 @@
   "tagline": {
     "en": "Security Goals: Performance Index",
     "fr": "(fr) Security Goals: Performance Index"
+  },
+  "raw": {
+    "en": "Raw Performance Index",
+    "fr": "(fr) Raw Performance Index"
+  },
+  "chance": {
+    "en": "Chance of negative event",
+    "fr": "(fr) Chance of negative event"
+  },
+  "expected": {
+    "en": "expected",
+    "fr": "(fr) expected"
+  },
+  "actual": {
+    "en": "actual",
+    "fr": "(fr) actual"
+  },
+  "covered": {
+    "en": "covered",
+    "fr": "(fr) covered"
+  },
+  "remaining": {
+    "en": "remaining",
+    "fr": "(fr) remaining"
   }
 }

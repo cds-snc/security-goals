@@ -4,6 +4,7 @@ import { allReleases } from "./api/index";
 import { getControls, setInitialWeight } from "./util/controls";
 import "./Home.css";
 import Layout from './components/Layout';
+import { I18N } from "./components/I18N";
 
 class Home extends React.Component {
   constructor(props) {
@@ -152,9 +153,9 @@ class Home extends React.Component {
     return (
       <Layout>
         <div>
-          <h2>Raw Performance Index</h2>
+          <h2><I18N t="raw" /></h2>
           {this.renderRawChart()}
-          <h2>Chance of negative event</h2>
+          <h2><I18N t="chance" /></h2>
           {this.renderAbsoluteChart()}
           <hr/>
           {this.renderData()}

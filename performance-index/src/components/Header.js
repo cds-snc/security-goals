@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
 import { I18N } from "./I18N";
+import LanguageToggleButton from "./LanguageToggle";
 
 const bar = css`
   background: ${theme.colour.blackLight};
@@ -27,6 +28,11 @@ const bar = css`
       padding: ${theme.spacing.lg} 0 ${theme.spacing.md} ${theme.spacing.xl};
     `)}
   }
+`;
+
+const langButton = css`
+    margin-left: 1.4rem;
+    margin-top: 0.75rem;
 `;
 
 const logo = css`
@@ -60,6 +66,9 @@ const Header = () => (
       <h1 data-testid="main-header-h1">
         <I18N t="tagline" />
       </h1>
+      <div css={langButton}>
+        <LanguageToggleButton/>
+      </div>
       <Logo alt="CDS Logo" style={logo} />
     </div>
   </header>
