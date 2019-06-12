@@ -1,9 +1,17 @@
 import React from "react";
 import translations from "./i18n/translations.json";
 
+const savedLang = localStorage.getItem("lang");
+
+let otherLanguage = "fr";
+
+if (savedLang && savedLang === "fr") {
+  otherLanguage = "en";
+}
+
 const defaultState = {
-  currentLanguage: "en",
-  otherLanguage: "fr",
+  currentLanguage: savedLang ? savedLang : "en",
+  otherLanguage,
   translations
 };
 
@@ -21,6 +29,8 @@ export class LanguageProvider extends React.Component {
     if (lang === "fr") {
       otherLanguage = "en";
     }
+
+    localStorage.setItem("lang", lang);
 
     this.setState({ currentLanguage: lang, otherLanguage });
   };
