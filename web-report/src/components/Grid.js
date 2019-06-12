@@ -4,6 +4,7 @@ import { jsx, css } from "@emotion/core";
 import { ControlBox } from "./index";
 import { theme, mediaQuery } from "./styles";
 import { runtimeConfig } from '../config';
+import { formatTimestamp } from "../util";
 
 const grid = css`
   display: flex;
@@ -280,7 +281,7 @@ export const GridDetails = ({
             , or tab to view the ${controlTitle} control history for this release`}
                 href={`${runtimeConfig.relative_path}/singlerelease/${item.release}`}
               >
-                <h1 name="history-h1">Release #{item.release}</h1>
+                <h1 name="history-h1">Release: {runtimeConfig.app_name} #{item.release.substr(0,4)}</h1>
               </a>
               <ul
                 data-testid="control-list"

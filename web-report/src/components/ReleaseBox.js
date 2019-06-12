@@ -145,7 +145,6 @@ const ReleaseBox = ({
   total,
   link,
   keyDownAllReleases,
-  index
 }) => {
   const status = passed === "true" ? "Passed" : "Failed";
   return (
@@ -164,7 +163,7 @@ const ReleaseBox = ({
       >
         <div
           data-testid="release-box"
-          aria-label={`${status} release: ${runtimeConfig.app_name} #${index}, ${passing} out of ${total} checks passing`}
+          aria-label={`${status} release: ${runtimeConfig.app_name} #${release.substr(0,4)}, ${passing} out of ${total} checks passing`}
           name="release-box"
           css={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
         >
@@ -175,7 +174,7 @@ const ReleaseBox = ({
               }
             >
               <h2 data-testid="release-box-title" name="releasebox-title">
-                {passed === "true" ? "Passed" : "Failed"} release: {runtimeConfig.app_name} #{index} 
+                {passed === "true" ? "Passed" : "Failed"} release: {runtimeConfig.app_name} #{release.substr(0,4)} 
               </h2>{" "}
               <time
                 data-testid="release-box-timestamp"

@@ -28,10 +28,10 @@ test("Renders Passing Release Box", async () => {
   );
   expect(getByTestId("release-box")).toHaveAttribute(
     "aria-label",
-    "Passed release: cra-alpha #1, 28 out of 28 checks passing"
+    "Passed release: cra-alpha #1234, 28 out of 28 checks passing"
   );
   expect(getByTestId("release-box-title")).toHaveTextContent(
-    "Passed release: cra-alpha #1"
+    "Passed release: cra-alpha #1234"
   );
 
   expect(getByTestId("release-box-timestamp")).toHaveTextContent(
@@ -62,10 +62,10 @@ test("Renders Failing Release Box", async () => {
   );
   expect(getByTestId("release-box")).toHaveAttribute(
     "aria-label",
-    "Failed release: cra-alpha #1, 27 out of 28 checks passing"
+    "Failed release: cra-alpha #1234, 27 out of 28 checks passing"
   );
   expect(getByTestId("release-box-title")).toHaveTextContent(
-    "Failed release: cra-alpha #1"
+    "Failed release: cra-alpha #1234"
   );
 
   expect(getByTestId("release-box-timestamp")).toHaveTextContent(

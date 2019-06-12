@@ -40,7 +40,6 @@ const releaseList = css`
 `;
 
 const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
-  const releaseLength = sortedData.length;
   return (
     <div css={releases}>
       <h1 data-testid="index-h1" tabIndex="0">
@@ -54,7 +53,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
         data-testid="release-list"
         aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
       >
-        {sortedData.map((singleRelease, index) => {
+        {sortedData.map((singleRelease) => {
           var myDate = Number(singleRelease.releaseTimeStamp);
           var formattedDate = formatTimestamp(myDate);
           const key = `${singleRelease.release}`;
@@ -68,7 +67,6 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
               total={singleRelease.total}
               link={`${runtimeConfig.relative_path}/singlerelease/${key}`}
               key={singleRelease.release}
-              index={releaseLength - index}
             />
           );
         })}

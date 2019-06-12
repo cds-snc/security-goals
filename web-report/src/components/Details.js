@@ -169,7 +169,7 @@ const details = css`
         margin-bottom: 0;
       }
     `)};
-
+    formatTimestamp
     ${mediaQuery.sm(css`
       div p {
         font-size: ${theme.font.xs};
