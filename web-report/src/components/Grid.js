@@ -4,7 +4,6 @@ import { jsx, css } from "@emotion/core";
 import { ControlBox } from "./index";
 import { theme, mediaQuery } from "./styles";
 import { runtimeConfig } from '../config';
-import { formatTimestamp } from "../util";
 
 const grid = css`
   display: flex;
