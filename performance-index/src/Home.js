@@ -77,9 +77,12 @@ class Home extends React.Component {
     if (this.state.weightedControls){
 
       const data = this.chartData();
+      const expected = (<I18N t="expected" />);
+      const actual = (<I18N t="actual" />);
       
       return (
         <div style={{ width: '100%', height: 500 }}>
+          
           <ResponsiveContainer>
             <AreaChart data={data}
               margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -88,8 +91,8 @@ class Home extends React.Component {
               <Tooltip />
               <Legend />
               <CartesianGrid strokeDasharray="4 4" />
-              <Area type="monotone" dot={{ fill: '#a70000' }} dataKey="expected" stroke="#ff8080" fill="#ff8080" fillOpacity={1}/>
-              <Area type="monotone" dot={{ fill: '#ffcf0a' }} dataKey="actual" stroke="#ffe680" fill="#ffe680" fillOpacity={1}/>
+              <Area type="monotone" dot={{ fill: '#a70000' }} dataKey="expected" stroke="#ff8080" fill="#ff8080" fillOpacity={1} name={expected}/>
+              <Area type="monotone" dot={{ fill: '#ffcf0a' }} dataKey="actual" stroke="#ffe680" fill="#ffe680" fillOpacity={1} name={actual}/>
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -126,6 +129,9 @@ class Home extends React.Component {
           </div>
         );
       };
+
+      const covered = (<I18N t="covered" />);
+      const remaining = (<I18N t="remaining" />);
      
       return (
         <div style={{ width: '100%', height: 500 }}>
@@ -139,9 +145,8 @@ class Home extends React.Component {
               <Tooltip content={renderTooltipContent} />
               <Legend />
               <CartesianGrid strokeDasharray="4 4" />
-              <Area type="monotone" dot={{ fill: '#ffcf0a' }} stackId="1" dataKey="covered" stroke="#ffe680" fill="#ffe680" fillOpacity={1}/>
-
-              <Area type="monotone" dot={{ fill: '#a70000' }} stackId="1" dataKey="remaining" stroke="#ff8080" fill="#ff8080" fillOpacity={1}/>
+              <Area type="monotone" dot={{ fill: '#ffcf0a' }} stackId="1" dataKey="covered" stroke="#ffe680" fill="#ffe680" fillOpacity={1} name={covered} />
+              <Area type="monotone" dot={{ fill: '#a70000' }} stackId="1" dataKey="remaining" stroke="#ff8080" fill="#ff8080" fillOpacity={1} name={remaining} />
             </AreaChart>
           </ResponsiveContainer>
         </div>

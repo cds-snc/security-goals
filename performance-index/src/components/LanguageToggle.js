@@ -12,7 +12,6 @@ const btn = css`
   }
 
   display: inline-block;
-  margin-left: 20px;
   align-items: center;
 `;
 

@@ -31,8 +31,20 @@ const bar = css`
 `;
 
 const langButton = css`
-    margin-left: 1.4rem;
-    margin-top: 0.75rem;
+    margin: ${theme.spacing.lg} 0 0 ${theme.spacing.xxl};
+
+    ${mediaQuery.lg(css`
+      margin: ${theme.spacing.lg} 0 0 ${theme.spacing.xl};
+    `)}
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+      margin: ${theme.spacing.lg} 0 ${theme.spacing.xs} ${theme.spacing.xl};
+    `)}
+
+    ${mediaQuery.xs(css`
+      margin: ${theme.spacing.lg} 0 ${theme.spacing.md} ${theme.spacing.xl};
+    `)}
 `;
 
 const logo = css`

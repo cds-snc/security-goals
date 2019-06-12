@@ -4,7 +4,6 @@ import LanguageContext from "../LanguageContext";
 export const I18N = ({ t, lang }) => {
   const { currentLanguage, translations } = useContext(LanguageContext);
   let val = "";
-  console.log(currentLanguage);
 
   let useLang = currentLanguage;
 

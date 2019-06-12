@@ -30,5 +30,9 @@
   "remaining": {
     "en": "remaining",
     "fr": "(fr) remaining"
+  },
+  "backToTop": {
+    "en": "Back To Top of Page",
+    "fr": "(fr) Back To Top of Page"
   }
 }
