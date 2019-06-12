@@ -283,7 +283,7 @@ export const GridDetails = ({
                 }`}
               >
                 <h1 name="history-h1">
-                  <I18N t="release" /> #{item.release}
+                  <I18N t="release" /> {runtimeConfig.app_name} #{item.release.substr(0,4)}
                 </h1>
               </a>
               <ul
