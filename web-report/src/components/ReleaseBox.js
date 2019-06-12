@@ -1,11 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
-<<<<<<< HEAD
 import { runtimeConfig } from '../config';
-=======
 import { I18N } from "./I18N";
->>>>>>> 9f6474ac491255435eab9b8e61453206d5843ad9
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -178,12 +175,8 @@ const ReleaseBox = ({
               }
             >
               <h2 data-testid="release-box-title" name="releasebox-title">
-<<<<<<< HEAD
-                {passed === "true" ? "Passed" : "Failed"} release: {runtimeConfig.app_name} #{release.substr(0,4)} 
-=======
                 {passed === "true" ? <I18N t="passed" /> : <I18N t="failed" />}{" "}
-                <I18N t="release" lowercase="true" />: #{release}
->>>>>>> 9f6474ac491255435eab9b8e61453206d5843ad9
+                <I18N t="release" lowercase="true" />: {runtimeConfig.app_name} #{release.substr(0,4)}
               </h2>{" "}
               <time
                 data-testid="release-box-timestamp"
