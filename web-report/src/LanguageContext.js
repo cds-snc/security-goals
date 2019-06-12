@@ -1,7 +1,8 @@
 import React from "react";
 import translations from "./i18n/translations.json";
 
-const savedLang = localStorage.getItem("lang");
+const savedLang =
+  typeof localStorage !== "undefined" && localStorage.getItem("lang");
 
 let otherLanguage = "fr";
 
