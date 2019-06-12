@@ -3,6 +3,10 @@ import { cleanup, render } from "@testing-library/react";
 import ReleaseBox from "../../components/ReleaseBox.js";
 import "jest-dom/extend-expect";
 
+jest.mock("../../../src/config", () => ({
+  runtimeConfig: { app_name: "cra-alpha" }
+}));
+
 afterEach(cleanup); // <-- add this
 
 test("Renders Passing Release Box", async () => {
@@ -14,6 +18,7 @@ test("Renders Passing Release Box", async () => {
       passing="28"
       total="28"
       link="/singlerelease/123456789"
+      index="1"
     />
   );
 
@@ -23,10 +28,10 @@ test("Renders Passing Release Box", async () => {
   );
   expect(getByTestId("release-box")).toHaveAttribute(
     "aria-label",
-    "Passed release #: 123456789, 28 out of 28 checks passing"
+    "Passed release: cra-alpha #1, 28 out of 28 checks passing"
   );
   expect(getByTestId("release-box-title")).toHaveTextContent(
-    "Passed release: #123456789"
+    "Passed release: cra-alpha #1"
   );
 
   expect(getByTestId("release-box-timestamp")).toHaveTextContent(
@@ -47,6 +52,7 @@ test("Renders Failing Release Box", async () => {
       passing="27"
       total="28"
       link={`/singlerelease/123456789`}
+      index="1"
     />
   );
 
@@ -56,10 +62,10 @@ test("Renders Failing Release Box", async () => {
   );
   expect(getByTestId("release-box")).toHaveAttribute(
     "aria-label",
-    "Failed release #: 123456789, 27 out of 28 checks passing"
+    "Failed release: cra-alpha #1, 27 out of 28 checks passing"
   );
   expect(getByTestId("release-box-title")).toHaveTextContent(
-    "Failed release: #123456789"
+    "Failed release: cra-alpha #1"
   );
 
   expect(getByTestId("release-box-timestamp")).toHaveTextContent(

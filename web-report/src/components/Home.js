@@ -40,6 +40,7 @@ const releaseList = css`
 `;
 
 const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
+  const releaseLength = sortedData.length;
   return (
     <div css={releases}>
       <h1 data-testid="index-h1" tabIndex="0">
@@ -67,6 +68,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
               total={singleRelease.total}
               link={`${runtimeConfig.relative_path}/singlerelease/${key}`}
               key={singleRelease.release}
+              index={releaseLength - index}
             />
           );
         })}
