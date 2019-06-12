@@ -8,6 +8,8 @@ import {
   LanguageToggleButton
 } from "./";
 import React from "react";
+import { I18N } from "./";
+import { runtimeConfig } from "../config";
 
 const actions = css`
   display: flex;
@@ -41,16 +43,45 @@ const actions = css`
   `)};
 `;
 
+const actionsInner = css`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  @media screen and (min-width: 900px) {
+    max-width: 85%;
+    justify-content: space-between;
+  }
+`;
+
+const btnHolder = css`
+  display: flex;
+`;
+
+const btn = css`
+  display: inline-block;
+  margin: 0 1em;
+  color: #fff;
+`;
+
 const ActionBar = ({ pdf = "", back2top = false, click, keyDownTop }) => {
+  const performance_index = runtimeConfig.performance_index;
   return (
     <div name="action-bar" css={actions}>
-      {back2top === false ? (
-        <PrintButton link={`${pdf}`} />
-      ) : (
-        <BackToTopButton click={click} keyDownTop={keyDownTop} />
-      )}
+      <div css={actionsInner}>
+        <div css={btnHolder}>
+          {back2top === false ? (
+            <PrintButton link={`${pdf}`} />
+          ) : (
+            <BackToTopButton click={click} keyDownTop={keyDownTop} />
+          )}
 
-      <LanguageToggleButton />
+          <a href={performance_index} css={btn}>
+            <I18N t="performance-index" />
+          </a>
+        </div>
+
+        <LanguageToggleButton />
+      </div>
     </div>
   );
 };
