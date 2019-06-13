@@ -78,5 +78,9 @@
   "checks": {
     "en": "checks",
     "fr": "checks fr"
+  },
+  "performance-index": {
+    "en": "Performance Index",
+    "fr": "Performance Index fr"
   }
 }
