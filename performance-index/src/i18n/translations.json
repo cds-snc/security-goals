@@ -34,5 +34,9 @@
   "backToTop": {
     "en": "Back To Top of Page",
     "fr": "(fr) Back To Top of Page"
+  },
+  "web-report": {
+    "en": "Web Report",
+    "fr": "Web Report FR"
   }
 }
