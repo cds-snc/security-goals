@@ -2,6 +2,8 @@
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
+import { I18N } from "./I18N";
+import LanguageToggleButton from "./LanguageToggle";
 import { runtimeConfig } from '../config';
 
 const bar = css`
@@ -27,6 +29,23 @@ const bar = css`
       padding: ${theme.spacing.lg} 0 ${theme.spacing.md} ${theme.spacing.xl};
     `)}
   }
+`;
+
+const langButton = css`
+    margin: ${theme.spacing.lg} 0 0 ${theme.spacing.xxl};
+
+    ${mediaQuery.lg(css`
+      margin: ${theme.spacing.lg} 0 0 ${theme.spacing.xl};
+    `)}
+
+    ${mediaQuery.sm(css`
+      font-size: ${theme.font.lg};
+      margin: ${theme.spacing.lg} 0 ${theme.spacing.xs} ${theme.spacing.xl};
+    `)}
+
+    ${mediaQuery.xs(css`
+      margin: ${theme.spacing.lg} 0 ${theme.spacing.md} ${theme.spacing.xl};
+    `)}
 `;
 
 const logo = css`
@@ -57,7 +76,12 @@ const Header = () => (
   <header data-testid="header" name="header">
     <div css={bar}>
       <a id="back2top" href="#"></a>
-      <h1 data-testid="main-header-h1">{runtimeConfig.app_name} - Security Goals: Performance Index</h1>
+      <h1 data-testid="main-header-h1">
+        {runtimeConfig.app_name} - <I18N t="tagline" />
+      </h1>
+      <div css={langButton}>
+        <LanguageToggleButton/>
+      </div>
       <Logo alt="CDS Logo" style={logo} />
     </div>
   </header>
