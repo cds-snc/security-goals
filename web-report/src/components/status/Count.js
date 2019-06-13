@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../styles";
+import { I18N } from "../I18N";
 
 const stats = css`
   display: flex;
@@ -29,7 +30,7 @@ export const Count = ({ status }) => {
         {status.map(release => {
           return (
             <span key="count">
-              {release.passing} of {release.total} passing
+              {release.passing} of {release.total} <I18N t="passing" />
             </span>
           );
         })}

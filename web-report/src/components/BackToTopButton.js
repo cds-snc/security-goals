@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
+import { I18N } from "./I18N";
 import { UpArrowCircle } from "./icons/UpArrowCircle";
 
 const topPage = css`
@@ -38,7 +39,9 @@ export const BackToTopButton = ({ click, keyDownTop }) => {
       aria-label="click or press 'Enter' on this link to navigate to the top of the page"
     >
       <UpArrowCircle />
-      <span>Back To Top of Page</span>
+      <span>
+        <I18N t="back-to-top" />
+      </span>
     </div>
   );
 };

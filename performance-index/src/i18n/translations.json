@@ -8,12 +8,12 @@
     "fr": "(fr) Security Goals: Performance Index"
   },
   "raw": {
-    "en": "Raw Performance Index",
-    "fr": "(fr) Raw Performance Index"
+    "en": "Weighted sum",
+    "fr": "(fr) Weighted sum"
   },
   "chance": {
-    "en": "Chance of negative event",
-    "fr": "(fr) Chance of negative event"
+    "en": "% of expected goals met including weight",
+    "fr": "(fr) % of expected goals met including weight"
   },
   "expected": {
     "en": "expected",

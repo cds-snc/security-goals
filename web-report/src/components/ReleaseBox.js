@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
+import { runtimeConfig } from '../config';
+import { I18N } from "./I18N";
 
 const releaseBoxPassing = css`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
@@ -143,7 +145,7 @@ const ReleaseBox = ({
   passing,
   total,
   link,
-  keyDownAllReleases
+  keyDownAllReleases,
 }) => {
   const status = passed === "true" ? "Passed" : "Failed";
   return (
@@ -162,7 +164,7 @@ const ReleaseBox = ({
       >
         <div
           data-testid="release-box"
-          aria-label={`${status} release #: ${release}, ${passing} out of ${total} checks passing`}
+          aria-label={`${status} release: ${runtimeConfig.app_name} #${release.substr(0,4)}, ${passing} out of ${total} checks passing`}
           name="release-box"
           css={passed === "true" ? releaseBoxPassing : releaseBoxFailing}
         >
@@ -173,13 +175,16 @@ const ReleaseBox = ({
               }
             >
               <h2 data-testid="release-box-title" name="releasebox-title">
-                {passed === "true" ? "Passed" : "Failed"} release: #{release}
+                {passed === "true" ? <I18N t="passed" /> : <I18N t="failed" />}{" "}
+                <I18N t="release" lowercase="true" />: {runtimeConfig.app_name} #{release.substr(0,4)}
               </h2>{" "}
               <time
                 data-testid="release-box-timestamp"
                 name="releasebox-timestamp"
               >
                 {timestamp}
+                <br/>
+                ID: {release}
               </time>
             </div>
             <div name="release-badges" css={releaseBadges}>
@@ -188,7 +193,7 @@ const ReleaseBox = ({
                 data-testid="release-box-passing"
                 css={passed === "true" ? passingText : failingText}
               >
-                {passing} / {total} checks
+                {passing} / {total} <I18N t="checks" />
               </span>
             </div>
           </div>

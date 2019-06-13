@@ -4,6 +4,7 @@ import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "../components/styles";
 import { UpArrowCircle } from "../components/icons/UpArrowCircle";
 import { MainDescription } from "./";
+import { I18N } from "../components";
 
 const collapse = css`
   display: none;
@@ -144,7 +145,9 @@ export class Collapsible extends React.Component {
                 onClick={this.toggle}
                 aria-label={`The description for verification ${title} is expanded. Click or press 'Enter' to collapse the description`}
               >
-                <p>Hide the {control} description</p>
+                <p>
+                  <I18N t="hide-the" /> {control} <I18N t="description" />
+                </p>
                 <span css={arrowDown}>
                   <UpArrowCircle />
                 </span>
@@ -158,7 +161,9 @@ export class Collapsible extends React.Component {
                 onClick={this.toggle}
                 aria-label={`Verification ${title}. The description for this verification is collapsed. Click or press 'Enter' to expand the description`}
               >
-                <p>Read the {control} description</p>
+                <p>
+                  <I18N t="read-the" /> {control} <I18N t="description" />
+                </p>
                 <span css={arrowUp}>
                   <UpArrowCircle />
                 </span>

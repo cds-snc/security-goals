@@ -4,6 +4,7 @@ import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
 import { I18N } from "./I18N";
 import LanguageToggleButton from "./LanguageToggle";
+import { runtimeConfig } from '../config';
 
 const bar = css`
   background: ${theme.colour.blackLight};
@@ -76,7 +77,7 @@ const Header = () => (
     <div css={bar}>
       <a id="back2top" href="#"></a>
       <h1 data-testid="main-header-h1">
-        <I18N t="tagline" />
+        {runtimeConfig.app_name} - <I18N t="tagline" />
       </h1>
       <div css={langButton}>
         <LanguageToggleButton/>

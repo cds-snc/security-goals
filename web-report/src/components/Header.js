@@ -4,6 +4,7 @@ import { theme, mediaQuery } from "./styles";
 import { Logo } from "./Logo";
 import { I18N } from "./I18N";
 import ActionBar from "../components/ActionBar";
+import { runtimeConfig } from '../config';
 
 const bar = css`
   background: ${theme.colour.blackLight};
@@ -73,6 +74,8 @@ const Header = ({ pdf = "" }) => (
     <div css={bar}>
       <a id="back2top" href="#" />
       <h1 data-testid="main-header-h1">
+        {runtimeConfig.app_name}
+        &nbsp;
         <I18N t="tagline" />
       </h1>
       <Logo alt="CDS Logo" style={logo} />

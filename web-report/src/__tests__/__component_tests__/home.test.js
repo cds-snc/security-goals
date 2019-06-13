@@ -12,7 +12,7 @@ test("Renders the Home component", async () => {
   );
   const releaseLinks = getAllByTestId("release-box-link");
 
-  expect(getByTestId("index-h1")).toHaveTextContent("Latest Releases:");
+  expect(getByTestId("index-h1")).toHaveTextContent("Latest Releases");
   expect(getByTestId("release-list"));
   expect(releaseLinks).toHaveLength(4);
 });

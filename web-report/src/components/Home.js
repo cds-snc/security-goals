@@ -4,6 +4,7 @@ import { theme, mediaQuery } from "../components/styles";
 import ReleaseBox from "../components/ReleaseBox";
 import { formatTimestamp } from "../util";
 import { runtimeConfig } from '../config';
+import { I18N } from "./I18N";
 
 const releases = css`
   margin: ${theme.spacing.xl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
@@ -43,8 +44,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
   return (
     <div css={releases}>
       <h1 data-testid="index-h1" tabIndex="0">
-        {" "}
-        Latest Releases:{" "}
+        <I18N t="releases" />:
       </h1>
       <ul
         onKeyDown={keyDownUL}
@@ -53,7 +53,7 @@ const Home = ({ keyDownUL, sortedData, keyDownAllReleases }) => {
         data-testid="release-list"
         aria-label={`This is a list of latest releases, press spacebar to enter the group and use your arrow keys to navigate through the list items.`}
       >
-        {sortedData.map((singleRelease, index) => {
+        {sortedData.map((singleRelease) => {
           var myDate = Number(singleRelease.releaseTimeStamp);
           var formattedDate = formatTimestamp(myDate);
           const key = `${singleRelease.release}`;
