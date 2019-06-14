@@ -24,6 +24,12 @@ export const References = ({
   status
 }) => {
   if (!text) return null;
+
+  function isUrl(s) {
+    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
+    return regexp.test(s);
+  }
+
   var passing = "Verification passed:";
   if (status === "false") {
     passing = "Verification failed:";
@@ -36,7 +42,8 @@ export const References = ({
         tabIndex="-1"
         data-testid="references-link"
         name="ref-link"
-        href={urlCheck === true ? text : "#"}
+        href={isUrl(text) === true ? text : "#"}
+        target={isUrl(text) === true ? "_blank" : "_self"}
       >
         {text}
       </a>

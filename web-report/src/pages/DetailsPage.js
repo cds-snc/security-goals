@@ -94,8 +94,6 @@ class DetailsPage extends React.Component {
     const { data } = this.state;
     let sortedData = { releases: [] };
 
-
-
     if (data.hasOwnProperty("passing") && data.hasOwnProperty("failing")) {
       data.failing.releases.forEach((r) => (
         sortedData.releases.push(

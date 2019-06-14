@@ -23,7 +23,7 @@ test("Renders Reference with proper aria-label for link, text renders as link", 
 
   expect(getByTestId("references-link")).toHaveAttribute(
     "href",
-    "This is a test reference."
+    "#"
   );
 
   expect(getByTestId("references-link")).toHaveAttribute(
