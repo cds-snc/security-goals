@@ -66,7 +66,7 @@ class Home extends React.Component {
           return acc;
         }
       }, {actual: 0, expected: 0});
-      const date = new Date(parseInt(release.timestamp, 10));
+      const date = new Date(parseInt(release.releaseTimeStamp, 10));
       data.push({name: date.toISOString(), actual: score.actual, expected: score.expected})
     })
 
