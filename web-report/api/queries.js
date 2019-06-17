@@ -90,8 +90,22 @@ const detailsQuery = controlID => {
 };
 
 const dateFilteredQuery = (startDate, endDate) => {
+  if (endDate)
+    return query = `query{
+      releases(startDate: "${startDate}", endDate:"${endDate}") {
+        _id
+        release
+        timestamp
+        releaseTimeStamp
+        formattedReleaseTimeStamp
+        passed
+        passing
+        total
+      }
+    }`;
+  else 
   return query = `query{
-    releases(startDate: "${startDate}", endDate:"${endDate}") {
+    releases(startDate: "${startDate}") {
       _id
       release
       timestamp
