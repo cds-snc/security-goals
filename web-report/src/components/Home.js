@@ -53,9 +53,17 @@ class Home extends React.Component {
   }
   render () {
     const {keyDownUL, sortedData, keyDownAllReleases} = this.props;
+    const clearDates = () => {
+      this.setState({startDate: null, endDate: null});
+      this.props.onDateSelect(null, null);
+    }
     return (
       <div css={releases}>
+        <h1 data-testid="index-h1" tabIndex="0">
+          <I18N t="releases" />:
+        </h1>
         <div name="date-picker">
+          <h3>Filter by date:</h3>
           <DateRangePicker
             startDate={this.state.startDate} // momentPropTypes.momentObj or null,
             startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -76,10 +84,8 @@ class Home extends React.Component {
                 return true;
             }}
           />
+          <button onClick={clearDates}>X</button>
         </div>
-        <h1 data-testid="index-h1" tabIndex="0">
-          <I18N t="releases" />:
-        </h1>
         <ul
           onKeyDown={keyDownUL}
           css={releaseList}

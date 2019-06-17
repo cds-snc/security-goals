@@ -26,7 +26,11 @@ class HomePage extends React.Component {
     // parse startDate and endDate to expected format
     const sD = formatDate(startDate);
     const eD = formatDate(endDate);
-    const data = await dateFilteredControls(sD, eD);
+    let data;
+    if (sD)
+      data = await dateFilteredControls(sD, eD);
+    else
+      data = await releaseStatus();
     this.setState({ data: data.releases })
 
     function formatDate(d) {
