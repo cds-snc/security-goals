@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: stub_id
+  namespace: security-goals
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: "gcr.io/security-goals/checks/stub"
+          imagePullPolicy: Always
+          name: "stub_id"
+          env:
+            - name: ORIGIN
+              value: "gcr.io/security-goals/checks/stub"
+            - name: COMPONENT
+              value: "Stub"
+            - name: DESCRIPTION
+              value: "The check is a stub and needs to be filled in for stub_id"
+            - name: SATISFIES
+              value: "stub_id"
+          volumeMounts:
+            - name: compliance-checks
+              mountPath: /checks
+      volumes:
+        - name: compliance-checks
+          persistentVolumeClaim:
+            claimName: checks-claim
