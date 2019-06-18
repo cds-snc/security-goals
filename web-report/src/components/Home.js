@@ -42,6 +42,12 @@ const releaseList = css`
   }
 `;
 
+const xButton = css`
+  margin-left: 1em;
+  height: 24px;
+  font-weight: bold;
+`;
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -84,7 +90,7 @@ class Home extends React.Component {
                 return true;
             }}
           />
-          <button onClick={clearDates}>X</button>
+          <button css={xButton} onClick={clearDates}>X</button>
         </div>
         <ul
           onKeyDown={keyDownUL}
