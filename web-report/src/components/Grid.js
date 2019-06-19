@@ -303,7 +303,8 @@ export const GridDetails = ({
                       {controls.verifications.map((verifications, index) => {
                         const check =
                           verifications.passed === "true" ? greenBG : redBG;
-                        return (
+
+                          return (
                           <ControlBox
                             key={index}
                             keyDownDetails={keyDownDetails}

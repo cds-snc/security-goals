@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { theme, mediaQuery } from "./styles";
 import BackToTopButton from "./BackToTopButton";
+import LanguageToggleButton from "./LanguageToggle";
 
 const actions = css`
   display: flex;
@@ -42,6 +43,7 @@ const ActionBar = ({
   return (
     <div name="action-bar" css={actions}>
       <BackToTopButton click={click} keydownTop={keyDownTop} />
+      <LanguageToggleButton />
     </div>
   );
 };

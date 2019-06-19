@@ -1,0 +1,42 @@
+{
+  "current-language": {
+    "en": "English",
+    "fr": "Français"
+  },
+  "tagline": {
+    "en": "Security Goals: Performance Index",
+    "fr": "(fr) Security Goals: Performance Index"
+  },
+  "raw": {
+    "en": "Weighted sum",
+    "fr": "(fr) Weighted sum"
+  },
+  "chance": {
+    "en": "% of expected goals met including weight",
+    "fr": "(fr) % of expected goals met including weight"
+  },
+  "expected": {
+    "en": "expected",
+    "fr": "(fr) expected"
+  },
+  "actual": {
+    "en": "actual",
+    "fr": "(fr) actual"
+  },
+  "covered": {
+    "en": "covered",
+    "fr": "(fr) covered"
+  },
+  "remaining": {
+    "en": "remaining",
+    "fr": "(fr) remaining"
+  },
+  "backToTop": {
+    "en": "Back To Top of Page",
+    "fr": "(fr) Back To Top of Page"
+  },
+  "web-report": {
+    "en": "Web Report",
+    "fr": "Web Report FR"
+  }
+}
