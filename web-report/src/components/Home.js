@@ -66,8 +66,6 @@ class Home extends React.Component {
       minDate: dates.releasesMinMax.min,
       maxDate: dates.releasesMinMax.max
     });
-    console.log("min: " + dates.releasesMinMax.min);
-    console.log("max: " + dates.releasesMinMax.max);
   };
   render () {
     const {keyDownUL, sortedData, keyDownAllReleases} = this.props;
