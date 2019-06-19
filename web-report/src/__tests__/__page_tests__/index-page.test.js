@@ -1,4 +1,6 @@
 import React from "react";
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import { cleanup, render, wait} from "@testing-library/react";
 import { data } from "../../__mocks__/mockDataIndex.js";
 import "jest-dom/extend-expect";

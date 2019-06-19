@@ -3,7 +3,9 @@ import {
   allControlsQuery,
   singleReleaseQuery,
   allReleaseQuery,
-  detailsQuery
+  detailsQuery,
+  dateFilteredQuery,
+  minMaxDatesQuery
 } from "./queries";
 
 export const allControlsStatus = async () => {
@@ -24,3 +26,11 @@ export const releaseStatus = async () => {
   const release = await fetchGraphQL(allReleaseQuery());
   return release;
 };
+
+export const dateFilteredControls = async (startDate, endDate) => {
+  return fetchGraphQL(dateFilteredQuery(startDate, endDate));
+};
+
+export const minMaxDates = async () => {
+  return fetchGraphQL(minMaxDatesQuery());
+}

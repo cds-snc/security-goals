@@ -89,9 +89,49 @@ const detailsQuery = controlID => {
   }`;
 };
 
+const dateFilteredQuery = (startDate, endDate) => {
+  if (endDate)
+    return query = `query{
+      releases(startDate: "${startDate}", endDate:"${endDate}") {
+        _id
+        release
+        timestamp
+        releaseTimeStamp
+        formattedReleaseTimeStamp
+        passed
+        passing
+        total
+      }
+    }`;
+  else 
+  return query = `query{
+    releases(startDate: "${startDate}") {
+      _id
+      release
+      timestamp
+      releaseTimeStamp
+      formattedReleaseTimeStamp
+      passed
+      passing
+      total
+    }
+  }`;
+};
+
+const minMaxDatesQuery = () => {
+  return query = `query {
+    releasesMinMax {
+      min
+      max
+    }
+  }`;
+};
+
 module.exports = {
   allControlsQuery,
   singleReleaseQuery,
   allReleaseQuery,
-  detailsQuery
+  detailsQuery,
+  dateFilteredQuery,
+  minMaxDatesQuery
 };

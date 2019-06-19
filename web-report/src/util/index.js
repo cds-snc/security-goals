@@ -1,4 +1,5 @@
 import { format, parse } from "date-fns";
+import { dateFilteredControls } from "../../api";
 /*
 import {
   allControlsStatus,
@@ -125,6 +126,19 @@ export const getControlStatus = async router => {
 
 export const getAllControlsStatus = async () => {
   const result = await allControlsStatus();
+  const data = await passFailData(result);
+
+  const props = { data, err: false };
+
+  if (result instanceof Error) {
+    props.err = result.message;
+  }
+
+  return props;
+};
+
+export const getDateFilteredControls = async (startDate, endDate) => {
+  const result = await dateFilteredControls(startDate, endDate);
   const data = await passFailData(result);
 
   const props = { data, err: false };

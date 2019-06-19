@@ -1,4 +1,6 @@
 import React from "react";
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import { cleanup, render } from "@testing-library/react";
 import Home from "../../components/Home.js";
 import { sortedData } from "../../__mocks__/mockDataIndex.js";
