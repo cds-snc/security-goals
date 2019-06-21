@@ -6,6 +6,7 @@ import { formatTimestamp } from "../util";
 import { runtimeConfig } from '../config';
 import { I18N } from "./I18N";
 import { DateRangePicker } from 'react-dates';
+import { minMaxDates } from "../../api/index";
 import React from "react";
 
 const releases = css`
@@ -54,9 +55,18 @@ class Home extends React.Component {
     this.state = {
       startDate: null,
       endDate: null,
-      focusedInput: null
+      focusedInput: null,
+      minDate: null,
+      maxDate: null
     }
   }
+  componentDidMount = async () => {
+    const dates = await minMaxDates();
+    this.setState({
+      minDate: dates.releasesMinMax.min,
+      maxDate: dates.releasesMinMax.max
+    });
+  };
   render () {
     const {keyDownUL, sortedData, keyDownAllReleases} = this.props;
     const clearDates = () => {
@@ -82,12 +92,17 @@ class Home extends React.Component {
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
             isOutsideRange = {(day) => {
-              let diffTime = day._d.getTime() - new Date().getTime();
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-              if (diffDays < 2)
-                return false;
-              else
-                return true;
+              // clamp between min and max
+              let diffTime = day._d.getTime() - this.state.maxDate;
+              let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              if (diffDays < 2) { // all dates before maxDate
+                diffTime = day._d.getTime() - this.state.minDate;
+                diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                if (diffDays > 0) // dates after minDate
+                  return false;
+              }
+              
+              return true;
             }}
           />
           <button css={xButton} onClick={clearDates}>X</button>

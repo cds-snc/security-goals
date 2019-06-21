@@ -4,11 +4,17 @@ import 'react-dates/lib/css/_datepicker.css';
 import { cleanup, render, wait} from "@testing-library/react";
 import { data } from "../../__mocks__/mockDataIndex.js";
 import "jest-dom/extend-expect";
-import { releaseStatus } from "../../../api/index";
+import { releaseStatus, minMaxDates } from "../../../api/index";
 import { MemoryRouter } from 'react-router-dom';
 
 jest.mock("../../../api/index", () => ({
-  releaseStatus: jest.fn()
+  releaseStatus: jest.fn(),
+  minMaxDates: function() {
+    return {releasesMinMax: {
+    min: 0,
+    max: 0
+    }}
+  }
 }));
 
 jest.mock("../../../src/config", () => ({
