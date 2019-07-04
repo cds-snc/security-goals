@@ -7,7 +7,9 @@
     "dev": "razzle start",
     "build": "razzle build",
     "test": "razzle test --env=jsdom",
-    "start:prod": "NODE_ENV=production node build/server.js"
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -23,7 +25,8 @@
     "react-dates": "^20.2.2",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "serialize-javascript": "^1.7.0"
+    "serialize-javascript": "^1.7.0",
+    "snyk": "^1.192.0"
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.1",
@@ -51,5 +54,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ]
-  }
+  },
+  "snyk": true
 }
