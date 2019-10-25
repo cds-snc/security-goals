@@ -40,7 +40,7 @@
     "graphql-scalar-objectid": "^0.1.1",
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
-    "mongoose": "^5.5.12",
+    "mongoose": "^5.7.5",
     "object-array-merge": "^1.0.1",
     "rimraf": "^2.6.3",
     "typescript": "^3.5.1",
